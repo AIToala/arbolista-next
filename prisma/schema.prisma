@@ -19,8 +19,6 @@ model User {
   nurseries      Nursery?
 }
 
-
-
 model Account {
   id                String  @id @default(cuid()) @map("_id")
   userId            String
@@ -41,198 +39,189 @@ model Account {
 }
 
 model Nursery {
-  id        String   @id @default(cuid()) @map("_id")
+  id        String           @id @default(cuid()) @map("_id")
   name      String
   address   String?
   phone     String?
   email     String?
   website   String?
   logoSrc   String?
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  ownerId   String   @unique @map("owner_id")
-  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  createdAt DateTime         @default(now()) @map("created_at")
+  updatedAt DateTime         @updatedAt @map("updated_at")
+  ownerId   String           @unique @map("owner_id")
+  owner     User             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   species   NurserySpecies[]
 }
 
 model NurserySpecies {
-  id        String   @id @default(cuid()) @map("_id")
-  nurseryId String   @map("nursery_id")
-  speciesId String   @map("species_id")
-  nursery   Nursery  @relation(fields: [nurseryId], references: [id], onDelete: Cascade)
+  id        String  @id @default(cuid()) @map("_id")
+  nurseryId String  @map("nursery_id")
+  speciesId String  @map("species_id")
+  nursery   Nursery @relation(fields: [nurseryId], references: [id], onDelete: Cascade)
+
   @@unique([nurseryId, speciesId], map: "NurserySpecies_nurseryId_speciesId_key")
   @@index([nurseryId], map: "NurserySpecies_nursery_id_fkey")
   @@index([speciesId], map: "NurserySpecies_species_id_fkey")
 }
 
 model Species {
-  id              String   @id @default(cuid())
-  name            String
-  createdAt       DateTime @default(now()) @map("created_at")
-  updatedAt       DateTime @updatedAt @map("updated_at")
-  availables_status Boolean  @default(true) @map("available_status")
-  images          Images?  
-  taxonomy        Taxonomy? 
-  stalk           Stalk?
-  root            Root?
-  flower          Flower?
-  leaf            Leaf?
-  seeds           Seeds?
-  ecology         Ecology?
-  ethnobotany     Ethnobotany?
-  arboriculture   Arboriculture?
+  id                String         @id @default(cuid())
+  name              String         @unique
+  createdAt         DateTime       @default(now()) @map("created_at")
+  updatedAt         DateTime       @updatedAt @map("updated_at")
+  availables_status Boolean        @default(true) @map("available_status")
+  arboriculture     Arboriculture?
+  ecology           Ecology?
+  ethnobotany       Ethnobotany?
+  flower            Flower?
+  images            Images?
+  leaf              Leaf?
+  root              Root?
+  seeds             Seeds?
+  stalk             Stalk?
+  taxonomy          Taxonomy?
 }
 
 model Taxonomy {
-  id                    String  @id @default(cuid())
-  family                String?
-  genus                 String?
-  tSpecies              String?
-  subspecies            String
-  variety               String
-  author                String
-  synonyms              String 
-  etymology             String
-  common_names           String
-  growth_Habit           String?
-  bibliography          String?
-  speciesId             String  @map("species_id") @unique
-  species               Species @relation(fields: [speciesId], references: [id])
+  id           String  @id @default(cuid())
+  family       String? @default("No definido")
+  genus        String? @default("No definido")
+  tSpecies     String? @default("No definido")
+  subspecies   String? @default("No definido")
+  variety      String? @default("No definido")
+  author       String? @default("No definido")
+  synonyms     String? @default("No definido")
+  etymology    String? @default("No definido") @db.VarChar(500)
+  common_names String? @default("No definido")
+  growth_habit String? @default("No definido")
+  bibliography String? @default("No definido") @db.VarChar(500)
+  speciesId    String  @unique @map("species_id")
+  species      Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Taxonomy_species_id_fkey")
 }
 
-model Stalk{
-  id                    String  @id @default(cuid())
-  bark_attributes        String?
-  barkColor             String?
-  photoBark             String?
-  speciesId             String  @map("species_id") @unique
-  species               Species @relation(fields: [speciesId], references: [id])
+model Stalk {
+  id              String  @id @default(cuid())
+  bark_attributes String? @default("No definido")
+  barkColor       String? @default("No definido")
+  photoBark       String? @default("No definido")
+  speciesId       String  @unique @map("species_id")
+  species         Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Stalk_species_id_fkey")
-
 }
 
-model Root{
-  id                    String  @id @default(cuid())
-  reproduction_form     String?
-  root_attributes       String?
-  rooting_type          String?
-  speciesId             String  @map("species_id") @unique
-  species               Species @relation(fields: [speciesId], references: [id])
+model Root {
+  id                String  @id @default(cuid())
+  reproduction_form String? @default("No definido")
+  root_attributes   String? @default("No definido")
+  rooting_type      String? @default("No definido")
+  speciesId         String  @unique @map("species_id")
+  species           Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Root_species_id_fkey")
-
 }
 
-model Flower{
-  id                    String  @id @default(cuid())
-  floral_attributes     String?
-  flower_color          String?
-  flower_arrangement    String?
-  follination_system    String?
-  flowering_Season      String?
-  flowering_months      String?
-  speciesId             String  @map("species_id") @unique
-  species               Species @relation(fields: [speciesId], references: [id])
+model Flower {
+  id                 String  @id @default(cuid())
+  floral_attributes  String? @default("No definido")
+  flower_color       String? @default("No definido")
+  flower_arrangement String? @default("No definido")
+  flowering_season   String? @default("No definido")
+  flowering_months   String? @default("No definido")
+  speciesId          String  @unique @map("species_id")
+  pollination_system String? @default("No definido")
+  species            Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Flower_species_id_fkey")
-
 }
 
-model Leaf{
-  id                    String  @id @default(cuid())
-  Leaf_attributes       String
-  Leaf_persistence      String
-  stemLeaf_position     String
-  Leaf_composition      String
-  speciesId             String  @map("species_id") @unique
-  species               Species @relation(fields: [speciesId], references: [id])
+model Leaf {
+  id                String  @id @default(cuid())
+  leaf_attributes   String? @default("No definido")
+  leaf_persistence  String? @default("No definido")
+  stemLeaf_position String? @default("No definido")
+  leaf_composition  String? @default("No definido")
+  speciesId         String  @unique @map("species_id")
+  species           Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Leaf_species_id_fkey")
-
 }
 
-model Seeds{
-  id                    String  @id @default(cuid())
-  fruitType             String?
-  dispersal_System      String?
-  fruit_attributes      String?
-  seed_attributes       String?
-  fruiting_Months       String
-  speciesId             String  @map("species_id") @unique
-  species               Species @relation(fields: [speciesId], references: [id])
+model Seeds {
+  id               String  @id @default(cuid())
+  fruitType        String? @default("No definido")
+  dispersal_system String? @default("No definido")
+  fruit_attributes String? @default("No definido")
+  seed_attributes  String? @default("No definido")
+  fruiting_months  String? @default("No definido")
+  speciesId        String  @unique @map("species_id")
+  species          Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Seeds_species_id_fkey")
-
 }
 
-model Ecology{
-  id                    String  @id @default(cuid())
-  use_category          String
-  use_detail            String
-  speciesId             String  @map("species_id") @unique
-  species               Species @relation(fields: [speciesId], references: [id])
+model Ecology {
+  id           String  @id @default(cuid())
+  use_category String? @default("No definido")
+  use_detail   String? @default("No definido")
+  speciesId    String  @unique @map("species_id")
+  species      Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Ecology_species_id_fkey")
-
 }
 
-model Ethnobotany{
-  id                    String  @id @default(cuid())
-  altitudinal_range     String
-  geo_distribution      String
-  origin                String
-  conservation_status   String
-  speciesId             String  @map("species_id") @unique
-  species               Species @relation(fields: [speciesId], references: [id])
+model Ethnobotany {
+  id                  String  @id @default(cuid())
+  altitudinal_range   String? @default("No definido")
+  geo_distribution    String? @default("No definido")
+  origin              String? @default("No definido")
+  conservation_status String? @default("No definido")
+  speciesId           String  @unique @map("species_id")
+  species             Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Ethnobotany_species_id_fkey")
-
 }
 
-model Arboriculture{
-  id                    String  @id @default(cuid())
-  public_spaceUse       String?
-  flower_limitations    String?
-  limitations_fruit     String?
-  longevity             String?
-  pests_diseases        String?
-  fauna_attraction      String?
-  associated_fauna      String?
-  light_requirements    String?
-  growth_rate           String?
-  maximum_height        String?
-  crown_width           String
-  crown_shape           String
-  DAP                   String?
-  foliage_density       String?
-  soil_type             String?
-  humidity_zone         String?
-  speciesId             String  @map("species_id") @unique
-  species               Species @relation(fields: [speciesId], references: [id])
+model Arboriculture {
+  id                 String  @id @default(cuid())
+  public_spaceUse    String? @default("No definido")
+  flower_limitations String? @default("No definido")
+  fruit_limitations  String? @default("No definido")
+  longevity          String? @default("No definido")
+  pests_diseases     String? @default("No definido")
+  fauna_attraction   String? @default("No definido")
+  associated_fauna   String? @default("No definido")
+  light_requirements String? @default("No definido")
+  growth_rate        String? @default("No definido")
+  maximum_height     String? @default("No definido")
+  crown_width        String? @default("No definido")
+  crown_shape        String? @default("No definido")
+  DAP                String? @default("No definido")
+  foliage_density    String? @default("No definido")
+  soil_type          String? @default("No definido")
+  humidity_zone      String? @default("No definido")
+  speciesId          String  @unique @map("species_id")
+  species            Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Arboriculture_species_id_fkey")
-
 }
 
 model Images {
-  id                    String  @id @default(cuid())
-  presentation_url      String?
-  fruit_url             String?
-  leaf_url              String?
-  flower_url            String?
-  detailFlower_url      String?
-  bark_url              String?
-  seed_url              String?
-  speciesId             String  @map("species_id") @unique
-  species               Species @relation(fields: [speciesId], references: [id])
+  id               String  @id @default(cuid())
+  presentation_url String? @default("No definido")
+  fruit_url        String? @default("No definido")
+  leaf_url         String? @default("No definido")
+  flower_url       String? @default("No definido")
+  detailFlower_url String? @default("No definido")
+  bark_url         String? @default("No definido")
+  seed_url         String? @default("No definido")
+  speciesId        String  @unique @map("species_id")
+  species          Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Image_species_id_fkey")
 }
-
-
 
 enum UserRole {
   SPECIES_ADMIN
