@@ -140,7 +140,7 @@ const Especies = () => {
                     </div>
                 </ClientOnly>
             </div>
-            <div className="w-[80vw] flex flex-col h-auto px-3 py-3 min-h-500 mx-auto mb-10">
+            <div className="w-[80vw] flex flex-col h-auto px-3 py-3 min-h-[70vh] mx-auto my-10">
                 <div className="w-full md:pl-8 py-2 px-2 h-auto flex flex-col md:flex-row gap-4 md:gap-0 justify-between items-center mb-4">
                     <p className="text-sm font-bold text-gray-700">{results.length} Resultados</p>
                     <div className="inline-flex rounded-md shadow-sm" role="group">
