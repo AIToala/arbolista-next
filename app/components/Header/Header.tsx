@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({
                                 <span className="sr-only">Open user menu</span>
                                 <Image className="rounded-full" src="/images/placeholder.jpg" width={32} height={32} alt="user photo" />
                             </button>
-                            <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow" id="user-dropdown">
+                            <div className="z-50 hidden my-4 text-base list-none divide-y divide-gray-100 rounded-lg shadow" id="user-dropdown">
                                 <div className="px-4 py-3">
                                     <span className="block text-sm text-gray-900">{currentUser.name}</span>
                                     <span className="block text-sm  text-gray-500 truncate">{currentUser.email}</span>
@@ -61,7 +61,7 @@ const Header: React.FC<HeaderProps> = ({
                     </button>
                 </div>
                 <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
-                    <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white md:text-center">
+                    <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:text-center">
                         <Navigation />
                         <hr className="border-gray-300 mt-2.5 md:mt-0 w-full md:hidden"/>
                         <li className="mt-3 md:mt-0 md:hidden">
