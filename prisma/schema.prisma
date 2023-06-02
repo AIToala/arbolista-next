@@ -19,6 +19,8 @@ model User {
   nurseries      Nursery?
 }
 
+
+
 model Account {
   id                String  @id @default(cuid()) @map("_id")
   userId            String
@@ -36,15 +38,6 @@ model Account {
 
   @@unique([provider, providerAccountId])
   @@index([userId], map: "Account_userId_fkey")
-}
-
-model Species {
-  id              String   @id @default(cuid())
-  name            String
-  createdAt       DateTime @default(now()) @map("created_at")
-  updatedAt       DateTime @updatedAt @map("updated_at")
-  availableStatus Boolean  @default(true) @map("available_status")
-  images          Images?  
 }
 
 model Nursery {
@@ -72,20 +65,174 @@ model NurserySpecies {
   @@index([speciesId], map: "NurserySpecies_species_id_fkey")
 }
 
+model Species {
+  id              String   @id @default(cuid())
+  name            String
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  availables_status Boolean  @default(true) @map("available_status")
+  images          Images?  
+  taxonomy        Taxonomy? 
+  stalk           Stalk?
+  root            Root?
+  flower          Flower?
+  leaf            Leaf?
+  seeds           Seeds?
+  ecology         Ecology?
+  ethnobotany     Ethnobotany?
+  arboriculture   Arboriculture?
+}
+
+model Taxonomy {
+  id                    String  @id @default(cuid())
+  family                String?
+  genus                 String?
+  tSpecies              String?
+  subspecies            String
+  variety               String
+  author                String
+  synonyms              String 
+  etymology             String
+  common_names           String
+  growth_Habit           String?
+  bibliography          String?
+  speciesId             String  @map("species_id") @unique
+  species               Species @relation(fields: [speciesId], references: [id])
+
+  @@index([speciesId], map: "Taxonomy_species_id_fkey")
+}
+
+model Stalk{
+  id                    String  @id @default(cuid())
+  bark_attributes        String?
+  barkColor             String?
+  photoBark             String?
+  speciesId             String  @map("species_id") @unique
+  species               Species @relation(fields: [speciesId], references: [id])
+
+  @@index([speciesId], map: "Stalk_species_id_fkey")
+
+}
+
+model Root{
+  id                    String  @id @default(cuid())
+  reproduction_form     String?
+  root_attributes       String?
+  rooting_type          String?
+  speciesId             String  @map("species_id") @unique
+  species               Species @relation(fields: [speciesId], references: [id])
+
+  @@index([speciesId], map: "Root_species_id_fkey")
+
+}
+
+model Flower{
+  id                    String  @id @default(cuid())
+  floral_attributes     String?
+  flower_color          String?
+  flower_arrangement    String?
+  follination_system    String?
+  flowering_Season      String?
+  flowering_months      String?
+  speciesId             String  @map("species_id") @unique
+  species               Species @relation(fields: [speciesId], references: [id])
+
+  @@index([speciesId], map: "Flower_species_id_fkey")
+
+}
+
+model Leaf{
+  id                    String  @id @default(cuid())
+  Leaf_attributes       String
+  Leaf_persistence      String
+  stemLeaf_position     String
+  Leaf_composition      String
+  speciesId             String  @map("species_id") @unique
+  species               Species @relation(fields: [speciesId], references: [id])
+
+  @@index([speciesId], map: "Leaf_species_id_fkey")
+
+}
+
+model Seeds{
+  id                    String  @id @default(cuid())
+  fruitType             String?
+  dispersal_System      String?
+  fruit_attributes      String?
+  seed_attributes       String?
+  fruiting_Months       String
+  speciesId             String  @map("species_id") @unique
+  species               Species @relation(fields: [speciesId], references: [id])
+
+  @@index([speciesId], map: "Seeds_species_id_fkey")
+
+}
+
+model Ecology{
+  id                    String  @id @default(cuid())
+  use_category          String
+  use_detail            String
+  speciesId             String  @map("species_id") @unique
+  species               Species @relation(fields: [speciesId], references: [id])
+
+  @@index([speciesId], map: "Ecology_species_id_fkey")
+
+}
+
+model Ethnobotany{
+  id                    String  @id @default(cuid())
+  altitudinal_range     String
+  geo_distribution      String
+  origin                String
+  conservation_status   String
+  speciesId             String  @map("species_id") @unique
+  species               Species @relation(fields: [speciesId], references: [id])
+
+  @@index([speciesId], map: "Ethnobotany_species_id_fkey")
+
+}
+
+model Arboriculture{
+  id                    String  @id @default(cuid())
+  public_spaceUse       String?
+  flower_limitations    String?
+  limitations_fruit     String?
+  longevity             String?
+  pests_diseases        String?
+  fauna_attraction      String?
+  associated_fauna      String?
+  light_requirements    String?
+  growth_rate           String?
+  maximum_height        String?
+  crown_width           String
+  crown_shape           String
+  DAP                   String?
+  foliage_density       String?
+  soil_type             String?
+  humidity_zone         String?
+  speciesId             String  @map("species_id") @unique
+  species               Species @relation(fields: [speciesId], references: [id])
+
+  @@index([speciesId], map: "Arboriculture_species_id_fkey")
+
+}
+
 model Images {
   id                    String  @id @default(cuid())
-  urlPresentacion       String?
-  urlFruto              String?
-  urlHojas              String?
-  urlFlor               String?
-  urlFlorDetalle        String?
-  urlCorteza            String?
-  urlSemilla            String?
+  presentation_url      String?
+  fruit_url             String?
+  leaf_url              String?
+  flower_url            String?
+  detailFlower_url      String?
+  bark_url              String?
+  seed_url              String?
   speciesId             String  @map("species_id") @unique
   species               Species @relation(fields: [speciesId], references: [id])
 
   @@index([speciesId], map: "Image_species_id_fkey")
 }
+
+
 
 enum UserRole {
   SPECIES_ADMIN
