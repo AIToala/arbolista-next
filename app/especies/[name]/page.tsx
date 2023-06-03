@@ -3,16 +3,15 @@ import EmptyState from "@/app/components/EmptyState";
 import getSpeciesByName from "@/app/actions/getSpeciesByName";
 
 interface IParams{
-    speciesName: string;
+    name: string;
 }
 
 const EspeciePage = async ({params}: {params: IParams}) => {
     const species = await getSpeciesByName(params);
-    console.log(species);
     if (!species) {
         return (
             <ClientOnly>
-                <EmptyState showReset />
+                <EmptyState title="Lo sentimos. Hubo un error." subtitle="Recarga la pagina. Si persiste el error, informanos." />
             </ClientOnly>
         );
     }

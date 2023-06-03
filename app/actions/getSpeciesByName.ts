@@ -1,13 +1,14 @@
 import prisma from "@/app/libs/prismadb";
 
 interface IParams{
-    speciesName: string;
+    name: string;
 }
 
 export default async function getSpeciesByName( params: IParams ){
     try{
-        const { speciesName } = params;
-        console.log(speciesName);
+        let { name } = params;
+        name = decodeURIComponent(name);
+        console.log(name);
         const species = await prisma.species.findUnique({
             select: {
                 id: true,
@@ -24,7 +25,7 @@ export default async function getSpeciesByName( params: IParams ){
                 stalk: true,
             },
             where: {
-                name: speciesName
+                name: name
             },
         });
         if(!species) return null;

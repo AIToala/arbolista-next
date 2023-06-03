@@ -4,6 +4,7 @@ import { IoGrid } from 'react-icons/io5';
 import { Tabs } from 'flowbite-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 interface TabEspeciesProps {
     data: any[];
@@ -12,6 +13,7 @@ interface TabEspeciesProps {
 const TabEspecies: React.FC<TabEspeciesProps> = ({
     data,
 }) => {
+    const router = useRouter()
     return (
         <Tabs.Group className="w-full"
             aria-label="Tabs"
@@ -28,19 +30,18 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({
                     </thead>
                     <tbody>
                         {data.map((result)=>{
-                            const name = encodeURIComponent(result.name);
                             return (
                                 <tr key={result.id} className="bg-white border-b hover:bg-gray-50">
                                     <td className="w-32 p-4">
-                                        <Link href={`/especies/${name}`}>
+                                        <div onClick={()=>router.push(`/especies/${result.name}`)} className='cursor-pointer'>
                                             <Image 
                                                 src={result.images.presentation_url || 'images/logo.svg'} alt={result.name} width={100} height={100}
                                                 className="rounded-sm aspect-square overflow-hidden"
                                             />
-                                        </Link>
+                                        </div>
                                     </td>
                                     <td className="text-gray-900 font-semibold px-6 py-4">
-                                        <Link href={`/especies/${name}`}>{result.name}</Link>
+                                    <div onClick={()=>router.push(`/especies/${result.name}`)} className='cursor-pointer'>{result.name}</div>
                                         <div className="font-light text-gray-700">
                                             <p>
                                                 {result.taxonomy?.common_names}
