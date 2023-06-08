@@ -25,7 +25,7 @@ export default async function getSpeciesByName( params: IParams ){
                 stalk: true,
             },
             where: {
-                name: name
+                name: name,
             },
         });
         if(!species) return null;
