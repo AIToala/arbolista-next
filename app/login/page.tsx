@@ -8,9 +8,11 @@ import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import Button from "@/app/components/buttons/Button";
 import Link from "next/link";
+import { useState } from "react";
 
-const Login = async () => {
+const Login = () => {
     const router = useRouter();
+    const [isLoading, setIsLoading] = useState(false);
     const {
         register,
         handleSubmit,
@@ -23,20 +25,26 @@ const Login = async () => {
     });
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
+        if (data.email === '' || data.password === '') {
+            toast.error('Por favor, llene todos los campos');
+            return;
+        }
+        setIsLoading(true);
         signIn('credentials', {
             ...data,
             redirect: false,
         })
         .then((callback) => {
-            if(callback?.ok) {
+            if(callback?.error) {
+                toast.error("Correo y/o contraseña incorrectos");
+            }
+            if (callback?.ok) {
                 toast.success('Inicio de sesión exitos\nBienvenido');
                 router.refresh();
                 window.location.href = '/';
             }
-            if(callback?.error) {
-                toast.error(callback.error);
-            }
-        })   
+        })
+        .finally(() => setIsLoading(false))
     };
     
     
@@ -53,6 +61,7 @@ const Login = async () => {
                 </div>
                 <div className="flex flex-col gap-4 mt-4">
                     <Input 
+                        disabled={isLoading}
                         id="email" 
                         type="email"
                         label='Correo' 
@@ -61,6 +70,7 @@ const Login = async () => {
                         required
                     />
                     <Input 
+                        disabled={isLoading}
                         id="password" 
                         type='password'
                         label='Contraseña' 
@@ -68,7 +78,7 @@ const Login = async () => {
                         errors={errors}
                         required
                     />
-                    <Button label="Iniciar sesion" onClick={handleSubmit(onSubmit)} />
+                    <Button label="Iniciar sesion" onClick={handleSubmit(onSubmit)} disabled={isLoading} />
                 </div>
                 <div className="flex flex-col gap-4 mt-3">
                     <div className='text-neutral-500 text-center mt-4 font-light'>

@@ -8,6 +8,7 @@ import Image from "next/image";
 import UserNavigationItems from "./UserNavigationItems";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import useSiembraModal from "@/app/hooks/useSiembraModal";
 
 interface HeaderProps {
     currentUser?: SafeUser | null;
@@ -16,7 +17,7 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({
     currentUser,
 }) => {
-    
+    const siembraModal = useSiembraModal();
     const router = useRouter();
     return (
         <nav className="bg-white border-gray-200 shadow-md relative">
@@ -28,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({
                     
                     <div className="md:mr-2">
                         <button type="button" className="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2">
-                            <GiSeedling className="w-5 h-5 md:mr-2 md:-ml-1"/>
+                            <GiSeedling className="w-5 h-5 md:mr-2 md:-ml-1" onClick={siembraModal.onOpen}/>
                             <span className="hidden md:flex">Sembremos</span>
                         </button>
                     </div>
@@ -38,7 +39,7 @@ const Header: React.FC<HeaderProps> = ({
                                 <span className="sr-only">Open user menu</span>
                                 <Image className="rounded-full" src="/images/placeholder.jpg" width={32} height={32} alt="user photo" />
                             </button>
-                            <div className="z-50 hidden my-4 text-base list-none divide-y divide-gray-100 rounded-lg shadow" id="user-dropdown">
+                            <div className="z-50 hidden my-4 bg-white text-base list-none divide-y divide-gray-100 shadow" id="user-dropdown">
                                 <div className="px-4 py-3">
                                     <span className="block text-sm text-gray-900">{currentUser.name}</span>
                                     <span className="block text-sm  text-gray-500 truncate">{currentUser.email}</span>

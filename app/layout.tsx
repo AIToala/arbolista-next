@@ -7,6 +7,8 @@ import './globals.css'
 import { nunito } from './styles/font'
 
 import getCurrentUser from './actions/getCurrentUser'
+import SiembraModal from './components/modals/SiembraModal'
+import AuthContext from './providers/SessionProvider'
 
 
 
@@ -26,14 +28,18 @@ export default async function RootLayout({
   return (
     <html lang='es'>
       <body className={nunito.className}>
-        <ClientOnly>
-          <ToasterProvider />
-        </ClientOnly>
-        <Header currentUser={currentUser}/>
-        <div className='my-auto'>{children}</div>
-        <ClientOnly>
-          <Footer />
-        </ClientOnly>
+        <AuthContext>
+          <ClientOnly>
+            <ToasterProvider />
+            <SiembraModal />
+          </ClientOnly>
+          <Header currentUser={currentUser}/>
+          <div className='my-auto'>{children}</div>
+          <ClientOnly>
+            <Footer />
+          </ClientOnly>
+        </AuthContext>
+        
       </body>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js" async></script>
     </html>
