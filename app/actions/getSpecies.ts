@@ -1,4 +1,5 @@
 import prisma from "@/app/libs/prismadb";
+import getCurrentUser from "./getCurrentUser";
 
 export interface ISpeciesParams {
     id?: string;
@@ -9,6 +10,7 @@ export interface ISpeciesParams {
     subspecies?: string;
     common_names?: string;
     growth_habit?: string;
+    bibliography?: string;
     bark_attributes?: string;
     bark_color?: string;
     reproduction_form?: string;
@@ -51,10 +53,12 @@ export interface ISpeciesParams {
     foliage_density?: string;
     soil_type?: string;
     humidity_zone?: string;
+    availables_status?: boolean;
 }
 
 export default async function getSpecies( params: ISpeciesParams ){
     try{
+        const currentUser = await getCurrentUser();
         const {
             id,
             name,
@@ -64,6 +68,7 @@ export default async function getSpecies( params: ISpeciesParams ){
             subspecies,
             common_names,
             growth_habit,
+            bibliography,
             bark_attributes,
             bark_color,
             reproduction_form,
@@ -106,6 +111,7 @@ export default async function getSpecies( params: ISpeciesParams ){
             foliage_density,
             soil_type,
             humidity_zone,
+            availables_status,
         } = params;
         
         let query:any = {};
@@ -118,6 +124,7 @@ export default async function getSpecies( params: ISpeciesParams ){
         if( subspecies ) query.subspecies = subspecies;
         if( common_names ) query.common_names = common_names;
         if( growth_habit ) query.growth_habit = growth_habit;
+        if( bibliography ) query.bibliography = bibliography;
         if( bark_attributes ) query.bark_attributes = bark_attributes;
         if( bark_color ) query.bark_color = bark_color;
         if( reproduction_form ) query.reproduction_form = reproduction_form;
@@ -161,6 +168,14 @@ export default async function getSpecies( params: ISpeciesParams ){
         if( soil_type ) query.soil_type = soil_type;
         if( humidity_zone ) query.humidity_zone = humidity_zone;
         query.availables_status = true;
+        if (currentUser && (currentUser.userRole!=="NURSERY_ADMIN")) {
+            query.availables_status = true;
+        }else{
+            if( availables_status ) query.availables_status = availables_status;
+        }
+
+
+        query.availables_status = true;
         const species = await prisma.species.findMany({
             include: {
                 taxonomy: {
@@ -175,7 +190,80 @@ export default async function getSpecies( params: ISpeciesParams ){
                     },
                 },
             },
-            where: query,
+            where: {
+                id: query?.id,
+                name: query?.name,
+                availables_status: query?.availables_status,
+                taxonomy: {
+                    family: query?.family,
+                    genus: query?.genus,
+                    tSpecies: query?.tSpecies,
+                    subspecies: query?.subspecies,
+                    common_names: {
+                        contains: query?.common_names,
+                    },
+                    growth_habit: query?.growth_habit,
+                    bibliography: query?.bibliography,
+                },
+                stalk: {
+                    bark_attributes: query?.bark_attributes,
+                    barkColor: query?.bark_color,
+                },
+                root: {
+                    reproduction_form: query?.reproduction_form,
+                    root_attributes: query?.root_attributes,
+                    rooting_type: query?.rooting_type,
+                },
+                flower: {
+                    floral_attributes: query?.floral_attributes,
+                    flower_color: query?.flower_color,
+                    flower_arrangement: query?.flower_arrangement,
+                    flowering_season: query?.flowering_season,
+                    flowering_months: query?.flowering_months,
+                    pollination_system: query?.pollination_system,
+                },
+                leaf: {
+                    leaf_attributes: query?.leafAttributes,
+                    leaf_persistence: query?.leaf_persistence,
+                    stemLeaf_position: query?.stemLeaf_position,
+                    leaf_composition: query?.leaf_composition,
+                },
+                seeds: {
+                    fruitType: query?.fruitType,
+                    dispersal_system: query?.dispersal_system,
+                    fruit_attributes: query?.fruit_attributes,
+                    seed_attributes: query?.seed_attributes,
+                    fruiting_months: query?.fruiting_months,
+                },
+                ecology: {
+                    use_category: query?.use_category,
+                    use_detail: query?.use_detail,
+                },
+                ethnobotany: {
+                    altitudinal_range: query?.altitudinal_range,
+                    geo_distribution: query?.geo_distribution,
+                    origin: query?.origin,
+                    conservation_status: query?.conservation_status,
+                },
+                arboriculture: {
+                    public_spaceUse: query?.public_spaceUse,
+                    flower_limitations: query?.flower_limitations,
+                    fruit_limitations: query?.fruit_limitations,
+                    longevity: query?.longevity,
+                    pests_diseases: query?.pests_diseases,
+                    fauna_attraction: query?.fauna_attraction,
+                    associated_fauna: query?.associated_fauna,
+                    light_requirements: query?.light_requirements,
+                    growth_rate: query?.growth_rate,
+                    maximum_height: query?.maximum_height,
+                    crown_width: query?.crown_width,
+                    crown_shape: query?.crown_shape,
+                    DAP: query?.DAP,
+                    foliage_density: query?.foliage_density,
+                    soil_type: query?.soil_type,
+                    humidity_zone: query?.humidity_zone,
+                },
+            },
             orderBy: {
                 createdAt: "desc",
             },
@@ -188,7 +276,6 @@ export default async function getSpecies( params: ISpeciesParams ){
         }));
         return safeSpecies;    
     } catch (error: any){
-        throw new Error(error);
+        return [];
     }
-
 }
