@@ -15,10 +15,11 @@ import Counter from "../inputs/Counter";
 import Heading from '../Heading';
 
 enum STEPS {
-  ESPECIE = 0,
-  LUGAR = 1,
-  ESPACIO = 2,
-  LIMITES = 3,
+  INTRO = 0,
+  ESPECIE = 1,
+  LUGAR = 2,
+  ESPACIO = 3,
+  LIMITES = 4,
 }
 
 const SiembraModal = () => {
@@ -26,7 +27,7 @@ const SiembraModal = () => {
   const siembraModal = useSiembraModal();
   const params = useSearchParams();
 
-  const [step, setStep] = useState(STEPS.ESPECIE);
+  const [step, setStep] = useState(STEPS.INTRO);
 
   const [guestCount, setGuestCount] = useState(1);
   const [roomCount, setRoomCount] = useState(1);
@@ -47,7 +48,7 @@ const SiembraModal = () => {
   }, []);
 
   const onSubmit = useCallback(async () => {
-    if (step !== STEPS.ESPECIE) {
+    if (step !== STEPS.LIMITES) {
       return onNext();
     }
 
@@ -77,7 +78,7 @@ const SiembraModal = () => {
       query: updatedQuery,
     }, { skipNull: true });
 
-    setStep(STEPS.ESPECIE);
+    setStep(STEPS.INTRO);
     siembraModal.onClose();
     router.push(url);
   }, 
@@ -95,37 +96,48 @@ const SiembraModal = () => {
 
   const actionLabel = useMemo(() => {
     if (step === STEPS.LIMITES) {
-      return 'Search'
+      return 'Buscar'
     }
 
-    return 'Next'
+    return 'Siguiente'
   }, [step]);
 
   const secondaryActionLabel = useMemo(() => {
-    if (step === STEPS.ESPECIE) {
+    if (step === STEPS.INTRO) {
       return undefined
     }
 
-    return 'Back'
+    return 'Regresar'
   }, [step]);
 
-  //Especie
+  //Intro
   let bodyContent = (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 my-9">
       <Heading
-        title="Where do you wanna go?"
-        subtitle="Find the perfect location!"
+        title="Siembra tu Árbol"
+        subtitle="Describenos tu arbol y te ayudaremos a encontrarlo"
       />
       <hr />
     </div>
   )
 
+  if (step === STEPS.ESPECIE) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Especie de Árbol"
+          subtitle="Que caracteristicas tiene tu arbol?"
+        />
+      </div>
+    )
+  }
+
   if (step === STEPS.LUGAR) {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="When do you plan to go?"
-          subtitle="Make sure everyone is free!"
+          title="Donde quieres sembrar?"
+          subtitle="Encuentra el lugar adecuado y perfecto!"
         />
       </div>
     )
@@ -135,21 +147,21 @@ const SiembraModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="More information"
-          subtitle="Find your perfect place!"
+          title="Tienes suficiente espacio?"
+          subtitle="Describenos el espacio que tienes disponible!"
         />
         <Counter 
           onChange={(value) => setGuestCount(value)}
           value={guestCount}
-          title="Guests" 
-          subtitle="How many guests are coming?"
+          title="Ancho del area de siembra" 
+          subtitle="A"
         />
         <hr />
         <Counter 
           onChange={(value) => setRoomCount(value)}
           value={roomCount}
-          title="Rooms" 
-          subtitle="How many rooms do you need?"
+          title="Largo del area de siembra" 
+          subtitle="B"
         />        
         <hr />
         <Counter 
@@ -157,9 +169,26 @@ const SiembraModal = () => {
             setBathroomCount(value)
           }}
           value={bathroomCount}
-          title="Bathrooms"
-          subtitle="How many bahtrooms do you need?"
+          title="Distancia a tendido electrico"
+          subtitle="C"
         />
+        <Counter 
+          onChange={(value) => {
+            setBathroomCount(value)
+          }}
+          value={bathroomCount}
+          title="Altura de tendido electrico"
+          subtitle="D"
+        />
+        <Counter 
+          onChange={(value) => {
+            setBathroomCount(value)
+          }}
+          value={bathroomCount}
+          title="Distancia a otras estructuras"
+          subtitle="E"
+        />
+        
       </div>
     )
   }
@@ -167,8 +196,8 @@ const SiembraModal = () => {
     bodyContent = (
       <div className="flex flex-col gap-8">
         <Heading
-          title="What are your limits?"
-          subtitle="Find the perfect place!"
+          title="Limitaciones de tu arbol"
+          subtitle="Que limitaciones tiene tu arbol?"
         />
       </div>
     )
@@ -177,7 +206,7 @@ const SiembraModal = () => {
   return (
     <Modal
       isOpen={siembraModal.isOpen}
-      title="SiembraGYQ"
+      title={"SiembraGYQ" + (step===0 ? "" : " - "+step+" de 4")}
       actionLabel={actionLabel}
       onSubmit={onSubmit}
       secondaryActionLabel={secondaryActionLabel}

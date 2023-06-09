@@ -28,8 +28,8 @@ const Header: React.FC<HeaderProps> = ({
                 <div className="flex items-center md:order-2">
                     
                     <div className="md:mr-2">
-                        <button type="button" className="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2">
-                            <GiSeedling className="w-5 h-5 md:mr-2 md:-ml-1" onClick={siembraModal.onOpen}/>
+                        <button type="button" className="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2" onClick={siembraModal.onOpen}>
+                            <GiSeedling className="w-5 h-5 md:mr-2 md:-ml-1"/>
                             <span className="hidden md:flex">Sembremos</span>
                         </button>
                     </div>
