@@ -7,6 +7,7 @@ interface CounterProps {
   title: string;
   subtitle: string;
   value: number;
+  step?: number;
   onChange: (value: number) => void;
 }
 
@@ -14,19 +15,20 @@ const Counter: React.FC<CounterProps> = ({
   title,
   subtitle,
   value,
+  step = 1,
   onChange,
 }) => {
   const onAdd = useCallback(() => {
-    onChange(value + 1);
-  }, [onChange, value]);
+    onChange(value + step);
+  }, [onChange, value, step]);
 
   const onReduce = useCallback(() => {
-    if (value === 1) {
+    if (value <= 0) {
       return;
     }
 
-    onChange(value - 1);
-  }, [onChange, value]);
+    onChange(value - step);
+  }, [onChange, value, step]);
 
   return ( 
     <div className="flex flex-row items-center justify-between">

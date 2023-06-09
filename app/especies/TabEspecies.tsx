@@ -89,7 +89,6 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({
                     ))}
                 </div>
             </Tabs.Item>
-            <p>HELLO</p>
         </Tabs.Group> 
     );
 }

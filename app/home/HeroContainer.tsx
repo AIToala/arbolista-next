@@ -8,23 +8,23 @@ const HeroContainer = () => {
     const router = useRouter();
     const images = [
         {
-            src: '/images/slide1.jpg',
-            alt: 'poster',
-            title: 'Conoce los arboles nativos de Guayaquil',
-            description: 'Explora nuestro catalogo de arboles, conoce sus caracteristicas y como sembrarlos',
-            url: '/especies',
-            action: 'Explora',
-        },
-        {
-            src: '/images/slide2.jpg',
-            alt: 'poster2',
+            src: '/images/slides/slide2.webp',
+            alt: 'poster1',
             title: 'Pinta de verde Guayaquil',
             description: '¿Estas interesado en sembrar un arbol? Conoce los pasos para hacerlo usando nuestra herramienta de siembra',
             url: 'sembrar',
             action: 'Siembra',
         },
         {
-            src: '/images/slide3.jpg',
+            src: '/images/slides/slide1.webp',
+            alt: 'poster2',
+            title: 'Conoce los arboles nativos de Guayaquil',
+            description: 'Explora nuestro catalogo de arboles, conoce sus caracteristicas y como sembrarlos',
+            url: '/especies',
+            action: 'Explora',
+        },
+        {
+            src: '/images/slides/slide3.webp',
             alt: 'poster3',
             title: 'Unete a nuestra comunidad',
             description: '¿Eres un investigador de especies nativas o un viverista interesado en compartir tu negocio? Unete a nuestra comunidad, registrate y comparte tu conocimiento / vivero con nosotros.',
