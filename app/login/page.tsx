@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import Heading from "@/app/components/Heading";
 import Input from "@/app/components/inputs/Input";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import Button from "@/app/components/buttons/Button";
@@ -13,6 +13,8 @@ import { useState } from "react";
 const Login = () => {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
+    const session = useSession();
+    
     const {
         register,
         handleSubmit,
@@ -23,6 +25,11 @@ const Login = () => {
             password: '',
         }
     });
+
+    if (session?.data?.user?.email) {
+        router.push('/');
+        return null;
+    }
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
         if (data.email === '' || data.password === '') {

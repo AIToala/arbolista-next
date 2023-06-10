@@ -16,7 +16,7 @@ const ErrorState: React.FC<ErrorStateProps> = ({ error }) => {
   return ( 
     <EmptyState
       title="Uh Oh"
-      subtitle="Something went wrong!"
+      subtitle="Ocurrio un error!"
     />
    );
 }
