@@ -8,14 +8,30 @@ import {
   PrevButton,
   NextButton,
 } from './CarouselButtons'
+import Image from 'next/image'
+import { IconType } from 'react-icons/lib'
+import { BiRightArrowAlt } from 'react-icons/bi'
+import { useRouter } from 'next/navigation'
+
+type ImageType = {
+  src: string,
+  alt: string,
+  title?: string,
+  description: string,
+  url?: string,
+  action?: string,
+  icon?: IconType,
+}
 
 type PropType = {
   options?: EmblaOptionsType,
-  children: React.ReactNode
+  slides: ImageType[],
+  style?: string,
 }
 
 const Carousel: React.FC<PropType> = (props) => {
-  const { children, options } = props
+  const router = useRouter()
+  const { options, style, slides } = props
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false)
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false)
@@ -57,10 +73,37 @@ const Carousel: React.FC<PropType> = (props) => {
 
   return (
     <>
-      <div className="embla h-[91vh]">
-        <div className="embla__viewport h-[91vh]" ref={emblaRef}>
-          <div className="embla__container h-[91vh]">
-            {children}
+      <div className={"embla " + style}>
+        <div className={"embla__viewport "+ style} ref={emblaRef}>
+          <div className={"embla__container "+ style}>
+            {slides.map((image, index) => (
+                <div className="embla__slide flex justify-center lg:justify-start items-center aspect-video" key={index}>
+                    <div className="embla__slide__number px-[50px] py-[60px] flex flex-col gap-y-6 bg-white justify-center lg:justify-start lg:items-start items-center p-4 w-[70%] xl:w-[30%] lg:ml-[60px] shadow-lg text-center lg:text-left">
+                        <hr className='bg-green-700 w-[20%] leading-tight h-2 justify-self-start' />
+                        <h1 className='lg:text-[44px] md:text-3xl text-2xl font-bold text-gray-800'>{image.title}</h1>
+                        <p className='lg:text-[16px] md:text-md text-md text-gray-700'>{image.description}</p>
+                        <button className='bg-green-700 hover:bg-green-800 w-fit text-white font-bold pl-4 py-2 pr-[20px] rounded-sm' onClick={()=>{router.push(image.url || "/")}}>
+                        <span>{image.action}</span>
+                        {image.icon ? (
+                          <image.icon
+                            size={24}
+                            className='inline-block ml-2'
+                          />
+                        ) : (
+                          <BiRightArrowAlt className='inline-block ml-2' size={24} />
+                        )}
+                        </button>
+                    </div>
+                    <Image
+                        className="brightness-50"
+                        src={image.src === "No definido" ? "/images/logo.svg" : image.src || "/images/logo.svg"}
+                        alt={image.alt}
+                        fill
+                        priority
+                        quality={100}
+                    />
+                </div>
+              ))}
           </div>
         </div>
       </div>
