@@ -195,3 +195,28 @@
   right: 0;
   bottom: 0;
 }
+.sidebar > * {
+  background-color: rgb(14,159,110)!important;
+  color:rgb(14,159,110);
+}
+.sidebar button, .sidebar a {
+  color: rgb(14,159,110);
+}
+.sidebar button:hover, a:hover, span:hover {
+  color: #000;
+}
+.dashboard-content {
+  flex: 1;
+  margin-left: 20px;
+  margin-top: 100px;
+  margin-right: 50px;
+  display: flex;
+  justify-content: center;
+}
+.custom-tab {
+  width: 50%;
+}
+.tabs-container {
+  display: flex;
+  justify-content: center;
+}
