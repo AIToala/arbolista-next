@@ -41,7 +41,6 @@ export default async function getSpeciesByName( params: IParams ){
             ...species,
         };
     } catch(err){
-        console.log(err);
         return [];
     }
 }

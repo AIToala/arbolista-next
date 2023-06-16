@@ -1,4 +1,4 @@
-const InitPage = async () => {
+const InitPage = () => {
     return(
         <>
         </>

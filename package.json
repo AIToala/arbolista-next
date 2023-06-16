@@ -25,7 +25,7 @@
     "eslint-config-next": "13.4.2",
     "flowbite": "^1.6.5",
     "flowbite-react": "^0.4.4",
-    "next": "^13.4.4",
+    "next": "^13.4.5",
     "next-auth": "^4.22.1",
     "node-pre-gyp": "^0.17.0",
     "query-string": "^8.1.0",
