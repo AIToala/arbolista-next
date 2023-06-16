@@ -18,7 +18,7 @@ const DashboardIndexPage = () => {
           <p>
             This is
             <span className="font-medium text-gray-800 dark:text-white">
-              Profile tab's associated content
+              Profile tabs associated content
             </span>
             .
             Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to

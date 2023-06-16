@@ -1,7 +1,6 @@
 'use client';
 import SidebarC from '@/app/components/sidebar/SidebarC';
 import { Tabs } from 'flowbite-react';
-import 'app/globals.css'
 
 
 const DashboardIndexPage = () => {
@@ -20,7 +19,7 @@ const DashboardIndexPage = () => {
           <p>
             This is
             <span className="font-medium text-gray-800 dark:text-white">
-              Profile tab's associated content
+              Profile tabs associated content
             </span>
             .
             Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
@@ -33,7 +32,7 @@ const DashboardIndexPage = () => {
           <p>
             This is
             <span className="font-medium text-gray-800 dark:text-white">
-              Dashboard tab's associated content
+              Dashboard tabs associated content
             </span>
             .
             Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
@@ -46,7 +45,7 @@ const DashboardIndexPage = () => {
           <p>
             This is
             <span className="font-medium text-gray-800 dark:text-white">
-              Contacts tab's associated content
+              Contacts tabs associated content
             </span>
             .
             Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
@@ -59,7 +58,7 @@ const DashboardIndexPage = () => {
           <p>
             This is
             <span className="font-medium text-gray-800 dark:text-white">
-              Contacts tab's associated content
+              Contacts tabs associated content
             </span>
             .
             Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
@@ -72,7 +71,7 @@ const DashboardIndexPage = () => {
           <p>
             This is
             <span className="font-medium text-gray-800 dark:text-white">
-              Contacts tab's associated content
+              Contacts tabs associated content
             </span>
             .
             Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
