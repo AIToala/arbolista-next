@@ -18,14 +18,14 @@ const SidebarC: React.FC<SidebarProps> = ({
   return (
     <aside>
         <Sidebar 
-        style={{ height: '100vh' , backgroundColor:"green!important" }}
-        className="!bg-red-500 hover:bg-red-600"
+        style={{ height: '100vh'  }}
+        className="sidebar"
         color='!green'
         
         >
         <Sidebar.Logo
             href="#"
-            img="public\images\logo-w.svg"
+            img="/images/logo.svg"
             imgAlt="logo"
         >
             <p>
