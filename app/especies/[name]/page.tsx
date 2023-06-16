@@ -8,7 +8,7 @@ interface IParams{
 
 const EspeciePage = async ({params}: {params: IParams}) => {
     const species = await getSpeciesByName(params);
-    if (!species || species.length === 0) {
+    if (!species) {
         return (
             <ClientOnly>
                 <EmptyState title="Lo sentimos. Esta especie aun no existe." subtitle="=.=" showReset />
@@ -17,7 +17,7 @@ const EspeciePage = async ({params}: {params: IParams}) => {
     }
     
     return (
-        <div className="flex flex-col relative items-center w-full min-h-screen">
+        <div className="flex flex-col relative items-center w-full min-h-screen mb-[10rem]">
             <div className="text-left bg-green-400 font-semibold w-full p-4">
                 <h1>{species[0].name}</h1>
             </div>

@@ -5,6 +5,7 @@ import { Tabs } from 'flowbite-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { ImageResponse } from 'next/server';
 
 interface TabEspeciesProps {
     data: any[];
@@ -35,7 +36,7 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({
                                     <td className="w-32 p-4">
                                         <div onClick={()=>router.push(`/especies/${result.name}`)} className='cursor-pointer'>
                                             <Image 
-                                                src={result.images.presentation_url || 'images/logo.svg'} alt={result.name} width={100} height={100}
+                                                src={result.images.presentation_url==="No definido" ? 'images/logo.svg' : result.images.presentation_url || 'images/logo.svg'} alt={result.name} width={100} height={100}
                                                 className="rounded-sm aspect-square overflow-hidden"
                                             />
                                         </div>
@@ -70,7 +71,7 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({
                                             rounded-xl
                                         "
                                     >
-                                        <Image fill className="object-cover h-full w-full group-hover:scale-110 transition" alt={"especie"} src={result.images.presentation_url || 'images/logo.svg'} />
+                                        <Image fill className="object-cover h-full w-full group-hover:scale-110 transition" alt={"especie"} src={result.images.presentation_url==="No definido" ? 'images/logo.svg' : result.images.presentation_url || 'images/logo.svg'} />
                                     </div>
                                 </div>
                                 <div className="bg-white p-2">

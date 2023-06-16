@@ -9,7 +9,6 @@ export default async function getSpeciesByName( params: IParams ){
         const currentUser = await getCurrentUser();
         let { name } = params;
         name = decodeURIComponent(name);
-        console.log(name);
         const species = await prisma.species.findMany({
             select: {
                 id: true,
@@ -31,6 +30,7 @@ export default async function getSpeciesByName( params: IParams ){
                 name: name,
             },
         });
+        if (!species) return null;
         const safeSpecies = species.map((specie) => ({
             ...specie,
             createdAt: specie.createdAt.toISOString(),
@@ -41,6 +41,6 @@ export default async function getSpeciesByName( params: IParams ){
             ...species,
         };
     } catch(err){
-        return [];
+        return null;
     }
 }

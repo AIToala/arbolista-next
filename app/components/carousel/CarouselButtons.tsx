@@ -83,7 +83,7 @@ export const Thumb: React.FC<PropType> = (props) => {
         type="button"
       >
         <Image
-          className="embla-thumbs__slide__img"
+          className="embla-thumbs__slide__img rounded-md"
           src={imgSrc}
           width={100}
           height={100}

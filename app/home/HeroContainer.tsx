@@ -1,8 +1,6 @@
 'use client';
-import Image from 'next/image';
 import Carousel from '../components/carousel/Carousel';
 import { useRouter } from 'next/navigation';
-import { BiRightArrowAlt } from 'react-icons/bi';
 
 const HeroContainer = () => {
     const router = useRouter();
@@ -40,7 +38,7 @@ const HeroContainer = () => {
     }
     return (
         <div className='w-full h-[91vh] relative'>
-            <Carousel style='h-[91vh]' slides={images} />
+            <Carousel style='!h-[91vh]' slides={images} />
         </div>
     );
 }

@@ -38,7 +38,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
         {showReset && (
           <Button
             outline
-            label="Remove all filters"
+            label="Retorna a inicio"
             onClick={() => router.push('/')}
           />
         )}

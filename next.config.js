@@ -2,7 +2,7 @@
 const nextConfig = {
     experimental: {
         appDir: true,
-        serverComponentsExternalPackages: ['bcrypt'],
+        //serverComponentsExternalPackages: ['bcrypt'],
     },
     images: {
         domains: [
