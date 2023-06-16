@@ -211,16 +211,17 @@
   right: 0;
   bottom: 0;
 }
-.sidebar > * {
-  background-color: rgb(14,159,110)!important;
-  color:rgb(14,159,110);
+.sidebar > *{
+  background-color: rgb(9,71,88)!important;
+  color: white !important;
 }
 .sidebar button, .sidebar a {
-  color: rgb(14,159,110);
+  color: rgb(17,24,39);
 }
-.sidebar button:hover, a:hover, span:hover {
-  color: #000;
+.sidebar > * > * {
+  color: rgb(17,24,39)!important;
 }
+
 .dashboard-content {
   flex: 1;
   margin-left: 20px;
@@ -248,3 +249,4 @@
     width: 100%!important;
   }
 }
+

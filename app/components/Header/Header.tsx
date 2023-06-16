@@ -53,7 +53,6 @@ const Header: React.FC<HeaderProps> = ({
                     ):(
                         <div className="hidden md:flex md:flex-row">
                             <button className="px-5 py-2.5 hover:opacity-90 bg-cyan-700 w-full text-white focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm text-center inline-flex items-center mr-2" onClick={()=>{router.push('/login')}}>Accede</button>
-                            <button className="px-5 py-2.5 hover:opacity-90 bg-sky-700 w-full text-white focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm text-center inline-flex items-center" onClick={()=>{router.push('/register')}}>Únete</button>
                         </div>
                     )}
                     <button data-collapse-toggle="mobile-menu-2" type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 " aria-controls="mobile-menu-2" aria-expanded="false">
@@ -68,9 +67,6 @@ const Header: React.FC<HeaderProps> = ({
                         <li className="mt-3 md:mt-0 md:hidden">
                             <button className="px-5 py-2.5 hover:opacity-90 bg-cyan-700 w-full text-white focus:ring-4 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm text-center items-center mr-2" onClick={()=>{router.push('/login')}}>Accede</button>
                         </li>
-                        <li className="mt-3 md:mt-0 md:hidden">
-                                <button className="px-5 py-2.5 hover:opacity-90 bg-sky-700 w-full text-white focus:ring-4 focus:outline-none focus:ring-sky-300 font-medium rounded-lg text-sm text-center items-center" onClick={()=>{router.push('/register')}}>Únete</button>
-                        </li>    
                     </ul>
                 </div>
             </div>

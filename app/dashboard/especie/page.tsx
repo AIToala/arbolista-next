@@ -11,6 +11,7 @@ const DashboardIndexPage = () => {
         <Tabs.Group
         aria-label="Tabs with icons"
         style='underline'
+        className='bg-red'
       >
         <Tabs.Item
           active
@@ -57,7 +58,7 @@ const DashboardIndexPage = () => {
         >
           <p>
             This is
-            <span className="font-medium text-gray-800 dark:text-white">
+            <span className="font-medium text-gray-800 dark:text-black">
               Contacts tabs associated content
             </span>
             .
