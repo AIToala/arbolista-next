@@ -28,55 +28,55 @@ const FilterButton = () => {
   };
   const conservationStatus = Object.values(ConservationStatus).map((value) => ({
     value,
-    label: value,
+    label: value.replace("_"," "),
   }));
   const rootingTypes = Object.values(RootingTypes).map((value) => ({
     value,
-    label: value,
+    label: value.replace("_"," "),
   }));
   const flowerArrangement = Object.values(FlowerArrangement).map((value) => ({
     value,
-    label: value,
+    label: value.replace("_"," "),
   }));
   const floweringSeason = Object.values(FloweringSeason).map((value) => ({
     value,
-    label: value,
+    label: value.replace("_"," "),
   }));
   const leafPersistence = Object.values(LeafPersistence).map((value) => ({
     value,
-    label: value,
+    label: value.replace("_"," "),
   }));
   const stemLeafPosition = Object.values(StemLeafPosition).map((value) => ({
     value,
-    label: value,
+    label: value.replace("_"," "),
   }));
   const leafComposition = Object.values(LeafComposition).map((value) => ({
     value,
-    label: value,
+    label: value.replace("_"," "),
   }));
   const fruitType = Object.values(FruitType).map((value) => ({
     value,
-    label: value,
+    label: value.replace("_"," "),
   }));
   const origin = Object.values(Origin).map((value) => ({
     value,
-    label: value,
+    label: value.replace("_"," "),
   }));
   const lightRequirement = Object.values(LightRequirement).map((value) => ({
     value,
-    label: value,
+    label: value.replace("_"," "),
   }));
   const growthRate = Object.values(GrowthRate).map((value) => ({
     value,
-    label: value,
+    label: value.replace("_"," "),
   }));
   const priorityLevel = Object.values(PriorityLevel).map((value) => ({
     value,
-    label: value,
+    label: value.replace("_"," "),
   }));
   const crownWidth = Object.values(CrownWidth).map((value) => ({
     value,
-    label: value,
+    label: value.replace("_"," "),
   }));
 
   const altitudeRange = [
@@ -181,7 +181,7 @@ const FilterButton = () => {
     <>
       <Dropdown label="Filtro" arrowIcon={false}>
         <div className="w-[85vw] h-[70vh] p-2 gap-4 grid grid-cols-2 divide-x items-start justify-center overflow-y-auto">
-          <div className="col-span-1 px-4 gap-2">
+          <div className="col-span-1 px-4 gap-2 grid">
             <h1>Taxonomia</h1>
             <hr />
             <div className="grid grid-cols-3 gap-2">
@@ -244,7 +244,7 @@ const FilterButton = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-1 px-4 gap-2">
+          <div className="col-span-1 px-4 gap-2 grid">
             <h1>Ecologia</h1>
             <hr />
             <div className="grid grid-cols-3 gap-2">
@@ -307,7 +307,7 @@ const FilterButton = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-2 px-4 gap-2">
+          <div className="col-span-2 px-4 gap-2 grid">
             <h1>Arboricultura y Etnobotanica</h1>
             <hr />
             <div className="grid grid-cols-3 gap-2">
@@ -454,7 +454,7 @@ const FilterButton = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-2 px-4 gap-2">
+          <div className="col-span-2 px-4 gap-2 grid">
             <h1>Detalles</h1>
             <hr />
             <div className="grid grid-cols-3 gap-2">
