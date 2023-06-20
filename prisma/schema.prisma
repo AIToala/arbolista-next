@@ -80,32 +80,64 @@ model Species {
   seeds             Seeds?
   stalk             Stalk?
   taxonomy          Taxonomy?
+  isInGallery       Boolean        @default(false) @map("is_in_gallery")
 }
 
 model Taxonomy {
-  id           String  @id @default(cuid())
-  family       String? @default("No definido")
-  genus        String? @default("No definido")
-  tSpecies     String? @default("No definido")
-  subspecies   String? @default("No definido")
-  variety      String? @default("No definido")
-  author       String? @default("No definido")
-  synonyms     String? @default("No definido")
-  etymology    String? @default("No definido") @db.VarChar(500)
-  common_names String? @default("No definido")
-  growth_habit String? @default("No definido")
-  bibliography String? @default("No definido") @db.VarChar(500)
-  speciesId    String  @unique @map("species_id")
-  species      Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
+  id           String                @id @default(cuid())
+  family       SpeciesFamilyDetail?
+  genus        String                @default("No determinado")
+  tSpecies     String                @default("No determinado")
+  subspecies   String?               @default("No determinado")
+  variety      String?               @default("No determinado")
+  author       String?               @default("No determinado")
+  synonyms     SpeciesSynonyms[]
+  etymology    String?               @default("No determinado") @db.VarChar(500)
+  common_names String?               @default("No determinado")
+  growth_habit String?               @default("No determinado")
+  bibliography SpeciesBibliography[]
+  speciesId    String                @unique @map("species_id")
+  species      Species               @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Taxonomy_species_id_fkey")
 }
 
+model SpeciesSynonyms {
+  id           String   @id @default(cuid())
+  synonym_name String?  @default("No determinado")
+  speciesId    String   @unique @map("species_id")
+  taxonomy     Taxonomy @relation(fields: [speciesId], references: [id], onDelete: Cascade)
+
+  @@index([speciesId], map: "SpeciesSynonyms_species_id_fkey")
+}
+
+model SpeciesFamilyDetail {
+  id          String   @id @default(cuid())
+  family      String   @default("No determinado")
+  description String?  @db.Text()
+  taxonomyId  String   @unique @map("taxonomy_id")
+  taxonomy    Taxonomy @relation(fields: [taxonomyId], references: [id], onDelete: Cascade)
+
+  @@index([taxonomyId], map: "familyDetail_taxonomy_id_fkey")
+}
+
+model SpeciesBibliography {
+  id               String   @id @default(cuid())
+  authors          String?  @default("No determinado")
+  publication_year String?  @default("No determinado")
+  title            String?  @default("No determinado")
+  DOI_URL          String?  @default("No determinado")
+  journal_name     String?  @default("No determinado")
+  taxonomyId       String   @map("taxonomy_id")
+  taxonomy         Taxonomy @relation(fields: [taxonomyId], references: [id], onDelete: Cascade)
+
+  @@index([taxonomyId], map: "Bibliography_taxonomy_id_fkey")
+}
+
 model Stalk {
   id              String  @id @default(cuid())
-  bark_attributes String? @default("No definido")
-  barkColor       String? @default("No definido")
-  photoBark       String? @default("No definido")
+  bark_attributes String  @default("No determinado")
+  barkColor       String  @default("No determinado")
   speciesId       String  @unique @map("species_id")
   species         Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
@@ -113,110 +145,129 @@ model Stalk {
 }
 
 model Root {
-  id                String  @id @default(cuid())
-  reproduction_form String? @default("No definido")
-  root_attributes   String? @default("No definido")
-  rooting_type      String? @default("No definido")
-  speciesId         String  @unique @map("species_id")
-  species           Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
+  id                String       @id @default(cuid())
+  reproduction_form String       @default("No determinado")
+  root_attributes   String?      @default("No determinado")
+  rooting_type      RootingTypes @default(NO_DETERMINADO)
+  speciesId         String       @unique @map("species_id")
+  species           Species      @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Root_species_id_fkey")
 }
 
 model Flower {
-  id                 String  @id @default(cuid())
-  floral_attributes  String? @default("No definido")
-  flower_color       String? @default("No definido")
-  flower_arrangement String? @default("No definido")
-  flowering_season   String? @default("No definido")
-  flowering_months   String? @default("No definido")
-  speciesId          String  @unique @map("species_id")
-  pollination_system String? @default("No definido")
-  species            Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
+  id                 String            @id @default(cuid())
+  floral_attributes  String?           @default("No determinado")
+  flower_color       String            @default("NO DETERMINADO")
+  flower_arrangement FlowerArrangement @default(NO_DETERMINADO)
+  flowering_season   FloweringSeason   @default(NO_DETERMINADO)
+  flowering_months   String?           @default("No determinado")
+  speciesId          String            @unique @map("species_id")
+  pollination_system String            @default("No determinado")
+  species            Species           @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Flower_species_id_fkey")
 }
 
 model Leaf {
-  id                String  @id @default(cuid())
-  leaf_attributes   String? @default("No definido")
-  leaf_persistence  String? @default("No definido")
-  stemLeaf_position String? @default("No definido")
-  leaf_composition  String? @default("No definido")
-  speciesId         String  @unique @map("species_id")
-  species           Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
+  id                String           @id @default(cuid())
+  leaf_attributes   String?          @default("No determinado")
+  leaf_persistence  LeafPersistence  @default(NO_DETERMINADO)
+  stemLeaf_position StemLeafPosition @default(NO_DETERMINADO)
+  leaf_composition  LeafComposition  @default(NO_DETERMINADO)
+  speciesId         String           @unique @map("species_id")
+  species           Species          @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Leaf_species_id_fkey")
 }
 
 model Seeds {
-  id               String  @id @default(cuid())
-  fruitType        String? @default("No definido")
-  dispersal_system String? @default("No definido")
-  fruit_attributes String? @default("No definido")
-  seed_attributes  String? @default("No definido")
-  fruiting_months  String? @default("No definido")
-  speciesId        String  @unique @map("species_id")
-  species          Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
+  id               String    @id @default(cuid())
+  fruitType        FruitType @default(NO_DETERMINADO)
+  dispersal_system String    @default("No determinado")
+  fruit_attributes String?   @default("No determinado")
+  seed_attributes  String?   @default("No determinado")
+  fruiting_months  String?   @default("No determinado")
+  speciesId        String    @unique @map("species_id")
+  species          Species   @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Seeds_species_id_fkey")
 }
 
 model Ecology {
-  id           String  @id @default(cuid())
-  use_category String? @default("No definido")
-  use_detail   String? @default("No definido")
-  speciesId    String  @unique @map("species_id")
-  species      Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
+  id                  String             @id @default(cuid())
+  altitudinal_range   String?            @default("No determinado")
+  geo_distribution    String?            @default("No determinado")
+  origin              Origin             @default(NATIVA)
+  conservation_status ConservationStatus @default(NE)
+  fauna_attraction    PriorityLevel      @default(NO_DETERMINADO)
+  associated_fauna    Associated_Fauna[]
+  speciesId           String             @unique @map("species_id")
+  species             Species            @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Ecology_species_id_fkey")
 }
 
+model Associated_Fauna {
+  id         String  @id @default(cuid())
+  fauna_name String? @default("No determinado")
+  detail     String? @default("No determinado")
+  speciesId  String  @unique @map("species_id")
+  ecology    Ecology @relation(fields: [speciesId], references: [id], onDelete: Cascade)
+
+  @@index([speciesId], map: "Asociated_Fauna_species_id_fkey")
+}
+
 model Ethnobotany {
-  id                  String  @id @default(cuid())
-  altitudinal_range   String? @default("No definido")
-  geo_distribution    String? @default("No definido")
-  origin              String? @default("No definido")
-  conservation_status String? @default("No definido")
-  speciesId           String  @unique @map("species_id")
-  species             Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
+  id          String               @id @default(cuid())
+  useCategory SpeciesUseCategory[]
+  speciesId   String               @unique @map("species_id")
+  species     Species              @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Ethnobotany_species_id_fkey")
 }
 
+model SpeciesUseCategory {
+  id            String      @id @default(cuid())
+  category      String      @default("No determinado")
+  use_detail    String      @default("No determinado")
+  ethnobotanyId String      @map("ethnobotany_id")
+  ethnobotany   Ethnobotany @relation(fields: [ethnobotanyId], references: [id], onDelete: Cascade)
+
+  @@index([ethnobotanyId], map: "SpeciesUseCategory_ethnobotany_id_fkey")
+}
+
 model Arboriculture {
-  id                 String  @id @default(cuid())
-  public_spaceUse    String? @default("No definido")
-  flower_limitations String? @default("No definido")
-  fruit_limitations  String? @default("No definido")
-  longevity          String? @default("No definido")
-  pests_diseases     String? @default("No definido")
-  fauna_attraction   String? @default("No definido")
-  associated_fauna   String? @default("No definido")
-  light_requirements String? @default("No definido")
-  growth_rate        String? @default("No definido")
-  maximum_height     String? @default("No definido")
-  crown_width        String? @default("No definido")
-  crown_shape        String? @default("No definido")
-  DAP                String? @default("No definido")
-  foliage_density    String? @default("No definido")
-  soil_type          String? @default("No definido")
-  humidity_zone      String? @default("No definido")
-  speciesId          String  @unique @map("species_id")
-  species            Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
+  id                 String           @id @default(cuid())
+  public_spaceUse    String?          @default("No determinado")
+  flower_limitations String?          @default("No determinado")
+  fruit_limitations  String?          @default("No determinado")
+  longevity          String?          @default("No determinado")
+  pests_diseases     String?          @default("No determinado")
+  light_requirements LightRequirement @default(NO_DETERMINADO)
+  growth_rate        GrowthRate       @default(NO_DETERMINADO)
+  maximum_height     Int              @default(0)
+  crown_width        CrownWidth       @default(NO_DETERMINADO)
+  crown_shape        String?          @default("No determinado")
+  DAP                Float?           @default(0)
+  foliage_density    PriorityLevel    @default(NO_DETERMINADO)
+  soil_type          String?          @default("No determinado")
+  humidity_zone      String?          @default("No determinado")
+  speciesId          String           @unique @map("species_id")
+  species            Species          @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Arboriculture_species_id_fkey")
 }
 
 model Images {
   id               String  @id @default(cuid())
-  presentation_url String? @default("No definido")
-  fruit_url        String? @default("No definido")
-  leaf_url         String? @default("No definido")
-  flower_url       String? @default("No definido")
-  detailFlower_url String? @default("No definido")
-  bark_url         String? @default("No definido")
-  seed_url         String? @default("No definido")
+  presentation_url String? @default("No determinado")
+  fruit_url        String? @default("No determinado")
+  leaf_url         String? @default("No determinado")
+  flower_url       String? @default("No determinado")
+  detailFlower_url String? @default("No determinado")
+  bark_url         String? @default("No determinado")
+  seed_url         String? @default("No determinado")
   speciesId        String  @unique @map("species_id")
   species          Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
@@ -228,4 +279,159 @@ enum UserRole {
   NURSERY_ADMIN
   ADMIN
   USER
+}
+
+enum RootingTypes {
+  SUPERFICIAL
+  MEDIO
+  PROFUNDO
+  NO_DETERMINADO
+}
+
+enum FlowerArrangement {
+  SOLITARIA
+  RACIMO
+  PANICULA
+  CORIMBO
+  ESPIGA
+  AMENTO
+  ESPADICE
+  CIMA
+  CABEZUELA
+  UMBELA
+  NO_APLICA
+  NO_DETERMINADO
+}
+
+enum FloweringSeason {
+  PERMANENTE
+  ESTACIONAL
+  ESTACION_SECA
+  ESTACION_LLUVIOSA
+  NO_APLICA
+  NO_DETERMINADO
+}
+
+
+enum LeafPersistence {
+  CADUCIFOLIA
+  SEMICADUCIFOLIA
+  PERENNE
+  NO_DETERMINADO
+  NO_APLICA
+}
+
+enum StemLeafPosition {
+  ALTERNA
+  OPUESTA
+  FASCICULADA
+  ROSETA
+  VERTICILADA
+  NO_DETERMINADO
+}
+
+enum LeafComposition {
+  SIMPLE
+  DIGITADO_COMPUESTA
+  COMPUESTA_PARIPINNADA
+  COMPUESTA_IMPARIPINNADA
+  COMPUESTA_UNIFOLIADA
+  COMPUESTA_BIFOLIADA
+  COMPUESTA_TRIFOLIADA
+  COMPUESTA_BIPINNADA
+  ABANICO
+  ESCUAMIFORME
+  PINNADA_PARIPINNADA
+  PINNADA
+  OTRO
+  NO_DETERMINADO
+}
+
+enum FruitType {
+  LEGUMBRE
+  LEGUMBRE_PLANA
+  LEGUMBRE_CILINDRICA
+  FOLICULO
+  SILICUA
+  CAPSULA
+  PIXIDIO
+  AQUENIO
+  CARIOPSE
+  SAMARA
+  BAYA
+  DRUPA
+  ESTROPILO
+  NO_APLICA
+  NO_DETERMINADO
+  NUEZ
+  POMA
+  SICONO
+  SINCARPO
+}
+
+
+enum Origin {
+  NATIVA
+  ENDEMICA
+}
+
+enum AltitudinalRange {
+  MUY_BAJA
+  BAJA
+  MEDIA
+  ALTA
+  MUY_ALTA
+  NO_DETERMINADO
+}
+
+enum Longevity {
+  BAJA
+  MEDIA
+  ALTA
+  ANUAL
+  PERENNE
+  NO_DETERMINADO
+}
+
+enum LightRequirement {
+  BAJA
+  MEDIA
+  ALTA
+  SOMBRA_JUVENIL
+  NO_DETERMINADO
+}
+
+enum GrowthRate {
+  LENTA
+  MEDIA
+  RAPIDA
+  LENTA_MEDIA
+  MEDIA_RAPIDA
+  NO_DETERMINADO
+}
+
+enum ConservationStatus {
+  NE
+  DD
+  LC
+  NT
+  VU
+  EN
+  CR
+  EW
+  EX
+}
+
+enum PriorityLevel {
+  BAJO
+  MEDIO
+  ALTO
+  NO_DETERMINADO
+}
+
+enum CrownWidth {
+  ESTRECHA
+  MEDIA
+  AMPLIA
+  NO_DETERMINADO
 }
