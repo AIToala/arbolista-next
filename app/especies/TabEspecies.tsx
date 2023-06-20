@@ -36,7 +36,7 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({
                                     <td className="w-32 p-4">
                                         <div onClick={()=>router.push(`/especies/${result.name}`)} className='cursor-pointer'>
                                             <Image 
-                                                src={result.images.presentation_url==="No definido" ? 'images/logo.svg' : result.images.presentation_url || 'images/logo.svg'} alt={result.name} width={100} height={100}
+                                                src={result.images.presentation_url==="No determinado" ? 'images/logo.svg' : result.images.presentation_url || 'images/logo.svg'} alt={result.name} width={100} height={100}
                                                 className="rounded-sm aspect-square overflow-hidden"
                                             />
                                         </div>
@@ -49,7 +49,7 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({
                                             </p>
                                         </div>
                                     </td>
-                                    <td className="text-gray-700 px-6 py-4">{result.taxonomy?.family}</td>
+                                    <td className="text-gray-700 px-6 py-4">{}</td>
                                 </tr>
                             );
                         })}
@@ -71,7 +71,7 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({
                                             rounded-xl
                                         "
                                     >
-                                        <Image fill className="object-cover h-full w-full group-hover:scale-110 transition" alt={"especie"} src={result.images.presentation_url==="No definido" ? 'images/logo.svg' : result.images.presentation_url || 'images/logo.svg'} />
+                                        <Image fill className="object-cover h-full w-full group-hover:scale-110 transition" alt={"especie"} src={result.images.presentation_url==="No determinado" ? 'images/logo.svg' : result.images.presentation_url || 'images/logo.svg'} />
                                     </div>
                                 </div>
                                 <div className="bg-white p-2">
@@ -80,7 +80,6 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({
                                     </div>
                                     <div className="font-light text-xs md:text-sm lg:text-md text-neutral-500 truncate">
                                         <p>
-                                            {result.taxonomy?.family}
                                         </p>
                                     </div>
                                 </div>

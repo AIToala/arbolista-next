@@ -180,11 +180,7 @@ export default async function getSpecies( params: ISpeciesParams ){
             include: {
                 taxonomy: {
                     select: {
-                        family: {
-                            select: {
-                                family: true,
-                            },
-                        },
+                        family: true,
                         common_names: true,
                     },
                 },
@@ -199,9 +195,6 @@ export default async function getSpecies( params: ISpeciesParams ){
                 name: query?.name,
                 availables_status: query?.availables_status,
                 taxonomy: {
-                    family: {
-                        family: query?.family,
-                    },
                     genus: query?.genus,
                     tSpecies: query?.tSpecies,
                     subspecies: query?.subspecies,

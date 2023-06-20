@@ -19,31 +19,31 @@ const CarouselImages: React.FC<PropType> = (props) => {
   let images = []
   if(slides === null) {
     images =[{
-        src: 'No definido',
+        src: 'No determinado',
         description: 'Presentacion',
         alt: 'Presentacion',
       },{
-        src: 'No definido',
+        src: 'No determinado',
         description: "Fruta",
           alt: 'Fruta',
       },{
-        src: 'No definido',
+        src: 'No determinado',
         description: "Hoja",
           alt: 'Hoja',
       },{
-        src: 'No definido',
+        src: 'No determinado',
         description: "Flor",
           alt: 'Flor',
       },{
-        src: 'No definido',
+        src: 'No determinado',
         description: "Detalle de flor",
           alt: 'Detalle de flor',
       },{
-        src: 'No definido',
+        src: 'No determinado',
         description: "Corteza",
           alt: 'Corteza',
       },{
-        src: 'No definido',
+        src: 'No determinado',
         description: "Semilla",
           alt: 'Semilla',
       },
@@ -89,7 +89,7 @@ const CarouselImages: React.FC<PropType> = (props) => {
                 </div>
                 <Image
                   className="!rounded-sm aspect-square object-contain"
-                  src={image.src === "No definido" ? "/images/logo.svg" : image.src || "/images/logo.svg"}
+                  src={image.src === "No determinado" ? "/images/logo.svg" : image.src || "/images/logo.svg"}
                   fill
                   alt="image.description"
                   priority
@@ -107,7 +107,7 @@ const CarouselImages: React.FC<PropType> = (props) => {
                   onClick={() => onThumbClick(index)}
                   selected={index === selectedIndex}
                   index={index}
-                  imgSrc={image.src === "No definido" ? "/images/logo.svg" : image.src || "/images/logo.svg"}
+                  imgSrc={image.src === "No determinado" ? "/images/logo.svg" : image.src || "/images/logo.svg"}
                   key={index}
                 />
               ))}
