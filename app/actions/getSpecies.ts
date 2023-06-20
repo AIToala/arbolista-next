@@ -180,7 +180,11 @@ export default async function getSpecies( params: ISpeciesParams ){
             include: {
                 taxonomy: {
                     select: {
-                        family: true,
+                        family: {
+                            select: {
+                                family: true,
+                            },
+                        },
                         common_names: true,
                     },
                 },
@@ -195,7 +199,9 @@ export default async function getSpecies( params: ISpeciesParams ){
                 name: query?.name,
                 availables_status: query?.availables_status,
                 taxonomy: {
-                    family: query?.family,
+                    family: {
+                        family: query?.family,
+                    },
                     genus: query?.genus,
                     tSpecies: query?.tSpecies,
                     subspecies: query?.subspecies,
@@ -203,7 +209,7 @@ export default async function getSpecies( params: ISpeciesParams ){
                         contains: query?.common_names,
                     },
                     growth_habit: query?.growth_habit,
-                    bibliography: query?.bibliography,
+                    
                 },
                 stalk: {
                     bark_attributes: query?.bark_attributes,
@@ -235,15 +241,16 @@ export default async function getSpecies( params: ISpeciesParams ){
                     seed_attributes: query?.seed_attributes,
                     fruiting_months: query?.fruiting_months,
                 },
-                ecology: {
-                    use_category: query?.use_category,
-                    use_detail: query?.use_detail,
-                },
                 ethnobotany: {
+                    useCategory: query?.use_category,
+                },
+                ecology: {
                     altitudinal_range: query?.altitudinal_range,
                     geo_distribution: query?.geo_distribution,
                     origin: query?.origin,
                     conservation_status: query?.conservation_status,
+                    fauna_attraction: query?.fauna_attraction,
+                    associated_fauna: query?.associated_fauna,
                 },
                 arboriculture: {
                     public_spaceUse: query?.public_spaceUse,
@@ -251,8 +258,6 @@ export default async function getSpecies( params: ISpeciesParams ){
                     fruit_limitations: query?.fruit_limitations,
                     longevity: query?.longevity,
                     pests_diseases: query?.pests_diseases,
-                    fauna_attraction: query?.fauna_attraction,
-                    associated_fauna: query?.associated_fauna,
                     light_requirements: query?.light_requirements,
                     growth_rate: query?.growth_rate,
                     maximum_height: query?.maximum_height,
