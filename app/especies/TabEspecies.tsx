@@ -5,8 +5,6 @@ import { Tabs } from 'flowbite-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { ImageResponse } from 'next/server';
-
 interface TabEspeciesProps {
     data: any[];
 }
@@ -49,7 +47,7 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({
                                             </p>
                                         </div>
                                     </td>
-                                    <td className="text-gray-700 px-6 py-4">{}</td>
+                                    <td className="text-gray-700 px-6 py-4">{result.taxonomy?.family?.family}</td>
                                 </tr>
                             );
                         })}
@@ -80,6 +78,7 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({
                                     </div>
                                     <div className="font-light text-xs md:text-sm lg:text-md text-neutral-500 truncate">
                                         <p>
+                                            {result.taxonomy?.common_names}
                                         </p>
                                     </div>
                                 </div>

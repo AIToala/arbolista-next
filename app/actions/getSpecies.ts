@@ -192,17 +192,33 @@ export default async function getSpecies( params: ISpeciesParams ){
             },
             where: {
                 id: query?.id,
-                name: query?.name,
+                OR: [
+                    {
+                        name: {
+                            contains: query?.name,
+                        },
+                    },
+                    {
+                        taxonomy: {
+                            common_names: {
+                                contains: query?.name,
+                            },
+                        },
+                    },
+                    {
+                        taxonomy: {
+                            family: {
+                                family: query?.name,
+                            },
+                        },
+                    },
+                ],
                 availables_status: query?.availables_status,
                 taxonomy: {
                     genus: query?.genus,
                     tSpecies: query?.tSpecies,
                     subspecies: query?.subspecies,
-                    common_names: {
-                        contains: query?.common_names,
-                    },
                     growth_habit: query?.growth_habit,
-                    
                 },
                 stalk: {
                     bark_attributes: query?.bark_attributes,
