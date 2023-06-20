@@ -26,3 +26,8 @@ npm i
 ```
 npm run dev
 ```
+## Running test cases locally
+Open a terminal and execute:
+    npm run test-cases
+> **Warning**
+> Javascript mocha tests run on chrome, make sure you have installed chrome browser.
