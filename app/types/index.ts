@@ -186,4 +186,21 @@ export const speciesEnums = {
     { value: "Aves frugívoras", label: "Aves frugívoras" },
     { value: "No determinado", label: "No determinado" },
   ],
+  limitFloralValues : [
+    { value: "alergenico", label: "Alergenicos" },
+    { value: "oloroso", label: "Olor Desagradable" },
+    { value: "movilidad_peatones", label: "Afectan movilidad de peatones" },
+    { value: "movilidad_vehiculos", label: "Afectan movilidad de vehiculos" },
+    { value: "No determinado", label: "No determinado" },
+  ],
+  limitFrutoValues : [
+    { value: "alergenico", label: "Alergenicos" },
+    { value: "toxico", label: "Toxicos" },
+    { value: "pesado", label: "Pesados" },
+    { value: "masivo", label: "Masivos" },
+    { value: "carnoso", label: "Carnosos" },
+    { value: "espinas", label: "Con espinas" },
+    { value: "No determinado", label: "No determinado" },
+  ],
+
 };

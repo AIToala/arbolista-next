@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { useCallback, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from 'next/navigation';
 import Select from 'react-select'
-
+import { speciesEnums } from '@/app/types/index'
 import useSiembraModal from "@/app/hooks/useSiembraModal";
 
 import Image from "next/image";
@@ -51,17 +51,6 @@ const SiembraModal = () => {
   const [presenciaLuz, setPresenciaLuz] = useState("No definido");
   const [presenciaAnimales, setPresenciaAnimales] = useState("No definido");
 
-  const select = [
-    { value: "No definido", label: "Desconozco" },
-    { value: "baja", label: "Baja" },
-    { value: "media", label: "Media" },
-    { value: "alta", label: "Alta" },
-  ]
-  const selectBoolean = [
-    { value: "No definido", label: "Desconozco"},
-    { value: "no", label: "No" },
-    { value: "si", label: "Si" },
-  ]
   const paramsLugar = {
     hasObstaculos,
     disponibilidadAgua,
@@ -86,59 +75,6 @@ const SiembraModal = () => {
   const [limitacionFloral, setLimitacionFloral] = useState([]);
   const [limitacionFruto, setLimitacionFruto] = useState([]);
 
-  const usosEspacioPublico = [
-    { value: "No definido", label: "Desconozco" },
-    { value: "parques", label: "Parques" },
-    { value: "plazas", label: "Plazas" },
-    { value: "edificios", label: "Edificios" },
-    { value: "via peatonal", label: "Via Peatonal" },
-    { value: "rotonda", label: "Rotondas" },
-    { value: "otros", label: "Otros" },
-  ]
-  const tasasCrecimiento = [
-    { value: "No definido", label: "Desconozco" },
-    { value: "lenta", label: "Lenta" },
-    { value: "media", label: "Media" },
-    { value: "rapida", label: "Rápida" },
-    { value: "lenta a media", label: "Lenta a media" },
-    { value: "media a rapida", label: "Media a rápida" },
-  ]
-  const longevidadValues = [
-    { value: "No definido", label: "Desconozco" },
-    { value: "corta", label: "De 0 a 35 años" },
-    { value: "media", label: "De 36 a 60 años" },
-    { value: "larga", label: "Mayor a 60 años" },
-    { value: "anual", label: "Anual" },
-    { value: "perenne", label: "Perenne" },
-  ]
-  const persistenciaHojaValues = [
-    { value: "No definido", label: "Desconozco" },
-    { value: "caducifolia", label: "Tendencia a caerse" },
-    { value: "semicaducifolia", label: "Caen por periodos cortos" },
-    { value: "perenne", label: "Perenne" },
-  ]
-  const formaCopaValues = [
-    { value: "No definido", label: "Desconozco" },
-    { value: "columnar", label: "Columnar" },
-    { value: "abanico", label: "Abanico" },
-    { value: "piramidal", label: "Piramidal" },
-    { value: "oval", label: "Oval" },
-    { value: "otros", label: "Otros" },     
-  ]
-  const limitFloralValues = [
-    { value: "alergenico", label: "Alergenicos" },
-    { value: "oloroso", label: "Olor Desagradable" },
-    { value: "movilidad_peatones", label: "Afectan movilidad de peatones" },
-    { value: "movilidad_vehiculos", label: "Afectan movilidad de vehiculos" },
-  ]
-  const limitFrutoValues = [
-    { value: "alergenico", label: "Alergenicos" },
-    { value: "toxico", label: "Toxicos" },
-    { value: "pesado", label: "Pesados" },
-    { value: "masivo", label: "Masivos" },
-    { value: "carnoso", label: "Carnosos" },
-    { value: "espinas", label: "Con espinas" },
-  ]
     
   const onBack = useCallback(() => {
     setStep((value) => value - 1);
@@ -270,9 +206,9 @@ const SiembraModal = () => {
             <div key={index}>
               <label htmlFor={"lugar"+index} className="block text-sm font-medium text-gray-900">{item.label}</label>
               {index === 0 ? (
-                <Select id='lugar0' options={selectBoolean} className='text-sm' onChange={(value) => {if(value!==null) setObstaculos(value.value)}} isClearable={false} isSearchable={false} placeholder="Escoga una opcion" /> 
+                <Select id='lugar0' options={speciesEnums.priorityLevel} className='text-sm' onChange={(value) => {if(value!==null) setObstaculos(value.value)}} isClearable={false} isSearchable={false} placeholder="Escoga una opcion" /> 
               ) : (
-                <Select id={'lugar'+index} options={select} className='text-sm' onChange={(value) => {if(value!=null) item.setState(value.value)}} isClearable={false} isSearchable={false} placeholder="Escoga una opcion" /> 
+                <Select id={'lugar'+index} options={speciesEnums.priorityLevel} className='text-sm' onChange={(value) => {if(value!=null) item.setState(value.value)}} isClearable={false} isSearchable={false} placeholder="Escoga una opcion" /> 
               )}               
             </div>
           ))}         
@@ -336,29 +272,29 @@ const SiembraModal = () => {
         <div className='grid grid-cols-2 sm:grid-cols-3 relative w-full gap-2'>
           <div>
             <label htmlFor="usoEspacioPublico" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Uso del espacio publico</label>
-            <Select id='usoEspacioPublico' options={usosEspacioPublico} className='text-sm' onChange={(value) => {if(value!==null) setUsoEspacioPublico(value.value)}} isClearable={false} isSearchable={false} placeholder="Escoga una opcion" />
+            <Select id='usoEspacioPublico' options={speciesEnums.publicUseValues} className='text-sm' onChange={(value) => {if(value!==null) setUsoEspacioPublico(value.value)}} isClearable={false} isSearchable={false} placeholder="Escoga una opcion" />
           </div>
           <div>
             <label htmlFor="tasaCrecimiento" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tasa de crecimiento</label>
-            <Select id='tasaCrecimiento' options={tasasCrecimiento} className='text-sm' onChange={(value) => {if(value!==null) setTasaCrecimiento(value.value)}} isClearable={false} isSearchable={false} placeholder="Escoga una opcion" />
+            <Select id='tasaCrecimiento' options={speciesEnums.growthRate} className='text-sm' onChange={(value) => {if(value!==null) setTasaCrecimiento(value.value)}} isClearable={false} isSearchable={false} placeholder="Escoga una opcion" />
           </div>
           <div>
             <label htmlFor="longevidad" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Longevidad</label>
-            <Select id='longevidad' options={longevidadValues} className='text-sm' onChange={(value) => {if(value!==null) setLongevidad(value.value)}} isClearable={false} isSearchable={false} placeholder="Escoga una opcion" />
+            <Select id='longevidad' options={speciesEnums.longevity} className='text-sm' onChange={(value) => {if(value!==null) setLongevidad(value.value)}} isClearable={false} isSearchable={false} placeholder="Escoga una opcion" />
           </div>
           <div>
             <label htmlFor="persistenciaHoja" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Persistencia de hoja</label>
-            <Select id='persistenciaHoja' options={persistenciaHojaValues} className='text-sm' onChange={(value) => {if(value!==null) setPersistenciaHoja(value.value)}} isClearable={false} isSearchable={false} placeholder="Escoga una opcion" />
+            <Select id='persistenciaHoja' options={speciesEnums.leafPersistence} className='text-sm' onChange={(value) => {if(value!==null) setPersistenciaHoja(value.value)}} isClearable={false} isSearchable={false} placeholder="Escoga una opcion" />
           </div>
           <div>
             <label htmlFor="formaCopa" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Forma de copa</label>
-            <Select id='formaCopa' options={formaCopaValues} className='text-sm' onChange={(value) => {if(value!==null) setFormaCopa(value.value)}} isClearable={false} isSearchable={false} placeholder="Escoga una opcion" />
+            <Select id='formaCopa' options={speciesEnums.crownShapeValues} className='text-sm' onChange={(value) => {if(value!==null) setFormaCopa(value.value)}} isClearable={false} isSearchable={false} placeholder="Escoga una opcion" />
           </div>
         </div>
         <hr />
         <div className='flex flex-col'>
           <label htmlFor="limitacionFloral" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Limitacion de floracion</label>
-          <Select isMulti id='limitacionFloral' classNamePrefix='select' className='basic-multi-select text-sm' options={limitFloralValues} onChange={(value) => {
+          <Select isMulti id='limitacionFloral' classNamePrefix='select' className='basic-multi-select text-sm' options={speciesEnums.limitFloralValues} onChange={(value) => {
             if(value!==null){
               let data:any = [];
               value.map((item) => {
@@ -370,7 +306,7 @@ const SiembraModal = () => {
         </div>
         <div className='flex flex-col'>
           <label htmlFor="limitacionFrutos" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Limitacion de frutos</label>
-          <Select isMulti id='limitacionFrutos' classNamePrefix='select' className='basic-multi-select text-sm' options={limitFrutoValues} onChange={(value) => {
+          <Select isMulti id='limitacionFrutos' classNamePrefix='select' className='basic-multi-select text-sm' options={speciesEnums.limitFrutoValues} onChange={(value) => {
             if(value!==null){
               let data:any = [];
               value.map((item) => {
