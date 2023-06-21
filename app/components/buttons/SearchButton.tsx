@@ -15,7 +15,7 @@ const SearchButton = () => {
         router.push(url);
     }
     return (
-        <form className="flex items-center" onSubmit={handleSubmit}>   
+        <form className="flex items-center w-full" onSubmit={handleSubmit}>   
             <label htmlFor="simple-search" className="sr-only">Search</label>
             <div className="relative w-full">
                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">

@@ -8,6 +8,7 @@ import getSpecies, {
     ISpeciesParams
 } from "../actions/getSpecies";
 import SearchButton from "../components/buttons/SearchButton";
+import FilterButton from "../components/buttons/FilterButton";
 
 interface EspeciesProps {
     searchParams: ISpeciesParams;
@@ -33,10 +34,7 @@ const Especies = async({searchParams}: EspeciesProps) => {
                     <h1 className="w-full text-lg md:text-lg text-center md:text-left md:mr-2 font-semibold">ESPECIES NATIVAS</h1>
                     <div className="flex flex-row items-center gap-2 w-full">
                         <SearchButton />
-                        <button type="button" className="text-white bg-cyan-700 hover:bg-cyan-800 focus:ring-2 focus:outline-none focus:ring-cyan-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2">
-                            <GoSettings className="w-5 h-5 md:mr-2"/>
-                            <span className="hidden md:flex">Filtrar</span>
-                        </button>                    
+                        <FilterButton />                    
                     </div>
                 </div>
                 <div className="w-[90%] justify-between flex flex-row bg-green-700 text-white items-center px-4 py-2 rounded-b-md">
