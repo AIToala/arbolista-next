@@ -20,7 +20,7 @@ const SidebarC: React.FC<SidebarProps> = ({
         <Sidebar 
         className="sidebar"
         color='!green'
-        style={{ height: '100%' }}
+        style={{ height: '210vh' }}
         
         >
         <Sidebar.Logo
