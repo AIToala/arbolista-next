@@ -12,6 +12,7 @@ import Image from 'next/image'
 import { IconType } from 'react-icons/lib'
 import { BiRightArrowAlt } from 'react-icons/bi'
 import { useRouter } from 'next/navigation'
+import useSiembraModal from '@/app/hooks/useSiembraModal'
 
 type ImageType = {
   src: string,
@@ -31,6 +32,7 @@ type PropType = {
 
 const Carousel: React.FC<PropType> = (props) => {
   const router = useRouter()
+  const siembraModal = useSiembraModal()
   const { options, style, slides } = props
   const [emblaRef, emblaApi] = useEmblaCarousel(options)
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false)
@@ -82,7 +84,9 @@ const Carousel: React.FC<PropType> = (props) => {
                         <hr className='bg-green-700 w-[20%] leading-tight h-2 justify-self-start' />
                         <h1 className='lg:text-[44px] md:text-3xl text-2xl font-bold text-gray-800'>{image.title}</h1>
                         <p className='lg:text-[16px] md:text-md text-md text-gray-700'>{image.description}</p>
-                        <button className='bg-green-700 hover:bg-green-800 w-fit text-white font-bold pl-4 py-2 pr-[20px] rounded-sm' onClick={()=>{router.push(image.url || "/")}}>
+                        <button className='bg-green-700 hover:bg-green-800 w-fit text-white font-bold pl-4 py-2 pr-[20px] rounded-sm' onClick={()=>{
+                          image.url === "sembrar" ? siembraModal.onOpen() :
+                          router.push(image.url || "/")}}>
                         <span>{image.action}</span>
                         {image.icon ? (
                           <image.icon
