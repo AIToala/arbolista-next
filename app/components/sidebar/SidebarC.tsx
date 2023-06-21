@@ -16,11 +16,11 @@ const SidebarC: React.FC<SidebarProps> = ({
 }) => {
     const router = useRouter();
   return (
-    <aside>
+    <aside >
         <Sidebar 
-        style={{ height: '100vh'  }}
         className="sidebar"
         color='!green'
+        style={{ height: '100%' }}
         
         >
         <Sidebar.Logo
