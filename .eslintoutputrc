@@ -1,0 +1,30 @@
+{
+  "files": [
+    "."
+  ],
+  "formats": [
+    {
+      "name": "stylish",
+      "output": "console"
+    },
+    {
+      "name": "junit",
+      "output": "file",
+      "path": "tmp/junit.xml",
+      "id": "myJunit"
+    },
+    {
+      "name": "json",
+      "output": "file",
+      "path": "tmp/report.json",
+      "id": "myJson"
+    },
+    {
+      "name": "html",
+      "output": "file",
+      "path": "tmp/report.html",
+      "id": "myHtml"
+    }
+  ],
+  "eslintConfig": {}
+}

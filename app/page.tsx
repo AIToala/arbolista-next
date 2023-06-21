@@ -1,8 +1,5 @@
 const InitPage = () => {
-    return(
-        <>
-        </>
-    );
-}
+  return <></>;
+};
 
 export default InitPage;

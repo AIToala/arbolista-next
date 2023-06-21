@@ -127,8 +127,14 @@ export const speciesEnums = {
   useCategoryValues: [
     { value: "Alimenticio", label: "Alimenticio" },
     { value: "Aditivo de los alimentos", label: "Aditivo de los alimentos" },
-    { vvalue: "Alimento de animales vertebrados", label: "Alimento de animales vertebrados"},
-    { value: "Alimento de animales invertebrados", label: "Alimento de animales invertebrados"},
+    {
+      vvalue: "Alimento de animales vertebrados",
+      label: "Alimento de animales vertebrados",
+    },
+    {
+      value: "Alimento de animales invertebrados",
+      label: "Alimento de animales invertebrados",
+    },
     { value: "Apícola", label: "Apícola" },
     { value: "Combustibles", label: "Combustibles" },
     { value: "Materiales", label: "Materiales" },
@@ -186,14 +192,14 @@ export const speciesEnums = {
     { value: "Aves frugívoras", label: "Aves frugívoras" },
     { value: "No determinado", label: "No determinado" },
   ],
-  limitFloralValues : [
+  limitFloralValues: [
     { value: "alergenico", label: "Alergenicos" },
     { value: "oloroso", label: "Olor Desagradable" },
     { value: "movilidad_peatones", label: "Afectan movilidad de peatones" },
     { value: "movilidad_vehiculos", label: "Afectan movilidad de vehiculos" },
     { value: "No determinado", label: "No determinado" },
   ],
-  limitFrutoValues : [
+  limitFrutoValues: [
     { value: "alergenico", label: "Alergenicos" },
     { value: "toxico", label: "Toxicos" },
     { value: "pesado", label: "Pesados" },
@@ -202,5 +208,4 @@ export const speciesEnums = {
     { value: "espinas", label: "Con espinas" },
     { value: "No determinado", label: "No determinado" },
   ],
-
 };
