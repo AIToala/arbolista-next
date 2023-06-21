@@ -1,30 +1,30 @@
-import React from 'react'
-import Image from 'next/image'
+import React from "react";
+import Image from "next/image";
 
 type DotButtonPropType = {
-  selected: boolean
-  onClick: () => void
-}
+  selected: boolean;
+  onClick: () => void;
+};
 
 export const DotButton: React.FC<DotButtonPropType> = (props) => {
-  const { selected, onClick } = props
+  const { selected, onClick } = props;
 
   return (
     <button
-      className={'embla__dot'.concat(selected ? ' embla__dot--selected' : '')}
+      className={"embla__dot".concat(selected ? " embla__dot--selected" : "")}
       type="button"
       onClick={onClick}
     />
-  )
-}
+  );
+};
 
 type PrevNextButtonPropType = {
-  enabled: boolean
-  onClick: () => void
-}
+  enabled: boolean;
+  onClick: () => void;
+};
 
 export const PrevButton: React.FC<PrevNextButtonPropType> = (props) => {
-  const { enabled, onClick } = props
+  const { enabled, onClick } = props;
 
   return (
     <button
@@ -39,11 +39,11 @@ export const PrevButton: React.FC<PrevNextButtonPropType> = (props) => {
         />
       </svg>
     </button>
-  )
-}
+  );
+};
 
 export const NextButton: React.FC<PrevNextButtonPropType> = (props) => {
-  const { enabled, onClick } = props
+  const { enabled, onClick } = props;
 
   return (
     <button
@@ -58,23 +58,23 @@ export const NextButton: React.FC<PrevNextButtonPropType> = (props) => {
         />
       </svg>
     </button>
-  )
-}
+  );
+};
 
 type PropType = {
-  selected: boolean
-  imgSrc: string
-  index: number
-  onClick: () => void
-}
+  selected: boolean;
+  imgSrc: string;
+  index: number;
+  onClick: () => void;
+};
 
 export const Thumb: React.FC<PropType> = (props) => {
-  const { selected, imgSrc, index, onClick } = props
+  const { selected, imgSrc, index, onClick } = props;
 
   return (
     <div
-      className={'embla-thumbs__slide'.concat(
-        selected ? ' embla-thumbs__slide--selected' : '',
+      className={"embla-thumbs__slide".concat(
+        selected ? " embla-thumbs__slide--selected" : ""
       )}
     >
       <button
@@ -92,5 +92,5 @@ export const Thumb: React.FC<PropType> = (props) => {
         />
       </button>
     </div>
-  )
-}
+  );
+};

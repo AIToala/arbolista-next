@@ -1,5 +1,5 @@
-'use client';
-import SidebarC from '@/app/components/sidebar/SidebarC';
+"use client";
+import SidebarC from "@/app/components/sidebar/SidebarC";
 
 const DashboardIndexPage = () => {
   return (

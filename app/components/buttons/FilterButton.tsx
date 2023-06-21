@@ -2,9 +2,7 @@
 import { useState } from "react";
 import Select from "react-select";
 import { Dropdown } from "flowbite-react";
-import {
-  speciesEnums,
-} from "@/app/types/index";
+import { speciesEnums } from "@/app/types/index";
 import { DateRange } from "react-date-range";
 
 const FilterButton = () => {
@@ -14,7 +12,7 @@ const FilterButton = () => {
   const limpiar = () => {
     console.log("limpiar");
   };
-  
+
   return (
     <>
       <Dropdown label="Filtro" arrowIcon={false}>
@@ -296,111 +294,111 @@ const FilterButton = () => {
             <h1>Detalles</h1>
             <hr />
             <div className="grid grid-cols-3 gap-2">
-                <div className="col-span-1">
-                    <label className="text-xs">Tipo de Fruta</label>
-                    <Select 
-                        id="fruit_type"
-                        options={speciesEnums.fruitType}
-                        className="text-xs"
-                        placeholder="No determinado"
-                        isClearable={false}
-                        isSearchable={false}
-                        onChange={(value: any) => console.log(value)}
-                    />
-                </div>
-                <div className="col-span-1">
-                    <label className="text-xs">Sistema de Dispersion</label>
-                    <Select 
-                        id="dispersal"
-                        options={speciesEnums.dispersalValues}
-                        className="text-xs"
-                        placeholder="No determinado"
-                        isClearable={false}
-                        isSearchable={false}
-                        onChange={(value: any) => console.log(value)}
-                    />
-                </div>
-                <div className="col-span-1">
-                    <label className="text-xs">Meses de fructificacion</label>
-                    <input 
-                        type="text"
-                        id="fruiting_months"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Meses de fructificacion"
-                    />
-                </div>
-                <div className="col-span-1">
-                    <label className="text-xs">Tipo de Raiz</label>
-                    <Select 
-                        id="rooting_type"
-                        options={speciesEnums.rootingTypes}
-                        className="text-xs"
-                        placeholder="No determinado"
-                        isClearable={false}
-                        isSearchable={false}
-                        onChange={(value: any) => console.log(value)}
-                    />
-                </div>
-                <div className="col-span-1">
-                    <label className="text-xs">Color de flor</label>
-                    <input 
-                        type="text"
-                        id="flower_color"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Color de flor"
-                    />
-                </div>
-                <div className="col-span-1">
-                    <label className="text-xs">Tiempo de florecimiento</label>
-                    <Select 
-                        id="flowering_season"
-                        options={speciesEnums.floweringSeason}
-                        className="text-xs"
-                        placeholder="No determinado"
-                        isClearable={false}
-                        isSearchable={false}
-                        onChange={(value: any) => console.log(value)}
-                    />
-                </div>
-                <div className="col-span-1">
-                    <label className="text-xs">Meses de florecimiento</label>
-                    <input 
-                        type="text"
-                        id="flowering_months"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Meses de florecimiento"
-                    />
-                </div>
-                <div className="col-span-1">
-                    <label className="text-xs">Arreglo de flor</label>
-                    <Select 
-                        id="flower_arrangement"
-                        options={speciesEnums.flowerArrangement}
-                        className="text-xs"
-                        placeholder="No determinado"
-                        isClearable={false}
-                        isSearchable={false}
-                        onChange={(value: any) => console.log(value)}
-                    />
-                </div>
-                <div className="col-span-1">
-                    <label className="text-xs">Polinizacion</label>
-                    <input 
-                        type="text"
-                        id="pollination_system"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Ej: Aves, insectos, etc."
-                    />
-                </div>
-                <div className="col-span-1">
-                    <label className="text-xs">Color de corteza</label>
-                    <input 
-                        type="text"
-                        id="bark_color"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Color de corteza"
-                    />
-                </div>
+              <div className="col-span-1">
+                <label className="text-xs">Tipo de Fruta</label>
+                <Select
+                  id="fruit_type"
+                  options={speciesEnums.fruitType}
+                  className="text-xs"
+                  placeholder="No determinado"
+                  isClearable={false}
+                  isSearchable={false}
+                  onChange={(value: any) => console.log(value)}
+                />
+              </div>
+              <div className="col-span-1">
+                <label className="text-xs">Sistema de Dispersion</label>
+                <Select
+                  id="dispersal"
+                  options={speciesEnums.dispersalValues}
+                  className="text-xs"
+                  placeholder="No determinado"
+                  isClearable={false}
+                  isSearchable={false}
+                  onChange={(value: any) => console.log(value)}
+                />
+              </div>
+              <div className="col-span-1">
+                <label className="text-xs">Meses de fructificacion</label>
+                <input
+                  type="text"
+                  id="fruiting_months"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="Meses de fructificacion"
+                />
+              </div>
+              <div className="col-span-1">
+                <label className="text-xs">Tipo de Raiz</label>
+                <Select
+                  id="rooting_type"
+                  options={speciesEnums.rootingTypes}
+                  className="text-xs"
+                  placeholder="No determinado"
+                  isClearable={false}
+                  isSearchable={false}
+                  onChange={(value: any) => console.log(value)}
+                />
+              </div>
+              <div className="col-span-1">
+                <label className="text-xs">Color de flor</label>
+                <input
+                  type="text"
+                  id="flower_color"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="Color de flor"
+                />
+              </div>
+              <div className="col-span-1">
+                <label className="text-xs">Tiempo de florecimiento</label>
+                <Select
+                  id="flowering_season"
+                  options={speciesEnums.floweringSeason}
+                  className="text-xs"
+                  placeholder="No determinado"
+                  isClearable={false}
+                  isSearchable={false}
+                  onChange={(value: any) => console.log(value)}
+                />
+              </div>
+              <div className="col-span-1">
+                <label className="text-xs">Meses de florecimiento</label>
+                <input
+                  type="text"
+                  id="flowering_months"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="Meses de florecimiento"
+                />
+              </div>
+              <div className="col-span-1">
+                <label className="text-xs">Arreglo de flor</label>
+                <Select
+                  id="flower_arrangement"
+                  options={speciesEnums.flowerArrangement}
+                  className="text-xs"
+                  placeholder="No determinado"
+                  isClearable={false}
+                  isSearchable={false}
+                  onChange={(value: any) => console.log(value)}
+                />
+              </div>
+              <div className="col-span-1">
+                <label className="text-xs">Polinizacion</label>
+                <input
+                  type="text"
+                  id="pollination_system"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="Ej: Aves, insectos, etc."
+                />
+              </div>
+              <div className="col-span-1">
+                <label className="text-xs">Color de corteza</label>
+                <input
+                  type="text"
+                  id="bark_color"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  placeholder="Color de corteza"
+                />
+              </div>
             </div>
           </div>
           <div className="col-span-2 px-4 gap-3 w-full flex flex-row items-center justify-end">
