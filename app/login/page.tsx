@@ -42,16 +42,15 @@ const Login = () => {
             redirect: false,
         })
         .then((callback) => {
+            setIsLoading(false);
             if(callback?.error) {
                 toast.error("Correo y/o contraseña incorrectos");
-            }
-            if (callback?.ok) {
+            } else if (callback?.ok) {
                 toast.success('Inicio de sesión exitos\nBienvenido');
                 router.refresh();
                 window.location.href = '/';
             }
         })
-        .finally(() => setIsLoading(false))
     };
     
     
