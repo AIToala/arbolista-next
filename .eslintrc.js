@@ -9,10 +9,9 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    "plugin:react/recommended",
     "eslint:recommended",
-    "standard-with-typescript",
-    "next",
+    "plugin:react/recommended",
+    "next/core-web-vitals",
     "prettier",
   ],
   overrides: [],
