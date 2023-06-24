@@ -2,6 +2,7 @@ import ClientOnly from "@/app/components/ClientOnly";
 import EmptyState from "@/app/components/EmptyState";
 import getSpeciesByName from "@/app/actions/getSpeciesByName";
 import TabEspeciesInfo from "./TabEspeciesInfo";
+
 interface IParams {
   name: string;
 }
