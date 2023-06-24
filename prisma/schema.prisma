@@ -55,6 +55,8 @@ model Nursery {
 
 model NurserySpecies {
   id        String  @id @default(cuid()) @map("_id")
+  especieHeighy Float
+  especiesAmount Int?
   nurseryId String  @map("nursery_id")
   speciesId String  @map("species_id")
   nursery   Nursery @relation(fields: [nurseryId], references: [id], onDelete: Cascade)
@@ -85,7 +87,8 @@ model Species {
 
 model Taxonomy {
   id           String                @id @default(cuid())
-  family       SpeciesFamilyDetail?
+  family       SpeciesFamilyDetail?  @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  familyId     String?
   genus        String                @default("No determinado")
   tSpecies     String                @default("No determinado")
   subspecies   String?               @default("No determinado")
@@ -100,6 +103,7 @@ model Taxonomy {
   species      Species               @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Taxonomy_species_id_fkey")
+  @@index([familyId], map: "Taxonomy_family_id_fkey")
 }
 
 model SpeciesSynonyms {
@@ -115,9 +119,9 @@ model SpeciesFamilyDetail {
   family      String   @default("No determinado")
   description String?  @db.Text()
   taxonomyId  String   @unique @map("taxonomy_id")
-  taxonomy    Taxonomy @relation(fields: [taxonomyId], references: [id], onDelete: Cascade)
+  taxonomies  Taxonomy[]
 
-  @@index([taxonomyId], map: "familyDetail_taxonomy_id_fkey")
+  @@index([id], map: "familyDetail_id_fkey")
 }
 
 model SpeciesBibliography {
@@ -219,21 +223,12 @@ model Associated_Fauna {
 
 model Ethnobotany {
   id          String               @id @default(cuid())
-  useCategory SpeciesUseCategory[]
+  category    String               @default("No determinado")
+  use_detail  String               @default("No determinado")
   speciesId   String               @unique @map("species_id")
   species     Species              @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Ethnobotany_species_id_fkey")
-}
-
-model SpeciesUseCategory {
-  id            String      @id @default(cuid())
-  category      String      @default("No determinado")
-  use_detail    String      @default("No determinado")
-  ethnobotanyId String      @map("ethnobotany_id")
-  ethnobotany   Ethnobotany @relation(fields: [ethnobotanyId], references: [id], onDelete: Cascade)
-
-  @@index([ethnobotanyId], map: "SpeciesUseCategory_ethnobotany_id_fkey")
 }
 
 model Arboriculture {
