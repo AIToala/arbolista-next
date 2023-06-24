@@ -2,7 +2,6 @@
 const nextConfig = {
   experimental: {
     appDir: true,
-    //serverComponentsExternalPackages: ['bcrypt'],
   },
   images: {
     domains: [
@@ -11,8 +10,10 @@ const nextConfig = {
       "inaturalist-open-data.s3.amazonaws.com",
     ],
   },
+  transpilePackages: ["flowbite-react", "flowbite", "react-icons"],
+
   webpack: (config) => {
-    config.externals = [...config.externals, "bcrypt"];
+    config.externals = [...config.externals, "bcryptjs"];
     return config;
   },
   redirects: async () => {

@@ -4,11 +4,11 @@ import { useRouter } from "next/navigation";
 import Heading from "@/app/components/Heading";
 import Input from "@/app/components/inputs/Input";
 import { signIn, useSession } from "next-auth/react";
-import { useForm, FieldValues, SubmitHandler } from "react-hook-form";
+import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import Button from "@/app/components/buttons/Button";
-import Link from "next/link";
-import { MouseEvent, useState } from "react";
+import Image from "next/image";
+import { useState } from "react";
 
 const Login = () => {
   const router = useRouter();
@@ -26,7 +26,7 @@ const Login = () => {
     },
   });
 
-  if (session?.data?.user?.email) {
+  if (session?.data?.user?.email != null) {
     router.push("/");
     return null;
   }
@@ -40,26 +40,34 @@ const Login = () => {
     signIn("credentials", {
       ...data,
       redirect: false,
-    }).then((callback) => {
-      setIsLoading(false);
-      if (callback?.error) {
+    })
+      .then((callback) => {
+        setIsLoading(false);
+        if (callback?.error != null) {
+          toast.error("Correo y/o contraseña incorrectos");
+        } else if (callback?.ok ?? false) {
+          toast.success("Inicio de sesión exitos\nBienvenido");
+          router.refresh();
+          window.location.href = "/";
+        }
+      })
+      .catch((_err) => {
+        setIsLoading(false);
         toast.error("Correo y/o contraseña incorrectos");
-      } else if (callback?.ok) {
-        toast.success("Inicio de sesión exitos\nBienvenido");
-        router.refresh();
-        window.location.href = "/";
-      }
-    });
+      });
   };
 
   return (
     <div className="w-full my-10 items-center justify-center flex flex-col">
       <div className="text-center mb-8">
         {/* Logo */}
-        <img
+        <Image
           src="/images/logo.svg"
           alt="Arbolista Logo"
           className="h-24 mx-auto mb-4"
+          width={100}
+          height={100}
+          priority
         />
         {/* Heading */}
         <Heading center title="Bienvenido a Arbolista" subtitle="" />
@@ -95,7 +103,9 @@ const Login = () => {
             />
             <Button
               label="Iniciar sesión"
-              onClick={handleSubmit(onSubmit)}
+              onClick={() => {
+                handleSubmit(onSubmit);
+              }}
               disabled={isLoading}
             />
           </div>
@@ -107,7 +117,9 @@ const Login = () => {
           <div className="btn-sm flex justify-center">
             <Button
               label="Continuar como invitado"
-              onClick={() => router.push("/home")}
+              onClick={() => {
+                router.push("/home");
+              }}
               style="bg-white !text-black !py-2 !px-2 !w-[50%]"
             />
           </div>

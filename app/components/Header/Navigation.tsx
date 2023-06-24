@@ -1,5 +1,6 @@
 "use client";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React from "react";
 
 interface NavigationProps {
   orientation?: "horizontal" | "vertical";
@@ -8,6 +9,7 @@ interface NavigationProps {
 const Navigation: React.FC<NavigationProps> = ({
   orientation = "horizontal",
 }) => {
+  const router = useRouter();
   const links = [
     {
       name: "Acerca",
@@ -43,12 +45,14 @@ const Navigation: React.FC<NavigationProps> = ({
                         ${orientation === "vertical" ? "mt-4" : "mt-0"}
                     `}
         >
-          <Link
-            href={link.href}
+          <div
+            onClick={() => {
+              router.push(link.href);
+            }}
             className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-700 md:p-0"
           >
             {link.name}
-          </Link>
+          </div>
         </li>
       ))}
     </>

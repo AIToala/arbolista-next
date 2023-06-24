@@ -1,6 +1,6 @@
 import {
   PrismaClient,
-  Prisma,
+  type Prisma,
   ConservationStatus,
   PriorityLevel,
   LightRequirement,
@@ -2074,7 +2074,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
 
 async function seed() {
   for (const species of speciesData) {
-    const user = await prisma.species.create({
+    await prisma.species.create({
       data: species,
     });
   }

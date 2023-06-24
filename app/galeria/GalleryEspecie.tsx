@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 "use client";
 import Image from "next/image";
 import Link from "next/link";

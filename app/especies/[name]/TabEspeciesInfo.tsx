@@ -1,6 +1,5 @@
 "use client";
 import { Tabs } from "flowbite-react";
-import { useRouter } from "next/navigation";
 import CarouselImages from "@/app/components/carousel/CarouselImages";
 
 interface TabEspeciesInfoProps {
@@ -8,7 +7,6 @@ interface TabEspeciesInfoProps {
 }
 
 const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
-  const router = useRouter();
   const ecology = data[0].ecology;
   const taxonomy = data[0].taxonomy;
   const stalk = data[0].stalk;
@@ -24,37 +22,37 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
   else
     images = [
       {
-        src: data[0].images["presentation_url"],
+        src: data[0].images.presentation_url,
         description: "Presentacion",
         alt: "Presentacion",
       },
       {
-        src: data[0].images["fruit_url"],
+        src: data[0].images.fruit_url,
         description: "Fruta",
         alt: "Fruta",
       },
       {
-        src: data[0].images["leaf_url"],
+        src: data[0].images.leaf_url,
         description: "Hoja",
         alt: "Hoja",
       },
       {
-        src: data[0].images["flower_url"],
+        src: data[0].images.flower_url,
         description: "Flor",
         alt: "Flor",
       },
       {
-        src: data[0].images["detailFlower_url"],
+        src: data[0].images.detailFlower_url,
         description: "Detalle de flor",
         alt: "Detalle de flor",
       },
       {
-        src: data[0].images["bark_url"],
+        src: data[0].images.bark_url,
         description: "Corteza",
         alt: "Corteza",
       },
       {
-        src: data[0].images["seed_url"],
+        src: data[0].images.seed_url,
         description: "Semilla",
         alt: "Semilla",
       },
@@ -84,7 +82,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Familia
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {taxonomy["family"]}
+                      {taxonomy.family}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e3]">
@@ -92,7 +90,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Genero
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {taxonomy["genus"]}
+                      {taxonomy.genus}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e3]">
@@ -100,7 +98,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Especie
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {taxonomy["tSpecies"]}
+                      {taxonomy.tSpecies}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e3]">
@@ -108,7 +106,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Subespecie
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {taxonomy["subSpecies"]}
+                      {taxonomy.subSpecies}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e3]">
@@ -116,7 +114,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Variedad
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {taxonomy["variety"]}
+                      {taxonomy.variety}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e3]">
@@ -124,7 +122,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Nombres comunes
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {taxonomy["common_names"]}
+                      {taxonomy.common_names}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e3]">
@@ -132,7 +130,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Autores
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {taxonomy["author"]}
+                      {taxonomy.author}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e3]">
@@ -140,7 +138,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Sinonimos
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {taxonomy["synonyms"]}
+                      {taxonomy.synonyms}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e3]">
@@ -148,7 +146,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Etimologia
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {taxonomy["etymology"]}
+                      {taxonomy.etymology}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e3]">
@@ -156,7 +154,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Habito de crecimiento
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {taxonomy["growth_habit"]}
+                      {taxonomy.growth_habit}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e3]">
@@ -164,7 +162,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Bibliografia
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {taxonomy["bibliography"]}
+                      {taxonomy.bibliography}
                     </td>
                   </tr>
                 </tbody>
@@ -183,11 +181,11 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
               <table className=" w-[80%] overflow-x-auto shadow-md border-[#e8e6e2] border p-4">
                 <tbody className="">
                   <tr className="border-b border-b-[#e8e6e2]">
-                    <td className="w-[40%] w-[40%] text-green-600 font-semibold uppercase p-6">
+                    <td className="w-[40%] text-green-600 font-semibold uppercase p-6">
                       Color
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {flower["flower_color"]}
+                      {flower.flower_color}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -195,7 +193,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Arreglo de la flor
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {flower["flower_arrangement"]}
+                      {flower.flower_arrangement}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -203,7 +201,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Temporada de florecimiento
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {flower["flowering_season"]}
+                      {flower.flowering_season}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -211,7 +209,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Meses de florecimiento
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {flower["flowering_months"]}
+                      {flower.flowering_months}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -219,7 +217,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Sistema de polinizacion
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {flower["pollination_system"]}
+                      {flower.pollination_system}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -227,7 +225,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Atributos florales
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {flower["floral_attributes"]}
+                      {flower.floral_attributes}
                     </td>
                   </tr>
                 </tbody>
@@ -246,7 +244,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Tipo de fruto
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {seeds["fruitType"]}
+                      {seeds.fruitType}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -254,7 +252,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Meses de fructificacion
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {seeds["fruiting_months"]}
+                      {seeds.fruiting_months}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -262,7 +260,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Atributos frutales
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {seeds["fruit_attributes"]}
+                      {seeds.fruit_attributes}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -270,7 +268,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Atributos de semilla
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {seeds["seed_attributes"]}
+                      {seeds.seed_attributes}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -278,7 +276,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Sistema de dispersion de semillas
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {seeds["dispersal_system"]}
+                      {seeds.dispersal_system}
                     </td>
                   </tr>
                 </tbody>
@@ -297,7 +295,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Composicion de hoja
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {leaf["leaf_composition"]}
+                      {leaf.leaf_composition}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -305,7 +303,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Posicionamiento de Hoja de tallo{" "}
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {leaf["stemLeaf_position"]}
+                      {leaf.stemLeaf_position}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -313,7 +311,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Persistencia de hoja
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {leaf["leaf_persistence"]}
+                      {leaf.leaf_persistence}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -321,7 +319,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Atributos de hoja
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {leaf["leaf_attributes"]}
+                      {leaf.leaf_attributes}
                     </td>
                   </tr>
                 </tbody>
@@ -340,7 +338,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Forma de reproduccion
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {root["reproduction_form"]}
+                      {root.reproduction_form}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -348,7 +346,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Tipo de enraizamiento
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {root["rooting_type"]}
+                      {root.rooting_type}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -356,7 +354,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Atributos de raiz
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {root["root_attributes"]}
+                      {root.root_attributes}
                     </td>
                   </tr>
                 </tbody>
@@ -375,7 +373,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Color de corteza
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {stalk["barkColor"]}
+                      {stalk.barkColor}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -383,7 +381,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Atributos de corteza
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {stalk["bark_attributes"]}
+                      {stalk.bark_attributes}
                     </td>
                   </tr>
                 </tbody>
@@ -403,7 +401,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Categorias de uso
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {ecology["use_category"]}
+                      {ecology.use_category}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -411,7 +409,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Detalles de uso
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {ecology["use_detail"]}
+                      {ecology.use_detail}
                     </td>
                   </tr>
                 </tbody>
@@ -431,7 +429,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Rango altitudinal
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {ethnobotany["altitudinal_range"]}
+                      {ethnobotany.altitudinal_range}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -439,7 +437,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Distribucion geografica
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {ethnobotany["geo_distribution"]}
+                      {ethnobotany.geo_distribution}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -447,7 +445,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Origen
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {ethnobotany["origin"]}
+                      {ethnobotany.origin}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -455,7 +453,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Estado de conservacion
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {ethnobotany["conservation_status"]}
+                      {ethnobotany.conservation_status}
                     </td>
                   </tr>
                 </tbody>
@@ -475,7 +473,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Usos en espacio publico
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture["public_spaceUse"]}
+                      {arboriculture.public_spaceUse}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -483,7 +481,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Limitaciones florales
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture["flower_limitations"]}
+                      {arboriculture.flower_limitations}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -491,7 +489,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Limitaciones frutas
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture["fruit_limitations"]}
+                      {arboriculture.fruit_limitations}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -499,7 +497,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Longevidad
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture["longevity"]}
+                      {arboriculture.longevity}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -507,7 +505,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Plagas y enfermedades
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture["pests_diseases"]}
+                      {arboriculture.pests_diseases}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -515,7 +513,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Atraccion a animales
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture["fauna_attraction"]}
+                      {arboriculture.fauna_attraction}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -523,7 +521,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Requerimientos de luz
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture["light_requirements"]}
+                      {arboriculture.light_requirements}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -531,7 +529,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Tasa de crecimiento
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture["growth_rate"]}
+                      {arboriculture.growth_rate}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -539,7 +537,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Altura maxima
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture["maximum_height"]}
+                      {arboriculture.maximum_height}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -547,7 +545,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Ancho de la copa
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture["crown_width"]}
+                      {arboriculture.crown_width}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -555,7 +553,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Forma de la copa
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture["crown_shape"]}
+                      {arboriculture.crown_shape}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -563,7 +561,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       DAP
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture["DAP"]}
+                      {arboriculture.DAP}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -571,7 +569,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Densidad de foliaje
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture["foliage_density"]}
+                      {arboriculture.foliage_density}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -579,7 +577,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Tipo de suelo
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture["soil_type"]}
+                      {arboriculture.soil_type}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -587,7 +585,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Humedad
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture["humidity_zone"]}
+                      {arboriculture.humidity_zone}
                     </td>
                   </tr>
                 </tbody>

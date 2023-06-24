@@ -1,16 +1,18 @@
 "use client";
+
+import React from "react";
 import { Sidebar } from "flowbite-react";
 import { RiPlantFill, RiHome2Fill } from "react-icons/ri";
 import { GiPlantsAndAnimals } from "react-icons/gi";
 import { FaUserAlt } from "react-icons/fa";
-import { SafeUser } from "@/app/types";
+import type { SafeUser } from "@/app/types";
 import { useRouter } from "next/navigation";
-import "app/globals.css";
 
 interface SidebarProps {
   currentUser?: SafeUser | null;
 }
 
+// eslint-disable-next-line no-unused-vars
 const SidebarC: React.FC<SidebarProps> = ({ currentUser }) => {
   const router = useRouter();
   return (

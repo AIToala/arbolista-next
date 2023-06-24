@@ -1,5 +1,6 @@
-import { User, Species } from "@prisma/client";
 import {
+  type User,
+  type Species,
   ConservationStatus,
   RootingTypes,
   FlowerArrangement,
@@ -23,7 +24,7 @@ export type SafeUser = Omit<User, "createdAt" | "updatedAt" | "email"> & {
 
 export type SafeSpecies = Omit<Species, "createdAt" | "updatedAt"> & {
   taxonomy: true;
-  images: {
+  images: Array<{
     presentation_url: true;
     fruit_url: true;
     leaf_url: true;
@@ -31,7 +32,7 @@ export type SafeSpecies = Omit<Species, "createdAt" | "updatedAt"> & {
     detailFlower_url: true;
     bark_url: true;
     seed_url: true;
-  }[];
+  }>;
   arboriculture: true;
   ecology: true;
   ethnobotany: true;

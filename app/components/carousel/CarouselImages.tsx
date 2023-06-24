@@ -1,20 +1,27 @@
 import React, { useState, useEffect, useCallback } from "react";
-import useEmblaCarousel, { EmblaOptionsType } from "embla-carousel-react";
+import useEmblaCarousel, { type EmblaOptionsType } from "embla-carousel-react";
 import { Thumb } from "./CarouselButtons";
+import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 
-type PropType = {
+interface PropType {
   slides: ImageType[];
   options?: EmblaOptionsType;
   style?: string;
-};
-type ImageType = {
+}
+interface ImageType {
   src: string;
   alt: string;
   description: string;
+}
+const autoplayOptions = {
+  delay: 6000,
+  rootNode: (emblaRoot: { parentElement: any }) => emblaRoot.parentElement,
 };
-
 const CarouselImages: React.FC<PropType> = (props) => {
+  if (props.style === undefined) {
+    props.style = "";
+  }
   const { slides, options, style } = props;
   let images = [];
   if (slides === null) {
@@ -59,7 +66,9 @@ const CarouselImages: React.FC<PropType> = (props) => {
     images = slides;
   }
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
+  const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options, [
+    Autoplay(autoplayOptions),
+  ]);
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
     containScroll: "keepSnaps",
     dragFree: true,
@@ -67,20 +76,20 @@ const CarouselImages: React.FC<PropType> = (props) => {
 
   const onThumbClick = useCallback(
     (index: number) => {
-      if (!emblaMainApi || !emblaThumbsApi) return;
+      if (emblaMainApi == null || emblaThumbsApi == null) return;
       emblaMainApi.scrollTo(index);
     },
     [emblaMainApi, emblaThumbsApi]
   );
 
   const onSelect = useCallback(() => {
-    if (!emblaMainApi || !emblaThumbsApi) return;
+    if (emblaMainApi == null || emblaThumbsApi == null) return;
     setSelectedIndex(emblaMainApi.selectedScrollSnap());
     emblaThumbsApi.scrollTo(emblaMainApi.selectedScrollSnap());
   }, [emblaMainApi, emblaThumbsApi, setSelectedIndex]);
 
   useEffect(() => {
-    if (!emblaMainApi) return;
+    if (emblaMainApi == null) return;
     onSelect();
     emblaMainApi.on("select", onSelect);
     emblaMainApi.on("reInit", onSelect);
@@ -104,7 +113,7 @@ const CarouselImages: React.FC<PropType> = (props) => {
                   src={
                     image.src === "No determinado"
                       ? "/images/logo.svg"
-                      : image.src || "/images/logo.svg"
+                      : image.src ?? "/images/logo.svg"
                   }
                   fill
                   alt="image.description"
@@ -120,13 +129,15 @@ const CarouselImages: React.FC<PropType> = (props) => {
             <div className="embla-thumbs__container">
               {images.map((image, index) => (
                 <Thumb
-                  onClick={() => onThumbClick(index)}
+                  onClick={() => {
+                    onThumbClick(index);
+                  }}
                   selected={index === selectedIndex}
                   index={index}
                   imgSrc={
                     image.src === "No determinado"
                       ? "/images/logo.svg"
-                      : image.src || "/images/logo.svg"
+                      : image.src ?? "/images/logo.svg"
                   }
                   key={index}
                 />

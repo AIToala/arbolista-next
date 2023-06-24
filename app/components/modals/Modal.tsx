@@ -26,7 +26,7 @@ const Modal: React.FC<ModalProps> = ({
   body,
   actionLabel,
   footer,
-  disabled,
+  disabled = false,
   secondaryAction,
   secondaryActionLabel,
 }) => {
@@ -56,14 +56,14 @@ const Modal: React.FC<ModalProps> = ({
   }, [onSubmit, disabled]);
 
   const handleSecondaryAction = useCallback(() => {
-    if (disabled || !secondaryAction) {
+    if (disabled || secondaryAction == null) {
       return;
     }
 
     secondaryAction();
   }, [secondaryAction, disabled]);
 
-  if (!isOpen) {
+  if (!(isOpen ?? false)) {
     return null;
   }
 
@@ -98,14 +98,13 @@ const Modal: React.FC<ModalProps> = ({
           md:h-auto
           "
         >
-          {/*content*/}
           <div
             className={`
             translate
             duration-300
             h-full
-            ${showModal ? "translate-y-0" : "translate-y-full"}
-            ${showModal ? "opacity-100" : "opacity-0"}
+            ${showModal ?? false ? "translate-y-0" : "translate-y-full"}
+            ${showModal ?? false ? "opacity-100" : "opacity-0"}
           `}
           >
             <div
@@ -126,7 +125,6 @@ const Modal: React.FC<ModalProps> = ({
               focus:outline-none
             "
             >
-              {/*header*/}
               <div
                 className="
                 flex 
@@ -153,9 +151,7 @@ const Modal: React.FC<ModalProps> = ({
                 </button>
                 <div className="text-lg font-semibold">{title}</div>
               </div>
-              {/*body*/}
               <div className="relative p-6 flex-auto">{body}</div>
-              {/*footer*/}
               <div className="flex flex-col gap-2 p-6">
                 <div
                   className="
@@ -166,7 +162,7 @@ const Modal: React.FC<ModalProps> = ({
                     w-full
                   "
                 >
-                  {secondaryAction && secondaryActionLabel && (
+                  {secondaryAction != null && secondaryActionLabel != null && (
                     <Button
                       disabled={disabled}
                       label={secondaryActionLabel}

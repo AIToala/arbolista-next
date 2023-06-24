@@ -1,7 +1,8 @@
 "use client";
 
+import React from "react";
 import Logo from "../Logo";
-import { SafeUser } from "@/app/types";
+import { type SafeUser } from "@/app/types";
 import { GiSeedling } from "react-icons/gi";
 import Navigation from "./Navigation";
 import Image from "next/image";
@@ -34,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
               <span className="hidden md:flex">Sembremos</span>
             </button>
           </div>
-          {currentUser ? (
+          {currentUser != null ? (
             <>
               <button
                 type="button"
@@ -68,7 +69,10 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
                 <UserNavigationItems currentUser={currentUser} />
                 <div className="">
                   <button
-                    onClick={() => signOut()}
+                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                    onClick={async () => {
+                      await signOut();
+                    }}
                     className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                   >
                     Cerrar sesión

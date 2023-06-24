@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 "use client";
 import { FaList } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
@@ -37,14 +38,16 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({ data }) => {
                 >
                   <td className="w-32 p-4">
                     <div
-                      onClick={() => router.push(`/especies/${result.name}`)}
+                      onClick={() => {
+                        router.push(`/especies/${result.name}`);
+                      }}
                       className="cursor-pointer"
                     >
                       <Image
                         src={
                           result.images.presentation_url === "No determinado"
                             ? "images/logo.svg"
-                            : result.images.presentation_url ||
+                            : result.images.presentation_url ??
                               "images/logo.svg"
                         }
                         alt={result.name}
@@ -56,7 +59,9 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({ data }) => {
                   </td>
                   <td className="text-gray-900 font-semibold px-6 py-4">
                     <div
-                      onClick={() => router.push(`/especies/${result.name}`)}
+                      onClick={() => {
+                        router.push(`/especies/${result.name}`);
+                      }}
                       className="cursor-pointer"
                     >
                       {result.name}
@@ -96,7 +101,7 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({ data }) => {
                       src={
                         result.images.presentation_url === "No determinado"
                           ? "images/logo.svg"
-                          : result.images.presentation_url || "images/logo.svg"
+                          : result.images.presentation_url ?? "images/logo.svg"
                       }
                     />
                   </div>

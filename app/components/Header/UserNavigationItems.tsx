@@ -1,6 +1,7 @@
 "use client";
 
-import { SafeUser } from "@/app/types";
+import React from "react";
+import { type SafeUser } from "@/app/types";
 import Link from "next/link";
 
 interface UserNavigationItemsProps {

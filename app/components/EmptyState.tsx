@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
+import React from "react";
 import Button from "./buttons/Button";
 import Heading from "./Heading";
 
@@ -35,11 +36,13 @@ const EmptyState: React.FC<EmptyStateProps> = ({
     >
       <Heading center title={title} subtitle={subtitle} />
       <div className="w-48 mt-4">
-        {showReset && (
+        {(showReset ?? false) && (
           <Button
             outline
             label={actionLabel}
-            onClick={() => router.push(urlAction)}
+            onClick={() => {
+              router.push(urlAction);
+            }}
           />
         )}
       </div>

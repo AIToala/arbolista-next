@@ -1,16 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect, useCallback } from "react";
 import useEmblaCarousel, {
-  EmblaCarouselType,
-  EmblaOptionsType,
+  type EmblaCarouselType,
+  type EmblaOptionsType,
 } from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import { DotButton, PrevButton, NextButton } from "./CarouselButtons";
 import Image from "next/image";
-import { IconType } from "react-icons/lib";
+import { type IconType } from "react-icons/lib";
 import { BiRightArrowAlt } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import useSiembraModal from "@/app/hooks/useSiembraModal";
 
-type ImageType = {
+interface ImageType {
   src: string;
   alt: string;
   title?: string;
@@ -18,34 +20,43 @@ type ImageType = {
   url?: string;
   action?: string;
   icon?: IconType;
-};
+}
 
-type PropType = {
+interface PropType {
   options?: EmblaOptionsType;
   slides: ImageType[];
   style?: string;
+}
+const autoplayOptions = {
+  delay: 6000,
+  rootNode: (emblaRoot: { parentElement: any }) => emblaRoot.parentElement,
 };
 
 const Carousel: React.FC<PropType> = (props) => {
   const router = useRouter();
   const siembraModal = useSiembraModal();
+  if (props.style === undefined) {
+    props.style = "";
+  }
   const { options, style, slides } = props;
-  const [emblaRef, emblaApi] = useEmblaCarousel(options);
+  const [emblaRef, emblaApi] = useEmblaCarousel(options, [
+    Autoplay(autoplayOptions),
+  ]);
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
-  const scrollPrev = useCallback(
-    () => emblaApi && emblaApi.scrollPrev(),
-    [emblaApi]
-  );
-  const scrollNext = useCallback(
-    () => emblaApi && emblaApi.scrollNext(),
-    [emblaApi]
-  );
+  const scrollPrev = useCallback(() => {
+    emblaApi?.scrollPrev();
+  }, [emblaApi]);
+  const scrollNext = useCallback(() => {
+    emblaApi?.scrollNext();
+  }, [emblaApi]);
   const scrollTo = useCallback(
-    (index: number) => emblaApi && emblaApi.scrollTo(index),
+    (index: number) => {
+      emblaApi?.scrollTo(index);
+    },
     [emblaApi]
   );
 
@@ -60,7 +71,7 @@ const Carousel: React.FC<PropType> = (props) => {
   }, []);
 
   useEffect(() => {
-    if (!emblaApi) return;
+    if (emblaApi == null) return;
 
     onInit(emblaApi);
     onSelect(emblaApi);
@@ -92,11 +103,11 @@ const Carousel: React.FC<PropType> = (props) => {
                     onClick={() => {
                       image.url === "sembrar"
                         ? siembraModal.onOpen()
-                        : router.push(image.url || "/");
+                        : router.push(image.url ?? "/");
                     }}
                   >
                     <span>{image.action}</span>
-                    {image.icon ? (
+                    {image.icon != null ? (
                       <image.icon size={24} className="inline-block ml-2" />
                     ) : (
                       <BiRightArrowAlt
@@ -109,9 +120,9 @@ const Carousel: React.FC<PropType> = (props) => {
                 <Image
                   className="brightness-50"
                   src={
-                    image.src === "No definido"
+                    image.src === "No determinado"
                       ? "/images/logo.svg"
-                      : image.src || "/images/logo.svg"
+                      : image.src ?? "/images/logo.svg"
                   }
                   alt={image.alt}
                   fill
@@ -122,6 +133,8 @@ const Carousel: React.FC<PropType> = (props) => {
             ))}
           </div>
         </div>
+        <PrevButton onClick={scrollPrev} enabled={false} />
+        <NextButton onClick={scrollNext} enabled={false} />
       </div>
 
       <div className="embla__dots">
@@ -129,7 +142,9 @@ const Carousel: React.FC<PropType> = (props) => {
           <DotButton
             key={index}
             selected={index === selectedIndex}
-            onClick={() => scrollTo(index)}
+            onClick={() => {
+              scrollTo(index);
+            }}
           />
         ))}
       </div>

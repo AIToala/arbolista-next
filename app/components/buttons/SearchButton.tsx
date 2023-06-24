@@ -1,13 +1,12 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const SearchButton = () => {
-  const params = useSearchParams();
   const router = useRouter();
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const search = e.target[0].value;
-    const query = search;
+    const query: string = search;
     const url =
       "/especies?name=" + query + "&family=" + query + "&common_name=" + query;
     console.log(query);

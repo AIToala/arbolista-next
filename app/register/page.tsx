@@ -1,7 +1,7 @@
 "use client";
 
 import axios from "axios";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Input from "@/app/components/inputs/Input";
@@ -31,7 +31,7 @@ const Register = () => {
           "Registro exitoso. Te contactaremos pronto para habilitar tu cuenta."
         );
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error("Ocurrió un error al registrarse");
       })
       .finally(() => {
@@ -75,7 +75,12 @@ const Register = () => {
             errors={errors}
             required
           />
-          <Button label="Registrar cuenta" onClick={handleSubmit(onSubmit)} />
+          <Button
+            label="Registrar cuenta"
+            onClick={() => {
+              handleSubmit(onSubmit);
+            }}
+          />
         </div>
         <div className="flex flex-col gap-4 mt-3">
           <div className="text-neutral-500 text-center mt-4 font-light">

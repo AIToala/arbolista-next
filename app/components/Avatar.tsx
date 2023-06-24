@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { CgProfile } from "react-icons/cg";
 
 interface AvatarProps {
@@ -8,7 +9,7 @@ interface AvatarProps {
 const Avatar: React.FC<AvatarProps> = ({ name }) => {
   return (
     <>
-      {name ? (
+      {name != null ? (
         <div className="text-semibold capitalize">{name}</div>
       ) : (
         <CgProfile size={25} />

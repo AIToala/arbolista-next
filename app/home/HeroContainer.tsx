@@ -1,11 +1,7 @@
 "use client";
 import Carousel from "../components/carousel/Carousel";
-import { useRouter } from "next/navigation";
-import useSiembraModal from "../hooks/useSiembraModal";
 
 const HeroContainer = () => {
-  const router = useRouter();
-  const siembraModal = useSiembraModal();
   const images = [
     {
       src: "/images/slides/slide2.jpg",

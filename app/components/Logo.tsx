@@ -1,7 +1,8 @@
 "use client";
 
+import React from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface LogoProps {
   height?: number;
@@ -12,23 +13,25 @@ interface LogoProps {
 }
 
 const Logo: React.FC<LogoProps> = ({
-  height,
-  width,
-  src,
+  height = 75,
+  width = 75,
+  src = "/images/logo-text.svg",
   alt = "Logo",
-  className,
+  className = "",
 }) => {
+  const router = useRouter();
   return (
-    <Link href={"/"}>
-      <Image
-        alt={alt}
-        priority
-        className={"cursor-pointer " + className}
-        height={height || 75}
-        width={width || 75}
-        src={src || "/images/logo-text.svg"}
-      />
-    </Link>
+    <Image
+      alt={alt}
+      priority
+      className={"cursor-pointer " + className}
+      height={height}
+      width={width}
+      src={src}
+      onClick={() => {
+        router.push("/");
+      }}
+    />
   );
 };
 

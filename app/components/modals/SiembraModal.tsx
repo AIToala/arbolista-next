@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 "use client";
 
 import qs from "query-string";
@@ -27,7 +29,6 @@ const SiembraModal = () => {
 
   const [step, setStep] = useState(STEPS.INTRO);
 
-  //Especie
   const [hasSombra, setSombra] = useState(false);
   const [isOrnamental, setOrnamental] = useState(false);
   const [isSeto, setSeto] = useState(false);
@@ -44,28 +45,18 @@ const SiembraModal = () => {
   const [isCerco, setCerco] = useState(false);
   const [isPolinizador, setPolinizador] = useState(false);
 
-  //Lugar
   const [hasObstaculos, setObstaculos] = useState("No definido");
   const [disponibilidadAgua, setDisponibilidadAgua] = useState("No definido");
   const [disponibilidadSuelo, setDisponibilidadSuelo] = useState("No definido");
   const [presenciaLuz, setPresenciaLuz] = useState("No definido");
   const [presenciaAnimales, setPresenciaAnimales] = useState("No definido");
 
-  const paramsLugar = {
-    hasObstaculos,
-    disponibilidadAgua,
-    disponibilidadSuelo,
-    presenciaLuz,
-    presenciaAnimales,
-  };
-  //Espacio
   const [anchoSembrado, setAnchoSembrado] = useState(0.0);
   const [largoSembrado, setLargoSembrado] = useState(0.0);
   const [distanciaTendido, setDistanciaTendido] = useState(0.0);
   const [alturaTendido, setAlturaTendido] = useState(0.0);
   const [distanciaEstructuras, setDistanciaEstructuras] = useState(0.0);
 
-  //Limites
   const [usoEspacioPublico, setUsoEspacioPublico] = useState("No definido");
   const [tasaCrecimiento, setTasaCrecimiento] = useState("No definido");
   const [longevidad, setLongevidad] = useState("No definido");
@@ -84,11 +75,13 @@ const SiembraModal = () => {
 
   const onSubmit = useCallback(async () => {
     if (step !== STEPS.LIMITES) {
-      return onNext();
+      onNext();
+      return;
     }
 
     let currentQuery = {};
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (params) {
       currentQuery = qs.parse(params.toString());
     }
@@ -126,7 +119,6 @@ const SiembraModal = () => {
     return "Regresar";
   }, [step]);
 
-  //Intro
   let bodyContent = (
     <div className="flex flex-col gap-8 justify-center">
       <div className="flex flex-row gap-4 justify-between items-center">
@@ -259,7 +251,7 @@ const SiembraModal = () => {
           {selectLugar.map((item, index) => (
             <div key={index}>
               <label
-                htmlFor={"lugar" + index}
+                htmlFor={"lugar" + index.toString()}
                 className="block text-sm font-medium text-gray-900"
               >
                 {item.label}
@@ -278,7 +270,7 @@ const SiembraModal = () => {
                 />
               ) : (
                 <Select
-                  id={"lugar" + index}
+                  id={"lugar" + index.toString()}
                   options={speciesEnums.priorityLevel}
                   className="text-sm"
                   onChange={(value) => {
@@ -330,9 +322,9 @@ const SiembraModal = () => {
               placeholder="0.00"
               min="0"
               step="0.01"
-              onChange={(value) =>
-                setAnchoSembrado(parseFloat(value.target.value))
-              }
+              onChange={(value) => {
+                setAnchoSembrado(parseFloat(value.target.value));
+              }}
             />
           </div>
           <div>
@@ -350,9 +342,9 @@ const SiembraModal = () => {
               placeholder="0.00"
               min="0"
               step="0.01"
-              onChange={(value) =>
-                setLargoSembrado(parseFloat(value.target.value))
-              }
+              onChange={(value) => {
+                setLargoSembrado(parseFloat(value.target.value));
+              }}
             />
           </div>
           <div>
@@ -370,9 +362,9 @@ const SiembraModal = () => {
               placeholder="0.00"
               min="0"
               step="0.01"
-              onChange={(value) =>
-                setDistanciaTendido(parseFloat(value.target.value))
-              }
+              onChange={(value) => {
+                setDistanciaTendido(parseFloat(value.target.value));
+              }}
             />
           </div>
           <div>
@@ -390,9 +382,9 @@ const SiembraModal = () => {
               placeholder="0.00"
               min="0"
               step="0.01"
-              onChange={(value) =>
-                setAlturaTendido(parseFloat(value.target.value))
-              }
+              onChange={(value) => {
+                setAlturaTendido(parseFloat(value.target.value));
+              }}
             />
           </div>
           <div>
@@ -410,9 +402,9 @@ const SiembraModal = () => {
               placeholder="0.00"
               min="0"
               step="0.01"
-              onChange={(value) =>
-                setDistanciaEstructuras(parseFloat(value.target.value))
-              }
+              onChange={(value) => {
+                setDistanciaEstructuras(parseFloat(value.target.value));
+              }}
             />
           </div>
         </div>
@@ -549,9 +541,10 @@ const SiembraModal = () => {
             options={speciesEnums.limitFloralValues}
             onChange={(value) => {
               if (value !== null) {
-                let data: any = [];
+                const data: any = [];
                 value.map((item) => {
                   data.push(item.value);
+                  return item;
                 });
                 setLimitacionFloral(data);
               }
@@ -576,9 +569,10 @@ const SiembraModal = () => {
             options={speciesEnums.limitFrutoValues}
             onChange={(value) => {
               if (value !== null) {
-                let data: any = [];
+                const data: any = [];
                 value.map((item) => {
                   data.push(item.value);
+                  return item;
                 });
                 setLimitacionFruto(data);
               }
@@ -595,8 +589,11 @@ const SiembraModal = () => {
   return (
     <Modal
       isOpen={siembraModal.isOpen}
-      title={"SiembraGYQ" + (step === 0 ? "" : " - " + step + " de 4")}
+      title={
+        "SiembraGYQ" + (step === 0 ? "" : " - " + step.toString() + " de 4")
+      }
       actionLabel={actionLabel}
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onSubmit={onSubmit}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step === STEPS.ESPECIE ? undefined : onBack}

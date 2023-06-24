@@ -8,7 +8,7 @@ interface IParams {
 
 const EspeciePage = async ({ params }: { params: IParams }) => {
   const species = await getSpeciesByName(params);
-  if (!species) {
+  if (species == null) {
     return (
       <ClientOnly>
         <EmptyState

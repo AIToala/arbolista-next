@@ -1,4 +1,4 @@
-import { IconType } from "react-icons";
+import { type IconType } from "react-icons";
 
 interface ButtonProps {
   label?: string;
@@ -12,11 +12,11 @@ interface ButtonProps {
 }
 
 const Button: React.FC<ButtonProps> = ({
-  label,
+  label = "Boton",
   onClick,
-  disabled,
-  outline,
-  small,
+  disabled = false,
+  outline = false,
+  small = false,
   icon: Icon,
   iconSize = 24,
   style = "",
@@ -44,7 +44,7 @@ const Button: React.FC<ButtonProps> = ({
       ` + style
       }
     >
-      {Icon && (
+      {Icon != null && (
         <Icon
           size={iconSize}
           className={`

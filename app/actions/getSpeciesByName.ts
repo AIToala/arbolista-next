@@ -27,10 +27,10 @@ export default async function getSpeciesByName(params: IParams) {
         updatedAt: true,
       },
       where: {
-        name: name,
+        name,
       },
     });
-    if (!species) return null;
+    if (species == null) return null;
     const safeSpecies = species.map((specie) => ({
       ...specie,
       createdAt: specie.createdAt.toISOString(),

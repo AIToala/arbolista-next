@@ -11,6 +11,7 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:react/recommended",
+    "standard-with-typescript",
     "next/core-web-vitals",
     "prettier",
   ],
@@ -21,5 +22,7 @@ module.exports = {
     project: "./tsconfig.json",
   },
   plugins: ["react"],
-  rules: {},
+  rules: {
+    "@typescript-eslint/explicit-function-return-type": "off",
+  },
 };

@@ -1,9 +1,7 @@
 "use client";
-import { useState } from "react";
 import Select from "react-select";
 import { Dropdown } from "flowbite-react";
 import { speciesEnums } from "@/app/types/index";
-import { DateRange } from "react-date-range";
 
 const FilterButton = () => {
   const filtrar = () => {
@@ -75,7 +73,9 @@ const FilterButton = () => {
                   isClearable={false}
                   isSearchable={false}
                   options={speciesEnums.growth_habit}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
             </div>
@@ -93,7 +93,9 @@ const FilterButton = () => {
                   placeholder="No determinado"
                   isClearable={false}
                   isSearchable={false}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
               <div className="col-span-1">
@@ -105,7 +107,9 @@ const FilterButton = () => {
                   placeholder="Nativo"
                   isClearable={false}
                   isSearchable={false}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
               <div className="col-span-1">
@@ -117,7 +121,9 @@ const FilterButton = () => {
                   placeholder="NE"
                   isClearable={false}
                   isSearchable={false}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
               <div className="col-span-1">
@@ -129,7 +135,9 @@ const FilterButton = () => {
                   placeholder="No determinado"
                   isClearable={false}
                   isSearchable={false}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
               <div className="col-span-1">
@@ -156,12 +164,7 @@ const FilterButton = () => {
                   className="basic-multi-select text-xs"
                   options={speciesEnums.useCategoryValues}
                   onChange={(value) => {
-                    if (value !== null) {
-                      let data: any = [];
-                      value.map((item) => {
-                        data.push(item.value);
-                      });
-                    }
+                    console.log(value);
                   }}
                   isClearable={false}
                   isSearchable={false}
@@ -177,12 +180,7 @@ const FilterButton = () => {
                   className="basic-multi-select text-xs"
                   options={speciesEnums.publicUseValues}
                   onChange={(value) => {
-                    if (value !== null) {
-                      let data: any = [];
-                      value.map((item) => {
-                        data.push(item.value);
-                      });
-                    }
+                    console.log(value);
                   }}
                   isClearable={false}
                   isSearchable={false}
@@ -225,7 +223,9 @@ const FilterButton = () => {
                   placeholder="No determinado"
                   isClearable={false}
                   isSearchable={false}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
               <div className="col-span-1">
@@ -237,7 +237,9 @@ const FilterButton = () => {
                   placeholder="No determinado"
                   isClearable={false}
                   isSearchable={false}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
               <div className="col-span-1">
@@ -249,7 +251,9 @@ const FilterButton = () => {
                   placeholder="No determinado"
                   isClearable={false}
                   isSearchable={false}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
               <div className="col-span-1">
@@ -261,7 +265,9 @@ const FilterButton = () => {
                   placeholder="No determinado"
                   isClearable={false}
                   isSearchable={false}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
               <div className="col-span-1">
@@ -273,7 +279,9 @@ const FilterButton = () => {
                   placeholder="No determinado"
                   isClearable={false}
                   isSearchable={false}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
               <div className="col-span-1">
@@ -285,7 +293,9 @@ const FilterButton = () => {
                   placeholder="No determinado"
                   isClearable={false}
                   isSearchable={false}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
             </div>
@@ -303,7 +313,9 @@ const FilterButton = () => {
                   placeholder="No determinado"
                   isClearable={false}
                   isSearchable={false}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
               <div className="col-span-1">
@@ -315,7 +327,9 @@ const FilterButton = () => {
                   placeholder="No determinado"
                   isClearable={false}
                   isSearchable={false}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
               <div className="col-span-1">
@@ -336,7 +350,9 @@ const FilterButton = () => {
                   placeholder="No determinado"
                   isClearable={false}
                   isSearchable={false}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
               <div className="col-span-1">
@@ -357,7 +373,9 @@ const FilterButton = () => {
                   placeholder="No determinado"
                   isClearable={false}
                   isSearchable={false}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
               <div className="col-span-1">
@@ -378,7 +396,9 @@ const FilterButton = () => {
                   placeholder="No determinado"
                   isClearable={false}
                   isSearchable={false}
-                  onChange={(value: any) => console.log(value)}
+                  onChange={(value: any) => {
+                    console.log(value);
+                  }}
                 />
               </div>
               <div className="col-span-1">

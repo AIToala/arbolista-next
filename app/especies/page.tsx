@@ -1,12 +1,11 @@
-export const dynamic = "force-dynamic";
 import ClientOnly from "@/app/components/ClientOnly";
-import { GoSettings } from "react-icons/go";
-
 import EmptyState from "@/app/components/EmptyState";
 import TabEspecies from "./TabEspecies";
-import getSpecies, { ISpeciesParams } from "../actions/getSpecies";
+import getSpecies, { type ISpeciesParams } from "../actions/getSpecies";
 import SearchButton from "../components/buttons/SearchButton";
 import FilterButton from "../components/buttons/FilterButton";
+
+export const dynamic = "force-dynamic";
 
 interface EspeciesProps {
   searchParams: ISpeciesParams;
@@ -22,9 +21,6 @@ const Especies = async ({ searchParams }: EspeciesProps) => {
     );
   }
 
-  const showfilter = () => {
-    console.log("show filter");
-  };
   return (
     <ClientOnly>
       <div className="flex flex-col w-full h-full bg-[#eee] relative items-center">

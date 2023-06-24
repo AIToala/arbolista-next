@@ -27,13 +27,13 @@ export default async function getSpeciesById(params: IParams) {
         id: speciesId,
       },
     });
-    if (!species) return null;
+    if (species == null) return [];
     return {
       ...species,
     };
   } catch (err) {
     console.log(err);
-    return null;
+    return [];
   } finally {
     await prisma.$disconnect();
   }

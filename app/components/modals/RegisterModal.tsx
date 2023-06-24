@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 
 import useRegisterModal from "@/app/hooks/useRegisterModal";
@@ -35,7 +35,7 @@ const RegisterModal = () => {
           "Registro exitoso. Te contactaremos pronto para habilitar tu cuenta."
         );
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error("Ocurrió un error al registrarse");
       })
       .finally(() => {
@@ -96,6 +96,7 @@ const RegisterModal = () => {
       isOpen={registerModal.isOpen}
       title="Registro"
       onClose={registerModal.onClose}
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onSubmit={handleSubmit(onSubmit)}
       actionLabel="Registrarse"
       body={bodyContent}

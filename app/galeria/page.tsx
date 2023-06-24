@@ -1,8 +1,9 @@
-export const dynamic = "force-dynamic";
 import ClientOnly from "@/app/components/ClientOnly";
 import EmptyState from "@/app/components/EmptyState";
 import getSpeciesEndangered from "../actions/getSpeciesEndangered";
 import GalleryEspecie from "./GalleryEspecie";
+
+export const dynamic = "force-dynamic";
 
 const Galeria = async () => {
   const results = await getSpeciesEndangered();

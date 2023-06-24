@@ -1,7 +1,13 @@
 "use client";
 import SidebarC from "@/app/components/sidebar/SidebarC";
-import { Tabs } from "flowbite-react";
-import { Label, TextInput, Textarea, Select, FileInput } from "flowbite-react";
+import {
+  Tabs,
+  Label,
+  TextInput,
+  Textarea,
+  Select,
+  FileInput,
+} from "flowbite-react";
 
 const DashboardIndexPage = () => {
   return (

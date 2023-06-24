@@ -1,9 +1,10 @@
-export const dynamic = "force-dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import EmptyState from "@/app/components/EmptyState";
 import getViveros from "../actions/getViveros";
 import ClientOnly from "../components/ClientOnly";
+
+export const dynamic = "force-dynamic";
 
 const Viveros = async () => {
   const viveros = await getViveros();
@@ -38,7 +39,7 @@ const Viveros = async () => {
                           fill
                           className="object-cover h-full w-full group-hover:scale-110 transition"
                           alt={"especie"}
-                          src={result.logoSrc || "images/logo.svg"}
+                          src={result.logoSrc ?? "images/logo.svg"}
                         />
                       </div>
                     </div>
