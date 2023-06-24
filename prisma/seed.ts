@@ -1,6 +1,6 @@
 import {
   PrismaClient,
-  Prisma,
+  type Prisma,
   ConservationStatus,
   PriorityLevel,
   LightRequirement,
@@ -10,7 +10,6 @@ import {
   CrownWidth,
 } from "@prisma/client";
 const prisma = new PrismaClient();
-
 
 const speciesData: Prisma.SpeciesCreateInput[] = [
   {
@@ -302,8 +301,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         floral_attributes:
           "Miden de 5 a 7  cm de largo, campanuladas y vistosas",
         flowering_season: FloweringSeason.ESTACIONAL,
-        pollination_system:
-          "Insectos, Aves",
+        pollination_system: "Insectos, Aves",
       },
     },
     leaf: {
@@ -317,8 +315,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     },
     seeds: {
       create: {
-        dispersal_system:
-          "Anemocoria, Zoocoria",
+        dispersal_system: "Anemocoria, Zoocoria",
         seed_attributes: "Masivos: afecta movilidad de peatones y vehículos",
       },
     },
@@ -382,8 +379,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
       create: {
         floral_attributes: "Miden 5 cm de largo, campanuladas",
         flowering_season: FloweringSeason.ESTACION_SECA,
-        pollination_system:
-          "Insectos, Aves",
+        pollination_system: "Insectos, Aves",
       },
     },
     leaf: {
@@ -398,8 +394,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     },
     seeds: {
       create: {
-        dispersal_system:
-          "Aves, Anemocoria",
+        dispersal_system: "Aves, Anemocoria",
         seed_attributes: "Masivos: afecta movilidad de peatones y vehículos",
       },
     },
@@ -508,7 +503,8 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     },
     images: {
       create: {
-        presentation_url: "https://inaturalist-open-data.s3.amazonaws.com/photos/199396985/large.jpg",
+        presentation_url:
+          "https://inaturalist-open-data.s3.amazonaws.com/photos/199396985/large.jpg",
       },
     },
     arboriculture: {
@@ -581,7 +577,8 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     },
     images: {
       create: {
-        presentation_url: "https://inaturalist-open-data.s3.amazonaws.com/photos/54043095/large.jpg",
+        presentation_url:
+          "https://inaturalist-open-data.s3.amazonaws.com/photos/54043095/large.jpg",
       },
     },
     arboriculture: {
@@ -767,8 +764,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         floral_attributes:
           "Miden 4 cm de largo por 3 cm de ancho, su pétalo superior es ancho y abierto, carnosas.",
         flowering_season: FloweringSeason.ESTACION_SECA,
-        pollination_system:
-          "Insectos, Aves nectarivoras",
+        pollination_system: "Insectos, Aves nectarivoras",
       },
     },
     leaf: {
@@ -783,8 +779,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     },
     seeds: {
       create: {
-        dispersal_system:
-          "Mamiferos, Baricoria, Aves frugivoras",
+        dispersal_system: "Mamiferos, Baricoria, Aves frugivoras",
         seed_attributes: "Ninguna",
       },
     },
@@ -1016,8 +1011,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     },
     seeds: {
       create: {
-        dispersal_system:
-          "Anemocoria, Aves frugivoras",
+        dispersal_system: "Anemocoria, Aves frugivoras",
         seed_attributes: "Masivos: afecta movilidad de peatones y vehículos",
       },
     },
@@ -1277,9 +1271,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
       },
     },
     images: {
-      create: {
-        
-      },
+      create: {},
     },
     arboriculture: {
       create: {
@@ -1354,9 +1346,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
       },
     },
     images: {
-      create: {
-        
-      },
+      create: {},
     },
     arboriculture: {
       create: {
@@ -1383,8 +1373,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         floral_attributes:
           "Miden 1 cm de diámetro, con vellos en el cáliz y con forma de campanilla.",
         flowering_season: FloweringSeason.ESTACIONAL,
-        pollination_system:
-          "Anemofila, Insectos",
+        pollination_system: "Anemofila, Insectos",
       },
     },
     leaf: {
@@ -1431,9 +1420,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
       },
     },
     images: {
-      create: {
-        
-      },
+      create: {},
     },
     arboriculture: {
       create: {
@@ -1704,8 +1691,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     },
     seeds: {
       create: {
-        dispersal_system:
-          "Anemocoria, Hidrocoria, Aves",
+        dispersal_system: "Anemocoria, Hidrocoria, Aves",
         seed_attributes: "Ninguna",
       },
     },
@@ -2088,7 +2074,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
 
 async function seed() {
   for (const species of speciesData) {
-    const user = await prisma.species.create({
+    await prisma.species.create({
       data: species,
     });
   }

@@ -1,5 +1,6 @@
-import { User, Species } from "@prisma/client";
 import {
+  type User,
+  type Species,
   ConservationStatus,
   RootingTypes,
   FlowerArrangement,
@@ -23,7 +24,7 @@ export type SafeUser = Omit<User, "createdAt" | "updatedAt" | "email"> & {
 
 export type SafeSpecies = Omit<Species, "createdAt" | "updatedAt"> & {
   taxonomy: true;
-  images: {
+  images: Array<{
     presentation_url: true;
     fruit_url: true;
     leaf_url: true;
@@ -31,7 +32,7 @@ export type SafeSpecies = Omit<Species, "createdAt" | "updatedAt"> & {
     detailFlower_url: true;
     bark_url: true;
     seed_url: true;
-  }[];
+  }>;
   arboriculture: true;
   ecology: true;
   ethnobotany: true;
@@ -127,8 +128,14 @@ export const speciesEnums = {
   useCategoryValues: [
     { value: "Alimenticio", label: "Alimenticio" },
     { value: "Aditivo de los alimentos", label: "Aditivo de los alimentos" },
-    { vvalue: "Alimento de animales vertebrados", label: "Alimento de animales vertebrados"},
-    { value: "Alimento de animales invertebrados", label: "Alimento de animales invertebrados"},
+    {
+      vvalue: "Alimento de animales vertebrados",
+      label: "Alimento de animales vertebrados",
+    },
+    {
+      value: "Alimento de animales invertebrados",
+      label: "Alimento de animales invertebrados",
+    },
     { value: "Apícola", label: "Apícola" },
     { value: "Combustibles", label: "Combustibles" },
     { value: "Materiales", label: "Materiales" },
@@ -186,14 +193,14 @@ export const speciesEnums = {
     { value: "Aves frugívoras", label: "Aves frugívoras" },
     { value: "No determinado", label: "No determinado" },
   ],
-  limitFloralValues : [
+  limitFloralValues: [
     { value: "alergenico", label: "Alergenicos" },
     { value: "oloroso", label: "Olor Desagradable" },
     { value: "movilidad_peatones", label: "Afectan movilidad de peatones" },
     { value: "movilidad_vehiculos", label: "Afectan movilidad de vehiculos" },
     { value: "No determinado", label: "No determinado" },
   ],
-  limitFrutoValues : [
+  limitFrutoValues: [
     { value: "alergenico", label: "Alergenicos" },
     { value: "toxico", label: "Toxicos" },
     { value: "pesado", label: "Pesados" },
@@ -202,5 +209,4 @@ export const speciesEnums = {
     { value: "espinas", label: "Con espinas" },
     { value: "No determinado", label: "No determinado" },
   ],
-
 };

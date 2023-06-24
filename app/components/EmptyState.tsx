@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
 import { useRouter } from "next/navigation";
 
+import React from "react";
 import Button from "./buttons/Button";
 import Heading from "./Heading";
 
@@ -22,8 +23,8 @@ const EmptyState: React.FC<EmptyStateProps> = ({
 }) => {
   const router = useRouter();
 
-  return ( 
-    <div 
+  return (
+    <div
       className="
         h-[60vh]
         flex 
@@ -33,22 +34,20 @@ const EmptyState: React.FC<EmptyStateProps> = ({
         items-center 
       "
     >
-      <Heading
-        center
-        title={title}
-        subtitle={subtitle}
-      />
+      <Heading center title={title} subtitle={subtitle} />
       <div className="w-48 mt-4">
-        {showReset && (
+        {(showReset ?? false) && (
           <Button
             outline
             label={actionLabel}
-            onClick={() => router.push(urlAction)}
+            onClick={() => {
+              router.push(urlAction);
+            }}
           />
         )}
       </div>
     </div>
-   );
-}
- 
+  );
+};
+
 export default EmptyState;

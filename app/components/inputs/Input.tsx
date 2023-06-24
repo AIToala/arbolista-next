@@ -1,7 +1,8 @@
-import { 
-  FieldErrors, 
-  FieldValues, 
-  UseFormRegister 
+import React from "react";
+import {
+  type FieldErrors,
+  type FieldValues,
+  type UseFormRegister,
 } from "react-hook-form";
 import { BiDollar } from "react-icons/bi";
 
@@ -19,8 +20,8 @@ interface InputProps {
 const Input: React.FC<InputProps> = ({
   id,
   label,
-  type = "text", 
-  disabled = false, 
+  type = "text",
+  disabled = false,
   formatPrice,
   register,
   required,
@@ -28,9 +29,9 @@ const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <div className="w-full relative">
-      {formatPrice && (
+      {(formatPrice ?? false) && (
         <BiDollar
-          size={24}  
+          size={24}
           className="
             text-neutral-700
             absolute
@@ -58,12 +59,12 @@ const Input: React.FC<InputProps> = ({
           transition
           disabled:opacity-70
           disabled:cursor-not-allowed
-          ${formatPrice ? 'pl-9' : 'pl-4'}
-          ${errors[id] ? 'border-red-500' : 'border-neutral-300'}
-          ${errors[id] ? 'focus:border-red-500' : 'focus:border-black'}
+          ${formatPrice ?? false ? "pl-9" : "pl-4"}
+          ${errors[id] != null ? "border-red-500" : "border-neutral-300"}
+          ${errors[id] != null ? "focus:border-red-500" : "focus:border-black"}
         `}
       />
-      <label 
+      <label
         className={`
           absolute 
           text-md
@@ -73,18 +74,18 @@ const Input: React.FC<InputProps> = ({
           top-5 
           z-10 
           origin-[0] 
-          ${formatPrice ? 'left-9' : 'left-4'}
+          ${formatPrice ?? false ? "left-9" : "left-4"}
           peer-placeholder-shown:scale-100 
           peer-placeholder-shown:translate-y-0 
           peer-focus:scale-75
           peer-focus:-translate-y-4
-          ${errors[id] ? 'text-red-500' : 'text-zinc-400'}
+          ${errors[id] != null ? "text-red-500" : "text-zinc-400"}
         `}
       >
         {label}
       </label>
     </div>
-   );
-}
- 
+  );
+};
+
 export default Input;

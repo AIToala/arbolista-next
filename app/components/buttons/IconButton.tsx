@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { IconType } from "react-icons";
+import { type IconType } from "react-icons";
 
 interface IconButtonProps {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -12,20 +12,21 @@ interface IconButtonProps {
   style?: string;
 }
 
-const IconButton: React.FC<IconButtonProps> = ({  
-  onClick, 
-  disabled, 
-  outline,
-  small,
+const IconButton: React.FC<IconButtonProps> = ({
+  onClick,
+  disabled = false,
+  outline = false,
+  small = false,
   icon: Icon,
   iconSize = 24,
-  style='',
+  style = "",
 }) => {
-  return ( 
+  return (
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`
+      className={
+        `
         relative
         disabled:opacity-70
         disabled:cursor-not-allowed
@@ -35,19 +36,15 @@ const IconButton: React.FC<IconButtonProps> = ({
         w-auto
         p-2
         flex flex-row items-center justify-center
-        ${outline ? 'bg-white' : 'bg-green-500'}
-        ${outline ? 'border-black' : 'border-green-500'}
-        ${outline ? 'text-black' : 'text-white'}
-      ` + style}
+        ${outline ? "bg-white" : "bg-green-500"}
+        ${outline ? "border-black" : "border-green-500"}
+        ${outline ? "text-black" : "text-white"}
+      ` + style
+      }
     >
-      
-      {Icon && (
-        <Icon
-          size={iconSize}
-        />
-      )}
+      {Icon != null && <Icon size={iconSize} />}
     </button>
-   );
-}
- 
+  );
+};
+
 export default IconButton;
