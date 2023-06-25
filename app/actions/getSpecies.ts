@@ -251,7 +251,7 @@ export default async function getSpecies(params: ISpeciesParams) {
           fruiting_months: query?.fruiting_months,
         },
         ethnobotany: {
-          useCategory: query?.use_category,
+          category: query?.use_category,
         },
         ecology: {
           altitudinal_range: query?.altitudinal_range,

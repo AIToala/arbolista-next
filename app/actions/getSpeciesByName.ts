@@ -10,10 +10,7 @@ export default async function getSpeciesByName(params: IParams) {
     let { name } = params;
     name = decodeURIComponent(name);
     const species = await prisma.species.findMany({
-      select: {
-        id: true,
-        name: true,
-        taxonomy: true,
+      include: {
         images: true,
         arboriculture: true,
         ecology: true,
@@ -23,8 +20,13 @@ export default async function getSpeciesByName(params: IParams) {
         root: true,
         seeds: true,
         stalk: true,
-        createdAt: true,
-        updatedAt: true,
+        taxonomy: {
+          include: {
+            family: true,
+            synonyms: true,
+            bibliography: true,
+          },
+        },
       },
       where: {
         name,

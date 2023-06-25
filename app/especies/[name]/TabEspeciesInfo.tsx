@@ -57,7 +57,6 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
         alt: "Semilla",
       },
     ];
-
   return (
     <div className="w-full relative justify-center items-center flex flex-col mx-4">
       <div className="w-full grid grid-cols-1 p-2 md:grid-cols-2 justify-center">
@@ -82,7 +81,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Familia
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {taxonomy.family}
+                      {taxonomy.family.family}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e3]">
@@ -106,7 +105,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Subespecie
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {taxonomy.subSpecies}
+                      {taxonomy.subspecies}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e3]">
@@ -138,7 +137,15 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Sinonimos
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {taxonomy.synonyms}
+                      {taxonomy.synonyms.length !== 0 ? (
+                        <ul className="list-disc list-inside">
+                          {taxonomy.synonyms.map((synonym: any) => (
+                            <li key={synonym}>{synonym.synonym_name}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>No hay datos</p>
+                      )}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e3]">
@@ -162,7 +169,18 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Bibliografia
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {taxonomy.bibliography}
+                      {taxonomy.bibliography.length !== 0 ? (
+                        <ul className="list-disc list-inside">
+                          {taxonomy.bibliography.map((bibliography: any) => (
+                            <li key={bibliography}>
+                              {bibliography.authors}{" "}
+                              {bibliography.publication_year}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>No hay datos</p>
+                      )}
                     </td>
                   </tr>
                 </tbody>
@@ -391,9 +409,9 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
             )}
           </div>
         </Tabs.Item>
-        <Tabs.Item title="Ecologia" className="w-full">
+        <Tabs.Item title="Etnobotanica" className="w-full">
           <div className="flex flex-col w-full items-center justify-center mx-2 p-2">
-            {ecology !== null ? (
+            {ethnobotany !== null ? (
               <table className=" w-[80%] overflow-x-auto shadow-md border-[#e8e6e2] border p-4">
                 <tbody className="">
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -401,7 +419,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Categorias de uso
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {ecology.use_category}
+                      {ethnobotany.category}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -409,7 +427,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Detalles de uso
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {ecology.use_detail}
+                      {ethnobotany.use_detail}
                     </td>
                   </tr>
                 </tbody>
@@ -419,9 +437,9 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
             )}
           </div>
         </Tabs.Item>
-        <Tabs.Item title="Etnobotanica" className="w-full">
+        <Tabs.Item title="Ecologia" className="w-full">
           <div className="flex flex-col w-full items-center justify-center mx-2 p-2">
-            {ethnobotany !== null ? (
+            {ecology !== null ? (
               <table className=" w-[80%] overflow-x-auto shadow-md border-[#e8e6e2] border p-4">
                 <tbody>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -429,7 +447,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Rango altitudinal
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {ethnobotany.altitudinal_range}
+                      {ecology.altitudinal_range}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -437,7 +455,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Distribucion geografica
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {ethnobotany.geo_distribution}
+                      {ecology.geo_distribution}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -445,7 +463,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Origen
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {ethnobotany.origin}
+                      {ecology.origin}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">
@@ -453,7 +471,32 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                       Estado de conservacion
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
-                      {ethnobotany.conservation_status}
+                      {ecology.conservation_status}
+                    </td>
+                  </tr>
+                  <tr className="border-b border-b-[#e8e6e2]">
+                    <td className="w-[40%] text-green-600 font-semibold uppercase p-6">
+                      Nivel de atraccion de fauna
+                    </td>
+                    <td className="w-[60%] text-gray-700 font-light p-6">
+                      {ecology.fauna_attraction}
+                    </td>
+                  </tr>
+                  <tr className="border-b border-b-[#e8e6e2]">
+                    <td className="w-[40%] text-green-600 font-semibold uppercase p-6">
+                      Fauna asociada
+                    </td>
+                    <td className="w-[60%] text-gray-700 font-light p-6">
+                      {ecology.associated_fauna !== undefined &&
+                      ecology.associated_fauna.length !== 0 ? (
+                        <ul className="list-disc list-inside">
+                          {ecology.associated_fauna.map((fauna: any) => (
+                            <li key={fauna}>{fauna.fauna_name}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p>No hay datos</p>
+                      )}
                     </td>
                   </tr>
                 </tbody>
@@ -506,14 +549,6 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                     </td>
                     <td className="w-[60%] text-gray-700 font-light p-6">
                       {arboriculture.pests_diseases}
-                    </td>
-                  </tr>
-                  <tr className="border-b border-b-[#e8e6e2]">
-                    <td className="w-[40%] text-green-600 font-semibold uppercase p-6">
-                      Atraccion a animales
-                    </td>
-                    <td className="w-[60%] text-gray-700 font-light p-6">
-                      {arboriculture.fauna_attraction}
                     </td>
                   </tr>
                   <tr className="border-b border-b-[#e8e6e2]">

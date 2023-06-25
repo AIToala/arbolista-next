@@ -87,8 +87,8 @@ model Species {
 
 model Taxonomy {
   id           String                @id @default(cuid())
-  family       SpeciesFamilyDetail?  @relation(fields: [familyId], references: [id], onDelete: Cascade)
-  familyId     String?
+  family       SpeciesFamilyDetail  @relation(fields: [familyId], references: [id], onDelete: Cascade) 
+  familyId     Int
   genus        String                @default("No determinado")
   tSpecies     String                @default("No determinado")
   subspecies   String?               @default("No determinado")
@@ -106,6 +106,14 @@ model Taxonomy {
   @@index([familyId], map: "Taxonomy_family_id_fkey")
 }
 
+model SpeciesFamilyDetail {
+  id          Int   @id @default(autoincrement())
+  family      String   @default("No determinado") @unique
+  description String?  @db.Text()
+  taxonomies  Taxonomy[]
+  @@index([id], map: "familyDetail_id_fkey")
+}
+
 model SpeciesSynonyms {
   id           String   @id @default(cuid())
   synonym_name String?  @default("No determinado")
@@ -113,17 +121,6 @@ model SpeciesSynonyms {
   taxonomy     Taxonomy @relation(fields: [speciesId], references: [id], onDelete: Cascade)
   @@index([speciesId], map: "SpeciesSynonyms_species_id_fkey")
 }
-
-model SpeciesFamilyDetail {
-  id          String   @id @default(cuid())
-  family      String   @default("No determinado")
-  description String?  @db.Text()
-  taxonomyId  String   @unique @map("taxonomy_id")
-  taxonomies  Taxonomy[]
-
-  @@index([id], map: "familyDetail_id_fkey")
-}
-
 model SpeciesBibliography {
   id               String   @id @default(cuid())
   authors          String?  @default("No determinado")

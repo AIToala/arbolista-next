@@ -11,16 +11,68 @@ import {
 } from "@prisma/client";
 const prisma = new PrismaClient();
 
+const familyData: Prisma.SpeciesFamilyDetailCreateInput[] = [
+  {
+    family: "Anacardiaceae",
+  },
+  {
+    family: "Annonaceae",
+  },
+  {
+    family: "Boraginaceae",
+  },
+  {
+    family: "Polygonaceae",
+  },
+  {
+    family: "Sapindaceae",
+  },
+  {
+    family: "Fabaceae",
+  },
+  {
+    family: "Malvaceae",
+  },
+  {
+    family: "Meliaceae",
+  },
+  {
+    family: "Malpighiaceae",
+  },
+  {
+    family: "Myrtaceae",
+  },
+  {
+    family: "Euphorbiaceae",
+  },
+  {
+    family: "Bixaceae",
+  },
+  {
+    family: "Bignoniaceae",
+  },
+];
+async function createFamilies() {
+  for (const family of familyData) {
+    await prisma.speciesFamilyDetail.create({
+      data: family,
+    });
+  }
+}
+createFamilies()
+  .then(async () => {
+    console.log("Families created");
+  })
+  .catch(async (e) => {
+    console.error(e);
+  });
+
 const speciesData: Prisma.SpeciesCreateInput[] = [
   {
     name: "Anacardium excelsum",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Anacardiaceae",
-          },
-        },
+        family: { connect: { id: 1 } },
         author: "(Bertero ex Kunth) Skeels",
         etymology:
           "Anacardium, del griego kardia, corazón, por la forma de su fruto; excelsum, epíteto latino que significa alta.",
@@ -93,11 +145,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Annona muricata",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Annonaceae",
-          },
-        },
+        family: { connect: { id: 2 } },
         author: "L.",
         etymology:
           "Annona, del nombre vérnaculo en Haití de la especie; muricata, del latín muricatus que significa áspero y con muchas puntas, como su fruto.",
@@ -174,11 +222,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Crescentia cujete",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Bignoniaceae",
-          },
-        },
+        family: { connect: { id: 13 } },
         author: "L.",
         etymology:
           "Crescentia por Pietro de Crescenzi, de Bologna; cujete, de su nombre nativo popular",
@@ -249,11 +293,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Handroanthus chrysanthus",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Bignoniaceae",
-          },
-        },
+        family: { connect: { id: 13 } },
         author: "(Jacq.) S.O.Grose",
         etymology:
           "Handroanthus, en  honor al botánico brasileño Oswaldo Handro; chrysanthus, en latín significa flores doradas.",
@@ -327,11 +367,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Tabebuia rosea",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Bignoniaceae",
-          },
-        },
+        family: { connect: { id: 13 } },
         author: "(Bertol.) Bertero ex A.DC.",
         etymology:
           "Tabebuia, nombre vérnaculo brasileño tabebuia o taiaveruia; rosea,del latín rosa, por el color rosado de sus flores.",
@@ -406,11 +442,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Bixa orellana",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Bixaceae",
-          },
-        },
+        family: { connect: { id: 12 } },
         author: "L.",
         etymology:
           "Bixa, latinización del portugués bixa; orellana, dedicado al explorador español Francisco de Orellana",
@@ -483,11 +515,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Vasconcellea pubescens",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Euphorbiaceae",
-          },
-        },
+        family: { connect: { id: 11 } },
         author: "(Mill.) I.M.Johnst.",
         etymology: "-",
         common_names: "Papayuelo",
@@ -556,11 +584,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Pseudosamanea carbonaria",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Fabaceae",
-          },
-        },
+        family: { connect: { id: 6 } },
         author: "Britton",
         etymology:
           "Albizia, en honor al noble italiano Filippo de Albizzi, naturalista del siglo XVIII, quien introdujo en Europa las semillas de Albizia julibrissin, conocido como el árbol de seda; carbonaria, que significa carbón o tierra quemada",
@@ -634,11 +658,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Erythrina fusca",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Fabaceae",
-          },
-        },
+        family: { connect: { id: 6 } },
         author: "Lour.",
         etymology:
           "Erythrina, del griego eritros, rojo; fusca, que significa oscuro.",
@@ -711,11 +731,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Erythrina poeppigiana",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Fabaceae",
-          },
-        },
+        family: { connect: { id: 6 } },
         author: "(Walp.) O.F.Cook",
         etymology:
           "Erythrina, del griego eritros, rojo; poeppigiana, en honor a Eduard Friedrich Poeppig, botánico y zoólogo que en sus exploraciones por Chile, Perú y Brasil, describió mas de 4000 especies de plantas.",
@@ -791,11 +807,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Zygia longifolia",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Fabaceae",
-          },
-        },
+        family: { connect: { id: 6 } },
         author: "(Willd.) Britton & Rose",
         etymology:
           "Zygia, del griego zugon, yugo, por la madera de algunas especies de este género que se utilizan para fabricar yugos; longifolia, del latín, longus, que significa largo, y folia, del latín folium, que hace referencia a la hoja",
@@ -867,11 +879,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Ochroma pyramidale",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Malvaceae",
-          },
-        },
+        family: { connect: { id: 7 } },
         author: "(Cav. ex Lam.) Urb.",
         etymology:
           "Ochroma,del griego okros, amarillo pálido, por el color de las hojas de algunas especies del género; pyramidale, del latín pyramis, con forma de pirámide",
@@ -945,11 +953,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Cedrela odorata",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Meliaceae",
-          },
-        },
+        family: { connect: { id: 8 } },
         author: "L.",
         etymology:
           "Cedrela, diminutivo de Cedrus, por su similaridad con la madera de este género; odorata, adjetivo latino que significa perfumado, oloroso, por su madera",
@@ -1023,11 +1027,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Psidium guajava",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Myrtaceae",
-          },
-        },
+        family: { connect: { id: 10 } },
         author: "L.",
         etymology:
           "Psidium, del latín psidion que significa granada, por la apariencia de sus frutos; guajava, proviene de su nombre vernáculo en taino",
@@ -1102,11 +1102,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Coccoloba uvifera",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Polygonaceae",
-          },
-        },
+        family: { connect: { id: 4 } },
         author: "(L.) L.",
         etymology:
           "Coccoloba, procede del griego kokkosque significa baya y lobos, que significa lóbulo, en alusión a sus frutos con apariencia de racimo de uvas; uvifer, del latín uva, más el sufijo –fe, llevar, en referencia sus racimos parecidos a las uvas",
@@ -1176,11 +1172,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Theobroma cacao",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Malvaceae",
-          },
-        },
+        family: { connect: { id: 7 } },
         author: "L.",
         etymology:
           "Theobroma, en griego, alimento de los dioses; cacao, palabra relacionada con el lenguaje mixe-zoque que hablaban los olmecas antiguos y se refiere al nombre de la planta",
@@ -1251,11 +1243,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Spondias purpurea",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Anacardiaceae",
-          },
-        },
+        family: { connect: { id: 1 } },
         author: "L.",
         etymology:
           "Spondias, uno de los géneros griegos del ciruelo; purpurea, en latín, resplandeciente.",
@@ -1326,11 +1314,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Cordia alliodora",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Boraginaceae",
-          },
-        },
+        family: { connect: { id: 3 } },
         author: "(Ruiz & Pav.) Oken",
         etymology:
           "Cordia,nombre otorgado en honor al botánico alemán Valerius Cordus; alliodora, epíteto latino que significa con olor a ajo.",
@@ -1400,11 +1384,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Guazuma ulmifolia",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Malvaceae",
-          },
-        },
+        family: { connect: { id: 7 } },
         author: "Lam.",
         etymology:
           "Guazuma, epíteto latinizado del nombre vernáculo mexicano Guacima; ulmifolia, con hojas semejantes a las del género Ulmus de la familia Ulmaceae",
@@ -1472,11 +1452,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Sapindus saponaria",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Sapindaceae",
-          },
-        },
+        family: { connect: { id: 5 } },
         author: "L.",
         etymology:
           "Sapindus, del latín sap, jabón, e indus, indio, por el uso que le daban los indígenas como jabón; saponaria, por el contenido de saponina de sus frutos",
@@ -1549,11 +1525,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Cassia grandis",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Fabaceae",
-          },
-        },
+        family: { connect: { id: 6 } },
         author: "L.f.",
         etymology:
           "Cassia, nombre genérico que proviene del griego antiguo kassía, nombre de la planta laurácea Cinnamomum cassia, en los antiguos, y pasado a Leguminosas por Caesalpinio",
@@ -1627,11 +1599,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Albizia guachapele",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Fabaceae",
-          },
-        },
+        family: { connect: { id: 6 } },
         author: "(Kunth) Dugand",
         etymology:
           "Albizia, en honor al noble italiano Filippo de Albizzi, naturalista del siglo XVIII, quien introdujo en Europa las semillas de Albizia julibrissin, conocido como el árbol de seda",
@@ -1703,11 +1671,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Malpighia glabra",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Malpighiaceae",
-          },
-        },
+        family: { connect: { id: 9 } },
         author: "L.",
         etymology: "-",
         common_names: "Huesito",
@@ -1776,11 +1740,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Carapa guianensis",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Meliaceae",
-          },
-        },
+        family: { connect: { id: 8 } },
         author: "Aubl.",
         etymology: "-",
         common_names: "Cedro güino, mazábalo",
@@ -1849,11 +1809,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Cavanillesia platanifolia",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Malvaceae",
-          },
-        },
+        family: { connect: { id: 7 } },
         author: "(Humb. & Bonpl.) Kunth",
         etymology:
           "Cavanillesia, en honor a Antonio José Cavanilles, científico que le ayudó a Bonpland a conseguir el permiso del rey para venir a las colonias españolas en América; platanifolia, de hojas como el plátano",
@@ -1924,11 +1880,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Geoffroea spinosa",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Fabaceae",
-          },
-        },
+        family: { connect: { id: 6 } },
         author: "-",
         etymology: "-",
         common_names: "Ébano ornamental",
@@ -1997,11 +1949,7 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
     name: "Annona glabra",
     taxonomy: {
       create: {
-        family: {
-          create: {
-            family: "Annonaceae",
-          },
-        },
+        family: { connect: { id: 2 } },
         author: "L.",
         etymology:
           "Annona, del nombre vernáculo en Haití de la especie; glabra, por la superficie lisa de sus hojas, sin indumento",
