@@ -1,13 +1,14 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 "use client";
 
-import axios from "axios";
-import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import Input from "@/app/components/inputs/Input";
 import Heading from "@/app/components/Heading";
 import Button from "@/app/components/buttons/Button";
+import Input from "@/app/components/inputs/Input";
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 const Register = () => {
   const router = useRouter();
@@ -75,12 +76,7 @@ const Register = () => {
             errors={errors}
             required
           />
-          <Button
-            label="Registrar cuenta"
-            onClick={() => {
-              handleSubmit(onSubmit);
-            }}
-          />
+          <Button label="Registrar cuenta" onClick={handleSubmit(onSubmit)} />
         </div>
         <div className="flex flex-col gap-4 mt-3">
           <div className="text-neutral-500 text-center mt-4 font-light">

@@ -23,7 +23,7 @@ The folders are structured in this way:
 
 ## Running project locally
 
-Clone the repo and navigate to the root folder. Keep in mind that we are using Railway MySQL database with a Free Plan, in the case of errors use a local database to run it locally. 
+Clone the repo and navigate to the root folder. Keep in mind that we are using Railway MySQL database with a Free Plan, in the case of errors use a local database to run it locally.
 
 1. Open a terminal and execute
 
@@ -33,16 +33,18 @@ npm i
 
 2. Feel free to use the `.env` given or update your variables. If you use another .env, do the following commands:
 
-    1. Change inside the .env file, the DATABASE_URL constant by typing your preferred MySQL database. Follow this syntax provided by the Prisma ORM:
+   1. Change inside the .env file, the DATABASE_URL constant by typing your preferred MySQL database. Follow this syntax provided by the Prisma ORM:
 
-      > mysql://USER:PASSWORD@HOST:PORT/DATABASE
-    
-    2. Run the following command to push the changes to the new Database and to populate the database.
-    ```sh
-    npx prisma db push && npx prisma db seed
-    ```
+   > mysql://USER:PASSWORD@HOST:PORT/DATABASE
+
+   2. Run the following command to push the changes to the new Database and to populate the database.
+
+   ```sh
+   npx prisma db push && npx prisma db seed
+   ```
 
 3. Now, start the development server and access localhost:3000 in your browser.
+
 ```
 npm run dev
 ```
