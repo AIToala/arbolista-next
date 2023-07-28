@@ -1,20 +1,86 @@
 .ancho {
   width: 50%;
+  height: 100%;
   align-items: center;
 }
 .divs-caracs {
+  padding: 3rem;
+  padding-top: 11rem;
+  padding-bottom: 11.05rem;
+  background-color: rgb(79, 127, 112);
+}
+.webpage {
+  width: 50%;
+  height: 70%;
   margin: 2rem;
-  width: 60%;
   padding: 2.5rem;
+  padding-left: 9.5rem;
+  padding-right: 9.5rem;
   box-shadow: 0 0 1px rgb(79, 127, 112), 0 1px 6px rgb(79, 127, 112),
     0 5px 5px rgb(79, 127, 112);
-  border-radius: 15px;
 }
-
+.webpage2 {
+  padding-top: 5.5rem;
+  padding-bottom: 5.5rem;
+}
 .ul-decor {
   list-style-type: square;
 }
 .top-no-margin {
-  margin: 0.8rem;
+  margin: 1rem;
+  color: white;
+}
+.top-no-margin1 {
+  margin-top: 0;
+  margin-bottom: 1rem;
   color: #057a55;
+}
+.top-no-margin2 {
+  margin-top: 0;
+  padding: 2rem;
+  color: white;
+}
+
+/*CSS gradient animator: https://www.gradient-animator.com/*/
+.css-selector {
+  background: linear-gradient(272deg, #111827, #057a55);
+  background-size: 400% 400%;
+
+  -webkit-animation: fondo-info 20s ease infinite;
+  -moz-animation: fondo-info 20s ease infinite;
+  animation: fondo-info 20s ease infinite;
+}
+
+@-webkit-keyframes fondo-info {
+  0% {
+    background-position: 0% 37%;
+  }
+  50% {
+    background-position: 100% 64%;
+  }
+  100% {
+    background-position: 0% 37%;
+  }
+}
+@-moz-keyframes fondo-info {
+  0% {
+    background-position: 0% 37%;
+  }
+  50% {
+    background-position: 100% 64%;
+  }
+  100% {
+    background-position: 0% 37%;
+  }
+}
+@keyframes fondo-info {
+  0% {
+    background-position: 0% 37%;
+  }
+  50% {
+    background-position: 100% 64%;
+  }
+  100% {
+    background-position: 0% 37%;
+  }
 }
