@@ -1,0 +1,20 @@
+.ancho {
+  width: 50%;
+  align-items: center;
+}
+.divs-caracs {
+  margin: 2rem;
+  width: 60%;
+  padding: 2.5rem;
+  box-shadow: 0 0 1px rgb(79, 127, 112), 0 1px 6px rgb(79, 127, 112),
+    0 5px 5px rgb(79, 127, 112);
+  border-radius: 15px;
+}
+
+.ul-decor {
+  list-style-type: square;
+}
+.top-no-margin {
+  margin: 0.8rem;
+  color: #057a55;
+}
