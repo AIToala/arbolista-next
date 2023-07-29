@@ -103,9 +103,8 @@ const Login = () => {
             />
             <Button
               label="Iniciar sesión"
-              onClick={() => {
-                handleSubmit(onSubmit);
-              }}
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+              onClick={handleSubmit(onSubmit)}
               disabled={isLoading}
             />
           </div>
