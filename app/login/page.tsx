@@ -3,7 +3,7 @@
 import Heading from "@/app/components/Heading";
 import Button from "@/app/components/buttons/Button";
 import Input from "@/app/components/inputs/Input";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -13,7 +13,6 @@ import toast from "react-hot-toast";
 const Login = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const session = useSession();
 
   const {
     register,
@@ -25,11 +24,6 @@ const Login = () => {
       password: "",
     },
   });
-
-  if (session?.data?.user?.email != null) {
-    router.push("/");
-    return null;
-  }
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (data.email === "" || data.password === "") {

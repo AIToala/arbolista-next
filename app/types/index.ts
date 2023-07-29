@@ -1,19 +1,19 @@
 import {
-  type User,
-  type Species,
   ConservationStatus,
-  RootingTypes,
+  CrownWidth,
   FlowerArrangement,
   FloweringSeason,
-  LeafPersistence,
-  StemLeafPosition,
-  LeafComposition,
   FruitType,
-  Origin,
-  LightRequirement,
   GrowthRate,
+  LeafComposition,
+  LeafPersistence,
+  LightRequirement,
+  Origin,
   PriorityLevel,
-  CrownWidth,
+  RootingTypes,
+  StemLeafPosition,
+  type Species,
+  type User,
 } from "@prisma/client";
 
 export type SafeUser = Omit<User, "createdAt" | "updatedAt" | "email"> & {
@@ -21,6 +21,11 @@ export type SafeUser = Omit<User, "createdAt" | "updatedAt" | "email"> & {
   updatedAt: string;
   email: string | null;
 };
+
+export type TokenizedUser = Omit<
+  User,
+  "createdAt" | "updatedAt" | "hashedPassword"
+>;
 
 export type SafeSpecies = Omit<Species, "createdAt" | "updatedAt"> & {
   taxonomy: true;

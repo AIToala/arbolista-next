@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
-import { AuthOptions } from "next-auth";
+import prisma from "@/app/libs/prismadb";
+import { TokenizedUser } from "@/app/types";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import bcryptjs from "bcryptjs";
-import prisma from "@/app/libs/prismadb";
+import { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions: AuthOptions = {
@@ -30,10 +31,12 @@ export const authOptions: AuthOptions = {
           credentials.password,
           user.hashedPassword
         );
-
         if (!isCorrectPassword) throw new Error("Invalid credentials");
-
-        return user;
+        const userRole = user.userRole;
+        return {
+          ...user,
+          userRole,
+        } satisfies TokenizedUser;
       },
     }),
   ],
@@ -45,4 +48,13 @@ export const authOptions: AuthOptions = {
     strategy: "jwt",
   },
   secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        const userWithRole = user as TokenizedUser;
+        token.userRole = userWithRole.userRole;
+      }
+      return token;
+    },
+  },
 };
