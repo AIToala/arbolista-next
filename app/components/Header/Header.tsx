@@ -10,6 +10,7 @@ import UserNavigationItems from "./UserNavigationItems";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import useSiembraModal from "@/app/hooks/useSiembraModal";
+import toast from "react-hot-toast";
 
 interface HeaderProps {
   currentUser?: SafeUser | null;
@@ -18,6 +19,17 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ currentUser }) => {
   const siembraModal = useSiembraModal();
   const router = useRouter();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      toast.success("Cierre de sesión exitoso");
+      window.location.href = "/home";
+    } catch (error) {
+      toast.error("Ocurrió un error al cerrar sesión");
+    }
+  };
+
   return (
     <nav className="bg-white border-gray-200 shadow-md relative">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -70,9 +82,7 @@ const Header: React.FC<HeaderProps> = ({ currentUser }) => {
                 <div className="">
                   <button
                     // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                    onClick={async () => {
-                      await signOut();
-                    }}
+                    onClick={handleSignOut}
                     className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900"
                   >
                     Cerrar sesión
