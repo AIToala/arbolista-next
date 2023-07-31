@@ -1,11 +1,9 @@
 "use client";
-import SidebarC from "@/app/components/sidebar/SidebarC";
 import { Table } from "flowbite-react";
 
 const DashboardIndexPage = () => {
   return (
     <div style={{ display: "flex" }}>
-      <SidebarC />
       <div
         style={{
           flex: 1,

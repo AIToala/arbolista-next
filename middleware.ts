@@ -3,14 +3,11 @@ import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.SECRET });
-  if (req.nextUrl.pathname === "/dashboard") {
-    console.log(token);
+  if (req.nextUrl.pathname.includes("/dashboard")) {
     if (token == null) {
       const url = new URL("/login", req.url);
-      url.searchParams.set("callbackUrl", encodeURI(req.url));
       return NextResponse.redirect(url);
     }
-    console.log(token);
     if (
       token.userRole === "ADMIN" ||
       token.userRole === "SPECIES_ADMIN" ||
@@ -23,7 +20,6 @@ export async function middleware(req: NextRequest) {
   }
   if (req.nextUrl.pathname === "/login") {
     if (token != null) {
-      console.log(token);
       return NextResponse.redirect(new URL("/home", req.url));
     } else {
       return NextResponse.next();

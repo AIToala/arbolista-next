@@ -1,25 +1,25 @@
 "use client";
 
-import React from "react";
+import type { TokenizedUser } from "@/app/types";
 import { Sidebar } from "flowbite-react";
-import { RiPlantFill, RiHome2Fill } from "react-icons/ri";
-import { GiPlantsAndAnimals } from "react-icons/gi";
-import { FaUserAlt } from "react-icons/fa";
-import type { SafeUser } from "@/app/types";
 import { useRouter } from "next/navigation";
+import React from "react";
+import { FaUserAlt } from "react-icons/fa";
+import { GiPlantsAndAnimals } from "react-icons/gi";
+import { RiHome2Fill, RiPlantFill } from "react-icons/ri";
 
 interface SidebarProps {
-  currentUser?: SafeUser | null;
+  currentUser?: TokenizedUser | null;
 }
-
 // eslint-disable-next-line no-unused-vars
 const SidebarC: React.FC<SidebarProps> = ({ currentUser }) => {
   const router = useRouter();
   return (
     <aside>
-      <Sidebar className="sidebar" color="!green" style={{ height: "210vh" }}>
+      <Sidebar className="sidebar" color="!green" style={{ height: "100vh" }}>
         <Sidebar.Logo href="#" img="/images/logo.svg" imgAlt="logo">
           <p>Arborista</p>
+          <p>{currentUser?.name}</p>
         </Sidebar.Logo>
         <Sidebar.Items>
           <Sidebar.ItemGroup>

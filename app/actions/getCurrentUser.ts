@@ -1,5 +1,5 @@
-import getSession from "./getSession";
 import prisma from "@/app/libs/prismadb";
+import getSession from "./getSession";
 
 export default async function getCurrentUser() {
   try {
@@ -13,8 +13,6 @@ export default async function getCurrentUser() {
     if (currentUser == null) return null;
     return {
       ...currentUser,
-      createdAt: currentUser.createdAt.toISOString(),
-      updatedAt: currentUser.updatedAt.toISOString(),
     };
   } catch (error: any) {
     return null;

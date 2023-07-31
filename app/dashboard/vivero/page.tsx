@@ -1,11 +1,9 @@
 "use client";
-import SidebarC from "@/app/components/sidebar/SidebarC";
-import { Tabs, Label, TextInput, FileInput } from "flowbite-react";
+import { FileInput, Label, Tabs, TextInput } from "flowbite-react";
 
 const DashboardIndexPage = () => {
   return (
     <div style={{ display: "flex" }}>
-      <SidebarC />
       <div
         style={{
           flex: 1,

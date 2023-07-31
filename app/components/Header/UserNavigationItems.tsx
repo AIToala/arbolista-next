@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
-import { type SafeUser } from "@/app/types";
+import { type TokenizedUser } from "@/app/types";
 import Link from "next/link";
+import React from "react";
 
 interface UserNavigationItemsProps {
-  currentUser?: SafeUser | null | undefined;
+  currentUser?: TokenizedUser | null;
 }
 
 const UserNavigationItems: React.FC<UserNavigationItemsProps> = ({

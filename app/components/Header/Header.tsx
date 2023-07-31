@@ -1,19 +1,19 @@
 "use client";
 
-import React from "react";
-import Logo from "../Logo";
-import { type SafeUser } from "@/app/types";
-import { GiSeedling } from "react-icons/gi";
-import Navigation from "./Navigation";
-import Image from "next/image";
-import UserNavigationItems from "./UserNavigationItems";
-import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import useSiembraModal from "@/app/hooks/useSiembraModal";
+import { type TokenizedUser } from "@/app/types";
+import { signOut } from "next-auth/react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import React from "react";
 import toast from "react-hot-toast";
+import { GiSeedling } from "react-icons/gi";
+import Logo from "../Logo";
+import Navigation from "./Navigation";
+import UserNavigationItems from "./UserNavigationItems";
 
 interface HeaderProps {
-  currentUser?: SafeUser | null;
+  currentUser?: TokenizedUser | null;
 }
 
 const Header: React.FC<HeaderProps> = ({ currentUser }) => {

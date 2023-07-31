@@ -1,11 +1,11 @@
 "use client";
-import SidebarC from "@/app/components/sidebar/SidebarC";
 
 const DashboardIndexPage = () => {
   return (
-    <div>
-      <SidebarC />
-      {/* Contenido de la página de inicio del dashboard */}
+    <div className="w-full flex justify-center">
+      <h1 className="text-2xl text-green-600 uppercase">
+        Bienvenido al dashboard
+      </h1>
     </div>
   );
 };
