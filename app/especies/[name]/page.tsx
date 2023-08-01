@@ -1,6 +1,6 @@
+import getSpeciesByName from "@/app/actions/getSpeciesByName";
 import ClientOnly from "@/app/components/ClientOnly";
 import EmptyState from "@/app/components/EmptyState";
-import getSpeciesByName from "@/app/actions/getSpeciesByName";
 import TabEspeciesInfo from "./TabEspeciesInfo";
 
 interface IParams {
@@ -23,9 +23,6 @@ const EspeciePage = async ({ params }: { params: IParams }) => {
 
   return (
     <div className="flex flex-col relative items-center w-full min-h-screen mb-[10rem]">
-      <div className="text-left bg-green-400 font-semibold w-full p-4 text-2xl italic">
-        <h1>{species[0].name}</h1>
-      </div>
       <TabEspeciesInfo data={species} />
     </div>
   );

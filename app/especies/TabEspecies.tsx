@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 "use client";
+import { Tabs } from "flowbite-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FaList } from "react-icons/fa";
 import { IoGrid } from "react-icons/io5";
-import { Tabs } from "flowbite-react";
-import Link from "next/link";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 interface TabEspeciesProps {
   data: any[];
 }

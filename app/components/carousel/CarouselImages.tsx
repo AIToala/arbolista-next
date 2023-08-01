@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
-import useEmblaCarousel, { type EmblaOptionsType } from "embla-carousel-react";
-import { Thumb } from "./CarouselButtons";
 import Autoplay from "embla-carousel-autoplay";
+import useEmblaCarousel, { type EmblaOptionsType } from "embla-carousel-react";
 import Image from "next/image";
+import React, { useCallback, useEffect, useState } from "react";
+import { Thumb } from "./CarouselButtons";
 
 interface PropType {
   slides: ImageType[];
@@ -99,17 +99,17 @@ const CarouselImages: React.FC<PropType> = (props) => {
     <>
       <div className={"embla " + style}>
         <div className={"embla__viewport "} ref={emblaMainRef}>
-          <div className={"embla__container"}>
+          <div className={"embla__container !md:h-[60vh]"}>
             {images.map((image, index) => (
               <div
                 className="embla__slide flex justify-center items-end aspect-square md:h-[60vh]"
                 key={index}
               >
-                <div className="embla__slide__number bg-black/70 mb-2 p-2 text-white w-fit shadow-lg text-center font-semibold rounded-sm">
+                <div className="embla__slide__number bg-black/70 mb-2 p-2 text-white w-fit shadow-lg text-center font-semibold !rounded-full">
                   {image.description}
                 </div>
                 <Image
-                  className="!rounded-sm aspect-square object-contain"
+                  className="!rounded-full aspect-square object-contain"
                   src={
                     image.src === "No determinado"
                       ? "/images/logo.svg"
@@ -117,7 +117,6 @@ const CarouselImages: React.FC<PropType> = (props) => {
                   }
                   fill
                   alt="image.description"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   priority
                 />
               </div>

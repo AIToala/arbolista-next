@@ -1,5 +1,5 @@
-import React from "react";
 import Image from "next/image";
+import React from "react";
 
 interface DotButtonPropType {
   selected: boolean;
@@ -87,7 +87,7 @@ export const Thumb: React.FC<PropType> = (props) => {
         type="button"
       >
         <Image
-          className="embla-thumbs__slide__img rounded-md"
+          className="embla-thumbs__slide__img rounded-lg"
           src={imgSrc}
           width={100}
           height={100}
