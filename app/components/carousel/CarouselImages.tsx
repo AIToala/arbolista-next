@@ -105,7 +105,7 @@ const CarouselImages: React.FC<PropType> = (props) => {
                 className="embla__slide flex justify-center items-end aspect-square md:h-[60vh]"
                 key={index}
               >
-                <div className="embla__slide__number bg-black/70 mb-2 p-2 text-white w-fit shadow-lg text-center font-semibold !rounded-full">
+                <div className="embla__slide__number bg-black/70 mb-2 p-4 text-white w-fit shadow-lg text-center font-semibold text-xl !rounded-xl">
                   {image.description}
                 </div>
                 <Image

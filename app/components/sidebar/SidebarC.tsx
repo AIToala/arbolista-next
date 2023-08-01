@@ -1,7 +1,7 @@
 "use client";
 
 import type { TokenizedUser } from "@/app/types";
-import { type IconType } from 'react-icons';
+import { type IconType } from "react-icons";
 import { Sidebar } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -13,8 +13,12 @@ interface SidebarProps {
   currentUser?: TokenizedUser | null;
 }
 
-const generateSidebarCollapse = (label: string, icon: IconType, route: string,router: ReturnType<typeof useRouter>) => (
-  
+const generateSidebarCollapse = (
+  label: string,
+  icon: IconType,
+  route: string,
+  router: ReturnType<typeof useRouter>
+) => (
   <Sidebar.Collapse label={label} icon={icon}>
     <Sidebar.Item
       onClick={() => {
@@ -49,20 +53,37 @@ const SidebarC: React.FC<SidebarProps> = ({ currentUser }) => {
         <Sidebar.Items>
           <Sidebar.ItemGroup>
             {currentUser?.userRole === "ADMIN" && (
-                <>
-                  {generateSidebarCollapse("Usuarios", FaUserAlt, "/dashboard/usuario", router)}
-                </>
-              )}
-              {(currentUser?.userRole === "ADMIN" || currentUser?.userRole === "SPECIES_ADMIN") && (
-                <>
-                  {generateSidebarCollapse("Especies", RiPlantFill, "/dashboard/especie", router)}
-                </>
-              )}
-              {(currentUser?.userRole === "ADMIN" || currentUser?.userRole === "NURSERY_ADMIN") && (
-                <>
-                  {generateSidebarCollapse("Viveros", GiPlantsAndAnimals, "/dashboard/vivero", router)}
-                </>
-              )}
+              <>
+                {generateSidebarCollapse(
+                  "Usuarios",
+                  FaUserAlt,
+                  "/dashboard/usuario",
+                  router
+                )}
+              </>
+            )}
+            {(currentUser?.userRole === "ADMIN" ||
+              currentUser?.userRole === "SPECIES_ADMIN") && (
+              <>
+                {generateSidebarCollapse(
+                  "Especies",
+                  RiPlantFill,
+                  "/dashboard/especie",
+                  router
+                )}
+              </>
+            )}
+            {(currentUser?.userRole === "ADMIN" ||
+              currentUser?.userRole === "NURSERY_ADMIN") && (
+              <>
+                {generateSidebarCollapse(
+                  "Viveros",
+                  GiPlantsAndAnimals,
+                  "/dashboard/vivero",
+                  router
+                )}
+              </>
+            )}
             <Sidebar.Item href="/home" icon={RiHome2Fill}>
               <p>Regreso al Inicio</p>
             </Sidebar.Item>
