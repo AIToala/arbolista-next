@@ -1,443 +1,535 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 "use client";
-import Select from "react-select";
-import { Dropdown } from "flowbite-react";
+import { type ISpeciesParams } from "@/app/actions/getSpecies";
 import { speciesEnums } from "@/app/types/index";
-
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { GiSettingsKnobs } from "react-icons/gi";
+import Select from "react-select";
+import { Button } from "../ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 const FilterButton = () => {
-  const filtrar = () => {
-    console.log("filtrar");
-  };
-  const limpiar = () => {
-    console.log("limpiar");
+  const router = useRouter();
+  const [speciesParams, setSpeciesParams] = useState<ISpeciesParams>({});
+  const handleFilter = (e: any) => {
+    console.log(speciesParams);
+    e.preventDefault();
+    const queryParams = Object.entries(speciesParams)
+      .filter(([key, value]) => value !== undefined)
+      .map(([key, value]) =>
+        typeof value === "string"
+          ? `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+          : `${encodeURIComponent(key)}=${encodeURIComponent(value.value)}`
+      )
+      .join("&");
+    const query = "/especies?" + queryParams;
+    router.push(query);
   };
 
   return (
-    <>
-      <Dropdown label="Filtro" arrowIcon={false}>
-        <div className="w-[85vw] h-[70vh] p-2 gap-4 grid grid-cols-2 divide-x items-start justify-center overflow-y-auto">
-          <div className="col-span-1 px-4 gap-2 grid">
-            <h1>Taxonomia</h1>
-            <hr />
-            <div className="grid grid-cols-3 gap-2">
-              <div className="col-span-1">
-                <label className="text-xs">Familia</label>
-                <input
-                  type="text"
-                  id="family"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Familia"
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Genero</label>
-                <input
-                  type="text"
-                  id="genus"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Genero"
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Subespecie</label>
-                <input
-                  type="text"
-                  id="subspecies"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Genero"
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Sinonimos</label>
-                <input
-                  type="text"
-                  id="synonyms"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Sinonimos"
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Autor</label>
-                <input
-                  type="text"
-                  id="author"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Autor"
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Tipo de crecimiento</label>
-                <Select
-                  id="growth_habit"
-                  className="text-xs"
-                  placeholder="No determinado"
-                  isClearable={false}
-                  isSearchable={false}
-                  options={speciesEnums.growth_habit}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
+    <form onSubmit={handleFilter}>
+      <DropdownMenu modal={false}>
+        <DropdownMenuTrigger asChild>
+          <Button className="bg-gray-700 hover:bg-gray-700/90 flex flex-row gap-2">
+            Filtro <GiSettingsKnobs />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-[70vw] h-[80vh] overflow-y-auto p-4 gap-4 grid items-start mr-5">
+          <DropdownMenuLabel className="w-full px-4 flex flex-column justify-around items-center">
+            <h1 className="text-2xl font-semibold w-full">Filtro avanzado</h1>
+            <div className="w-full px-4 gap-3 flex flex-row items-center justify-end">
+              <Button
+                type="submit"
+                onClick={handleFilter}
+                className="bg-blue-700 hover:bg-blue-700/90"
+              >
+                Aplicar
+              </Button>
+            </div>
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <Label className="text-xl font-semibold">
+            Estado de conservación
+          </Label>
+          <RadioGroup className="grid md:grid-cols-9 grid-cols-5 gap-2">
+            {speciesEnums.conservationStatus
+              .reverse()
+              .map((item: any, index: any) => (
+                <Label
+                  key={index}
+                  htmlFor={item.value}
+                  className={
+                    "[&:has([data-state=checked])]:text-white " +
+                    (item.value === "EX"
+                      ? "ex"
+                      : item.value === "EW"
+                      ? "ew"
+                      : item.value === "CR"
+                      ? "cr"
+                      : item.value === "EN"
+                      ? "en"
+                      : item.value === "VU"
+                      ? "vu"
+                      : item.value === "NT"
+                      ? "nt"
+                      : item.value === "LC"
+                      ? "lc"
+                      : item.value === "DD"
+                      ? "dd"
+                      : item.value === "NE"
+                      ? "ne"
+                      : "") +
+                    " flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-8 hover:ring-4 hover:ring-offset-2 ring-green-500 [&:has([data-state=checked])]:border-primary [&:has([data-state=checked])]:ring-4 [&:has([data-state=checked])]:ring-green-500 [&:has([data-state=checked])]:ring-offset-2 hover:cursor-pointer text-xl"
+                  }
+                >
+                  <RadioGroupItem
+                    value={item.value}
+                    id={item.value}
+                    className="sr-only"
+                    onClick={() => {
+                      speciesParams.conservationStatus = item.value.toString();
+                      setSpeciesParams({ ...speciesParams });
+                    }}
+                  />
+                  <div>{item.value}</div>
+                </Label>
+              ))}
+          </RadioGroup>
+          <DropdownMenuSeparator />
+          <Label className="text-xl font-semibold">Caracteristicas</Label>
+          <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 h-full">
+            <div className="col-span-1">
+              <Label className="text-lg">Tipo de crecimiento</Label>
+              <Select
+                id="growth_habit"
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                options={speciesEnums.growth_habit}
+                onChange={(value: any) => {
+                  speciesParams.growthHabit = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Origen</Label>
+              <Select
+                id="origin"
+                options={speciesEnums.originValues}
+                className="text-md"
+                placeholder="Nativo"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.origin = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Longevidad</Label>
+              <Select
+                id="longevity"
+                options={speciesEnums.longevity}
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.longevity = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1 ">
+              <Label className="text-lg">Categoria de Uso</Label>
+              <Select
+                isMulti
+                id="useCategory"
+                classNamePrefix="select"
+                className="basic-multi-select text-md"
+                options={speciesEnums.useCategoryValues}
+                onChange={(valueArr) => {
+                  speciesParams.useCategory = "";
+                  valueArr.forEach((value) => {
+                    if (value.value !== undefined) {
+                      speciesParams.useCategory += value.value + ",";
+                    }
+                  });
+                  setSpeciesParams({ ...speciesParams });
+                }}
+                isClearable={false}
+                isSearchable={false}
+                placeholder="Escoga una opcion"
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Tasa Crecimiento</Label>
+              <Select
+                id="growth_rate"
+                options={speciesEnums.growthRate}
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.growthRate = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1 ">
+              <Label className="text-lg">Uso en espacio publico</Label>
+              <Select
+                isMulti
+                id="publicUse"
+                classNamePrefix="select"
+                className="basic-multi-select text-md"
+                options={speciesEnums.publicUseValues}
+                onChange={(value) => {
+                  speciesParams.publicSpaceUse = "";
+                  value.forEach((value) => {
+                    if (value.value !== undefined) {
+                      speciesParams.publicSpaceUse += value.value + ",";
+                    }
+                  });
+                  setSpeciesParams({ ...speciesParams });
+                }}
+                isClearable={false}
+                isSearchable={false}
+                placeholder="Escoga una opcion"
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Atraccion a fauna</Label>
+              <Select
+                id="fauna_attraction"
+                options={speciesEnums.priorityLevel}
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.faunaAttraction = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Rango altitudinal</Label>
+              <Select
+                id="altitudinal_range"
+                options={speciesEnums.altitudeRange}
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.altitudinalRange = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Limitaciones florales</Label>
+              <Select
+                id="flower_limitations"
+                className="text-md"
+                options={speciesEnums.limitFloralValues}
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.flowerLimitations = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Limitaciones frutales</Label>
+              <Select
+                id="frutal_limitations"
+                className="text-md"
+                options={speciesEnums.limitFrutoValues}
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.fruitLimitations = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Requerimientos de luz</Label>
+              <Select
+                id="light_requirement"
+                options={speciesEnums.lightRequirement}
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.lightRequirements = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Forma de copa</Label>
+              <Select
+                id="crown_shape"
+                options={speciesEnums.crownShapeValues}
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.crownShape = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Densidad de follaje</Label>
+              <Select
+                id="foliage_density"
+                options={speciesEnums.priorityLevel}
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.foliageDensity = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Humedad</Label>
+              <Select
+                id="humidity_zone"
+                options={speciesEnums.humidityValues}
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.humidityZone = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Tipo de Fruta</Label>
+              <Select
+                id="fruit_type"
+                options={speciesEnums.fruitType}
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.fruitType = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Sistema de Dispersion</Label>
+              <Select
+                id="dispersal"
+                options={speciesEnums.dispersalValues}
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.dispersalSystem = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Meses de fructificacion</Label>
+              <Select
+                id="months_fruiting"
+                options={speciesEnums.monthValues}
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.fruitingMonths = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Tipo de Raiz</Label>
+              <Select
+                id="rooting_type"
+                options={speciesEnums.rootingTypes}
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.rootingType = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Color de flor</Label>
+              <Input
+                type="text"
+                id="flower_color"
+                placeholder="Ej: Rojo, amarillo, etc."
+                onChange={(e: any) => {
+                  speciesParams.flowerColor = e.target.value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Tiempo florecimiento</Label>
+              <Select
+                id="flowering_season"
+                options={speciesEnums.floweringSeason}
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.floweringSeason = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Meses de florecimiento</Label>
+              <Select
+                id="months_flowering"
+                options={speciesEnums.monthValues}
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.floweringMonths = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Arreglo de flor</Label>
+              <Select
+                id="flower_arrangement"
+                options={speciesEnums.flowerArrangement}
+                className="text-md"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.flowerArrangement = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Polinizacion</Label>
+              <Select
+                id="polinization"
+                options={speciesEnums.polinizationValues}
+                className="text-md overflow-visible"
+                placeholder="No determinado"
+                isClearable={false}
+                isSearchable={false}
+                onChange={(value: any) => {
+                  speciesParams.pollinationSystem = value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Color de corteza</Label>
+              <Input
+                type="text"
+                id="bark_color"
+                placeholder="Ej: Rojo, amarillo, etc."
+                onChange={(e: any) => {
+                  speciesParams.barkColor = e.target.value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
             </div>
           </div>
-          <div className="col-span-1 px-4 gap-2 grid">
-            <h1>Ecologia</h1>
-            <hr />
-            <div className="grid grid-cols-3 gap-2">
-              <div className="col-span-2">
-                <label className="text-xs">Rango altitudinal</label>
-                <Select
-                  id="altitudinal_range"
-                  options={speciesEnums.altitudeRange}
-                  className="text-xs"
-                  placeholder="No determinado"
-                  isClearable={false}
-                  isSearchable={false}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Origen</label>
-                <Select
-                  id="origin"
-                  options={speciesEnums.originValues}
-                  className="text-xs"
-                  placeholder="Nativo"
-                  isClearable={false}
-                  isSearchable={false}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Conservación</label>
-                <Select
-                  id="conservation_status"
-                  options={speciesEnums.conservationStatus}
-                  className="text-xs"
-                  placeholder="NE"
-                  isClearable={false}
-                  isSearchable={false}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Atraccion a fauna</label>
-                <Select
-                  id="fauna_attraction"
-                  options={speciesEnums.priorityLevel}
-                  className="text-xs"
-                  placeholder="No determinado"
-                  isClearable={false}
-                  isSearchable={false}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Fauna asociada</label>
-                <input
-                  type="text"
-                  id="associated_fauna"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Fauna"
-                />
-              </div>
+          <Label>Taxonomía</Label>
+          <div className="text-xl w-full p-2 grid grid-cols-2 md:grid-cols-4 gap-2">
+            <div className="col-span-1">
+              <Label className="text-lg">Familia</Label>
+              <Input
+                type="text"
+                id="family"
+                placeholder="Familia"
+                onChange={(e: any) => {
+                  speciesParams.family = e.target.value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Genero</Label>
+              <Input
+                type="text"
+                id="genus"
+                placeholder="Genero"
+                onChange={(e: any) => {
+                  speciesParams.genus = e.target.value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Subespecie</Label>
+              <Input
+                type="text"
+                id="subspecies"
+                placeholder="Subespecie"
+                onChange={(e: any) => {
+                  speciesParams.subspecies = e.target.value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
+            </div>
+            <div className="col-span-1">
+              <Label className="text-lg">Autor</Label>
+              <Input
+                type="text"
+                id="author"
+                placeholder="Autor"
+                onChange={(e: any) => {
+                  speciesParams.author = e.target.value;
+                  setSpeciesParams({ ...speciesParams });
+                }}
+              />
             </div>
           </div>
-          <div className="col-span-2 px-4 gap-2 grid">
-            <h1>Arboricultura y Etnobotanica</h1>
-            <hr />
-            <div className="grid grid-cols-3 gap-2">
-              <div className="col-span-1">
-                <label className="text-xs">Categoria de Uso</label>
-                <Select
-                  isMulti
-                  id="useCategory"
-                  classNamePrefix="select"
-                  className="basic-multi-select text-xs"
-                  options={speciesEnums.useCategoryValues}
-                  onChange={(value) => {
-                    console.log(value);
-                  }}
-                  isClearable={false}
-                  isSearchable={false}
-                  placeholder="Escoga una opcion"
-                />
-              </div>
-              <div className="col-span-2">
-                <label className="text-xs">Uso en espacio publico</label>
-                <Select
-                  isMulti
-                  id="publicUse"
-                  classNamePrefix="select"
-                  className="basic-multi-select text-xs"
-                  options={speciesEnums.publicUseValues}
-                  onChange={(value) => {
-                    console.log(value);
-                  }}
-                  isClearable={false}
-                  isSearchable={false}
-                  placeholder="Escoga una opcion"
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Limitaciones florales</label>
-                <input
-                  type="text"
-                  id="flower_limitations"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Limitaciones florales"
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Limitaciones frutales</label>
-                <input
-                  type="text"
-                  id="fruit_limitations"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Limitaciones frutales"
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Posibles pestes</label>
-                <input
-                  type="text"
-                  id="possible_pests"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Posibles pestes"
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Longevidad</label>
-                <Select
-                  id="longevity"
-                  options={speciesEnums.longevity}
-                  className="text-xs"
-                  placeholder="No determinado"
-                  isClearable={false}
-                  isSearchable={false}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Tasa Crecimiento</label>
-                <Select
-                  id="growth_rate"
-                  options={speciesEnums.growthRate}
-                  className="text-xs"
-                  placeholder="No determinado"
-                  isClearable={false}
-                  isSearchable={false}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Requerimientos de luz</label>
-                <Select
-                  id="light_requirement"
-                  options={speciesEnums.lightRequirement}
-                  className="text-xs"
-                  placeholder="No determinado"
-                  isClearable={false}
-                  isSearchable={false}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Forma de copa</label>
-                <Select
-                  id="crown_shape"
-                  options={speciesEnums.crownShapeValues}
-                  className="text-xs"
-                  placeholder="No determinado"
-                  isClearable={false}
-                  isSearchable={false}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Densidad de follaje</label>
-                <Select
-                  id="foliage_density"
-                  options={speciesEnums.priorityLevel}
-                  className="text-xs"
-                  placeholder="No determinado"
-                  isClearable={false}
-                  isSearchable={false}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Humedad</label>
-                <Select
-                  id="humidity_zone"
-                  options={speciesEnums.humidityValues}
-                  className="text-xs"
-                  placeholder="No determinado"
-                  isClearable={false}
-                  isSearchable={false}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="col-span-2 px-4 gap-2 grid">
-            <h1>Detalles</h1>
-            <hr />
-            <div className="grid grid-cols-3 gap-2">
-              <div className="col-span-1">
-                <label className="text-xs">Tipo de Fruta</label>
-                <Select
-                  id="fruit_type"
-                  options={speciesEnums.fruitType}
-                  className="text-xs"
-                  placeholder="No determinado"
-                  isClearable={false}
-                  isSearchable={false}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Sistema de Dispersion</label>
-                <Select
-                  id="dispersal"
-                  options={speciesEnums.dispersalValues}
-                  className="text-xs"
-                  placeholder="No determinado"
-                  isClearable={false}
-                  isSearchable={false}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Meses de fructificacion</label>
-                <input
-                  type="text"
-                  id="fruiting_months"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Meses de fructificacion"
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Tipo de Raiz</label>
-                <Select
-                  id="rooting_type"
-                  options={speciesEnums.rootingTypes}
-                  className="text-xs"
-                  placeholder="No determinado"
-                  isClearable={false}
-                  isSearchable={false}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Color de flor</label>
-                <input
-                  type="text"
-                  id="flower_color"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Color de flor"
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Tiempo de florecimiento</label>
-                <Select
-                  id="flowering_season"
-                  options={speciesEnums.floweringSeason}
-                  className="text-xs"
-                  placeholder="No determinado"
-                  isClearable={false}
-                  isSearchable={false}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Meses de florecimiento</label>
-                <input
-                  type="text"
-                  id="flowering_months"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Meses de florecimiento"
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Arreglo de flor</label>
-                <Select
-                  id="flower_arrangement"
-                  options={speciesEnums.flowerArrangement}
-                  className="text-xs"
-                  placeholder="No determinado"
-                  isClearable={false}
-                  isSearchable={false}
-                  onChange={(value: any) => {
-                    console.log(value);
-                  }}
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Polinizacion</label>
-                <input
-                  type="text"
-                  id="pollination_system"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Ej: Aves, insectos, etc."
-                />
-              </div>
-              <div className="col-span-1">
-                <label className="text-xs">Color de corteza</label>
-                <input
-                  type="text"
-                  id="bark_color"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-xs rounded-md  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="Color de corteza"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="col-span-2 px-4 gap-3 w-full flex flex-row items-center justify-end">
-            <button
-              onClick={limpiar}
-              className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Limpiar
-            </button>
-            <button
-              onClick={filtrar}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Aplicar
-            </button>
-          </div>
-        </div>
-      </Dropdown>
-    </>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </form>
   );
 };
 

@@ -332,3 +332,39 @@
     width: 100% !important;
   }
 }
+.ex {
+  background-color: black !important;
+  color: red !important;
+}
+.ew {
+  background-color: black !important;
+  color: white !important;
+}
+.cr {
+  background-color: rgb(220, 38, 38) !important;
+  color: white !important;
+}
+.en {
+  background-color: rgb(255, 90, 31) !important;
+  color: white !important;
+}
+.vu {
+  background-color: rgb(250, 202, 21) !important;
+  color: white !important;
+}
+.nt {
+  background-color: rgb(190, 242, 100) !important;
+  color: white !important;
+}
+.lc {
+  background-color: rgb(21, 128, 61) !important;
+  color: white !important;
+}
+.dd {
+  background-color: rgb(75, 85, 99) !important;
+  color: white !important;
+}
+.ne {
+  background-color: rgb(156, 163, 175) !important;
+  color: white !important;
+}

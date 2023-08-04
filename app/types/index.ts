@@ -47,11 +47,40 @@ export type SafeSpecies = Omit<Species, "createdAt" | "updatedAt"> & {
   seeds: true;
   stalk: true;
 };
-
+/* enum ConservationStatus {
+  NE
+  DD
+  LC
+  NT
+  VU
+  EN
+  CR
+  EW
+  EX
+} */
 export const speciesEnums = {
   conservationStatus: Object.values(ConservationStatus).map((value) => ({
-    value,
-    label: value.replace("_", " "),
+    value: value as ConservationStatus,
+    label:
+      value === "NE"
+        ? "No evaluado"
+        : value === "DD"
+        ? "Datos deficientes"
+        : value === "LC"
+        ? "Preocupación menor"
+        : value === "NT"
+        ? "Casi amenazado"
+        : value === "VU"
+        ? "Vulnerable"
+        : value === "EN"
+        ? "En peligro"
+        : value === "CR"
+        ? "En peligro crítico"
+        : value === "EW"
+        ? "Extinto en estado silvestre"
+        : value === "EX"
+        ? "Extinto"
+        : "No determinado",
   })),
   rootingTypes: Object.values(RootingTypes).map((value) => ({
     value,
@@ -125,16 +154,18 @@ export const speciesEnums = {
     { value: "Arbustiva", label: "Arbustiva" },
     { value: "Palmera", label: "Palmera" },
     { value: "Cactacea", label: "Cactácea" },
+    { value: "No determinado", label: "No determinado" },
   ],
   originValues: [
     { value: "Nativa", label: "Nativo" },
     { value: "Endemico", label: "Endemico" },
+    { value: "No determinado", label: "No determinado" },
   ],
   useCategoryValues: [
     { value: "Alimenticio", label: "Alimenticio" },
     { value: "Aditivo de los alimentos", label: "Aditivo de los alimentos" },
     {
-      vvalue: "Alimento de animales vertebrados",
+      value: "Alimento de animales vertebrados",
       label: "Alimento de animales vertebrados",
     },
     {
@@ -212,6 +243,31 @@ export const speciesEnums = {
     { value: "masivo", label: "Masivos" },
     { value: "carnoso", label: "Carnosos" },
     { value: "espinas", label: "Con espinas" },
+    { value: "No determinado", label: "No determinado" },
+  ],
+  monthValues: [
+    { value: "Enero", label: "Enero" },
+    { value: "Febrero", label: "Febrero" },
+    { value: "Marzo", label: "Marzo" },
+    { value: "Abril", label: "Abril" },
+    { value: "Mayo", label: "Mayo" },
+    { value: "Junio", label: "Junio" },
+    { value: "Julio", label: "Julio" },
+    { value: "Agosto", label: "Agosto" },
+    { value: "Septiembre", label: "Septiembre" },
+    { value: "Octubre", label: "Octubre" },
+    { value: "Noviembre", label: "Noviembre" },
+    { value: "Diciembre", label: "Diciembre" },
+    { value: "No determinado", label: "No determinado" },
+  ],
+  polinizationValues: [
+    { value: "Anemofilia", label: "Anemofilia (viento)" },
+    { value: "Insectos", label: "Insectos" },
+    { value: "Aves", label: "Aves" },
+    { value: "Aves nectarivoras", label: "Aves nectarivoras" },
+    { value: "Zoofila", label: "Zoofila (animales)" },
+    { value: "Hidrofila", label: "Hidrófila (agua)" },
+    { value: "Mamiferos", label: "Mamiferos" },
     { value: "No determinado", label: "No determinado" },
   ],
 };

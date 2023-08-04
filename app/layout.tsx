@@ -2,8 +2,8 @@ import ClientOnly from "./components/ClientOnly";
 
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
-import ToasterProvider from "./providers/ToasterProvider";
 import "./globals.css";
+import ToasterProvider from "./providers/ToasterProvider";
 import { nunito } from "./styles/font";
 
 import getCurrentUser from "./actions/getCurrentUser";

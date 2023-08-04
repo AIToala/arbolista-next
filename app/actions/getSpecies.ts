@@ -54,6 +54,8 @@ export interface ISpeciesParams {
   soilType?: string;
   humidityZone?: string;
   availablesStatus?: boolean;
+  pollinationSystem?: string;
+  author?: string;
 }
 
 export default async function getSpecies(params: ISpeciesParams) {
@@ -112,62 +114,101 @@ export default async function getSpecies(params: ISpeciesParams) {
       soilType,
       humidityZone,
       availablesStatus,
+      pollinationSystem,
+      author,
     } = params;
 
     const query: any = {};
 
     if (id != null) query.id = id;
     if (name != null) query.name = name;
-    if (family != null) query.family = family;
-    if (genus != null) query.genus = genus;
-    if (tSpecies != null) query.tSpecies = tSpecies;
-    if (subspecies != null) query.subspecies = subspecies;
-    if (commonNames != null) query.common_names = commonNames;
-    if (growthHabit != null) query.growth_habit = growthHabit;
-    if (bibliography != null) query.bibliography = bibliography;
-    if (barkAttributes != null) query.bark_attributes = barkAttributes;
-    if (barkColor != null) query.bark_color = barkColor;
-    if (reproductionForm != null) query.reproduction_form = reproductionForm;
-    if (rootingType != null) query.rooting_type = rootingType;
-    if (rootAttributes != null) query.root_attributes = rootAttributes;
-    if (floralAttributes != null) query.floral_attributes = floralAttributes;
-    if (flowerColor != null) query.flower_color = flowerColor;
-    if (flowerArrangement != null) query.flower_arrangement = flowerArrangement;
-    if (floweringSeason != null) query.flowering_season = floweringSeason;
-    if (floweringMonths != null) query.flowering_months = floweringMonths;
-    if (leafAttributes != null) query.leafAttributes = leafAttributes;
-    if (leafArrangement != null) query.leaf_arrangement = leafArrangement;
-    if (leafPersistence != null) query.leaf_persistence = leafPersistence;
-    if (stemLeafPosition != null) query.stemLeaf_position = stemLeafPosition;
-    if (leafComposition != null) query.leaf_composition = leafComposition;
-    if (fruitType != null) query.fruitType = fruitType;
-    if (dispersalSystem != null) query.dispersal_system = dispersalSystem;
-    if (fruitAttributes != null) query.fruit_attributes = fruitAttributes;
-    if (seedAttributes != null) query.seed_attributes = seedAttributes;
-    if (fruitingMonths != null) query.fruiting_months = fruitingMonths;
-    if (useCategory != null) query.use_category = useCategory;
-    if (useDetail != null) query.use_detail = useDetail;
-    if (altitudinalRange != null) query.altitudinal_range = altitudinalRange;
-    if (geoDistribution != null) query.geo_distribution = geoDistribution;
-    if (origin != null) query.origin = origin;
-    if (conservationStatus != null)
+    if (family != null && family !== "") query.family = family;
+    if (genus != null && genus !== "") query.genus = genus;
+    if (tSpecies != null && tSpecies !== "") query.tSpecies = tSpecies;
+    if (subspecies != null && subspecies !== "") query.subspecies = subspecies;
+    if (commonNames != null && commonNames !== "")
+      query.common_names = commonNames;
+    if (growthHabit != null && growthHabit !== "")
+      query.growth_habit = growthHabit;
+    if (bibliography != null && bibliography !== "")
+      query.bibliography = bibliography;
+    if (barkAttributes != null && barkAttributes !== "")
+      query.bark_attributes = barkAttributes;
+    if (barkColor != null && barkColor !== "") query.bark_color = barkColor;
+    if (reproductionForm != null && reproductionForm !== "")
+      query.reproduction_form = reproductionForm;
+    if (rootingType != null && rootingType !== "")
+      query.rooting_type = rootingType;
+    if (rootAttributes != null && rootAttributes !== "")
+      query.root_attributes = rootAttributes;
+    if (floralAttributes != null && floralAttributes !== "")
+      query.floral_attributes = floralAttributes;
+    if (flowerColor != null && flowerColor !== "")
+      query.flower_color = flowerColor;
+    if (flowerArrangement != null && flowerArrangement !== "")
+      query.flower_arrangement = flowerArrangement;
+    if (floweringSeason != null && floweringSeason !== "")
+      query.flowering_season = floweringSeason;
+    if (floweringMonths != null && floweringMonths !== "")
+      query.flowering_months = floweringMonths;
+    if (leafAttributes != null && leafAttributes !== "")
+      query.leafAttributes = leafAttributes;
+    if (leafArrangement != null && leafArrangement !== "")
+      query.leaf_arrangement = leafArrangement;
+    if (leafPersistence != null && leafPersistence !== "")
+      query.leaf_persistence = leafPersistence;
+    if (stemLeafPosition != null && stemLeafPosition !== "")
+      query.stemLeaf_position = stemLeafPosition;
+    if (leafComposition != null && leafComposition !== "")
+      query.leaf_composition = leafComposition;
+    if (fruitType != null && fruitType !== "") query.fruitType = fruitType;
+    if (dispersalSystem != null && dispersalSystem !== "")
+      query.dispersal_system = dispersalSystem;
+    if (fruitAttributes != null && fruitAttributes !== "")
+      query.fruit_attributes = fruitAttributes;
+    if (seedAttributes != null && seedAttributes !== "")
+      query.seed_attributes = seedAttributes;
+    if (fruitingMonths != null && fruitingMonths !== "")
+      query.fruiting_months = fruitingMonths;
+    if (useCategory != null && useCategory !== "")
+      query.use_category = useCategory;
+    if (useDetail != null && useDetail !== "") query.use_detail = useDetail;
+    if (altitudinalRange != null && altitudinalRange !== "")
+      query.altitudinal_range = altitudinalRange;
+    if (geoDistribution != null && geoDistribution !== "")
+      query.geo_distribution = geoDistribution;
+    if (origin != null && origin !== "") query.origin = origin;
+    if (conservationStatus != null && conservationStatus !== "")
       query.conservation_status = conservationStatus;
-    if (publicSpaceUse != null) query.public_spaceUse = publicSpaceUse;
-    if (flowerLimitations != null) query.flower_limitations = flowerLimitations;
-    if (fruitLimitations != null) query.fruit_limitations = fruitLimitations;
-    if (longevity != null) query.longevity = longevity;
-    if (pestsDiseases != null) query.pests_diseases = pestsDiseases;
-    if (faunaAttraction != null) query.fauna_attraction = faunaAttraction;
-    if (associatedFauna != null) query.associated_fauna = associatedFauna;
-    if (lightRequirements != null) query.light_requirements = lightRequirements;
-    if (growthRate != null) query.growth_rate = growthRate;
-    if (maximumHeight != null) query.maximum_height = maximumHeight;
-    if (crownWidth != null) query.crown_width = crownWidth;
-    if (crownShape != null) query.crown_shape = crownShape;
-    if (DAP != null) query.DAP = DAP;
-    if (foliageDensity != null) query.foliage_density = foliageDensity;
-    if (soilType != null) query.soil_type = soilType;
-    if (humidityZone != null) query.humidity_zone = humidityZone;
+    if (publicSpaceUse != null && publicSpaceUse !== "")
+      query.public_spaceUse = publicSpaceUse;
+    if (flowerLimitations != null && flowerLimitations !== "")
+      query.flower_limitations = flowerLimitations;
+    if (fruitLimitations != null && fruitLimitations !== "")
+      query.fruit_limitations = fruitLimitations;
+    if (longevity != null && longevity !== "") query.longevity = longevity;
+    if (pestsDiseases != null && pestsDiseases !== "")
+      query.pests_diseases = pestsDiseases;
+    if (faunaAttraction != null && faunaAttraction !== "")
+      query.fauna_attraction = faunaAttraction;
+    if (associatedFauna != null && associatedFauna !== "")
+      query.associated_fauna = associatedFauna;
+    if (lightRequirements != null && lightRequirements !== "")
+      query.light_requirements = lightRequirements;
+    if (growthRate != null && growthRate !== "") query.growth_rate = growthRate;
+    if (maximumHeight != null && maximumHeight !== "")
+      query.maximum_height = maximumHeight;
+    if (crownWidth != null && crownWidth !== "") query.crown_width = crownWidth;
+    if (crownShape != null && crownShape !== "") query.crown_shape = crownShape;
+    if (DAP != null && DAP !== "") query.DAP = DAP;
+    if (foliageDensity != null && foliageDensity !== "")
+      query.foliage_density = foliageDensity;
+    if (soilType != null && soilType !== "") query.soil_type = soilType;
+    if (humidityZone != null && humidityZone !== "")
+      query.humidity_zone = humidityZone;
+    if (pollinationSystem != null && pollinationSystem !== "")
+      query.pollination_system = pollinationSystem;
+    if (author != null && author !== "") query.author = author;
     query.availables_status = true;
     if (currentUser != null && currentUser.userRole !== "NURSERY_ADMIN") {
       query.availables_status = true;
@@ -219,6 +260,7 @@ export default async function getSpecies(params: ISpeciesParams) {
           tSpecies: query?.tSpecies,
           subspecies: query?.subspecies,
           growth_habit: query?.growth_habit,
+          author: query?.author,
         },
         stalk: {
           bark_attributes: query?.bark_attributes,

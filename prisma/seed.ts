@@ -1,13 +1,13 @@
 import {
-  PrismaClient,
-  type Prisma,
   ConservationStatus,
-  PriorityLevel,
-  LightRequirement,
+  CrownWidth,
+  FloweringSeason,
   GrowthRate,
   LeafPersistence,
-  FloweringSeason,
-  CrownWidth,
+  LightRequirement,
+  PriorityLevel,
+  PrismaClient,
+  type Prisma,
 } from "@prisma/client";
 const prisma = new PrismaClient();
 

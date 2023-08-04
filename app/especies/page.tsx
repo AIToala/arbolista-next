@@ -1,9 +1,9 @@
 import ClientOnly from "@/app/components/ClientOnly";
 import EmptyState from "@/app/components/EmptyState";
-import TabEspecies from "./TabEspecies";
 import getSpecies, { type ISpeciesParams } from "../actions/getSpecies";
-import SearchButton from "../components/buttons/SearchButton";
 import FilterButton from "../components/buttons/FilterButton";
+import SearchButton from "../components/buttons/SearchButton";
+import TabEspecies from "./TabEspecies";
 
 export const dynamic = "force-dynamic";
 
@@ -33,14 +33,14 @@ const Especies = async ({ searchParams }: EspeciesProps) => {
             <FilterButton />
           </div>
         </div>
-        <div className="w-[90%] justify-between flex flex-row bg-green-700 text-white items-center px-4 py-2 rounded-b-md">
+        <div className="w-full justify-between flex flex-row bg-green-700 text-white items-center px-4 py-2 rounded-b-md">
           <div className="text-md flex flex-col">
             <span className="text-xl font-bold">{results.length}</span>
             <span>Especies</span>
           </div>
           <div className="text-md flex flex-row"></div>
         </div>
-        <div className="w-[90%] flex flex-col h-auto px-3 py-3 min-h-[70vh] mx-auto my-5">
+        <div className="w-full flex flex-col h-auto px-4 py-4 min-h-[70vh] mx-auto my-5">
           <TabEspecies data={results} />
         </div>
       </div>

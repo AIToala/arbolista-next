@@ -13,22 +13,7 @@ export default async function getSpeciesByName() {
         updatedAt: true,
       },
       where: {
-        ecology: {
-          NOT: [
-            {
-              conservation_status: "NE",
-            },
-            {
-              conservation_status: "DD",
-            },
-            {
-              conservation_status: "LC",
-            },
-            {
-              conservation_status: "NT",
-            },
-          ],
-        },
+        isInGallery: true,
       },
     });
     const safeSpecies = species.map((specie) => ({
