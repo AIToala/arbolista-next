@@ -8,6 +8,7 @@ import React from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { GiPlantsAndAnimals } from "react-icons/gi";
 import { RiHome2Fill, RiPlantFill } from "react-icons/ri";
+import { TfiGallery } from "react-icons/tfi";
 
 interface SidebarProps {
   currentUser?: TokenizedUser | null;
@@ -40,12 +41,31 @@ const generateSidebarCollapse = (
     </Sidebar.Item>
   </Sidebar.Collapse>
 );
+
+const generateOneSidebarCollapse = (
+  label: string,
+  icon: IconType,
+  route: string,
+  router: ReturnType<typeof useRouter>
+) => (
+  <Sidebar.Collapse label={label} icon={icon}>
+    <Sidebar.Item
+      onClick={() => {
+        // eslint-disable-next-line @typescript-eslint/no-floating-promises
+        router.push("/dashboard/gestionar");
+      }}
+      href="/dashboard/gestionar"
+    >
+      Gestionar {label}
+    </Sidebar.Item>
+  </Sidebar.Collapse>
+);
 // eslint-disable-next-line no-unused-vars
 const SidebarC: React.FC<SidebarProps> = ({ currentUser }) => {
   const router = useRouter();
   return (
     <aside>
-      <Sidebar className="sidebar" color="!green" style={{ height: "100vh" }}>
+      <Sidebar className="sidebar h-full min-h-[100vh]" color="!green">
         <Sidebar.Logo href="#" img="/images/logo.svg" imgAlt="logo">
           <p>Arborista</p>
           <p>{currentUser?.name}</p>
@@ -58,6 +78,18 @@ const SidebarC: React.FC<SidebarProps> = ({ currentUser }) => {
                   "Usuarios",
                   FaUserAlt,
                   "/dashboard/usuario",
+                  router
+                )}
+                {generateSidebarCollapse(
+                  "Viveros",
+                  GiPlantsAndAnimals,
+                  "/dashboard/viveros",
+                  router
+                )}
+                {generateOneSidebarCollapse(
+                  "Galeria",
+                  TfiGallery,
+                  "/dashboard/viveros",
                   router
                 )}
               </>
@@ -73,8 +105,7 @@ const SidebarC: React.FC<SidebarProps> = ({ currentUser }) => {
                 )}
               </>
             )}
-            {(currentUser?.userRole === "ADMIN" ||
-              currentUser?.userRole === "NURSERY_ADMIN") && (
+            {currentUser?.userRole === "NURSERY_ADMIN" && (
               <>
                 {generateSidebarCollapse(
                   "Viveros",

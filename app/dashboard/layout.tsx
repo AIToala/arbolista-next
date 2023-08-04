@@ -10,7 +10,7 @@ export default async function DashboardLayout({
   return (
     <div className="w-full h-fit flex flex-column">
       <SidebarC currentUser={currentUser} />
-      <div>{children}</div>
+      <div className="w-full h-full flex flex-column mx-auto">{children}</div>
     </div>
   );
 }
