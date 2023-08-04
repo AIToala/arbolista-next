@@ -1,871 +1,648 @@
 "use client";
+
 import {
-  FileInput,
-  Label,
-  Select,
   Tabs,
-  TextInput,
-  Textarea,
-} from "flowbite-react";
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/app/components/ui/tabs";
+import {
+  InputField,
+  TextAreaField,
+  FileInputField,
+  SelectField,
+} from "../inputs";
 
 const DashboardIndexPage = () => {
   return (
-    <div style={{ display: "flex" }}>
-      <div
-        style={{
-          flex: 1,
-          marginLeft: "20px",
-          marginTop: "100px",
-          marginRight: "50px",
-          marginBottom: "100px",
-        }}
-      >
-        <Tabs.Group
-          aria-label="Tabs with icons"
-          style="underline"
-          className="bg-red"
-        >
-          <Tabs.Item active title="Taxonomia">
-            <div className="flex max-w-md flex-col gap-4">
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="familia" value="Familia" />
-                </div>
-                <TextInput
-                  id="familia"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese la familia de la especie"
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="genero" value="Genero" />
-                </div>
-                <TextInput
-                  id="genero"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese el genero de la especie"
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="especie" value="Especie" />
-                </div>
-                <TextInput
-                  id="especie"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese la especie"
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="subespecie" value="Subespecie" />
-                </div>
-                <TextInput
-                  id="subespecie"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese la subespecie"
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="variedad" value="Variedad" />
-                </div>
-                <TextInput
-                  id="variedad"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese la variedad"
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="autor" value="Autor" />
-                </div>
-                <TextInput
-                  id="autor"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese el autor de la especie"
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="sinonimos" value="Sinonimos" />
-                </div>
-                <TextInput
-                  id="sinonimos"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese los sinonimos de la especie"
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="etimologia" value="Etimologia" />
-                </div>
-                <Textarea
-                  id="etimologia"
-                  placeholder="Ingrese aqui la etimologia de la especie"
-                  required
-                  rows={1}
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="nombrescomunes" value="Nombres Comunes" />
-                </div>
-                <TextInput
-                  id="nombrescomunes"
-                  placeholder="Ingrese aqui los nombres comunes de la especie"
-                  required
-                />
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="habitoscrecimiento"
-                    value="Selecciona el habito de crecimiento"
-                  />
-                </div>
-                <Select id="habitoscrecimiento" required>
-                  <option>No determinado</option>
-                  <option>Arborea</option>
-                  <option>Arbustiva</option>
-                  <option>Palmera</option>
-                  <option>Cactácea</option>
-                </Select>
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="bibliografia" value="Bibliografia" />
-                </div>
-                <Textarea
-                  id="bibliografia"
-                  placeholder="Ingrese aqui la bibliografia de la especie"
-                  required
-                  rows={1}
-                />
-              </div>
-            </div>
-          </Tabs.Item>
-
-          <Tabs.Item title="Tallo">
-            <div className="flex max-w-md flex-col gap-4">
-              <div>
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="atributoscorteza"
-                    value="Atributos de corteza"
-                  />
-                </div>
-                <TextInput
-                  id="atributoscorteza"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese los atributos de la corteza"
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="colorcorteza" value="Color Corteza" />
-                </div>
-                <TextInput
-                  id="colorcorteza"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese los colores de la especie"
-                />
-              </div>
-              <div className="max-w-md" id="fileUpload">
-                <div className="mb-2 block">
-                  <Label htmlFor="tallofoto" value="Upload file" />
-                </div>
-                <FileInput
-                  helperText="Selecciona una foto del tallo de la especie"
-                  id="tallofoto"
-                />
-              </div>
-            </div>
-          </Tabs.Item>
-
-          <Tabs.Item title="Raiz">
-            <div className="flex max-w-md flex-col gap-4">
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="formareproduccion"
-                    value="Selecciona la forma de reproduccion"
-                  />
-                </div>
-                <Select id="formareproduccion" required>
-                  <option>No determinado</option>
-                  <option>Por semilla</option>
-                  <option>Por estaca</option>
-                  <option>Por bulbo</option>
-                  <option>Por tubérculo</option>
-                  <option>Por rizoma</option>
-                  <option>Por estolón</option>
-                  <option>Por acodo</option>
-                  <option>División de pie</option>
-                </Select>
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="atributosradiculares"
-                    value="Atributos Radiculares"
-                  />
-                </div>
-                <Textarea
-                  id="atributosradiculares"
-                  placeholder="Ingrese aqui los atributos radiculares de la especie"
-                  required
-                  rows={1}
-                />
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="tiposenraizamiento"
-                    value="Selecciona el tipo de enraizamiento"
-                  />
-                </div>
-                <Select id="tiposenraizamiento" required>
-                  <option>No determinado</option>
-                  <option>Superficial</option>
-                  <option>Medio</option>
-                  <option>Profundo</option>
-                </Select>
-              </div>
-            </div>
-          </Tabs.Item>
-
-          <Tabs.Item title="Flor">
-            <div className="flex max-w-md flex-col gap-4">
-              <div>
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="atributosflorales"
-                    value="Atributos Florales"
-                  />
-                </div>
-                <Textarea
-                  id="atributosflorales"
-                  placeholder="Ingrese aqui los atributos florales de la especie"
-                  required
-                  rows={1}
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="flowercolor" value="Color de la flor" />
-                </div>
-                <TextInput
-                  id="flowercolor"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese el color de la flor"
-                />
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="flower_arrangement"
-                    value="Selecciona la disposición de las flores"
-                  />
-                </div>
-                <Select id="flower_arrangement" required>
-                  <option>No determinado</option>
-                  <option>Solitaria</option>
-                  <option>Racimo</option>
-                  <option>Panícula</option>
-                  <option>Corimbo</option>
-                  <option>Espiga</option>
-                  <option>Amento</option>
-                  <option>Espádice</option>
-                  <option>Cima</option>
-                  <option>Cabezuela</option>
-                  <option>Umbela</option>
-                  <option>No aplica</option>
-                </Select>
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="pollination_system"
-                    value="Selecciona el sistema de polinizacion"
-                  />
-                </div>
-                <Select id="pollination_system" required>
-                  <option>No determinado</option>
-                  <option>Anemófila (viento)</option>
-                  <option>Hidrófila (agua)</option>
-                  <option>Zoófila (animales)</option>
-                  <option>Aves</option>
-                  <option>Mamíferos</option>
-                  <option>Insectos</option>
-                  <option>Aves nectarívoras</option>
-                </Select>
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="flowering_season"
-                    value="Selecciona la estación de floración"
-                  />
-                </div>
-                <Select id="flowering_season" required>
-                  <option>No determinado</option>
-                  <option>Permanente</option>
-                  <option>Estacional</option>
-                  <option>Estación seca</option>
-                  <option>Estación lluviosa</option>
-                  <option>No aplica</option>
-                </Select>
-              </div>
-              <div className="max-w-md" id="fileUpload">
-                <div className="mb-2 block">
-                  <Label htmlFor="flower_url" value="Upload file" />
-                </div>
-                <FileInput
-                  helperText="Selecciona una foto de la flor"
-                  id="flower_url"
-                />
-              </div>
-              <div className="max-w-md" id="fileUpload">
-                <div className="mb-2 block">
-                  <Label htmlFor="detailFlower_url" value="Upload file" />
-                </div>
-                <FileInput
-                  helperText="Selecciona una foto del detalle de la flor"
-                  id="detailFlower_url"
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="flowering_months"
-                    value="Meses de floración"
-                  />
-                </div>
-                <TextInput
-                  id="flowering_months"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese los meses de floración"
-                />
-              </div>
-            </div>
-          </Tabs.Item>
-
-          <Tabs.Item title="Hoja">
-            <div className="flex max-w-md flex-col gap-4">
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="leaf_attributes" value="Atributos Foliares" />
-                </div>
-                <Textarea
-                  id="leaf_attributes"
-                  placeholder="Ingrese aqui los atributos foliares de la especie"
-                  required
-                  rows={1}
-                />
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="leaf_persistence"
-                    value="Selecciona la persistencia de la hoja"
-                  />
-                </div>
-                <Select id="leaf_persistence" required>
-                  <option>No determinado</option>
-                  <option>Caducifolia</option>
-                  <option>Semicaducifolia</option>
-                  <option>Perenne</option>
-                  <option>No aplica</option>
-                </Select>
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="stemLeaf_position"
-                    value="Selecciona la posicion de la hoja en el tallo"
-                  />
-                </div>
-                <Select id="stemLeaf_position" required>
-                  <option>No determinado</option>
-                  <option>Alterna</option>
-                  <option>Opuesta</option>
-                  <option>Fasciculada</option>
-                  <option>Roseta</option>
-                  <option>Verticilada</option>
-                </Select>
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="leaf_composition"
-                    value="Selecciona la posicion de la hoja"
-                  />
-                </div>
-                <Select id="leaf_composition" required>
-                  <option>No determinado</option>
-                  <option>Simple</option>
-                  <option>Digitado compuesta</option>
-                  <option>Compuesta paripinnada</option>
-                  <option>Compuesta imparipinnada</option>
-                  <option>Compuesta unifoliada</option>
-                  <option>Compuesta bifoliada</option>
-                  <option>Compuesta trifoliada</option>
-                  <option>Compuesta bipinnada</option>
-                  <option>Compuesta</option>
-                </Select>
-              </div>
-              <div className="max-w-md" id="fileUpload">
-                <div className="mb-2 block">
-                  <Label htmlFor="leaf_url" value="Upload file" />
-                </div>
-                <FileInput
-                  helperText="Selecciona una foto de la hoja"
-                  id="leaf_url"
-                />
-              </div>
-            </div>
-          </Tabs.Item>
-
-          <Tabs.Item title="Fruto/Semilla">
-            <div className="flex max-w-md flex-col gap-4">
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="fruitType"
-                    value="Selecciona el tipo de fruto"
-                  />
-                </div>
-                <Select id="fruitType" required>
-                  <option>No determinado</option>
-                  <option>Legumbre</option>
-                  <option>Legumbre plana</option>
-                  <option>CLegumbre cilíndrica</option>
-                  <option>Folículo</option>
-                  <option>Silicua</option>
-                  <option>Cápsula</option>
-                  <option>Pixidio</option>
-                  <option>Aquenio</option>
-                  <option>Cariopse</option>
-                  <option>Sámara</option>
-                  <option>Baya</option>
-                  <option>Drupa</option>
-                  <option>Estróbilo</option>
-                  <option>Nuez</option>
-                  <option>Poma</option>
-                  <option>Sícono</option>
-                  <option>No aplica</option>
-                </Select>
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="dispersal_system"
-                    value="Selecciona el sistema de dispersión de los frutos"
-                  />
-                </div>
-                <Select id="dispersal_system" required>
-                  <option>No determinado</option>
-                  <option>Anemocoria (viento)</option>
-                  <option>Hidrocoria (agua)</option>
-                  <option>Baricoria (gravedad)</option>
-                  <option>Zoocoria (animales)</option>
-                  <option>Aves</option>
-                  <option>Mamíferos</option>
-                  <option>Insectos</option>
-                  <option>Aves semilleras</option>
-                  <option>Aves frugívoras</option>
-                </Select>
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="fruit_attributes"
-                    value="Atributos de fruto"
-                  />
-                </div>
-                <TextInput
-                  id="fruit_attributes"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese los atributos del fruto"
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="seed_attributes"
-                    value="Atributos de la semilla"
-                  />
-                </div>
-                <TextInput
-                  id="seed_attributes"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese los atributos de la semilla"
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="fruiting_months"
-                    value="Meses de fructificación"
-                  />
-                </div>
-                <TextInput
-                  id="fruiting_months"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese los meses de fructificación"
-                />
-              </div>
-            </div>
-          </Tabs.Item>
-
-          <Tabs.Item title="Ecologia">
-            <div className="flex max-w-md flex-col gap-4">
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="altitudinal_range"
-                    value="Selecciona el rango altitudinal de la especie"
-                  />
-                </div>
-                <Select id="altitudinal_range" required>
-                  <option>No determinado</option>
-                  <option>0-500</option>
-                  <option>500-1000</option>
-                  <option>1000-1500</option>
-                  <option>1500-2000</option>
-                  <option>2000-2500</option>
-                  <option>2500-3000</option>
-                  <option>mayor a 3000</option>
-                </Select>
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="geo_distribution"
-                    value="Distribución geográfica"
-                  />
-                </div>
-                <TextInput
-                  id="geo_distribution"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese la distribucion geográfica de la especie"
-                />
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="origin "
-                    value="Selecciona el origen de la especie"
-                  />
-                </div>
-                <Select id="origin " required>
-                  <option>Nativa</option>
-                  <option>Endémica</option>
-                </Select>
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="conservation_status"
-                    value="Selecciona el estado de conservacion de la especie"
-                  />
-                </div>
-                <Select id="conservation_status" required>
-                  <option>Extinta (EX)</option>
-                  <option>Extinta en estado salvaje (EW)</option>
-                  <option>En peligro crítico (CR)</option>
-                  <option>En peligro (EN)</option>
-                  <option>Vulnerable (VU)</option>
-                  <option>Casi Amenazada (NT)</option>
-                  <option>Preocupación menor (LC)</option>
-                  <option>Datos Insuficientes (DD)</option>
-                  <option>No evaluada (NE)</option>
-                </Select>
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="fauna_attraction"
-                    value="Selecciona la atraccion de la fauna"
-                  />
-                </div>
-                <Select id="fauna_attraction" required>
-                  <option>No determinado</option>
-                  <option>Baja</option>
-                  <option>Media</option>
-                  <option>Alta</option>
-                </Select>
-              </div>
-            </div>
-          </Tabs.Item>
-
-          <Tabs.Item title="Etnobotánica">
-            <div className="flex max-w-md flex-col gap-4">
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="category"
-                    value="Selecciona la categoria de uso de la especie"
-                  />
-                </div>
-                <Select id="category" required>
-                  <option>No determinado</option>
-                  <option>Alimenticio</option>
-                  <option>Aditivo de los alimentos</option>
-                  <option>Alimento de animales vertebrados</option>
-                  <option>Alimento de animales invertebrados</option>
-                  <option>Apícola</option>
-                  <option>Combustibles</option>
-                  <option>Materiales</option>
-                  <option>Social</option>
-                  <option>Tóxico</option>
-                  <option>Medicinal</option>
-                  <option>Medioambiental</option>
-                </Select>
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="use_detail" value="Detelle de uso" />
-                </div>
-                <TextInput
-                  id="use_detail"
-                  sizing="md"
-                  type="text"
-                  placeholder="Describa el detalle de uso"
-                />
-              </div>
-            </div>
-          </Tabs.Item>
-
-          <Tabs.Item title="Arbolicultura">
-            <div className="flex max-w-md flex-col gap-4">
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="public_spaceUse"
-                    value="Selecciona El uso en espacio publico"
-                  />
-                </div>
-                <Select id="public_spaceUse" required>
-                  <option>No determinado</option>
-                  <option>Andenes vía de servicio</option>
-                  <option>Cerros</option>
-                  <option>Glorietas</option>
-                  <option>Orejas de puente</option>
-                  <option>Parques</option>
-                  <option>Plazas/Plazoletas</option>
-                  <option>Retiros de quebrada</option>
-                  <option>Separador de autopistas</option>
-                  <option>Edificios institucionales</option>
-                  <option>Antejardines</option>
-                  <option>Separador de arterias principales</option>
-                  <option>Vías peatonales</option>
-                  <option>Separadores</option>
-                </Select>
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="flower_limitations"
-                    value="Limitacion flores"
-                  />
-                </div>
-                <TextInput
-                  id="flower_limitations"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese las Limitaciones florales de la especie"
-                />
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="fruit_limitations" value="Limitacion fruto" />
-                </div>
-                <TextInput
-                  id="fruit_limitations"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese las Limitaciones frutales de la especie"
-                />
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="longevity"
-                    value="Seleccione el rango de logevidad de la especie"
-                  />
-                </div>
-                <Select id="longevity" required>
-                  <option>No determinado</option>
-                  <option>Baja (0 - 35 años)</option>
-                  <option>Media (36-60 años)</option>
-                  <option>Alta (mayor a 60 años)</option>
-                  <option>Alimento de animales invertebrados</option>
-                  <option>Anual</option>
-                  <option>Perenne</option>
-                </Select>
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="pests_diseases" value="Limitacion fruto" />
-                </div>
-                <TextInput
-                  id="pests_diseases"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese las plagas y enfermedades de la especie"
-                />
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="light_requirements"
-                    value="Seleccione el requerimiento de luminosidad que requeire especie"
-                  />
-                </div>
-                <Select id="light_requirements" required>
-                  <option>No determinado</option>
-                  <option>Baja</option>
-                  <option>Media</option>
-                  <option>Alta</option>
-                  <option>Sombra en estado juvenil</option>
-                </Select>
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="growth_rate"
-                    value="Selecciona la tasa de crecimiento de la especie"
-                  />
-                </div>
-                <Select id="growth_rate" required>
-                  <option>No determinado</option>
-                  <option>Lenta</option>
-                  <option>Media</option>
-                  <option>Rápida</option>
-                  <option>Lenta a Media</option>
-                  <option>Media a Rápida</option>
-                </Select>
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="maximum_height"
-                    value="Selecciona el rango de la altura maxima de la especie (m)"
-                  />
-                </div>
-                <Select id="maximum_height" required>
-                  <option>menor que 7m</option>
-                  <option>entre 7 y 15 m</option>
-                  <option>mayor que 15 m</option>
-                </Select>
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="crown_width"
-                    value="Selecciona el rango de la amplitud de copa de la especie (m)"
-                  />
-                </div>
-                <Select id="crown_width" required>
-                  <option>Estrecha (menor a 7m)</option>
-                  <option>Media (7-14m)</option>
-                  <option>Amplia (mayor a 14m)</option>
-                </Select>
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="crown_shape"
-                    value="Selecciona la forma de copa de la especie (m)"
-                  />
-                </div>
-                <Select id="crown_shape" required>
-                  <option>No determinada</option>
-                  <option>Aparasolada</option>
-                  <option>Columnar</option>
-                  <option>Estratificada</option>
-                  <option>Globosa</option>
-                  <option>Irregular</option>
-                  <option>Oval</option>
-                  <option>Péndula</option>
-                  <option>Piramidal</option>
-                  <option>Semiglobosa</option>
-                </Select>
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="DAP" value="DAP" />
-                </div>
-                <TextInput
-                  id="DAP"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese el DAP de la especie"
-                />
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="foliage_density"
-                    value="Selecciona la densidad de follaje de la especie"
-                  />
-                </div>
-                <Select id="foliage_density" required>
-                  <option>No determinada</option>
-                  <option>Alta</option>
-                  <option>Media</option>
-                  <option>Baja</option>
-                </Select>
-              </div>
-              <div>
-                <div className="mb-2 block">
-                  <Label htmlFor="soil_type" value="Tipo de suelo" />
-                </div>
-                <TextInput
-                  id="soil_type"
-                  sizing="md"
-                  type="text"
-                  placeholder="Ingrese el tipo de suelo"
-                />
-              </div>
-              <div className="max-w-md" id="select">
-                <div className="mb-2 block">
-                  <Label
-                    htmlFor="humidity_zone"
-                    value="Selecciona la zona de humedad"
-                  />
-                </div>
-                <Select id="humidity_zone" required>
-                  <option>No determinada</option>
-                  <option>Seca</option>
-                  <option>Húmeda</option>
-                  <option>Muy húmeda</option>
-                </Select>
-              </div>
-            </div>
-          </Tabs.Item>
-        </Tabs.Group>
+    <Tabs
+      defaultValue="taxonomy"
+      className="dashboard-container"
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+        width: "100% !important",
+        marginTop: "50px",
+        marginBottom: "100px",
+        padding: "0",
+      }}
+    >
+      <div className="select-fields-container">
+        <TabsList className="grid w-full grid-cols-9">
+          <TabsTrigger value="taxonomy">Taxonomia</TabsTrigger>
+          <TabsTrigger value="stalk">Tallo</TabsTrigger>
+          <TabsTrigger value="root">Raíz</TabsTrigger>
+          <TabsTrigger value="flower">Flor</TabsTrigger>
+          <TabsTrigger value="leaf">Hoja</TabsTrigger>
+          <TabsTrigger value="fruit">Fruto/Semilla</TabsTrigger>
+          <TabsTrigger value="ecology">Ecologia</TabsTrigger>
+          <TabsTrigger value="etnobotanic">Etnobotánica</TabsTrigger>
+          <TabsTrigger value="arboliculture">Arboricultura</TabsTrigger>
+        </TabsList>
       </div>
-    </div>
+      <TabsContent value="taxonomy">
+        <div className="input-fields-container">
+          <InputField
+            id="family"
+            label="Familia"
+            placeholder="Ingrese aqui la familia de la especie"
+          />
+          <InputField
+            id="genus"
+            label="Genero"
+            placeholder="Ingrese aqui  el genero de la especie"
+          />
+          <InputField
+            id="specie"
+            label="Especie"
+            placeholder="Ingrese aqui  la especie"
+          />
+          <InputField
+            id="subspecie"
+            label="Subespecie"
+            placeholder="Ingrese aqui  la subespecie"
+          />
+          <InputField
+            id="variety"
+            label="Variedad"
+            placeholder="Ingrese aqui la variedad de la especie"
+          />
+          <InputField
+            id="author"
+            label="Autor"
+            placeholder="Ingrese aqui el autor de la especie"
+          />
+          <InputField
+            id="sinomin"
+            label="Sinonimo"
+            placeholder="Ingrese aqui el sinonimo de la especie"
+          />
+          <TextAreaField
+            id="etimology"
+            label="Etimologia"
+            placeholder="Ingrese aqui la etimologia de la especie"
+          />
+          <InputField
+            id="commonName"
+            label="Nombres Comunes"
+            placeholder="Ingrese aqui el nombre comun de  la especie"
+          />
+          <SelectField
+            label="Habito de crecimiento"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "ARBOREA", displayText: "Arborea" },
+              { value: "ARBUSTIVA", displayText: "Arbustiva" },
+              { value: "PALMERA", displayText: "Palmera" },
+              { value: "CACTACEA", displayText: "Cactecea" },
+            ]}
+          />
+          <TextAreaField
+            id="bibliography"
+            label="Bibliogafia"
+            placeholder="Ingrese aqui la bibliografia de la especie"
+          />
+        </div>
+      </TabsContent>
+      <TabsContent value="stalk">
+        <div className="input-fields-container">
+          <InputField
+            id="stalkAtributes"
+            label="Atributos de corteza"
+            placeholder="Ingrese los Atributos de corteza de la especie"
+          />
+          <InputField
+            id="stalkAolor"
+            label="Color Corteza"
+            placeholder="Ingrese aqui el color de corteza de la especie"
+          />
+          <FileInputField
+            id="stalkPhoto"
+            label="Color Corteza"
+            placeholder="Ingrese aqui el color de corteza de la especie"
+          />
+        </div>
+      </TabsContent>
+      <TabsContent value="root">
+        <div className="input-fields-container">
+          <SelectField
+            label="Forma de reproducción"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "no determinado" },
+              { value: "POR_SEMILLA", displayText: "por semilla" },
+              { value: "POR_ESTACA", displayText: "por estaca" },
+              { value: "POR_BULBO", displayText: "por bulbo" },
+              { value: "POR_TUBÉRCULO", displayText: "por tubérculo" },
+              { value: "POR_ESTOLÓN", displayText: "por estolón" },
+              { value: "POR_ACODO", displayText: "por acodo" },
+              { value: "DIVISION_DE_PIE", displayText: "division de pie" },
+            ]}
+          />
+          <TextAreaField
+            id="etimology"
+            label="Atributos Radiculares"
+            placeholder="Ingrese aqui la etimologia de la especie"
+          />
+          <SelectField
+            label="Tipo de enraizamiento"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "SUPERFICIAL", displayText: "Superficial" },
+              { value: "MEDIO", displayText: "Medio" },
+              { value: "PROFUNDO", displayText: "Profundo" },
+            ]}
+          />
+        </div>
+      </TabsContent>
+      <TabsContent value="flower">
+        <div className="input-fields-container">
+          <TextAreaField
+            id="etimology"
+            label="Atributos Radiculares"
+            placeholder="Ingrese aqui la etimologia de la especie"
+          />
+          <InputField
+            id="stalkAolor"
+            label="Color Corteza"
+            placeholder="Ingrese aqui el color de corteza de la especie"
+          />
+          <SelectField
+            label="Disposición de las flores"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "SOLITARIA", displayText: "Solitaria" },
+              { value: "RACIMO", displayText: "Racimo" },
+              { value: "PANICULA", displayText: "Panicula" },
+              { value: "CORIMBO", displayText: "Corimbo" },
+              { value: "ESPIGA", displayText: "Espiga" },
+              { value: "AMENTO", displayText: "Amento" },
+              { value: "CIMA", displayText: "Cima" },
+              { value: "CABEZUELA", displayText: "Cabezuela" },
+              { value: "UMBELA", displayText: "Umbela" },
+              { value: "NO_APLICA", displayText: "No Aplica" },
+            ]}
+          />
+          <SelectField
+            label="Sistema de polinización"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "ANEMOFILA", displayText: "Anemofila (Viento)" },
+              { value: "HIDROFILA", displayText: "Hidrofila (Agua)" },
+              { value: "ZOOFILA", displayText: "Zoofila (Animales)" },
+              { value: "AVES", displayText: "Aves" },
+              { value: "MAMIFEROS", displayText: "Mamiferos" },
+              { value: "INSECTOS", displayText: "Insectos" },
+              { value: "AVES_NECTARÍVORAS", displayText: "Aves nectarívoras" },
+            ]}
+          />
+          <SelectField
+            label="Estacion de floración"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "PERMANENTE", displayText: "Permanente" },
+              { value: "ESTACIONAL", displayText: "Estacional" },
+              { value: "ESTACION_SECA", displayText: "Estacion Seca" },
+              { value: "ESTACION_LLUVIOSA", displayText: "Estacion Lluviosa" },
+              { value: "NO_APLICA", displayText: "No Aplica" },
+            ]}
+          />
+          <FileInputField
+            id="stalkPhoto"
+            label="Foto de la flor"
+            placeholder="Ingrese aqui el color de corteza de la especie"
+          />
+          <FileInputField
+            id="stalkPhoto"
+            label="Foto de detalle de la flor"
+            placeholder="Ingrese aqui el color de corteza de la especie"
+          />
+          <InputField
+            id="stalkAolor"
+            label="Meses de floración"
+            placeholder="Ingrese aqui el color de corteza de la especie"
+          />
+        </div>
+      </TabsContent>
+      <TabsContent value="leaf">
+        <div className="input-fields-container">
+          <TextAreaField
+            id="etimology"
+            label="Atributos Foliares"
+            placeholder="Ingrese aqui la etimologia de la especie"
+          />
+          <SelectField
+            label="Persistencia de la hoja"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "CADUCIFOLIA", displayText: "Caducifolia" },
+              { value: "SEMICADUCIFOLIA", displayText: "Semicaducifolia" },
+              { value: "PERENNE", displayText: "Perenne" },
+              { value: "NO_APLICA", displayText: "No Aplica" },
+            ]}
+          />
+          <SelectField
+            label="Posicion de la hoja en el tallo"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "ALTERNA", displayText: "Alterna" },
+              { value: "OPUESTA", displayText: "Opuesta" },
+              { value: "FASCICULADA", displayText: "Fasciculada" },
+              { value: "ROSETA", displayText: "Roseta" },
+              { value: "VERTICILADA", displayText: "Verticilada" },
+            ]}
+          />
+          <SelectField
+            label="Posicion de la hoja"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "SIMPLE", displayText: "Simple" },
+              {
+                value: "DIGITADO_COMPUESTA",
+                displayText: "Digitado compuesta",
+              },
+              {
+                value: "COMPUESTA_PARIPINNADA",
+                displayText: "Compuesta paripinnada",
+              },
+              {
+                value: "COMPUESTA_IMPARIPINNADA",
+                displayText: "Compuesta imparipinnada",
+              },
+              {
+                value: "COMPUESTA_UNIFOLIADA",
+                displayText: "Compuesta unifoliada",
+              },
+              {
+                value: "COMPUESTA_BIFOLIADA",
+                displayText: "Compuesta bifoliada",
+              },
+              {
+                value: "COMPUESTA_TRIFOLIADA",
+                displayText: "Compuesta trifoliada",
+              },
+              {
+                value: "COMPUESTA_BIPINNADA",
+                displayText: "Compuesta bipinnada",
+              },
+              { value: "COMPUESTA", displayText: "Compuesta" },
+            ]}
+          />
+          <FileInputField
+            id="stalkPhoto"
+            label="Foto de la hoja"
+            placeholder="Ingrese aqui el color de corteza de la especie"
+          />
+        </div>
+      </TabsContent>
+      <TabsContent value="fruit">
+        <div className="input-fields-container">
+          <SelectField
+            label="Tipo de frut"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "LEGUMBRE", displayText: "Legumbre" },
+              { value: "LEGUMBRE_PLANA", displayText: "Legumbre plana" },
+              {
+                value: "LEGUMBRE_CILÍNDRICA",
+                displayText: "Legumbre cilíndrica",
+              },
+              { value: "FOLÍCULO", displayText: "Folículo" },
+              { value: "SILICUA", displayText: "Silicua" },
+              { value: "CÁPSULA", displayText: "Cápsula" },
+              { value: "PIXIDIO", displayText: "Pixidio" },
+              { value: "AQUENIO", displayText: "Aquenio" },
+              { value: "CARIOPSE", displayText: "Cariopse" },
+              { value: "SÁMARA", displayText: "Sámara" },
+              { value: "BAYA", displayText: "Baya" },
+              { value: "DRUPA", displayText: "Drupa" },
+              { value: "NUEZ", displayText: "Nuez" },
+              { value: "POMA", displayText: "Poma" },
+              { value: "SÍCONO", displayText: "Sícono" },
+              { value: "NO_APLICA", displayText: "No aplica" },
+            ]}
+          />
+          <SelectField
+            label="Sistema de dispersión de frutos"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "ANEMOCORIA", displayText: "Anemocoria (viento)" },
+              { value: "HIDROCORIA", displayText: "Hidrocoria (agua)" },
+              { value: "BARICORIA", displayText: "Baricoria (gravedad)" },
+              { value: "ZOOCORIA", displayText: "Zoocoria (animales)" },
+              { value: "AVES", displayText: "Aves" },
+              { value: "MAMÍFEROS", displayText: "Mamíferos" },
+              { value: "INSECTOS", displayText: "Insectos" },
+              { value: "AVES_SEMILLERAS", displayText: "Aves semilleras" },
+              { value: "AVES_FRUGÍVORAS", displayText: "Aves frugívoras" },
+            ]}
+          />
+          <InputField
+            id="stalkAolor"
+            label="Atributos de fruto"
+            placeholder="Ingrese aqui el color de corteza de la especie"
+          />
+          <InputField
+            id="stalkAolor"
+            label="Atributos de la semilla"
+            placeholder="Ingrese aqui el color de corteza de la especie"
+          />
+          <InputField
+            id="stalkAolor"
+            label="Meses de fructificación"
+            placeholder="Ingrese aqui el color de corteza de la especie"
+          />
+        </div>
+      </TabsContent>
+      <TabsContent value="ecology">
+        <div className="input-fields-container">
+          <SelectField
+            label="Rango Altitudinal"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "0-500", displayText: "0-500" },
+              { value: "500-1000", displayText: "500-1000" },
+              { value: "1000-1500", displayText: "1000-1500" },
+              { value: "1500-2000", displayText: "1500-2000" },
+              { value: "2000-2500", displayText: "2000-2500" },
+              { value: "2500-3000", displayText: "2500-3000" },
+              { value: "MAYOR_A_3000", displayText: "mayor a 3000" },
+            ]}
+          />
+          <InputField
+            id="stalkAolor"
+            label="Distribución geografica"
+            placeholder="Ingrese aqui el color de corteza de la especie"
+          />
+          <SelectField
+            label="Origen de la especie"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "Nativa" },
+              { value: "ARBOREA", displayText: "Endemica" },
+            ]}
+          />
+          <SelectField
+            label="Estado de conservacion"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NE", displayText: "No evaluada (NE)" },
+              { value: "DD", displayText: "Datos Insuficientes (DD)" },
+              { value: "LC", displayText: "Preocupación menor (LC)" },
+              { value: "NT", displayText: "Casi Amenazada (NT)" },
+              { value: "VU", displayText: "Vulnerable (VU)" },
+              { value: "EN", displayText: "En peligro (EN)" },
+              { value: "CR", displayText: "En peligro crítico (CR)" },
+              { value: "EW", displayText: "Extinta en estado salvaje (EW)" },
+              { value: "EX", displayText: "Extinta (EX)" },
+            ]}
+          />
+          <SelectField
+            label="Atraccion de la fauna"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "BAJA", displayText: "Baja" },
+              { value: "MEDIA", displayText: "Media" },
+              { value: "ALTA", displayText: "Alta" },
+            ]}
+          />
+        </div>
+      </TabsContent>
+      <TabsContent value="etnobotanic">
+        <div className="input-fields-container">
+          <SelectField
+            label="Atraccion de la fauna"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "ALIMENTÍCIO", displayText: "Alimentício" },
+              {
+                value: "ADITIVO_DE_LOS_ALIMENTOS",
+                displayText: "Aditivo de los alimentos",
+              },
+              {
+                value: "ALIMENTO_DE_ANIMALES_VERTEBRADOS",
+                displayText: "Alimento de animales vertebrados",
+              },
+              {
+                value: "ALIMENTO_DE_ANIMALES_INVERTEBRADOS",
+                displayText: "Alimento de animales invertebrados",
+              },
+              { value: "APÍCOLA", displayText: "Apícola" },
+              { value: "COMBUSTIBLES", displayText: "Combustibles" },
+              { value: "MATERIALES", displayText: "Materiales" },
+              { value: "SOCIAL", displayText: "Social" },
+              { value: "TÓXICO", displayText: "Tóxico" },
+              { value: "MEDICINAL", displayText: "Medicinal" },
+              { value: "MEDIOAMBIENTAL", displayText: "Medioambiental" },
+            ]}
+          />
+          <InputField
+            id="etimology"
+            label="detalle de uso"
+            placeholder="Ingrese aqui la etimologia de la especie"
+          />
+        </div>
+      </TabsContent>
+      <TabsContent value="arboliculture">
+        <div className="input-fields-container">
+          <SelectField
+            label="Uso en espacio publico"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              {
+                value: "ANDENES_VÍA_DE_SERVICIO",
+                displayText: "Andenes vía de servicio",
+              },
+              { value: "CERROS", displayText: "Cerros" },
+              { value: "GLORIETAS", displayText: "Glorietas" },
+              { value: "OREJAS_DE_PUENTE", displayText: "Orejas de puente" },
+              { value: "PARQUES", displayText: "Parques" },
+              { value: "PLAZAS/PLAZOLETAS", displayText: "Plazas/Plazoletas" },
+              {
+                value: "RETIROS_DE_QUEBRADA",
+                displayText: "Retiros de quebrada",
+              },
+              {
+                value: "SEPARADOR_DE_AUTOPISTAS",
+                displayText: "Separador de autopistas",
+              },
+              {
+                value: "EDIFICIOS_INSTITUCIONALES",
+                displayText: "Edificios institucionales",
+              },
+              {
+                value: "SEPARADOR_DE_ARTERIAS_PRINCIPALES",
+                displayText: "Separador de arterias principales",
+              },
+              { value: "VÍAS_PEATONALES", displayText: "Vías peatonales" },
+              { value: "SEPARADORES", displayText: "Separadores" },
+            ]}
+          />
+          <InputField
+            id="name"
+            label="Limitacion flores"
+            placeholder="Ingrese los nombres completos del usuario"
+          />
+          <InputField
+            id="name"
+            label="Limitacion frutas"
+            placeholder="Ingrese los nombres completos del usuario"
+          />
+          <SelectField
+            label="Requerimiento de luminosidad"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "BAJA", displayText: "Baja" },
+              { value: "MEDIA", displayText: "Media" },
+              { value: "ALTA", displayText: "Alta" },
+              {
+                value: "SOMBRA_EN_ESTADO_JUVENIL",
+                displayText: "Sombra en estado juvenil",
+              },
+            ]}
+          />
+          <InputField
+            id="name"
+            label="Plagas y enfermedades"
+            placeholder="Ingrese los nombres completos del usuario"
+          />
+          <SelectField
+            label="Tasa de crecimiento"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "LENTA", displayText: "Lenta" },
+              { value: "MEDIA", displayText: "Media" },
+              { value: "RÁPIDA", displayText: "Rápida" },
+              { value: "LENTA_A_MEDIA", displayText: "Lenta a Media" },
+              { value: "MEDIA_A_RÁPIDA", displayText: "Media a Rápida" },
+            ]}
+          />
+          <SelectField
+            label="Rango de altura maxima (m)"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "MENOR_QUE_7M", displayText: "menor que 7m" },
+              { value: "ENTRE_7_Y_15_M", displayText: "entre 7 y 15 m" },
+              { value: "MAYOR_QUE_15_M", displayText: "mayor que 15 m" },
+            ]}
+          />
+          <SelectField
+            label="longevidad"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              {
+                value: "BAJA_(0_-_35_AÑOS)",
+                displayText: "Baja (0 - 35 años)",
+              },
+              {
+                value: "MEDIA_(36-60_AÑOS)",
+                displayText: "Media (36-60 años)",
+              },
+              {
+                value: "ALTA_(MAYOR_A_60_AÑOS)",
+                displayText: "Alta (mayor a 60 años)",
+              },
+              { value: "ANUAL", displayText: "Anual" },
+              { value: "PERENNE", displayText: "Perenne" },
+            ]}
+          />
+          <SelectField
+            label="Rango de amplitud (m)"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "ALIMENTÍCIO", displayText: "Alimentício" },
+              {
+                value: "ADITIVO_DE_LOS_ALIMENTOS",
+                displayText: "Aditivo de los alimentos",
+              },
+              {
+                value: "ALIMENTO_DE_ANIMALES_VERTEBRADOS",
+                displayText: "Alimento de animales vertebrados",
+              },
+              {
+                value: "ALIMENTO_DE_ANIMALES_INVERTEBRADOS",
+                displayText: "Alimento de animales invertebrados",
+              },
+              { value: "APÍCOLA", displayText: "Apícola" },
+              { value: "COMBUSTIBLES", displayText: "Combustibles" },
+              { value: "MATERIALES", displayText: "Materiales" },
+              { value: "SOCIAL", displayText: "Social" },
+              { value: "TÓXICO", displayText: "Tóxico" },
+              { value: "MEDICINAL", displayText: "Medicinal" },
+              { value: "MEDIOAMBIENTAL", displayText: "Medioambiental" },
+            ]}
+          />
+          <SelectField
+            label="Forma de copa (m)"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "APARASOLADA", displayText: "Aparasolada" },
+              { value: "COLUMNAR", displayText: "Columnar" },
+              { value: "ESTRATIFICADA", displayText: "Estratificada" },
+              { value: "GLOBOSA", displayText: "Globosa" },
+              { value: "IRREGULAR", displayText: "Irregular" },
+              { value: "OVAL", displayText: "Oval" },
+              { value: "PÉNDULA", displayText: "Péndula" },
+              { value: "PIRAMIDAL", displayText: "Piramidal" },
+              { value: "SEMIGLOBOSA", displayText: "Semiglobosa" },
+            ]}
+          />
+          <SelectField
+            label="Densidad de follaje"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "ALTA", displayText: "Alta" },
+              { value: "MEDIA", displayText: "Media" },
+              { value: "BAJA", displayText: "Baja" },
+            ]}
+          />
+
+          <InputField
+            id="name"
+            label="Plagas y enfermedades"
+            placeholder="Ingrese los nombres completos del usuario"
+          />
+          <InputField
+            id="name"
+            label="Tipo de suelo"
+            placeholder="Ingrese los nombres completos del usuario"
+          />
+
+          <SelectField
+            label="Zona de humedad"
+            placeholder="Selecciona el habito de crecimiento de la especie"
+            optionsList={[
+              { value: "NO_DETERMINADO", displayText: "No determinado" },
+              { value: "SECA", displayText: "Seca" },
+              { value: "HÚMEDA", displayText: "Húmeda" },
+              { value: "MUY_HÚMEDA", displayText: "Muy húmeda" },
+            ]}
+          />
+        </div>
+      </TabsContent>
+    </Tabs>
   );
 };
-
 export default DashboardIndexPage;

@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import Logo from "../Logo";
 const Footer = () => {
   return (
@@ -26,10 +26,10 @@ const Footer = () => {
               <div className="font-bold text-green-400">Catalogo</div>
               <ul className="flex-col flex gap-2">
                 <li className="hover:decoration-green-400 cursor-pointer hover:underline">
-                  Galeria
+                  <Link href="/galeria">Galeria</Link>
                 </li>
                 <li className="hover:decoration-green-400 cursor-pointer hover:underline">
-                  Especies
+                  <Link href="/especies">Especies</Link>
                 </li>
                 <li className="hover:decoration-green-400 cursor-pointer hover:underline">
                   Planta tu arbol
@@ -40,7 +40,7 @@ const Footer = () => {
               <div className="font-bold text-green-400">Viveros</div>
               <ul className="flex-col flex gap-2">
                 <li className="hover:decoration-green-400 cursor-pointer hover:underline">
-                  Viveros
+                  <Link href="/viveros">Viveros</Link>
                 </li>
                 <li className="hover:decoration-green-400 cursor-pointer hover:underline">
                   Unete
