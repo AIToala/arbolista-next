@@ -9,12 +9,12 @@ const Acerca = () => {
           <div className="text-4xl font-bold text-gray-800 mt-10 top-no-margin text-center">
             Flora Nativa de Guayaquil
           </div>
-          <p>
+          <p className="p-tag">
             Flora Nativa de Guayaquil colabora con el Jardín Botánico de
             Guayaquil con el objetivo de promover e informar acerca de la
             importancia y conservación de las especies de flora nativas.
           </p>
-          <p>
+          <p className="p-tag">
             Flora Nativa de Guayaquil, además de incentivar a la preservación de
             las especies locales y ofrecer una amplia galería de imágenes,
             brinda información de contacto actualizada de viveristas asociados
