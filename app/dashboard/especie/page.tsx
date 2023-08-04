@@ -1,36 +1,61 @@
 "use client";
-
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/app/components/ui/tabs";
+
+import { InputField, TextAreaField, FileInputField } from "../inputs";
 import {
-  InputField,
-  TextAreaField,
-  FileInputField,
-  SelectField,
-} from "../inputs";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/app/components/ui/alert-dialog";
+import { Button } from "@/app/components/ui/button";
+import { type ISpeciesParams } from "@/app/actions/getSpecies";
+import { useState } from "react";
+import Select from "react-select";
+import { speciesEnums } from "@/app/types/index";
+import { Label } from "@/app/components/ui/label";
 
 const DashboardIndexPage = () => {
+  const [taxonomyParams, setTaxonomyParams] = useState<ISpeciesParams>({});
+  const [speciesParams, setSpeciesParams] = useState<ISpeciesParams>({});
+  console.log(speciesParams);
   return (
-    <Tabs
-      defaultValue="taxonomy"
-      className="dashboard-container"
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        width: "100% !important",
-        marginTop: "50px",
-        marginBottom: "100px",
-        padding: "0",
-      }}
-    >
-      <div className="select-fields-container">
-        <TabsList className="grid w-full grid-cols-9">
+    <div className="flex flex-col w-full ">
+      <div className="w-full mt-[20px]  flex justify-end mr-[100px] p-10">
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button>Agregar especie</Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Deseas continuar?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Una vez seleccionada la opción (Enviar) los datos seran
+                guardados dentro del sistema
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancelar</AlertDialogCancel>
+              <AlertDialogAction>Enviar</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </div>
+      <Tabs
+        defaultValue="taxonomy"
+        className=" grid gap-4 w-full mt-[40px] mb-[100px] p-0"
+      >
+        <TabsList className="w-full flex flex-row flex-wrap h-fit">
           <TabsTrigger value="taxonomy">Taxonomia</TabsTrigger>
           <TabsTrigger value="stalk">Tallo</TabsTrigger>
           <TabsTrigger value="root">Raíz</TabsTrigger>
@@ -40,609 +65,699 @@ const DashboardIndexPage = () => {
           <TabsTrigger value="ecology">Ecologia</TabsTrigger>
           <TabsTrigger value="etnobotanic">Etnobotánica</TabsTrigger>
           <TabsTrigger value="arboliculture">Arboricultura</TabsTrigger>
+          <TabsTrigger value="images">Imagenes</TabsTrigger>
         </TabsList>
-      </div>
-      <TabsContent value="taxonomy">
-        <div className="input-fields-container">
-          <InputField
-            id="family"
-            label="Familia"
-            placeholder="Ingrese aqui la familia de la especie"
-          />
-          <InputField
-            id="genus"
-            label="Genero"
-            placeholder="Ingrese aqui  el genero de la especie"
-          />
-          <InputField
-            id="specie"
-            label="Especie"
-            placeholder="Ingrese aqui  la especie"
-          />
-          <InputField
-            id="subspecie"
-            label="Subespecie"
-            placeholder="Ingrese aqui  la subespecie"
-          />
-          <InputField
-            id="variety"
-            label="Variedad"
-            placeholder="Ingrese aqui la variedad de la especie"
-          />
-          <InputField
-            id="author"
-            label="Autor"
-            placeholder="Ingrese aqui el autor de la especie"
-          />
-          <InputField
-            id="sinomin"
-            label="Sinonimo"
-            placeholder="Ingrese aqui el sinonimo de la especie"
-          />
-          <TextAreaField
-            id="etimology"
-            label="Etimologia"
-            placeholder="Ingrese aqui la etimologia de la especie"
-          />
-          <InputField
-            id="commonName"
-            label="Nombres Comunes"
-            placeholder="Ingrese aqui el nombre comun de  la especie"
-          />
-          <SelectField
-            label="Habito de crecimiento"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "ARBOREA", displayText: "Arborea" },
-              { value: "ARBUSTIVA", displayText: "Arbustiva" },
-              { value: "PALMERA", displayText: "Palmera" },
-              { value: "CACTACEA", displayText: "Cactecea" },
-            ]}
-          />
-          <TextAreaField
-            id="bibliography"
-            label="Bibliogafia"
-            placeholder="Ingrese aqui la bibliografia de la especie"
-          />
-        </div>
-      </TabsContent>
-      <TabsContent value="stalk">
-        <div className="input-fields-container">
-          <InputField
-            id="stalkAtributes"
-            label="Atributos de corteza"
-            placeholder="Ingrese los Atributos de corteza de la especie"
-          />
-          <InputField
-            id="stalkAolor"
-            label="Color Corteza"
-            placeholder="Ingrese aqui el color de corteza de la especie"
-          />
-          <FileInputField
-            id="stalkPhoto"
-            label="Color Corteza"
-            placeholder="Ingrese aqui el color de corteza de la especie"
-          />
-        </div>
-      </TabsContent>
-      <TabsContent value="root">
-        <div className="input-fields-container">
-          <SelectField
-            label="Forma de reproducción"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "no determinado" },
-              { value: "POR_SEMILLA", displayText: "por semilla" },
-              { value: "POR_ESTACA", displayText: "por estaca" },
-              { value: "POR_BULBO", displayText: "por bulbo" },
-              { value: "POR_TUBÉRCULO", displayText: "por tubérculo" },
-              { value: "POR_ESTOLÓN", displayText: "por estolón" },
-              { value: "POR_ACODO", displayText: "por acodo" },
-              { value: "DIVISION_DE_PIE", displayText: "division de pie" },
-            ]}
-          />
-          <TextAreaField
-            id="etimology"
-            label="Atributos Radiculares"
-            placeholder="Ingrese aqui la etimologia de la especie"
-          />
-          <SelectField
-            label="Tipo de enraizamiento"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "SUPERFICIAL", displayText: "Superficial" },
-              { value: "MEDIO", displayText: "Medio" },
-              { value: "PROFUNDO", displayText: "Profundo" },
-            ]}
-          />
-        </div>
-      </TabsContent>
-      <TabsContent value="flower">
-        <div className="input-fields-container">
-          <TextAreaField
-            id="etimology"
-            label="Atributos Radiculares"
-            placeholder="Ingrese aqui la etimologia de la especie"
-          />
-          <InputField
-            id="stalkAolor"
-            label="Color Corteza"
-            placeholder="Ingrese aqui el color de corteza de la especie"
-          />
-          <SelectField
-            label="Disposición de las flores"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "SOLITARIA", displayText: "Solitaria" },
-              { value: "RACIMO", displayText: "Racimo" },
-              { value: "PANICULA", displayText: "Panicula" },
-              { value: "CORIMBO", displayText: "Corimbo" },
-              { value: "ESPIGA", displayText: "Espiga" },
-              { value: "AMENTO", displayText: "Amento" },
-              { value: "CIMA", displayText: "Cima" },
-              { value: "CABEZUELA", displayText: "Cabezuela" },
-              { value: "UMBELA", displayText: "Umbela" },
-              { value: "NO_APLICA", displayText: "No Aplica" },
-            ]}
-          />
-          <SelectField
-            label="Sistema de polinización"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "ANEMOFILA", displayText: "Anemofila (Viento)" },
-              { value: "HIDROFILA", displayText: "Hidrofila (Agua)" },
-              { value: "ZOOFILA", displayText: "Zoofila (Animales)" },
-              { value: "AVES", displayText: "Aves" },
-              { value: "MAMIFEROS", displayText: "Mamiferos" },
-              { value: "INSECTOS", displayText: "Insectos" },
-              { value: "AVES_NECTARÍVORAS", displayText: "Aves nectarívoras" },
-            ]}
-          />
-          <SelectField
-            label="Estacion de floración"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "PERMANENTE", displayText: "Permanente" },
-              { value: "ESTACIONAL", displayText: "Estacional" },
-              { value: "ESTACION_SECA", displayText: "Estacion Seca" },
-              { value: "ESTACION_LLUVIOSA", displayText: "Estacion Lluviosa" },
-              { value: "NO_APLICA", displayText: "No Aplica" },
-            ]}
-          />
-          <FileInputField
-            id="stalkPhoto"
-            label="Foto de la flor"
-            placeholder="Ingrese aqui el color de corteza de la especie"
-          />
-          <FileInputField
-            id="stalkPhoto"
-            label="Foto de detalle de la flor"
-            placeholder="Ingrese aqui el color de corteza de la especie"
-          />
-          <InputField
-            id="stalkAolor"
-            label="Meses de floración"
-            placeholder="Ingrese aqui el color de corteza de la especie"
-          />
-        </div>
-      </TabsContent>
-      <TabsContent value="leaf">
-        <div className="input-fields-container">
-          <TextAreaField
-            id="etimology"
-            label="Atributos Foliares"
-            placeholder="Ingrese aqui la etimologia de la especie"
-          />
-          <SelectField
-            label="Persistencia de la hoja"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "CADUCIFOLIA", displayText: "Caducifolia" },
-              { value: "SEMICADUCIFOLIA", displayText: "Semicaducifolia" },
-              { value: "PERENNE", displayText: "Perenne" },
-              { value: "NO_APLICA", displayText: "No Aplica" },
-            ]}
-          />
-          <SelectField
-            label="Posicion de la hoja en el tallo"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "ALTERNA", displayText: "Alterna" },
-              { value: "OPUESTA", displayText: "Opuesta" },
-              { value: "FASCICULADA", displayText: "Fasciculada" },
-              { value: "ROSETA", displayText: "Roseta" },
-              { value: "VERTICILADA", displayText: "Verticilada" },
-            ]}
-          />
-          <SelectField
-            label="Posicion de la hoja"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "SIMPLE", displayText: "Simple" },
-              {
-                value: "DIGITADO_COMPUESTA",
-                displayText: "Digitado compuesta",
-              },
-              {
-                value: "COMPUESTA_PARIPINNADA",
-                displayText: "Compuesta paripinnada",
-              },
-              {
-                value: "COMPUESTA_IMPARIPINNADA",
-                displayText: "Compuesta imparipinnada",
-              },
-              {
-                value: "COMPUESTA_UNIFOLIADA",
-                displayText: "Compuesta unifoliada",
-              },
-              {
-                value: "COMPUESTA_BIFOLIADA",
-                displayText: "Compuesta bifoliada",
-              },
-              {
-                value: "COMPUESTA_TRIFOLIADA",
-                displayText: "Compuesta trifoliada",
-              },
-              {
-                value: "COMPUESTA_BIPINNADA",
-                displayText: "Compuesta bipinnada",
-              },
-              { value: "COMPUESTA", displayText: "Compuesta" },
-            ]}
-          />
-          <FileInputField
-            id="stalkPhoto"
-            label="Foto de la hoja"
-            placeholder="Ingrese aqui el color de corteza de la especie"
-          />
-        </div>
-      </TabsContent>
-      <TabsContent value="fruit">
-        <div className="input-fields-container">
-          <SelectField
-            label="Tipo de frut"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "LEGUMBRE", displayText: "Legumbre" },
-              { value: "LEGUMBRE_PLANA", displayText: "Legumbre plana" },
-              {
-                value: "LEGUMBRE_CILÍNDRICA",
-                displayText: "Legumbre cilíndrica",
-              },
-              { value: "FOLÍCULO", displayText: "Folículo" },
-              { value: "SILICUA", displayText: "Silicua" },
-              { value: "CÁPSULA", displayText: "Cápsula" },
-              { value: "PIXIDIO", displayText: "Pixidio" },
-              { value: "AQUENIO", displayText: "Aquenio" },
-              { value: "CARIOPSE", displayText: "Cariopse" },
-              { value: "SÁMARA", displayText: "Sámara" },
-              { value: "BAYA", displayText: "Baya" },
-              { value: "DRUPA", displayText: "Drupa" },
-              { value: "NUEZ", displayText: "Nuez" },
-              { value: "POMA", displayText: "Poma" },
-              { value: "SÍCONO", displayText: "Sícono" },
-              { value: "NO_APLICA", displayText: "No aplica" },
-            ]}
-          />
-          <SelectField
-            label="Sistema de dispersión de frutos"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "ANEMOCORIA", displayText: "Anemocoria (viento)" },
-              { value: "HIDROCORIA", displayText: "Hidrocoria (agua)" },
-              { value: "BARICORIA", displayText: "Baricoria (gravedad)" },
-              { value: "ZOOCORIA", displayText: "Zoocoria (animales)" },
-              { value: "AVES", displayText: "Aves" },
-              { value: "MAMÍFEROS", displayText: "Mamíferos" },
-              { value: "INSECTOS", displayText: "Insectos" },
-              { value: "AVES_SEMILLERAS", displayText: "Aves semilleras" },
-              { value: "AVES_FRUGÍVORAS", displayText: "Aves frugívoras" },
-            ]}
-          />
-          <InputField
-            id="stalkAolor"
-            label="Atributos de fruto"
-            placeholder="Ingrese aqui el color de corteza de la especie"
-          />
-          <InputField
-            id="stalkAolor"
-            label="Atributos de la semilla"
-            placeholder="Ingrese aqui el color de corteza de la especie"
-          />
-          <InputField
-            id="stalkAolor"
-            label="Meses de fructificación"
-            placeholder="Ingrese aqui el color de corteza de la especie"
-          />
-        </div>
-      </TabsContent>
-      <TabsContent value="ecology">
-        <div className="input-fields-container">
-          <SelectField
-            label="Rango Altitudinal"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "0-500", displayText: "0-500" },
-              { value: "500-1000", displayText: "500-1000" },
-              { value: "1000-1500", displayText: "1000-1500" },
-              { value: "1500-2000", displayText: "1500-2000" },
-              { value: "2000-2500", displayText: "2000-2500" },
-              { value: "2500-3000", displayText: "2500-3000" },
-              { value: "MAYOR_A_3000", displayText: "mayor a 3000" },
-            ]}
-          />
-          <InputField
-            id="stalkAolor"
-            label="Distribución geografica"
-            placeholder="Ingrese aqui el color de corteza de la especie"
-          />
-          <SelectField
-            label="Origen de la especie"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "Nativa" },
-              { value: "ARBOREA", displayText: "Endemica" },
-            ]}
-          />
-          <SelectField
-            label="Estado de conservacion"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NE", displayText: "No evaluada (NE)" },
-              { value: "DD", displayText: "Datos Insuficientes (DD)" },
-              { value: "LC", displayText: "Preocupación menor (LC)" },
-              { value: "NT", displayText: "Casi Amenazada (NT)" },
-              { value: "VU", displayText: "Vulnerable (VU)" },
-              { value: "EN", displayText: "En peligro (EN)" },
-              { value: "CR", displayText: "En peligro crítico (CR)" },
-              { value: "EW", displayText: "Extinta en estado salvaje (EW)" },
-              { value: "EX", displayText: "Extinta (EX)" },
-            ]}
-          />
-          <SelectField
-            label="Atraccion de la fauna"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "BAJA", displayText: "Baja" },
-              { value: "MEDIA", displayText: "Media" },
-              { value: "ALTA", displayText: "Alta" },
-            ]}
-          />
-        </div>
-      </TabsContent>
-      <TabsContent value="etnobotanic">
-        <div className="input-fields-container">
-          <SelectField
-            label="Atraccion de la fauna"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "ALIMENTÍCIO", displayText: "Alimentício" },
-              {
-                value: "ADITIVO_DE_LOS_ALIMENTOS",
-                displayText: "Aditivo de los alimentos",
-              },
-              {
-                value: "ALIMENTO_DE_ANIMALES_VERTEBRADOS",
-                displayText: "Alimento de animales vertebrados",
-              },
-              {
-                value: "ALIMENTO_DE_ANIMALES_INVERTEBRADOS",
-                displayText: "Alimento de animales invertebrados",
-              },
-              { value: "APÍCOLA", displayText: "Apícola" },
-              { value: "COMBUSTIBLES", displayText: "Combustibles" },
-              { value: "MATERIALES", displayText: "Materiales" },
-              { value: "SOCIAL", displayText: "Social" },
-              { value: "TÓXICO", displayText: "Tóxico" },
-              { value: "MEDICINAL", displayText: "Medicinal" },
-              { value: "MEDIOAMBIENTAL", displayText: "Medioambiental" },
-            ]}
-          />
-          <InputField
-            id="etimology"
-            label="detalle de uso"
-            placeholder="Ingrese aqui la etimologia de la especie"
-          />
-        </div>
-      </TabsContent>
-      <TabsContent value="arboliculture">
-        <div className="input-fields-container">
-          <SelectField
-            label="Uso en espacio publico"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              {
-                value: "ANDENES_VÍA_DE_SERVICIO",
-                displayText: "Andenes vía de servicio",
-              },
-              { value: "CERROS", displayText: "Cerros" },
-              { value: "GLORIETAS", displayText: "Glorietas" },
-              { value: "OREJAS_DE_PUENTE", displayText: "Orejas de puente" },
-              { value: "PARQUES", displayText: "Parques" },
-              { value: "PLAZAS/PLAZOLETAS", displayText: "Plazas/Plazoletas" },
-              {
-                value: "RETIROS_DE_QUEBRADA",
-                displayText: "Retiros de quebrada",
-              },
-              {
-                value: "SEPARADOR_DE_AUTOPISTAS",
-                displayText: "Separador de autopistas",
-              },
-              {
-                value: "EDIFICIOS_INSTITUCIONALES",
-                displayText: "Edificios institucionales",
-              },
-              {
-                value: "SEPARADOR_DE_ARTERIAS_PRINCIPALES",
-                displayText: "Separador de arterias principales",
-              },
-              { value: "VÍAS_PEATONALES", displayText: "Vías peatonales" },
-              { value: "SEPARADORES", displayText: "Separadores" },
-            ]}
-          />
-          <InputField
-            id="name"
-            label="Limitacion flores"
-            placeholder="Ingrese los nombres completos del usuario"
-          />
-          <InputField
-            id="name"
-            label="Limitacion frutas"
-            placeholder="Ingrese los nombres completos del usuario"
-          />
-          <SelectField
-            label="Requerimiento de luminosidad"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "BAJA", displayText: "Baja" },
-              { value: "MEDIA", displayText: "Media" },
-              { value: "ALTA", displayText: "Alta" },
-              {
-                value: "SOMBRA_EN_ESTADO_JUVENIL",
-                displayText: "Sombra en estado juvenil",
-              },
-            ]}
-          />
-          <InputField
-            id="name"
-            label="Plagas y enfermedades"
-            placeholder="Ingrese los nombres completos del usuario"
-          />
-          <SelectField
-            label="Tasa de crecimiento"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "LENTA", displayText: "Lenta" },
-              { value: "MEDIA", displayText: "Media" },
-              { value: "RÁPIDA", displayText: "Rápida" },
-              { value: "LENTA_A_MEDIA", displayText: "Lenta a Media" },
-              { value: "MEDIA_A_RÁPIDA", displayText: "Media a Rápida" },
-            ]}
-          />
-          <SelectField
-            label="Rango de altura maxima (m)"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "MENOR_QUE_7M", displayText: "menor que 7m" },
-              { value: "ENTRE_7_Y_15_M", displayText: "entre 7 y 15 m" },
-              { value: "MAYOR_QUE_15_M", displayText: "mayor que 15 m" },
-            ]}
-          />
-          <SelectField
-            label="longevidad"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              {
-                value: "BAJA_(0_-_35_AÑOS)",
-                displayText: "Baja (0 - 35 años)",
-              },
-              {
-                value: "MEDIA_(36-60_AÑOS)",
-                displayText: "Media (36-60 años)",
-              },
-              {
-                value: "ALTA_(MAYOR_A_60_AÑOS)",
-                displayText: "Alta (mayor a 60 años)",
-              },
-              { value: "ANUAL", displayText: "Anual" },
-              { value: "PERENNE", displayText: "Perenne" },
-            ]}
-          />
-          <SelectField
-            label="Rango de amplitud (m)"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "ALIMENTÍCIO", displayText: "Alimentício" },
-              {
-                value: "ADITIVO_DE_LOS_ALIMENTOS",
-                displayText: "Aditivo de los alimentos",
-              },
-              {
-                value: "ALIMENTO_DE_ANIMALES_VERTEBRADOS",
-                displayText: "Alimento de animales vertebrados",
-              },
-              {
-                value: "ALIMENTO_DE_ANIMALES_INVERTEBRADOS",
-                displayText: "Alimento de animales invertebrados",
-              },
-              { value: "APÍCOLA", displayText: "Apícola" },
-              { value: "COMBUSTIBLES", displayText: "Combustibles" },
-              { value: "MATERIALES", displayText: "Materiales" },
-              { value: "SOCIAL", displayText: "Social" },
-              { value: "TÓXICO", displayText: "Tóxico" },
-              { value: "MEDICINAL", displayText: "Medicinal" },
-              { value: "MEDIOAMBIENTAL", displayText: "Medioambiental" },
-            ]}
-          />
-          <SelectField
-            label="Forma de copa (m)"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "APARASOLADA", displayText: "Aparasolada" },
-              { value: "COLUMNAR", displayText: "Columnar" },
-              { value: "ESTRATIFICADA", displayText: "Estratificada" },
-              { value: "GLOBOSA", displayText: "Globosa" },
-              { value: "IRREGULAR", displayText: "Irregular" },
-              { value: "OVAL", displayText: "Oval" },
-              { value: "PÉNDULA", displayText: "Péndula" },
-              { value: "PIRAMIDAL", displayText: "Piramidal" },
-              { value: "SEMIGLOBOSA", displayText: "Semiglobosa" },
-            ]}
-          />
-          <SelectField
-            label="Densidad de follaje"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "ALTA", displayText: "Alta" },
-              { value: "MEDIA", displayText: "Media" },
-              { value: "BAJA", displayText: "Baja" },
-            ]}
-          />
 
-          <InputField
-            id="name"
-            label="Plagas y enfermedades"
-            placeholder="Ingrese los nombres completos del usuario"
-          />
-          <InputField
-            id="name"
-            label="Tipo de suelo"
-            placeholder="Ingrese los nombres completos del usuario"
-          />
+        <TabsContent value="taxonomy" className="w-full mx-auto px-8">
+          <div className="input-fields-container">
+            <InputField
+              value={speciesParams.family}
+              onChange={(e: any) => {
+                speciesParams.family = e.target.value;
+                setSpeciesParams({ ...speciesParams });
+                console.log(speciesParams);
+              }}
+              id="family"
+              label="Familia"
+              placeholder="Ingrese aqui la familia de la especie"
+            />
+            <InputField
+              onChange={(value: any) => {
+                taxonomyParams.genus = value;
+                setTaxonomyParams({ ...taxonomyParams });
+              }}
+              id="genus"
+              label="Genero"
+              placeholder="Ingrese aqui  el genero de la especie"
+            />
+            <InputField
+              onChange={(value: any) => {
+                taxonomyParams.tSpecies = value;
+                setTaxonomyParams({ ...taxonomyParams });
+              }}
+              id="tSpecies"
+              label="Especie"
+              placeholder="Ingrese aqui  la especie"
+            />
+            <InputField
+              onChange={(value: any) => {
+                taxonomyParams.subspecies = value;
+                setTaxonomyParams({ ...taxonomyParams });
+              }}
+              id="subspecie"
+              label="Subespecie"
+              placeholder="Ingrese aqui  la subespecie"
+            />
+            <InputField
+              onChange={(value: any) => {
+                taxonomyParams.availablesStatus = value;
+                setTaxonomyParams({ ...taxonomyParams });
+              }}
+              id="variety"
+              label="Variedad"
+              placeholder="Ingrese aqui la variedad de la especie"
+            />
+            <InputField
+              onChange={(value: any) => {
+                taxonomyParams.author = value;
+                setTaxonomyParams({ ...taxonomyParams });
+              }}
+              id="author"
+              label="Autor"
+              placeholder="Ingrese aqui el autor de la especie"
+            />
+            <InputField
+              onChange={(value: any) => {
+                taxonomyParams.dispersalSystem = value;
+                setTaxonomyParams({ ...taxonomyParams });
+              }}
+              id="synonyms"
+              label="Sinonimo"
+              placeholder="Ingrese aqui el sinonimo de la especie"
+            />
+            <TextAreaField
+              onChange={(value: any) => {
+                taxonomyParams.bibliography = value;
+                setTaxonomyParams({ ...taxonomyParams });
+              }}
+              id="etimology"
+              label="Etimologia"
+              placeholder="Ingrese aqui la etimologia de la especie"
+            />
+            <InputField
+              onChange={(value: any) => {
+                taxonomyParams.commonNames = value;
+                setTaxonomyParams({ ...taxonomyParams });
+              }}
+              id="commonName"
+              label="Nombres Comunes"
+              placeholder="Ingrese aqui el nombre comun de  la especie"
+            />
+            <Label>Tipo de crecimiento</Label>
+            <Select
+              id="growth_habit"
+              className="text-mds"
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              value={speciesParams.growthHabit}
+              options={speciesEnums.growth_habit}
+              onChange={(value: any) => {
+                speciesParams.growthHabit = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <TextAreaField
+              onChange={(value: any) => {
+                taxonomyParams.bibliography = value;
+                setTaxonomyParams({ ...taxonomyParams });
+              }}
+              id="bibliography"
+              label="Bibliogafia"
+              placeholder="Ej: Autor,Año de publicación, Titulo, Nombre Editorial, DOI"
+            />
+          </div>
+        </TabsContent>
+        <TabsContent value="stalk" className="w-full mx-auto px-8">
+          <div className="input-fields-container">
+            <InputField
+              onChange={(value: any) => {
+                speciesParams.barkAttributes = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="stalkAtributes"
+              label="Atributos de corteza"
+              placeholder="Ingrese los Atributos de corteza de la especie"
+            />
+            <InputField
+              onChange={(value: any) => {
+                speciesParams.barkColor = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="stalkColor"
+              label="Color Corteza"
+              placeholder="Ingrese aqui el color de corteza de la especie"
+            />
+          </div>
+        </TabsContent>
+        <TabsContent value="root" className="w-full mx-auto px-8">
+          <div className="input-fields-container">
+            <Label>Forma de reproduccion</Label>
+            <Select
+              id="reproduction_form"
+              className="text-mds"
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              value={speciesParams.reproductionForm}
+              options={speciesEnums.reproductionForm}
+              onChange={(value: any) => {
+                speciesParams.reproductionForm = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <TextAreaField
+              onChange={(value: any) => {
+                speciesParams.rootAttributes = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="root_attributes"
+              label="Atributos radiculares"
+              placeholder="Ingrese aqui los atributos radiculares de la especie"
+            />
+            <Label>Tipos de enraizamiento</Label>
+            <Select
+              id="rooting_type"
+              className="text-mds"
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              value={speciesParams.rootingType}
+              options={speciesEnums.rootingTypes}
+              onChange={(value: any) => {
+                speciesParams.rootingType = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+          </div>
+        </TabsContent>
+        <TabsContent value="flower" className="w-full mx-auto px-8">
+          <div className="input-fields-container">
+            <TextAreaField
+              onChange={(value: any) => {
+                speciesParams.floralAttributes = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="floral_attributes"
+              label="Atributos Florales"
+              placeholder="Ingrese aqui los atributos florales de la especie"
+            />
+            <InputField
+              onChange={(value: any) => {
+                speciesParams.flowerColor = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="flower_color"
+              label="Color Flor"
+              placeholder="Ingrese aqui el color de flor de la especie"
+            />
+            <Label>Disposicion de las flores</Label>
+            <Select
+              id="flower_arrangement"
+              className="text-mds"
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              value={speciesParams.flowerArrangement}
+              options={speciesEnums.flowerArrangement}
+              onChange={(value: any) => {
+                speciesParams.flowerArrangement = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <Label>Sistema de polinizacion</Label>
+            <Select
+              id="pollination_system"
+              className="text-mds"
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              value={speciesParams.pollinationSystem}
+              options={speciesEnums.polinizationValues}
+              onChange={(value: any) => {
+                speciesParams.pollinationSystem = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <Label>Estacion de floración</Label>
+            <Select
+              id="flowering_season"
+              className="text-mds"
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              value={speciesParams.floweringSeason}
+              options={speciesEnums.floweringSeason}
+              onChange={(value: any) => {
+                speciesParams.floweringSeason = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <InputField
+              onChange={(value: any) => {
+                speciesParams.floweringMonths = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="flowering_months"
+              label="Meses de floración"
+              placeholder="Ingrese aqui los meses de floració de la especie"
+            />
+          </div>
+        </TabsContent>
+        <TabsContent value="leaf" className="w-full mx-auto px-8">
+          <div className="input-fields-container">
+            <TextAreaField
+              onChange={(value: any) => {
+                speciesParams.leafAttributes = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="leaf_attributes"
+              label="Atributos Foliares"
+              placeholder="Ingrese aqui los atributos foliares de la especie"
+            />
+            <Label>Persistencia de la hoja</Label>
+            <Select
+              id="leaf_persistence"
+              className="text-mds"
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              value={speciesParams.leafPersistence}
+              options={speciesEnums.leafPersistence}
+              onChange={(value: any) => {
+                speciesParams.leafPersistence = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <Label>Posicion de la hoja en el tallo</Label>
+            <Select
+              id="stemLeaf_position"
+              className="text-mds"
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              value={speciesParams.stemLeafPosition}
+              options={speciesEnums.stemLeafPosition}
+              onChange={(value: any) => {
+                speciesParams.stemLeafPosition = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <Label>Composicion de la hoja</Label>
+            <Select
+              id="leaf_composition"
+              className="text-mds"
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              value={speciesParams.leafComposition}
+              options={speciesEnums.leafComposition}
+              onChange={(value: any) => {
+                speciesParams.leafComposition = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+          </div>
+        </TabsContent>
+        <TabsContent value="fruit" className="w-full mx-auto px-8">
+          <div className="input-fields-container">
+            <Label>Tipo de fruto</Label>
+            <Select
+              id="fruitType"
+              className="text-mds"
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              value={speciesParams.fruitType}
+              options={speciesEnums.fruitType}
+              onChange={(value: any) => {
+                speciesParams.fruitType = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <Label>Sistema de dispercion de frutos</Label>
+            <Select
+              id="dispersal_system"
+              className="text-mds"
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              value={speciesParams.dispersalSystem}
+              options={speciesEnums.dispersalValues}
+              onChange={(value: any) => {
+                speciesParams.dispersalSystem = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <InputField
+              onChange={(value: any) => {
+                speciesParams.fruitAttributes = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="fruit_attributes"
+              label="Atributos de fruto"
+              placeholder="Ingrese los atributos de fruto de la especie"
+            />
+            <InputField
+              onChange={(value: any) => {
+                speciesParams.seedAttributes = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="seed_attributes"
+              label="Atributos de la semilla"
+              placeholder="Ingrese los atributos de la semilla de la especie"
+            />
+            <InputField
+              onChange={(value: any) => {
+                speciesParams.fruitingMonths = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="fruiting_months"
+              label="Meses de fructificación"
+              placeholder="Ingrese los meses de fructificación de la especie"
+            />
+          </div>
+        </TabsContent>
+        <TabsContent value="ecology" className="w-full mx-auto px-8">
+          <div className="input-fields-container">
+            <Label>Rango altitudinal</Label>
+            <Select
+              id="altitudinal_range"
+              className="text-mds"
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              value={speciesParams.altitudinalRange}
+              options={speciesEnums.altitudeRange}
+              onChange={(value: any) => {
+                speciesParams.altitudinalRange = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <InputField
+              onChange={(value: any) => {
+                speciesParams.geoDistribution = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="geo_distribution"
+              label="Distribución geografica"
+              placeholder="Ingrese la distribución geografica de la especie"
+            />
+            <Label>Origen</Label>
+            <Select
+              id="origin"
+              className="text-mds"
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              value={speciesParams.origin}
+              options={speciesEnums.origin}
+              onChange={(value: any) => {
+                speciesParams.origin = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <Label>Estado de conservación</Label>
+            <Select
+              id="conservation_status"
+              className="text-mds"
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              value={speciesParams.conservationStatus}
+              options={speciesEnums.conservationStatus}
+              onChange={(value: any) => {
+                speciesParams.conservationStatus = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <Label>Atraccion de fauna</Label>
+            <Select
+              id="fauna_attraction"
+              className="text-mds"
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              value={speciesParams.faunaAttraction}
+              options={speciesEnums.faunaAtraction}
+              onChange={(value: any) => {
+                speciesParams.faunaAttraction = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <InputField
+              onChange={(value: any) => {
+                speciesParams.associatedFauna = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="associated_fauna"
+              label="Fauna Asociada"
+              placeholder="Ingrese la fauna asociada de la especie"
+            />
+          </div>
+        </TabsContent>
+        <TabsContent value="etnobotanic" className="w-full mx-auto px-8">
+          <div className="input-fields-container">
+            <InputField
+              onChange={(value: any) => {
+                speciesParams.useDetail = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="category"
+              label="Categoria"
+              placeholder="Ingrese aqui la categoria de la especie"
+            />
+            <InputField
+              onChange={(value: any) => {
+                speciesParams.useDetail = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="use_detail"
+              label="detalle de uso"
+              placeholder="Ingrese aqui el detalle de uso de la especie"
+            />
+          </div>
+        </TabsContent>
+        <TabsContent value="arboliculture" className="w-full mx-auto px-8">
+          <div className="input-fields-container">
+            <Label>Uso en espacio publico</Label>
+            <Select
+              isMulti
+              id="publicUse"
+              classNamePrefix="select"
+              className="basic-multi-select text-mds"
+              options={speciesEnums.publicUseValues}
+              onChange={(value) => {
+                speciesParams.publicSpaceUse = "";
+                value.forEach((value) => {
+                  if (value.value !== undefined) {
+                    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+                    speciesParams.publicSpaceUse += value.value + ",";
+                  }
+                });
+                setSpeciesParams({ ...speciesParams });
+              }}
+              isClearable={false}
+              isSearchable={false}
+              placeholder="Escoga una opcion"
+            />
+            <Label>Limitaciones florales</Label>
+            <Select
+              id="flower_limitations"
+              className="text-mds"
+              options={speciesEnums.limitFloralValues}
+              placeholder="No determinado"
+              value={speciesParams.flowerLimitations}
+              isClearable={false}
+              isSearchable={false}
+              onChange={(value: any) => {
+                speciesParams.flowerLimitations = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <Label>Limitaciones frutales</Label>
+            <Select
+              id="frutal_limitations"
+              className="text-mds"
+              options={speciesEnums.limitFrutoValues}
+              value={speciesParams.fruitLimitations}
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              onChange={(value: any) => {
+                speciesParams.fruitLimitations = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <Label>Longevidad</Label>
+            <Select
+              id="longevity"
+              options={speciesEnums.longevity}
+              className="text-mds"
+              value={speciesParams.longevity}
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              onChange={(value: any) => {
+                speciesParams.longevity = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <InputField
+              onChange={(value: any) => {
+                speciesParams.pestsDiseases = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="name"
+              label="Plagas y enfermedades"
+              placeholder="Ingrese las plagas y enfermedades de la especie"
+            />
 
-          <SelectField
-            label="Zona de humedad"
-            placeholder="Selecciona el habito de crecimiento de la especie"
-            optionsList={[
-              { value: "NO_DETERMINADO", displayText: "No determinado" },
-              { value: "SECA", displayText: "Seca" },
-              { value: "HÚMEDA", displayText: "Húmeda" },
-              { value: "MUY_HÚMEDA", displayText: "Muy húmeda" },
-            ]}
-          />
-        </div>
-      </TabsContent>
-    </Tabs>
+            <Label>Tasa Crecimiento</Label>
+            <Select
+              id="growth_rate"
+              options={speciesEnums.growthRate}
+              className="text-mds"
+              value={speciesParams.growthRate}
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              onChange={(value: any) => {
+                speciesParams.growthRate = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <Label>Requerimientos de luz</Label>
+            <Select
+              id="light_requirement"
+              options={speciesEnums.lightRequirement}
+              className="text-mds"
+              value={speciesParams.lightRequirements}
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              onChange={(value: any) => {
+                speciesParams.lightRequirements = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <Label>Rango de altura</Label>
+            <Select
+              id="crown_width"
+              options={speciesEnums.heightValues}
+              className="text-mds"
+              value={speciesParams.maximumHeight}
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              onChange={(value: any) => {
+                speciesParams.maximumHeight = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+
+            <Label>Rango de amplitud de la copa</Label>
+            <Select
+              id="crown_width"
+              options={speciesEnums.crownWidthValues}
+              className="text-mds"
+              value={speciesParams.crownWidth}
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              onChange={(value: any) => {
+                speciesParams.crownWidth = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+            <Label>Forma de copa</Label>
+            <Select
+              id="crown_shape"
+              options={speciesEnums.crownShapeValues}
+              className="text-mds"
+              value={speciesParams.crownShape}
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              onChange={(value: any) => {
+                speciesParams.crownShape = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+
+            <Label>Densidad de follaje</Label>
+            <Select
+              id="foliage_density"
+              options={speciesEnums.priorityLevel}
+              className="text-mds"
+              value={speciesParams.foliageDensity}
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              onChange={(value: any) => {
+                speciesParams.foliageDensity = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+
+            <InputField
+              onChange={(value: any) => {
+                speciesParams.soilType = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+              id="name"
+              label="Tipo de suelo"
+              placeholder="Ingrese el tipo del suelo de la especie"
+            />
+
+            <Label>Humedad de la zona</Label>
+            <Select
+              id="humidity_zone"
+              options={speciesEnums.humidityValues}
+              className="text-mds"
+              value={speciesParams.humidityZone}
+              placeholder="No determinado"
+              isClearable={false}
+              isSearchable={false}
+              onChange={(value: any) => {
+                speciesParams.humidityZone = value;
+                setSpeciesParams({ ...speciesParams });
+              }}
+            />
+          </div>
+        </TabsContent>
+        <TabsContent value="images" className="w-full mx-auto px-8">
+          <div className="input-fields-container">
+            <FileInputField
+              id="presentation_url"
+              label="foto presentación"
+              placeholder="Ingrese aqui la foto de la presentación de la especie"
+            />
+            <FileInputField
+              id="fruit_url"
+              label="Foto de fruto"
+              placeholder="Ingrese aqui la foto de la presentación de la especie"
+            />
+            <FileInputField
+              id="flower_url"
+              label="Foto de la flor"
+              placeholder="Ingrese foto de la flor de la especie"
+            />
+
+            <FileInputField
+              id="detailFlower_url"
+              label="Foto de detalle de la flor"
+              placeholder="Ingrese foto del detalle de la flor de la especie"
+            />
+            <FileInputField
+              id="leaf_url"
+              label="Foto de la hoja"
+              placeholder="Ingrese foto de la hoja de la especie"
+            />
+            <FileInputField
+              id="bark_url"
+              label="Foto Corteza"
+              placeholder="Ingrese aqui la foto de corteza de la especie"
+            />
+            <FileInputField
+              id="seed_url"
+              label="Foto de semilla"
+              placeholder="Ingrese aqui la foto de la semilla de la especie"
+            />
+          </div>
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 };
 export default DashboardIndexPage;

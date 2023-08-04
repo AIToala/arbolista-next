@@ -8,7 +8,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/app/components/ui/tabs";
-import { InputField } from "../inputs";
+import { InputsField } from "../inputs";
 
 export function DashboardIndexPage() {
   return (
@@ -33,27 +33,27 @@ export function DashboardIndexPage() {
       </div>
       <TabsContent value="name">
         <div className="input-fields-container">
-          <InputField
+          <InputsField
             id="name"
             label="Nombre"
             placeholder="Ingrese el nombre del vivero"
           />
-          <InputField
+          <InputsField
             id="address"
             label="Direccion"
             placeholder="Ingrese la direccion del vivero"
           />
-          <InputField
+          <InputsField
             id="phone"
             label="Número de telefono"
             placeholder="Ingrese el numero de telefono del vivero"
           />
-          <InputField
+          <InputsField
             id="email"
             label="Correo electronico"
             placeholder="Ingrese el correo electronico del vivero"
           />
-          <InputField
+          <InputsField
             id="website"
             label="Sitio web"
             placeholder="Ingrese el url del sitio web del vivero"

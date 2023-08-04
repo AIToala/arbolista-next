@@ -199,6 +199,16 @@ export const speciesEnums = {
     { value: "Vías peatonales", label: "Vías peatonales" },
     { value: "Separadores", label: "Separadores" },
   ],
+  heightValues: [
+    { value: "menor que 7m", displayText: "menor que 7m" },
+    { value: "entre 7 y 15 m", displayText: "entre 7 y 15 m" },
+    { value: "mayor que 15 m", displayText: "mayor que 15 m" },
+  ],
+  crownWidthValues: [
+    { value: "Estrecha (menor a 7m)", displayText: "Estrecha (menor a 7m)" },
+    { value: "Media (7-14m)", displayText: "Media (7-14m)" },
+    { value: "Amplia (mayor a 14m)", displayText: "Amplia (mayor a 14m)" },
+  ],
   crownShapeValues: [
     { value: "Aparasolada", label: "Aparasolada" },
     { value: "Columnar", label: "Columnar" },
@@ -269,5 +279,38 @@ export const speciesEnums = {
     { value: "Hidrofila", label: "Hidrófila (agua)" },
     { value: "Mamiferos", label: "Mamiferos" },
     { value: "No determinado", label: "No determinado" },
+  ],
+  reproductionForm: [
+    { value: "no determinado", label: "no determinado" },
+    { value: "por semilla", label: "por semilla" },
+    { value: "por estaca", label: "por estaca" },
+    { value: "por bulbo", label: "por bulbo" },
+    { value: "por tubérculo", label: "por tubérculo" },
+    { value: "por estolón", label: "por estolón" },
+    { value: "por acodo", label: "por acodo" },
+    { value: "division de pie", label: "division de pie" },
+  ],
+  faunaAtraction: [
+    { value: "No determinado", label: "No determinado" },
+    { value: "Alimentício", label: "Alimentício" },
+    {
+      value: "Aditivo de los alimentos",
+      label: "Aditivo de los alimentos",
+    },
+    {
+      value: "Alimento de animales vertebrado",
+      label: "Alimento de animales vertebrados",
+    },
+    {
+      value: "Alimento de animales invertebrados",
+      label: "Alimento de animales invertebrados",
+    },
+    { value: "Apícola", label: "Apícola" },
+    { value: "Combustibles", label: "Combustibles" },
+    { value: "Materiales", label: "Materiales" },
+    { value: "Social", label: "Social" },
+    { value: "Tóxico", label: "Tóxico" },
+    { value: "Medicinal", label: "Medicinal" },
+    { value: "Medioambiental", label: "Medioambiental" },
   ],
 };

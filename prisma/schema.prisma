@@ -54,12 +54,12 @@ model Nursery {
 }
 
 model NurserySpecies {
-  id        String  @id @default(cuid()) @map("_id")
-  especieHeighy Float
+  id             String  @id @default(cuid()) @map("_id")
+  especieHeighy  Float
   especiesAmount Int?
-  nurseryId String  @map("nursery_id")
-  speciesId String  @map("species_id")
-  nursery   Nursery @relation(fields: [nurseryId], references: [id], onDelete: Cascade)
+  nurseryId      String  @map("nursery_id")
+  speciesId      String  @map("species_id")
+  nursery        Nursery @relation(fields: [nurseryId], references: [id], onDelete: Cascade)
 
   @@unique([nurseryId, speciesId], map: "NurserySpecies_nurseryId_speciesId_key")
   @@index([nurseryId], map: "NurserySpecies_nursery_id_fkey")
@@ -87,7 +87,7 @@ model Species {
 
 model Taxonomy {
   id           String                @id @default(cuid())
-  family       SpeciesFamilyDetail  @relation(fields: [familyId], references: [id], onDelete: Cascade) 
+  family       SpeciesFamilyDetail   @relation(fields: [familyId], references: [id], onDelete: Cascade)
   familyId     Int
   genus        String                @default("No determinado")
   tSpecies     String                @default("No determinado")
@@ -107,20 +107,20 @@ model Taxonomy {
 }
 
 model SpeciesFamilyDetail {
-  id          Int   @id @default(autoincrement())
-  family      String   @default("No determinado") @unique
-  description String?  @db.Text()
+  id          Int        @id @default(autoincrement())
+  family      String     @unique @default("No determinado")
+  description String?    @db.Text()
   taxonomies  Taxonomy[]
+
   @@index([id], map: "familyDetail_id_fkey")
 }
 
 model SpeciesSynonyms {
   id           String   @id @default(cuid())
   synonym_name String?  @default("No determinado")
-  speciesId    String   @unique @map("species_id")
-  taxonomy     Taxonomy @relation(fields: [speciesId], references: [id], onDelete: Cascade)
-  @@index([speciesId], map: "SpeciesSynonyms_species_id_fkey")
+  taxonomy     Taxonomy @relation(fields: [id], references: [id], onDelete: Cascade)
 }
+
 model SpeciesBibliography {
   id               String   @id @default(cuid())
   authors          String?  @default("No determinado")
@@ -219,11 +219,11 @@ model Associated_Fauna {
 }
 
 model Ethnobotany {
-  id          String               @id @default(cuid())
-  category    String               @default("No determinado")
-  use_detail  String               @default("No determinado")
-  speciesId   String               @unique @map("species_id")
-  species     Species              @relation(fields: [speciesId], references: [id], onDelete: Cascade)
+  id         String  @id @default(cuid())
+  category   String  @default("No determinado")
+  use_detail String  @default("No determinado")
+  speciesId  String  @unique @map("species_id")
+  species    Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Ethnobotany_species_id_fkey")
 }
@@ -303,7 +303,6 @@ enum FloweringSeason {
   NO_DETERMINADO
 }
 
-
 enum LeafPersistence {
   CADUCIFOLIA
   SEMICADUCIFOLIA
@@ -359,7 +358,6 @@ enum FruitType {
   SICONO
   SINCARPO
 }
-
 
 enum Origin {
   NATIVA
