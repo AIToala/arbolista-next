@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/app/components/ui/select";
 
-import { InputField, PasswordInputField } from "../inputs";
+import { InputsField, PasswordInputField } from "../inputs";
 
 export function DashboardIndexPage() {
   return (
@@ -40,12 +40,12 @@ export function DashboardIndexPage() {
       </div>
       <TabsContent value="name">
         <div className="input-fields-container">
-          <InputField
+          <InputsField
             id="name"
             label="Nombres Completos"
             placeholder="Ingrese los nombres completos del usuario"
           />
-          <InputField
+          <InputsField
             id="email"
             label="Correo"
             placeholder="Ingrese el correo del usuario"
