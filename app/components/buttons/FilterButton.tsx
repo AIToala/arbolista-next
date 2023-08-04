@@ -61,48 +61,46 @@ const FilterButton = () => {
             Estado de conservación
           </Label>
           <RadioGroup className="grid md:grid-cols-9 grid-cols-5 gap-2">
-            {speciesEnums.conservationStatus
-              .reverse()
-              .map((item: any, index: any) => (
-                <Label
-                  key={index}
-                  htmlFor={item.value}
-                  className={
-                    "[&:has([data-state=checked])]:text-white " +
-                    (item.value === "EX"
-                      ? "ex"
-                      : item.value === "EW"
-                      ? "ew"
-                      : item.value === "CR"
-                      ? "cr"
-                      : item.value === "EN"
-                      ? "en"
-                      : item.value === "VU"
-                      ? "vu"
-                      : item.value === "NT"
-                      ? "nt"
-                      : item.value === "LC"
-                      ? "lc"
-                      : item.value === "DD"
-                      ? "dd"
-                      : item.value === "NE"
-                      ? "ne"
-                      : "") +
-                    " flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-8 hover:ring-4 hover:ring-offset-2 ring-green-500 [&:has([data-state=checked])]:border-primary [&:has([data-state=checked])]:ring-4 [&:has([data-state=checked])]:ring-green-500 [&:has([data-state=checked])]:ring-offset-2 hover:cursor-pointer text-xl"
-                  }
-                >
-                  <RadioGroupItem
-                    value={item.value}
-                    id={item.value}
-                    className="sr-only"
-                    onClick={() => {
-                      speciesParams.conservationStatus = item.value.toString();
-                      setSpeciesParams({ ...speciesParams });
-                    }}
-                  />
-                  <div>{item.value}</div>
-                </Label>
-              ))}
+            {speciesEnums.conservationStatus.map((item: any, index: any) => (
+              <Label
+                key={index}
+                htmlFor={item.value}
+                className={
+                  "[&:has([data-state=checked])]:text-white " +
+                  (item.value === "EX"
+                    ? "ex"
+                    : item.value === "EW"
+                    ? "ew"
+                    : item.value === "CR"
+                    ? "cr"
+                    : item.value === "EN"
+                    ? "en"
+                    : item.value === "VU"
+                    ? "vu"
+                    : item.value === "NT"
+                    ? "nt"
+                    : item.value === "LC"
+                    ? "lc"
+                    : item.value === "DD"
+                    ? "dd"
+                    : item.value === "NE"
+                    ? "ne"
+                    : "") +
+                  " flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-8 hover:ring-4 hover:ring-offset-2 ring-green-500 [&:has([data-state=checked])]:border-primary [&:has([data-state=checked])]:ring-4 [&:has([data-state=checked])]:ring-green-500 [&:has([data-state=checked])]:ring-offset-2 hover:cursor-pointer text-xl"
+                }
+              >
+                <RadioGroupItem
+                  value={item.value}
+                  id={item.value}
+                  className="sr-only"
+                  onClick={() => {
+                    speciesParams.conservationStatus = item.value.toString();
+                    setSpeciesParams({ ...speciesParams });
+                  }}
+                />
+                <div>{item.value}</div>
+              </Label>
+            ))}
           </RadioGroup>
           <DropdownMenuSeparator />
           <Label className="text-xl font-semibold">Caracteristicas</Label>
@@ -167,6 +165,10 @@ const FilterButton = () => {
                       speciesParams.useCategory += value.value + ",";
                     }
                   });
+                  speciesParams.useCategory = speciesParams.useCategory.slice(
+                    0,
+                    -1
+                  );
                   setSpeciesParams({ ...speciesParams });
                 }}
                 isClearable={false}
@@ -204,6 +206,8 @@ const FilterButton = () => {
                       speciesParams.publicSpaceUse += value.value + ",";
                     }
                   });
+                  speciesParams.publicSpaceUse =
+                    speciesParams.publicSpaceUse.slice(0, -1);
                   setSpeciesParams({ ...speciesParams });
                 }}
                 isClearable={false}

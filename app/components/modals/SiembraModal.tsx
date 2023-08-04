@@ -1,18 +1,20 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 "use client";
 
-import qs from "query-string";
-import dynamic from "next/dynamic";
-import { useCallback, useMemo, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Select from "react-select";
-import { speciesEnums } from "@/app/types/index";
 import useSiembraModal from "@/app/hooks/useSiembraModal";
+import { speciesEnums } from "@/app/types/index";
+import dynamic from "next/dynamic";
+import { useRouter, useSearchParams } from "next/navigation";
+import qs from "query-string";
+import { useCallback, useMemo, useState } from "react";
+import Select from "react-select";
 
+import { type ISpeciesParams } from "@/app/actions/getSpecies";
 import Image from "next/image";
-import Modal from "./Modal";
 import Heading from "../Heading";
+import Modal from "./Modal";
 
 enum STEPS {
   INTRO = 0,
@@ -26,44 +28,9 @@ const SiembraModal = () => {
   const router = useRouter();
   const siembraModal = useSiembraModal();
   const params = useSearchParams();
+  const [speciesParams, setSpeciesParams] = useState<ISpeciesParams>({});
 
   const [step, setStep] = useState(STEPS.INTRO);
-
-  const [hasSombra, setSombra] = useState(false);
-  const [isOrnamental, setOrnamental] = useState(false);
-  const [isSeto, setSeto] = useState(false);
-  const [mejoraSuelo, setMejoraSuelo] = useState(false);
-  const [isAlimento, setAlimento] = useState(false);
-  const [isMedicinal, setMedicinal] = useState(false);
-  const [isMaterial, setMaterial] = useState(false);
-  const [isHabitat, setHabitat] = useState(false);
-  const [isInhibidorRuido, setInhibidorRuido] = useState(false);
-  const [isInhibidorViento, setInhibidorViento] = useState(false);
-  const [isInhibidorContaminacion, setInhibidorContaminacion] = useState(false);
-  const [isEndangered, setEndangered] = useState(false);
-  const [restauracion, setRestauracion] = useState(false);
-  const [isCerco, setCerco] = useState(false);
-  const [isPolinizador, setPolinizador] = useState(false);
-
-  const [hasObstaculos, setObstaculos] = useState("No definido");
-  const [disponibilidadAgua, setDisponibilidadAgua] = useState("No definido");
-  const [disponibilidadSuelo, setDisponibilidadSuelo] = useState("No definido");
-  const [presenciaLuz, setPresenciaLuz] = useState("No definido");
-  const [presenciaAnimales, setPresenciaAnimales] = useState("No definido");
-
-  const [anchoSembrado, setAnchoSembrado] = useState(0.0);
-  const [largoSembrado, setLargoSembrado] = useState(0.0);
-  const [distanciaTendido, setDistanciaTendido] = useState(0.0);
-  const [alturaTendido, setAlturaTendido] = useState(0.0);
-  const [distanciaEstructuras, setDistanciaEstructuras] = useState(0.0);
-
-  const [usoEspacioPublico, setUsoEspacioPublico] = useState("No definido");
-  const [tasaCrecimiento, setTasaCrecimiento] = useState("No definido");
-  const [longevidad, setLongevidad] = useState("No definido");
-  const [persistenciaHoja, setPersistenciaHoja] = useState("No definido");
-  const [formaCopa, setFormaCopa] = useState("No definido");
-  const [limitacionFloral, setLimitacionFloral] = useState([]);
-  const [limitacionFruto, setLimitacionFruto] = useState([]);
 
   const onBack = useCallback(() => {
     setStep((value) => value - 1);
@@ -139,45 +106,27 @@ const SiembraModal = () => {
   );
 
   const checkList = [
-    { label: "Otorgue sombra", state: hasSombra, setState: setSombra },
-    { label: "Ornamental", state: isOrnamental, setState: setOrnamental },
-    { label: "Deseo un seto", state: isSeto, setState: setSeto },
-    { label: "Mejore el suelo", state: mejoraSuelo, setState: setMejoraSuelo },
-    { label: "Otorgue alimento", state: isAlimento, setState: setAlimento },
-    { label: "Sea medicinal", state: isMedicinal, setState: setMedicinal },
-    { label: "Sea material", state: isMaterial, setState: setMaterial },
-    { label: "Habitat para la fauna", state: isHabitat, setState: setHabitat },
-    {
-      label: "Inhibidor de ruido",
-      state: isInhibidorRuido,
-      setState: setInhibidorRuido,
-    },
+    { label: "Otorgue sombra", value: "Sombra" },
+    { label: "Ornamental", value: "Ornamental" },
+    { label: "Deseo un seto", value: "Seto" },
+    { label: "Mejore el suelo", value: "Mejora suelo" },
+    { label: "Otorgue alimento", value: "Alimento" },
+    { label: "Sea medicinal", value: "Medicinal" },
+    { label: "Sea material", value: "Materiales" },
+    { label: "Habitat para la fauna", value: "Habitat" },
+    { label: "Inhibidor de ruido", value: "Inhibidor de ruido" },
     {
       label: "Proteccion contra vientos fuertes",
-      state: isInhibidorViento,
-      setState: setInhibidorViento,
+      value: "Proteccion contra vientos fuertes",
     },
     {
       label: "Inhibidor de contaminacion",
-      state: isInhibidorContaminacion,
-      setState: setInhibidorContaminacion,
+      value: "Inhibidor de contaminacion",
     },
-    {
-      label: "Es una especie amenazada",
-      state: isEndangered,
-      setState: setEndangered,
-    },
-    {
-      label: "Restauracion Ecologica",
-      state: restauracion,
-      setState: setRestauracion,
-    },
-    { label: "Quiero un cerco vivo", state: isCerco, setState: setCerco },
-    {
-      label: "Otorgue ayuda a polinizadores",
-      state: isPolinizador,
-      setState: setPolinizador,
-    },
+    { label: "Es una especie amenazada", value: "Especie amenazada" },
+    { label: "Restauracion Ecologica", value: "Restauracion Ecologica" },
+    { label: "Quiero un cerco vivo", value: "Cerco vivo" },
+    { label: "Otorgue ayuda a polinizadores", value: "Ayuda a polinizadores" },
   ];
 
   if (step === STEPS.ESPECIE) {
@@ -196,7 +145,18 @@ const SiembraModal = () => {
                 value=""
                 className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
                 onChange={(event) => {
-                  if (event.target.checked) item.setState(true);
+                  if (event.target.checked) {
+                    if (item.label === "Es una especie amenazada") {
+                      speciesParams.conservationStatus = "";
+                    } else {
+                      speciesParams.useCategory += item.label + ",";
+                    }
+                    setSpeciesParams(speciesParams);
+                  } else {
+                    speciesParams.useCategory =
+                      speciesParams.useCategory?.replace(item.label + ",", "");
+                    setSpeciesParams(speciesParams);
+                  }
                 }}
               />
               <label
@@ -214,29 +174,19 @@ const SiembraModal = () => {
 
   const selectLugar = [
     {
-      label: "Existen obstaculos?",
-      state: hasObstaculos,
-      setState: setObstaculos,
+      label: "Existen obstaculos?", //
     },
     {
-      label: "Disponibilidad de agua",
-      state: disponibilidadAgua,
-      setState: setDisponibilidadAgua,
+      label: "Disponibilidad de agua", // humidity_zone
     },
     {
-      label: "Disponibilidad de suelo",
-      state: disponibilidadSuelo,
-      setState: setDisponibilidadSuelo,
+      label: "Disponibilidad de suelo", // soil_type
     },
     {
-      label: "Presencia de luz",
-      state: presenciaLuz,
-      setState: setPresenciaLuz,
+      label: "Presencia de luz", // light_requirements
     },
     {
-      label: "Presencia de animales",
-      state: presenciaAnimales,
-      setState: setPresenciaAnimales,
+      label: "Presencia de animales", // fauna_attraction
     },
   ];
 
@@ -261,9 +211,7 @@ const SiembraModal = () => {
                   id="lugar0"
                   options={speciesEnums.priorityLevel}
                   className="text-sm"
-                  onChange={(value) => {
-                    if (value !== null) setObstaculos(value.value);
-                  }}
+                  onChange={(value) => {}}
                   isClearable={false}
                   isSearchable={false}
                   placeholder="Escoga una opcion"
@@ -273,9 +221,7 @@ const SiembraModal = () => {
                   id={"lugar" + index.toString()}
                   options={speciesEnums.priorityLevel}
                   className="text-sm"
-                  onChange={(value) => {
-                    if (value != null) item.setState(value.value);
-                  }}
+                  onChange={(value) => {}}
                   isClearable={false}
                   isSearchable={false}
                   placeholder="Escoga una opcion"
@@ -322,9 +268,7 @@ const SiembraModal = () => {
               placeholder="0.00"
               min="0"
               step="0.01"
-              onChange={(value) => {
-                setAnchoSembrado(parseFloat(value.target.value));
-              }}
+              onChange={(value) => {}}
             />
           </div>
           <div>
@@ -342,9 +286,7 @@ const SiembraModal = () => {
               placeholder="0.00"
               min="0"
               step="0.01"
-              onChange={(value) => {
-                setLargoSembrado(parseFloat(value.target.value));
-              }}
+              onChange={(value) => {}}
             />
           </div>
           <div>
@@ -362,9 +304,7 @@ const SiembraModal = () => {
               placeholder="0.00"
               min="0"
               step="0.01"
-              onChange={(value) => {
-                setDistanciaTendido(parseFloat(value.target.value));
-              }}
+              onChange={(value) => {}}
             />
           </div>
           <div>
@@ -382,9 +322,7 @@ const SiembraModal = () => {
               placeholder="0.00"
               min="0"
               step="0.01"
-              onChange={(value) => {
-                setAlturaTendido(parseFloat(value.target.value));
-              }}
+              onChange={(value) => {}}
             />
           </div>
           <div>
@@ -402,9 +340,7 @@ const SiembraModal = () => {
               placeholder="0.00"
               min="0"
               step="0.01"
-              onChange={(value) => {
-                setDistanciaEstructuras(parseFloat(value.target.value));
-              }}
+              onChange={(value) => {}}
             />
           </div>
         </div>
@@ -440,9 +376,7 @@ const SiembraModal = () => {
               id="usoEspacioPublico"
               options={speciesEnums.publicUseValues}
               className="text-sm"
-              onChange={(value) => {
-                if (value !== null) setUsoEspacioPublico(value.value);
-              }}
+              onChange={(value) => {}}
               isClearable={false}
               isSearchable={false}
               placeholder="Escoga una opcion"
@@ -459,9 +393,7 @@ const SiembraModal = () => {
               id="tasaCrecimiento"
               options={speciesEnums.growthRate}
               className="text-sm"
-              onChange={(value) => {
-                if (value !== null) setTasaCrecimiento(value.value);
-              }}
+              onChange={(value) => {}}
               isClearable={false}
               isSearchable={false}
               placeholder="Escoga una opcion"
@@ -478,9 +410,7 @@ const SiembraModal = () => {
               id="longevidad"
               options={speciesEnums.longevity}
               className="text-sm"
-              onChange={(value) => {
-                if (value !== null) setLongevidad(value.value);
-              }}
+              onChange={(value) => {}}
               isClearable={false}
               isSearchable={false}
               placeholder="Escoga una opcion"
@@ -497,9 +427,7 @@ const SiembraModal = () => {
               id="persistenciaHoja"
               options={speciesEnums.leafPersistence}
               className="text-sm"
-              onChange={(value) => {
-                if (value !== null) setPersistenciaHoja(value.value);
-              }}
+              onChange={(value) => {}}
               isClearable={false}
               isSearchable={false}
               placeholder="Escoga una opcion"
@@ -516,9 +444,7 @@ const SiembraModal = () => {
               id="formaCopa"
               options={speciesEnums.crownShapeValues}
               className="text-sm"
-              onChange={(value) => {
-                if (value !== null) setFormaCopa(value.value);
-              }}
+              onChange={(value) => {}}
               isClearable={false}
               isSearchable={false}
               placeholder="Escoga una opcion"
@@ -546,7 +472,6 @@ const SiembraModal = () => {
                   data.push(item.value);
                   return item;
                 });
-                setLimitacionFloral(data);
               }
             }}
             isClearable={false}
@@ -574,7 +499,6 @@ const SiembraModal = () => {
                   data.push(item.value);
                   return item;
                 });
-                setLimitacionFruto(data);
               }
             }}
             isClearable={false}
