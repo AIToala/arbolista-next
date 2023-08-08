@@ -300,14 +300,6 @@
   color: rgb(17, 24, 39) !important;
 }
 
-.dashboard-content {
-  flex: 1;
-  margin-left: 20px;
-  margin-top: 100px;
-  margin-right: 50px;
-  display: flex;
-  justify-content: center;
-}
 .custom-tab {
   width: 50%;
 }

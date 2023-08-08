@@ -1,7 +1,7 @@
 "use client";
 import { Table } from "flowbite-react";
 
-const DashboardIndexPage = () => {
+const DashboardGestionUsuarioPage = () => {
   return (
     <div style={{ display: "flex" }}>
       <div
@@ -102,4 +102,4 @@ const DashboardIndexPage = () => {
   );
 };
 
-export default DashboardIndexPage;
+export default DashboardGestionUsuarioPage;

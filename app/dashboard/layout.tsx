@@ -8,9 +8,9 @@ export default async function DashboardLayout({
 }) {
   const currentUser = await getCurrentUser();
   return (
-    <div className="w-full h-fit flex flex-column">
+    <div className="w-full h-fit flex">
       <SidebarC currentUser={currentUser} />
-      <div className="w-full h-full flex flex-column mx-auto">{children}</div>
+      <div className="w-full h-full flex mx-auto">{children}</div>
     </div>
   );
 }

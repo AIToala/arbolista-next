@@ -1,7 +1,7 @@
 "use client";
+import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
-import { Button } from "@/app/components/ui/button";
 import {
   Tabs,
   TabsContent,
@@ -10,7 +10,7 @@ import {
 } from "@/app/components/ui/tabs";
 import { InputsField } from "../inputs";
 
-export function DashboardIndexPage() {
+export function DashboardViverosPage() {
   return (
     <Tabs
       defaultValue="name"
@@ -79,4 +79,4 @@ export function DashboardIndexPage() {
   );
 }
 
-export default DashboardIndexPage;
+export default DashboardViverosPage;

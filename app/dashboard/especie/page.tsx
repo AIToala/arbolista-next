@@ -6,7 +6,7 @@ import {
   TabsTrigger,
 } from "@/app/components/ui/tabs";
 
-import { InputField, TextAreaField, FileInputField } from "../inputs";
+import { type ISpeciesParams } from "@/app/actions/getSpecies";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,13 +19,13 @@ import {
   AlertDialogTrigger,
 } from "@/app/components/ui/alert-dialog";
 import { Button } from "@/app/components/ui/button";
-import { type ISpeciesParams } from "@/app/actions/getSpecies";
+import { Label } from "@/app/components/ui/label";
+import { speciesEnums } from "@/app/types/index";
 import { useState } from "react";
 import Select from "react-select";
-import { speciesEnums } from "@/app/types/index";
-import { Label } from "@/app/components/ui/label";
+import { FileInputField, InputField, TextAreaField } from "../inputs";
 
-const DashboardIndexPage = () => {
+const DashboardEspeciePage = () => {
   const [taxonomyParams, setTaxonomyParams] = useState<ISpeciesParams>({});
   const [speciesParams, setSpeciesParams] = useState<ISpeciesParams>({});
   console.log(speciesParams);
@@ -760,4 +760,4 @@ const DashboardIndexPage = () => {
     </div>
   );
 };
-export default DashboardIndexPage;
+export default DashboardEspeciePage;
