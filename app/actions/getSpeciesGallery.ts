@@ -1,6 +1,6 @@
 import prisma from "@/app/libs/prismadb";
 
-export default async function getSpeciesByName() {
+export default async function getSpeciesGallery() {
   try {
     const species = await prisma.species.findMany({
       select: {
