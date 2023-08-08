@@ -1,4 +1,7 @@
 "use client";
+
+import Image from "next/image";
+
 require("./prettifier.css");
 
 const Acerca = () => {
@@ -23,11 +26,15 @@ const Acerca = () => {
           </p>
         </div>
         <div className="divs-caracs2 ancho justify-center ">
-          <img
+          <Image
             id="img-jardin"
             src="/images/jardin-botanico.jpeg"
             alt="Jardin botanico Gye"
-          ></img>
+            width={500}
+            height={500}
+            priority
+            className="rounded-lg w-full h-auto relative"
+          />
         </div>
       </div>
       <div className="text-4xl font-bold text-gray-800 mt-5 text-center top-no-margin2 css-selector">
