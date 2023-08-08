@@ -12,6 +12,7 @@ import {
   PriorityLevel,
   RootingTypes,
   StemLeafPosition,
+  UserRole,
   type Species,
   type User,
 } from "@prisma/client";
@@ -59,6 +60,19 @@ export type SafeSpecies = Omit<Species, "createdAt" | "updatedAt"> & {
   EX
 } */
 export const speciesEnums = {
+  userRole: Object.values(UserRole)
+    .filter(
+      (value) => value.toString() !== "USER" && value.toString() !== "ADMIN"
+    )
+    .map((value) => ({
+      value: value as UserRole,
+      label:
+        value === "NURSERY_ADMIN"
+          ? "Viverista"
+          : value === "SPECIES_ADMIN"
+          ? "Biólogo"
+          : "No determinado",
+    })),
   conservationStatus: Object.values(ConservationStatus).map((value) => ({
     value: value as ConservationStatus,
     label:

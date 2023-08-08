@@ -66,10 +66,6 @@ const SidebarC: React.FC<SidebarProps> = ({ currentUser }) => {
   return (
     <aside>
       <Sidebar className="sidebar h-full min-h-[100vh]" color="!green">
-        <Sidebar.Logo href="#" img="/images/logo.svg" imgAlt="logo">
-          <p>Arborista</p>
-          <p>{currentUser?.name}</p>
-        </Sidebar.Logo>
         <Sidebar.Items>
           <Sidebar.ItemGroup>
             {currentUser?.userRole === "ADMIN" && (

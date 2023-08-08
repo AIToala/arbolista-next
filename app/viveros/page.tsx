@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import Image from "next/image";
 import Link from "next/link";
 import EmptyState from "@/app/components/EmptyState";
@@ -26,7 +27,7 @@ const Viveros = async () => {
         <div className="w-[80vw] flex flex-col px-3 py-3 min-h-[70vh] mx-auto my-10">
           <div className="relative overflow-x-auto rounded-lg">
             <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-8">
-              {viveros.map((result, index) => (
+              {viveros.map((result: any, index: any) => (
                 <Link key={index} href={`/viveros/${result.name}`}>
                   <div
                     key={index}
