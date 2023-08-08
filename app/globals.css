@@ -85,11 +85,6 @@
   --brand-alternative: rgb(19, 120, 134);
   --background-site: rgb(249, 249, 249);
 }
-@media screen and (max-width: 768px) {
-  .embla__button {
-    display: none !important;
-  }
-}
 .embla {
   --slide-spacing: 1rem;
   --slide-size: 100%;

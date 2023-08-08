@@ -30,7 +30,7 @@ export const PrevButton: React.FC<PrevNextButtonPropType> = (props) => {
   }
   return (
     <button
-      className="embla__button embla__button--prev hidden md:inline-flex"
+      className="embla__button embla__button--prev lg:hidden md:inline-flex"
       onClick={onClick}
       disabled={!enabled}
     >
@@ -51,7 +51,7 @@ export const NextButton: React.FC<PrevNextButtonPropType> = (props) => {
   }
   return (
     <button
-      className="embla__button embla__button--next hidden md:inline-flex"
+      className="embla__button embla__button--next lg:hidden md:inline-flex"
       onClick={onClick}
       disabled={!enabled}
     >

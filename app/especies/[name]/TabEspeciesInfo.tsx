@@ -93,49 +93,49 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
               <AccordionContent className="text-xl">
                 {taxonomy !== null ? (
                   <div className="w-full grid grid-cols-1 gap-4 justify-center items-center !m-0">
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Familia</p>
                       <p className="w-full text-gray-700 font-light">
                         {taxonomy.family.family}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Género</p>
                       <p className="w-full text-gray-700 font-light">
                         {taxonomy.genus}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Especie</p>
                       <p className="w-full text-gray-700 font-light">
                         {taxonomy.tSpecies}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Subespecie</p>
                       <p className="w-full text-gray-700 font-light">
                         {taxonomy.subspecies}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Variedad</p>
                       <p className="w-full text-gray-700 font-light">
                         {taxonomy.variety}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Nombres comunes</p>
                       <p className="w-full text-gray-700 font-light">
                         {taxonomy.common_names}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Autores</p>
                       <p className="w-full text-gray-700 font-light">
                         {taxonomy.author}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Sinónimos</p>
                       <p className="w-full text-gray-700 font-light">
                         {taxonomy.synonyms.length !== 0 ? (
@@ -149,13 +149,13 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                         )}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Etimología</p>
                       <p className="w-full text-gray-700 font-light">
                         {taxonomy.etymology}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">
                         Habito de crecimiento
                       </p>
@@ -163,7 +163,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                         {taxonomy.growth_habit}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Bibliografía</p>
                       <p className="w-full text-gray-700 font-light">
                         {taxonomy.bibliography.length !== 0 ? (
@@ -199,13 +199,13 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                   </div>
                   {flower !== null ? (
                     <>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">Color</p>
                         <p className="w-full text-gray-700 font-light">
                           {flower.flower_color}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Arreglo de la flor
                         </p>
@@ -213,7 +213,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                           {flower.flower_arrangement}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Temporada de florecimiento
                         </p>
@@ -221,7 +221,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                           {flower.flowering_season}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Meses de florecimiento
                         </p>
@@ -229,7 +229,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                           {flower.flowering_months}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Sistema de polinización
                         </p>
@@ -237,7 +237,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                           {flower.pollination_system}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Atributos florales
                         </p>
@@ -256,13 +256,13 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                   </div>
                   {seeds !== null ? (
                     <>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">Tipo de fruto</p>
                         <p className="w-full text-gray-700 font-light">
                           {seeds.fruitType}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Meses de fructificacion
                         </p>
@@ -270,7 +270,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                           {seeds.fruiting_months}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Atributos frutales
                         </p>
@@ -278,7 +278,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                           {seeds.fruit_attributes}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Atributos de semilla
                         </p>
@@ -286,7 +286,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                           {seeds.seed_attributes}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Sistema de dispersion de semillas
                         </p>
@@ -305,7 +305,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                   </div>
                   {leaf !== null ? (
                     <>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Composicion de hoja
                         </p>
@@ -313,7 +313,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                           {leaf.leaf_composition}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Posicionamiento de Hoja de tallo{" "}
                         </p>
@@ -321,7 +321,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                           {leaf.stemLeaf_position}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Persistencia de hoja
                         </p>
@@ -329,7 +329,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                           {leaf.leaf_persistence}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Atributos de hoja
                         </p>
@@ -348,7 +348,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                   </div>
                   {root !== null ? (
                     <>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Forma de reproduccion
                         </p>
@@ -356,7 +356,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                           {root.reproduction_form}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Tipo de enraizamiento
                         </p>
@@ -364,7 +364,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                           {root.rooting_type}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Atributos de raiz
                         </p>
@@ -372,7 +372,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                           {root.root_attributes}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Color de corteza
                         </p>
@@ -380,7 +380,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                           {stalk.bark_color}
                         </p>
                       </div>
-                      <div className="w-full flex flex-column items-center gap-6">
+                      <div className="w-full flex  items-center gap-6">
                         <p className="w-[40%] font-semibold">
                           Atributos de corteza
                         </p>
@@ -404,13 +404,13 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
               <AccordionContent className="text-xl">
                 {ethnobotany !== null ? (
                   <div className="w-full grid grid-cols-1 gap-4 justify-center items-center !m-0">
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Categoria</p>
                       <p className="w-full text-gray-700 font-light">
                         {ethnobotany.category}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Detalle de uso</p>
                       <p className="w-full text-gray-700 font-light">
                         {ethnobotany.use_detail}
@@ -431,13 +431,13 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
               <AccordionContent className="text-xl">
                 {ecology !== null ? (
                   <div className="w-full grid grid-cols-1 gap-4 justify-center items-center !m-0">
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Origen</p>
                       <p className="w-full text-gray-700 font-light">
                         {ecology.origin}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">
                         Distribución geográfica
                       </p>
@@ -445,13 +445,13 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                         {ecology.geo_distribution}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Rango altitudinal</p>
                       <p className="w-full text-gray-700 font-light">
                         {ecology.altitudinal_range}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">
                         Estado de conservación
                       </p>
@@ -459,7 +459,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                         {ecology.conservation_status}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">
                         Nivel de atracción de fauna
                       </p>
@@ -467,7 +467,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                         {ecology.fauna_attraction}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Fauna Asociada</p>
                       <p className="w-full text-gray-700 font-light">
                         {ecology.associated_fauna !== undefined &&
@@ -506,7 +506,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
               <AccordionContent className="text-xl">
                 {arboriculture !== null ? (
                   <div className="w-full grid grid-cols-1 gap-4 justify-center items-center !m-0">
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">
                         Requerimientos de luz
                       </p>
@@ -514,7 +514,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                         {arboriculture.light_requirements}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">
                         Usos en espacio público
                       </p>
@@ -522,7 +522,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                         {arboriculture.public_spaceUse}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">
                         Limitaciones florales
                       </p>
@@ -530,7 +530,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                         {arboriculture.flower_limitations}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">
                         Limitaciones frutales
                       </p>
@@ -538,19 +538,19 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                         {arboriculture.fruit_limitations}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[50%] font-semibold">Longevidad</p>
                       <p className="w-full text-gray-700 font-light">
                         {arboriculture.longevity}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[50%] font-semibold">Plagas asociadas</p>
                       <p className="w-full text-gray-700 font-light">
                         {arboriculture.pests_diseases}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[50%] font-semibold">
                         Tasa de crecimiento
                       </p>
@@ -558,31 +558,31 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                         {arboriculture.growth_rate}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[50%] font-semibold">Altura maxima</p>
                       <p className="w-full text-gray-700 font-light">
                         {arboriculture.maximum_height}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[50%] font-semibold">Ancho de copa</p>
                       <p className="w-full text-gray-700 font-light">
                         {arboriculture.crown_width}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[50%] font-semibold">Forma de copa</p>
                       <p className="w-full text-gray-700 font-light">
                         {arboriculture.crown_shape}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[50%] font-semibold">DAP</p>
                       <p className="w-full text-gray-700 font-light">
                         {arboriculture.DAP}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[50%] font-semibold">
                         Densidad de foliage
                       </p>
@@ -590,13 +590,13 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                         {arboriculture.foliage_density}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-[50%] font-semibold">Tipo de suelo</p>
                       <p className="w-full text-gray-700 font-light">
                         {arboriculture.soil_type}
                       </p>
                     </div>
-                    <div className="w-full flex flex-column items-center gap-6">
+                    <div className="w-full flex  items-center gap-6">
                       <p className="w-1/2 font-semibold">Nivel de humedad</p>
                       <p className="w-full text-gray-700 font-light">
                         {arboriculture.humidity_zone}

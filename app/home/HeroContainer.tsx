@@ -32,8 +32,8 @@ const HeroContainer = () => {
     },
   ];
   return (
-    <div className="w-full h-[91vh] relative">
-      <Carousel style="!h-[91vh]" slides={images} />
+    <div className="w-full h-full relative">
+      <Carousel style="!h-[61vh] !md:h-full " slides={images} />
     </div>
   );
 };

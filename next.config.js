@@ -10,10 +10,18 @@ const nextConfig = {
       "inaturalist-open-data.s3.amazonaws.com",
     ],
   },
-  transpilePackages: ["flowbite-react", "flowbite", "react-icons"],
-
+  transpilePackages: ["flowbite-react", "flowbite", "react-icons", "@radix-ui"],
+  modularizeImports: {
+    "react-icons": {
+      transform: "react-icons/{{member}}",
+    },
+    "@radix-ui": {
+      transform: "@radix-ui/{{member}}",
+    },
+  },
   webpack: (config) => {
     config.externals = [...config.externals, "bcryptjs"];
+
     return config;
   },
   redirects: async () => {

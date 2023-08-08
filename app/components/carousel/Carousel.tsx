@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect, useCallback } from "react";
+import useSiembraModal from "@/app/hooks/useSiembraModal";
+import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel, {
   type EmblaCarouselType,
   type EmblaOptionsType,
 } from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
-import { DotButton, PrevButton, NextButton } from "./CarouselButtons";
 import Image from "next/image";
-import { type IconType } from "react-icons/lib";
-import { BiRightArrowAlt } from "react-icons/bi";
 import { useRouter } from "next/navigation";
-import useSiembraModal from "@/app/hooks/useSiembraModal";
+import React, { useCallback, useEffect, useState } from "react";
+import { BiRightArrowAlt } from "react-icons/bi";
+import { type IconType } from "react-icons/lib";
+import { DotButton, NextButton, PrevButton } from "./CarouselButtons";
 
 interface ImageType {
   src: string;
@@ -90,7 +90,7 @@ const Carousel: React.FC<PropType> = (props) => {
                 className="embla__slide flex justify-center lg:justify-start items-center aspect-video"
                 key={index}
               >
-                <div className="embla__slide__number px-[50px] py-[60px] flex flex-col gap-y-6 bg-white justify-center lg:justify-start lg:items-start items-center p-4 w-[70%] xl:w-[30%] lg:ml-[60px] shadow-lg text-center lg:text-left">
+                <div className="embla__slide__number md:px-[50px] md:py-[60px] flex flex-col gap-y-6 bg-white justify-center lg:justify-start lg:items-start items-center p-4 w-[70%] lg:w-[30%] lg:ml-[60px] shadow-lg text-center my-auto lg:text-left">
                   <hr className="bg-green-700 w-[20%] leading-tight h-2 justify-self-start" />
                   <h1 className="lg:text-[44px] md:text-3xl text-2xl font-bold text-gray-800">
                     {image.title}
@@ -118,7 +118,7 @@ const Carousel: React.FC<PropType> = (props) => {
                   </button>
                 </div>
                 <Image
-                  className="brightness-50"
+                  className="brightness-50 object-cover"
                   src={
                     image.src === "No determinado"
                       ? "/images/logo.svg"
@@ -127,7 +127,6 @@ const Carousel: React.FC<PropType> = (props) => {
                   alt={image.alt}
                   fill
                   priority
-                  quality={100}
                 />
               </div>
             ))}

@@ -43,10 +43,10 @@ const FilterButton = () => {
             Filtro <GiSettingsKnobs />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-[70vw] h-[80vh] overflow-y-auto p-4 gap-4 grid items-start mr-5">
-          <DropdownMenuLabel className="w-full px-4 flex flex-column justify-around items-center">
+        <DropdownMenuContent className="w-[90vw] md:w-[70vw] h-[80vh] overflow-y-auto p-4 gap-4 grid items-start mx-auto">
+          <DropdownMenuLabel className="w-full px-4 flex justify-around items-center">
             <h1 className="text-2xl font-semibold w-full">Filtro avanzado</h1>
-            <div className="w-full px-4 gap-3 flex flex-row items-center justify-end">
+            <div className="w-full gap-3 flex flex-row items-center justify-end">
               <Button
                 type="submit"
                 onClick={handleFilter}
@@ -60,53 +60,58 @@ const FilterButton = () => {
           <Label className="text-xl font-semibold">
             Estado de conservación
           </Label>
-          <RadioGroup className="grid md:grid-cols-9 grid-cols-5 gap-2">
+          <RadioGroup className="grid xl:grid-cols-9 md:grid-cols-5 grid-cols-3 gap-2">
             {speciesEnums.conservationStatus.map((item: any, index: any) => (
-              <Label
+              <div
                 key={index}
-                htmlFor={item.value}
-                className={
-                  "[&:has([data-state=checked])]:text-white " +
-                  (item.value === "EX"
-                    ? "ex"
-                    : item.value === "EW"
-                    ? "ew"
-                    : item.value === "CR"
-                    ? "cr"
-                    : item.value === "EN"
-                    ? "en"
-                    : item.value === "VU"
-                    ? "vu"
-                    : item.value === "NT"
-                    ? "nt"
-                    : item.value === "LC"
-                    ? "lc"
-                    : item.value === "DD"
-                    ? "dd"
-                    : item.value === "NE"
-                    ? "ne"
-                    : "") +
-                  " flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-8 hover:ring-4 hover:ring-offset-2 ring-green-500 [&:has([data-state=checked])]:border-primary [&:has([data-state=checked])]:ring-4 [&:has([data-state=checked])]:ring-green-500 [&:has([data-state=checked])]:ring-offset-2 hover:cursor-pointer text-xl"
-                }
+                className="flex flex-col col-span-1 w-full h-full items-center"
               >
-                <RadioGroupItem
-                  value={item.value}
-                  id={item.value}
-                  className="sr-only"
-                  onClick={() => {
-                    speciesParams.conservationStatus = item.value.toString();
-                    setSpeciesParams({ ...speciesParams });
-                  }}
-                />
-                <div>{item.value}</div>
-              </Label>
+                <Label
+                  htmlFor={item.value}
+                  className={
+                    "[&:has([data-state=checked])]:text-white " +
+                    (item.value === "EX"
+                      ? "ex"
+                      : item.value === "EW"
+                      ? "ew"
+                      : item.value === "CR"
+                      ? "cr"
+                      : item.value === "EN"
+                      ? "en"
+                      : item.value === "VU"
+                      ? "vu"
+                      : item.value === "NT"
+                      ? "nt"
+                      : item.value === "LC"
+                      ? "lc"
+                      : item.value === "DD"
+                      ? "dd"
+                      : item.value === "NE"
+                      ? "ne"
+                      : "") +
+                    " flex flex-col items-center justify-center rounded-md border-2 border-muted bg-popover p-2 hover:ring-4 hover:ring-offset-2 ring-green-500 [&:has([data-state=checked])]:border-primary [&:has([data-state=checked])]:ring-4 [&:has([data-state=checked])]:ring-green-500 [&:has([data-state=checked])]:ring-offset-2 hover:cursor-pointer text-lg text-center w-[75px] h-[75px] md:w-[100px] md:h-[100px]"
+                  }
+                >
+                  <RadioGroupItem
+                    value={item.value}
+                    id={item.value}
+                    className="sr-only"
+                    onClick={() => {
+                      speciesParams.conservationStatus = item.value.toString();
+                      setSpeciesParams({ ...speciesParams });
+                    }}
+                  />
+                  {item.value}
+                </Label>
+                <div className="w-full text-center text-sm">{item.label}</div>
+              </div>
             ))}
           </RadioGroup>
           <DropdownMenuSeparator />
           <Label className="text-xl font-semibold">Caracteristicas</Label>
-          <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 h-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 h-full">
             <div className="col-span-1">
-              <Label className="text-lg">Tipo de crecimiento</Label>
+              <Label className="text-lg">Hábito de crecimiento</Label>
               <Select
                 id="growth_habit"
                 className="text-md"
@@ -176,21 +181,6 @@ const FilterButton = () => {
                 placeholder="Escoga una opcion"
               />
             </div>
-            <div className="col-span-1">
-              <Label className="text-lg">Tasa Crecimiento</Label>
-              <Select
-                id="growth_rate"
-                options={speciesEnums.growthRate}
-                className="text-md"
-                placeholder="No determinado"
-                isClearable={false}
-                isSearchable={false}
-                onChange={(value: any) => {
-                  speciesParams.growthRate = value;
-                  setSpeciesParams({ ...speciesParams });
-                }}
-              />
-            </div>
             <div className="col-span-1 ">
               <Label className="text-lg">Uso en espacio publico</Label>
               <Select
@@ -226,21 +216,6 @@ const FilterButton = () => {
                 isSearchable={false}
                 onChange={(value: any) => {
                   speciesParams.faunaAttraction = value;
-                  setSpeciesParams({ ...speciesParams });
-                }}
-              />
-            </div>
-            <div className="col-span-1">
-              <Label className="text-lg">Rango altitudinal</Label>
-              <Select
-                id="altitudinal_range"
-                options={speciesEnums.altitudeRange}
-                className="text-md"
-                placeholder="No determinado"
-                isClearable={false}
-                isSearchable={false}
-                onChange={(value: any) => {
-                  speciesParams.altitudinalRange = value;
                   setSpeciesParams({ ...speciesParams });
                 }}
               />
@@ -336,51 +311,6 @@ const FilterButton = () => {
               />
             </div>
             <div className="col-span-1">
-              <Label className="text-lg">Tipo de Fruta</Label>
-              <Select
-                id="fruit_type"
-                options={speciesEnums.fruitType}
-                className="text-md"
-                placeholder="No determinado"
-                isClearable={false}
-                isSearchable={false}
-                onChange={(value: any) => {
-                  speciesParams.fruitType = value;
-                  setSpeciesParams({ ...speciesParams });
-                }}
-              />
-            </div>
-            <div className="col-span-1">
-              <Label className="text-lg">Sistema de Dispersion</Label>
-              <Select
-                id="dispersal"
-                options={speciesEnums.dispersalValues}
-                className="text-md"
-                placeholder="No determinado"
-                isClearable={false}
-                isSearchable={false}
-                onChange={(value: any) => {
-                  speciesParams.dispersalSystem = value;
-                  setSpeciesParams({ ...speciesParams });
-                }}
-              />
-            </div>
-            <div className="col-span-1">
-              <Label className="text-lg">Meses de fructificacion</Label>
-              <Select
-                id="months_fruiting"
-                options={speciesEnums.monthValues}
-                className="text-md"
-                placeholder="No determinado"
-                isClearable={false}
-                isSearchable={false}
-                onChange={(value: any) => {
-                  speciesParams.fruitingMonths = value;
-                  setSpeciesParams({ ...speciesParams });
-                }}
-              />
-            </div>
-            <div className="col-span-1">
               <Label className="text-lg">Tipo de Raiz</Label>
               <Select
                 id="rooting_type"
@@ -408,7 +338,7 @@ const FilterButton = () => {
               />
             </div>
             <div className="col-span-1">
-              <Label className="text-lg">Tiempo florecimiento</Label>
+              <Label className="text-lg">Tiempo de florecimiento</Label>
               <Select
                 id="flowering_season"
                 options={speciesEnums.floweringSeason}
@@ -437,51 +367,9 @@ const FilterButton = () => {
                 }}
               />
             </div>
-            <div className="col-span-1">
-              <Label className="text-lg">Arreglo de flor</Label>
-              <Select
-                id="flower_arrangement"
-                options={speciesEnums.flowerArrangement}
-                className="text-md"
-                placeholder="No determinado"
-                isClearable={false}
-                isSearchable={false}
-                onChange={(value: any) => {
-                  speciesParams.flowerArrangement = value;
-                  setSpeciesParams({ ...speciesParams });
-                }}
-              />
-            </div>
-            <div className="col-span-1">
-              <Label className="text-lg">Polinizacion</Label>
-              <Select
-                id="polinization"
-                options={speciesEnums.polinizationValues}
-                className="text-md overflow-visible"
-                placeholder="No determinado"
-                isClearable={false}
-                isSearchable={false}
-                onChange={(value: any) => {
-                  speciesParams.pollinationSystem = value;
-                  setSpeciesParams({ ...speciesParams });
-                }}
-              />
-            </div>
-            <div className="col-span-1">
-              <Label className="text-lg">Color de corteza</Label>
-              <Input
-                type="text"
-                id="bark_color"
-                placeholder="Ej: Rojo, amarillo, etc."
-                onChange={(e: any) => {
-                  speciesParams.barkColor = e.target.value;
-                  setSpeciesParams({ ...speciesParams });
-                }}
-              />
-            </div>
           </div>
-          <Label>Taxonomía</Label>
-          <div className="text-xl w-full p-2 grid grid-cols-2 md:grid-cols-4 gap-2">
+          <Label className="text-xl font-semibold">Taxonomía</Label>
+          <div className="w-full p-2 grid grid-cols-1 md:grid-cols-2 gap-2">
             <div className="col-span-1">
               <Label className="text-lg">Familia</Label>
               <Input
@@ -502,30 +390,6 @@ const FilterButton = () => {
                 placeholder="Genero"
                 onChange={(e: any) => {
                   speciesParams.genus = e.target.value;
-                  setSpeciesParams({ ...speciesParams });
-                }}
-              />
-            </div>
-            <div className="col-span-1">
-              <Label className="text-lg">Subespecie</Label>
-              <Input
-                type="text"
-                id="subspecies"
-                placeholder="Subespecie"
-                onChange={(e: any) => {
-                  speciesParams.subspecies = e.target.value;
-                  setSpeciesParams({ ...speciesParams });
-                }}
-              />
-            </div>
-            <div className="col-span-1">
-              <Label className="text-lg">Autor</Label>
-              <Input
-                type="text"
-                id="author"
-                placeholder="Autor"
-                onChange={(e: any) => {
-                  speciesParams.author = e.target.value;
                   setSpeciesParams({ ...speciesParams });
                 }}
               />
