@@ -48,17 +48,7 @@ export type SafeSpecies = Omit<Species, "createdAt" | "updatedAt"> & {
   seeds: true;
   stalk: true;
 };
-/* enum ConservationStatus {
-  NE
-  DD
-  LC
-  NT
-  VU
-  EN
-  CR
-  EW
-  EX
-} */
+
 export const speciesEnums = {
   userRole: Object.values(UserRole)
     .filter(
@@ -326,5 +316,18 @@ export const speciesEnums = {
     { value: "Tóxico", label: "Tóxico" },
     { value: "Medicinal", label: "Medicinal" },
     { value: "Medioambiental", label: "Medioambiental" },
+  ],
+  soilTypes: [
+    { value: "No determinado", label: "No determinado" },
+    { value: "Arcilloso", label: "Suelo arcilloso" },
+    { value: "Arenoso", label: "Suelo arenoso" },
+    { value: "Para maceta", label: "Suelo para maceta" },
+    { value: "Para huerto", label: "Suelo para huerto" },
+    { value: "Para jardín", label: "Suelo para jardín" },
+    { value: "Para césped", label: "Suelo para césped" },
+  ],
+  booleanValues: [
+    { value: "No", label: "No" },
+    { value: "Si", label: "Si" },
   ],
 };

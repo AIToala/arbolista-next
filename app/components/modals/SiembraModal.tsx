@@ -5,7 +5,6 @@
 
 import useSiembraModal from "@/app/hooks/useSiembraModal";
 import { speciesEnums } from "@/app/types/index";
-import dynamic from "next/dynamic";
 import { useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string";
 import { useCallback, useMemo, useState } from "react";
@@ -14,6 +13,7 @@ import Select from "react-select";
 import { type ISpeciesParams } from "@/app/actions/getSpecies";
 import Image from "next/image";
 import Heading from "../Heading";
+import { Label } from "../ui/label";
 import Modal from "./Modal";
 
 enum STEPS {
@@ -29,7 +29,7 @@ const SiembraModal = () => {
   const siembraModal = useSiembraModal();
   const params = useSearchParams();
   const [speciesParams, setSpeciesParams] = useState<ISpeciesParams>({});
-
+  const [hasObstacles, setHasObstacles] = useState(false);
   const [step, setStep] = useState(STEPS.INTRO);
 
   const onBack = useCallback(() => {
@@ -87,21 +87,20 @@ const SiembraModal = () => {
   }, [step]);
 
   let bodyContent = (
-    <div className="flex flex-col gap-8 justify-center">
-      <div className="flex flex-row gap-4 justify-between items-center">
-        <Heading
-          title="Siembra tu Árbol"
-          subtitle="Describenos tu arbol y te ayudaremos a encontrarlo"
-        />
-        <Image
-          src="images/sembradoTool/intro2.svg"
-          alt="sembrado"
-          width={300}
-          height={300}
-          priority
-        />
-      </div>
-      <hr />
+    <div className="grid grid-cols-2 gap-8 !justify-center !items-center">
+      <Heading
+        className="col-span-2 md:col-span-1 text-2xl !text-center md:!text-left w-full"
+        title="Siembra tu Árbol"
+        subtitle="Describenos tu arbol y te ayudaremos a encontrarlo"
+      />
+      <Image
+        className="w-full h-full col-span-2 md:col-span-1"
+        src="images/sembradoTool/intro2.svg"
+        alt="sembrado"
+        width={300}
+        height={300}
+        priority
+      />
     </div>
   );
 
@@ -131,12 +130,13 @@ const SiembraModal = () => {
 
   if (step === STEPS.ESPECIE) {
     bodyContent = (
-      <div className="flex flex-col gap-8">
+      <div className="grid grid-cols-2 gap-8 !justify-center !items-center">
         <Heading
+          className="col-span-2 text-2xl !text-center md:!text-left w-full"
           title="Caracteristicas de Árbol"
           subtitle="Que caracteristicas deseas de tu arbol?"
         />
-        <div className="grid gap-4 relative grid-cols-3">
+        <div className="grid col-span-2 gap-4 relative grid-cols-2 md:grid-cols-3">
           {checkList.map((item, index) => (
             <div key={index} className="flex items-center col-span-1 ">
               <input
@@ -147,24 +147,24 @@ const SiembraModal = () => {
                 onChange={(event) => {
                   if (event.target.checked) {
                     if (item.label === "Es una especie amenazada") {
-                      speciesParams.conservationStatus = "";
+                      speciesParams.isEndangered = true;
                     } else {
                       speciesParams.useCategory += item.label + ",";
                     }
-                    setSpeciesParams(speciesParams);
+                    setSpeciesParams({ ...speciesParams });
                   } else {
+                    if (item.label === "Es una especie amenazada") {
+                      speciesParams.isEndangered = false;
+                    }
                     speciesParams.useCategory =
                       speciesParams.useCategory?.replace(item.label + ",", "");
-                    setSpeciesParams(speciesParams);
+                    setSpeciesParams({ ...speciesParams });
                   }
                 }}
               />
-              <label
-                htmlFor={item.label}
-                className="ml-2 text-sm font-medium text-gray-900"
-              >
+              <Label className="ml-2 text-sm font-medium text-gray-900">
                 {item.label}
-              </label>
+              </Label>
             </div>
           ))}
         </div>
@@ -174,54 +174,82 @@ const SiembraModal = () => {
 
   const selectLugar = [
     {
-      label: "Existen obstaculos?", //
+      label: "¿Existen obstaculos?",
     },
     {
-      label: "Disponibilidad de agua", // humidity_zone
+      label: "Humedad del suelo",
     },
     {
-      label: "Disponibilidad de suelo", // soil_type
+      label: "Tipo de suelo",
     },
     {
-      label: "Presencia de luz", // light_requirements
+      label: "Presencia de luz",
     },
     {
-      label: "Presencia de animales", // fauna_attraction
+      label: "Presencia de animales",
     },
   ];
 
   if (step === STEPS.LUGAR) {
     bodyContent = (
-      <div className="flex flex-col gap-8">
+      <div className="grid grid-cols-2 gap-8 !justify-center !items-center">
         <Heading
+          className="col-span-2 md:col-span-1 text-2xl !text-center md:!text-left w-full"
           title="Donde quieres sembrar?"
           subtitle="Encuentra el lugar adecuado y perfecto!"
         />
-        <div className="grid gap-2 w-full relative grid-cols-3">
+        <div className="grid col-span-2 gap-2 w-full relative grid-cols-1 md:grid-cols-3">
           {selectLugar.map((item, index) => (
             <div key={index}>
-              <label
+              <Label
                 htmlFor={"lugar" + index.toString()}
                 className="block text-sm font-medium text-gray-900"
               >
                 {item.label}
-              </label>
+              </Label>
               {index === 0 ? (
                 <Select
                   id="lugar0"
-                  options={speciesEnums.priorityLevel}
+                  options={speciesEnums.booleanValues}
+                  defaultValue={speciesEnums.booleanValues[0]}
                   className="text-sm"
-                  onChange={(value) => {}}
+                  onChange={(value) => {
+                    if (value?.value !== null && value?.value === "Si") {
+                      setHasObstacles(true);
+                    } else {
+                      setHasObstacles(false);
+                    }
+                  }}
                   isClearable={false}
                   isSearchable={false}
-                  placeholder="Escoga una opcion"
                 />
               ) : (
                 <Select
                   id={"lugar" + index.toString()}
-                  options={speciesEnums.priorityLevel}
+                  options={
+                    item.label === "Tipo de suelo"
+                      ? speciesEnums.soilTypes
+                      : item.label === "Presencia de luz"
+                      ? speciesEnums.lightRequirement
+                      : item.label === "Humedad del suelo"
+                      ? speciesEnums.humidityValues
+                      : speciesEnums.priorityLevel
+                  }
                   className="text-sm"
-                  onChange={(value) => {}}
+                  onChange={(value) => {
+                    if (value?.value !== undefined) {
+                      if (item.label === "Humedad del suelo")
+                        speciesParams.humidityZone = value?.value.toString();
+                      if (item.label === "Tipo de suelo")
+                        speciesParams.soilType = value?.value.toString();
+                      if (item.label === "Presencia de luz")
+                        speciesParams.lightRequirements =
+                          value?.value.toString();
+                      if (item.label === "Presencia de animales")
+                        speciesParams.faunaAttraction = value?.value.toString();
+                      setSpeciesParams({ ...speciesParams });
+                    }
+                  }}
                   isClearable={false}
                   isSearchable={false}
                   placeholder="Escoga una opcion"
@@ -236,24 +264,23 @@ const SiembraModal = () => {
 
   if (step === STEPS.ESPACIO) {
     bodyContent = (
-      <div className="flex flex-col gap-8 justify-center">
-        <div className="flex flex-row gap-2 justify-between items-center bg-white">
-          <Heading
-            title="Tienes suficiente espacio?"
-            subtitle="Describenos el espacio que tienes disponible!"
-          />
-          <Image
-            src="images/sembradoTool/lugar2.svg"
-            className=""
-            alt="sembrado"
-            width={300}
-            height={300}
-            priority
-          />
-        </div>
+      <div className="grid grid-cols-2 gap-8 !justify-center !items-center h-full">
+        <Heading
+          className="col-span-2 md:col-span-1 text-2xl !text-center md:!text-left w-full"
+          title="Tienes suficiente espacio?"
+          subtitle="Describenos el espacio que tienes disponible!"
+        />
+        <Image
+          src="images/sembradoTool/lugar2.svg"
+          className="col-span-2 md:col-span-1 w-full h-full"
+          alt="sembrado"
+          width={300}
+          height={300}
+          priority
+        />
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 relative w-full gap-2">
-          <div>
+        <div className="grid col-span-2 grid-cols-1 md:grid-cols-2 relative w-full gap-2">
+          <div className="col-span-1">
             <label
               htmlFor="anchoSembrado"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -271,7 +298,7 @@ const SiembraModal = () => {
               onChange={(value) => {}}
             />
           </div>
-          <div>
+          <div className="col-span-1">
             <label
               htmlFor="largoSembrado"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -289,7 +316,7 @@ const SiembraModal = () => {
               onChange={(value) => {}}
             />
           </div>
-          <div>
+          <div className="col-span-1">
             <label
               htmlFor="distanciaTendido"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -307,7 +334,7 @@ const SiembraModal = () => {
               onChange={(value) => {}}
             />
           </div>
-          <div>
+          <div className="col-span-1">
             <label
               htmlFor="alturaTendido"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -325,7 +352,7 @@ const SiembraModal = () => {
               onChange={(value) => {}}
             />
           </div>
-          <div>
+          <div className="col-span-1">
             <label
               htmlFor="distanciaEstructuras"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -349,23 +376,22 @@ const SiembraModal = () => {
   }
   if (step === STEPS.LIMITES) {
     bodyContent = (
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-row gap-2 justify-between items-center bg-white">
-          <Heading
-            title="Conoces los limites de tu arbol?"
-            subtitle="Describenos los limites y caracteristicas de tu arbol!"
-          />
-          <Image
-            src="/images/tipoCopas.png"
-            className=""
-            alt="sembrado"
-            width={150}
-            height={150}
-            priority
-          />
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 relative w-full gap-2">
-          <div>
+      <div className="grid grid-cols-2 gap-8 !justify-center !items-center">
+        <Heading
+          className="col-span-2 md:col-span-1 text-2xl !text-center md:!text-left w-full"
+          title="Conoces los limites de tu arbol?"
+          subtitle="Describenos los limites y caracteristicas de tu arbol!"
+        />
+        <Image
+          src="/images/sembradoTool/tipoCopas.png"
+          className="col-span-2 md:col-span-1 w-full h-full"
+          alt="sembrado"
+          width={100}
+          height={100}
+          priority
+        />
+        <div className="grid col-span-2 grid-cols-2 md:grid-cols-3 w-full gap-2">
+          <div className="col-span-2">
             <label
               htmlFor="usoEspacioPublico"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -373,16 +399,28 @@ const SiembraModal = () => {
               Uso del espacio publico
             </label>
             <Select
-              id="usoEspacioPublico"
+              isMulti
+              id="publicUse"
+              classNamePrefix="select"
+              className="basic-multi-select text-md"
               options={speciesEnums.publicUseValues}
-              className="text-sm"
-              onChange={(value) => {}}
+              onChange={(value) => {
+                speciesParams.publicSpaceUse = "";
+                value.forEach((value) => {
+                  if (value.value !== undefined) {
+                    speciesParams.publicSpaceUse += value.value + ",";
+                  }
+                });
+                speciesParams.publicSpaceUse =
+                  speciesParams.publicSpaceUse.slice(0, -1);
+                setSpeciesParams({ ...speciesParams });
+              }}
               isClearable={false}
               isSearchable={false}
               placeholder="Escoga una opcion"
             />
           </div>
-          <div>
+          <div className="col-span-1">
             <label
               htmlFor="tasaCrecimiento"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -393,13 +431,18 @@ const SiembraModal = () => {
               id="tasaCrecimiento"
               options={speciesEnums.growthRate}
               className="text-sm"
-              onChange={(value) => {}}
+              onChange={(value) => {
+                if (value?.value !== undefined) {
+                  speciesParams.growthRate = value?.value;
+                  setSpeciesParams({ ...speciesParams });
+                }
+              }}
               isClearable={false}
               isSearchable={false}
               placeholder="Escoga una opcion"
             />
           </div>
-          <div>
+          <div className="col-span-1">
             <label
               htmlFor="longevidad"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -410,13 +453,18 @@ const SiembraModal = () => {
               id="longevidad"
               options={speciesEnums.longevity}
               className="text-sm"
-              onChange={(value) => {}}
+              onChange={(value) => {
+                if (value?.value !== undefined) {
+                  speciesParams.longevity = value?.value;
+                  setSpeciesParams({ ...speciesParams });
+                }
+              }}
               isClearable={false}
               isSearchable={false}
               placeholder="Escoga una opcion"
             />
           </div>
-          <div>
+          <div className="col-span-1">
             <label
               htmlFor="persistenciaHoja"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -427,13 +475,18 @@ const SiembraModal = () => {
               id="persistenciaHoja"
               options={speciesEnums.leafPersistence}
               className="text-sm"
-              onChange={(value) => {}}
+              onChange={(value) => {
+                if (value?.value !== undefined) {
+                  speciesParams.leafPersistence = value?.value;
+                  setSpeciesParams({ ...speciesParams });
+                }
+              }}
               isClearable={false}
               isSearchable={false}
               placeholder="Escoga una opcion"
             />
           </div>
-          <div>
+          <div className="col-span-1">
             <label
               htmlFor="formaCopa"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -444,15 +497,20 @@ const SiembraModal = () => {
               id="formaCopa"
               options={speciesEnums.crownShapeValues}
               className="text-sm"
-              onChange={(value) => {}}
+              onChange={(value) => {
+                if (value?.value !== undefined) {
+                  speciesParams.crownShape = value?.value;
+                  setSpeciesParams({ ...speciesParams });
+                }
+              }}
               isClearable={false}
               isSearchable={false}
               placeholder="Escoga una opcion"
             />
           </div>
         </div>
-        <hr />
-        <div className="flex flex-col">
+        <hr className="w-full col-span-2" />
+        <div className="col-span-1">
           <label
             htmlFor="limitacionFloral"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -466,13 +524,15 @@ const SiembraModal = () => {
             className="basic-multi-select text-sm"
             options={speciesEnums.limitFloralValues}
             onChange={(value) => {
-              if (value !== null) {
-                const data: any = [];
-                value.map((item) => {
-                  data.push(item.value);
-                  return item;
-                });
-              }
+              speciesParams.flowerLimitations = "";
+              value.forEach((value) => {
+                if (value.value !== undefined) {
+                  speciesParams.flowerLimitations += value.value + ",";
+                }
+              });
+              speciesParams.flowerLimitations =
+                speciesParams.flowerLimitations.slice(0, -1);
+              setSpeciesParams({ ...speciesParams });
             }}
             isClearable={false}
             isSearchable={false}
@@ -493,13 +553,15 @@ const SiembraModal = () => {
             className="basic-multi-select text-sm"
             options={speciesEnums.limitFrutoValues}
             onChange={(value) => {
-              if (value !== null) {
-                const data: any = [];
-                value.map((item) => {
-                  data.push(item.value);
-                  return item;
-                });
-              }
+              speciesParams.fruitLimitations = "";
+              value.forEach((value) => {
+                if (value.value !== undefined) {
+                  speciesParams.fruitLimitations += value.value + ",";
+                }
+              });
+              speciesParams.fruitLimitations =
+                speciesParams.fruitLimitations.slice(0, -1);
+              setSpeciesParams({ ...speciesParams });
             }}
             isClearable={false}
             isSearchable={false}

@@ -56,6 +56,7 @@ export interface ISpeciesParams {
   availablesStatus?: boolean;
   pollinationSystem?: string;
   author?: string;
+  isEndangered?: boolean;
 }
 
 export default async function getSpecies(params: ISpeciesParams) {
@@ -116,6 +117,7 @@ export default async function getSpecies(params: ISpeciesParams) {
       availablesStatus,
       pollinationSystem,
       author,
+      isEndangered,
     } = params;
 
     const query: any = {};
@@ -171,7 +173,7 @@ export default async function getSpecies(params: ISpeciesParams) {
     if (fruitingMonths != null && fruitingMonths !== "")
       query.fruiting_months = fruitingMonths;
     if (useCategory != null && useCategory !== "")
-      query.use_category = useCategory;
+      query.use_category = useCategory.split(",").sort().join(",");
     if (useDetail != null && useDetail !== "") query.use_detail = useDetail;
     if (altitudinalRange != null && altitudinalRange !== "")
       query.altitudinal_range = altitudinalRange;
@@ -181,11 +183,11 @@ export default async function getSpecies(params: ISpeciesParams) {
     if (conservationStatus != null && conservationStatus !== "")
       query.conservation_status = conservationStatus;
     if (publicSpaceUse != null && publicSpaceUse !== "")
-      query.public_spaceUse = publicSpaceUse;
+      query.public_spaceUse = publicSpaceUse.split(",").sort().join(",");
     if (flowerLimitations != null && flowerLimitations !== "")
-      query.flower_limitations = flowerLimitations;
+      query.flower_limitations = flowerLimitations.split(",").sort().join(",");
     if (fruitLimitations != null && fruitLimitations !== "")
-      query.fruit_limitations = fruitLimitations;
+      query.fruit_limitations = fruitLimitations.split(",").sort().join(",");
     if (longevity != null && longevity !== "") query.longevity = longevity;
     if (pestsDiseases != null && pestsDiseases !== "")
       query.pests_diseases = pestsDiseases;
@@ -215,7 +217,6 @@ export default async function getSpecies(params: ISpeciesParams) {
     } else {
       if (availablesStatus != null) query.availables_status = availablesStatus;
     }
-
     query.availables_status = true;
     const species = await prisma.species.findMany({
       include: {
@@ -228,6 +229,11 @@ export default async function getSpecies(params: ISpeciesParams) {
         images: {
           select: {
             presentation_url: true,
+          },
+        },
+        ecology: {
+          select: {
+            conservation_status: true,
           },
         },
       },
@@ -324,6 +330,17 @@ export default async function getSpecies(params: ISpeciesParams) {
         createdAt: "desc",
       },
     });
+    if (isEndangered != null && isEndangered) {
+      const endangeredSpecies = species.filter(
+        (specie) =>
+          specie.ecology?.conservation_status === "EN" ||
+          specie.ecology?.conservation_status === "CR" ||
+          specie.ecology?.conservation_status === "VU" ||
+          specie.ecology?.conservation_status === "EW" ||
+          specie.ecology?.conservation_status === "EX"
+      );
+      return endangeredSpecies;
+    }
     const safeSpecies = species.map((specie) => ({
       ...specie,
       createdAt: specie.createdAt.toISOString(),

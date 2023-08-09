@@ -90,7 +90,7 @@ const Modal: React.FC<ModalProps> = ({
           w-full
           md:w-4/6
           lg:w-3/6
-          xl:w-2/5
+          xl:w-3/5
           my-6
           mx-auto 
           h-full 
@@ -110,9 +110,7 @@ const Modal: React.FC<ModalProps> = ({
             <div
               className="
               translate
-              h-full
-              lg:h-auto
-              md:h-auto
+              h-auto
               border-0 
               rounded-lg 
               shadow-lg 
@@ -151,7 +149,9 @@ const Modal: React.FC<ModalProps> = ({
                 </button>
                 <div className="text-lg font-semibold">{title}</div>
               </div>
-              <div className="relative p-6 flex-auto">{body}</div>
+              <div className="relative p-6 !h-full flex-auto flex items-center">
+                {body}
+              </div>
               <div className="flex flex-col gap-2 p-6">
                 <div
                   className="
