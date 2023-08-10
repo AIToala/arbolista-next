@@ -91,7 +91,7 @@ const Modal: React.FC<ModalProps> = ({
           md:w-4/6
           lg:w-3/6
           xl:w-3/5
-          my-6
+          my-auto
           mx-auto 
           h-full 
           lg:h-auto
@@ -149,7 +149,7 @@ const Modal: React.FC<ModalProps> = ({
                 </button>
                 <div className="text-lg font-semibold">{title}</div>
               </div>
-              <div className="relative p-6 !h-full flex-auto flex items-center">
+              <div className="relative p-6 !h-full !w-full flex-auto flex items-center justify-center">
                 {body}
               </div>
               <div className="flex flex-col gap-2 p-6">

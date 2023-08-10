@@ -237,8 +237,8 @@ model Arboriculture {
   pests_diseases     String?          @default("No determinado")
   light_requirements LightRequirement @default(NO_DETERMINADO)
   growth_rate        GrowthRate       @default(NO_DETERMINADO)
-  maximum_height     Int              @default(0)
-  crown_width        CrownWidth       @default(NO_DETERMINADO)
+  maximum_height     Float              @default(0.0)
+  crown_width        Float              @default(0.0)
   crown_shape        String?          @default("No determinado")
   DAP                Float?           @default(0)
   foliage_density    PriorityLevel    @default(NO_DETERMINADO)
@@ -415,12 +415,5 @@ enum PriorityLevel {
   BAJO
   MEDIO
   ALTO
-  NO_DETERMINADO
-}
-
-enum CrownWidth {
-  ESTRECHA
-  MEDIA
-  AMPLIA
   NO_DETERMINADO
 }

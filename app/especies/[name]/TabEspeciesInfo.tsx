@@ -73,7 +73,7 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
       <div className="grid grid-cols-1 md:p-2 md:grid-cols-2 justify-center p-6 gap-6">
         <CarouselImages
           slides={images}
-          style="col-span-1 rounded-lg md:rounded-md bg-transparent shadow-sm"
+          style="col-span-1  rounded-lg md:rounded-md bg-transparent shadow-sm"
         />
         <div className="col-span-1 w-full text-center justify-center p-2 md:my-8">
           <h1 className="font-bold text-2xl md:text-4xl">{data[0].name}</h1>
