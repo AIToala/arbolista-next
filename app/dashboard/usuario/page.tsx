@@ -14,34 +14,33 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import Select from "react-select";
+import { toast } from "react-hot-toast";
 
 export function DashboardUsuarioPage() {
   const {
     register,
     handleSubmit,
     getValues,
+    setValue,
     formState: { errors }, // Add formState to access validation errors
   } = useForm<FieldValues>({
     defaultValues: {
       name: "",
       email: "",
       password: "",
-      role: "",
       passwordConf: "",
     },
   });
 
   const [selectedRole, setSelectedRole] = useState("");
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-    data.role = selectedRole;
     axios
       .post("/api/register", data)
       .then((response) => {
-        console.log(response);
+        toast.success("Usuario creado con exito");
       })
       .catch((e) => {
-        console.log(e);
+        toast.error("Hubo un error al momento de crear el usuario");
       });
   };
 
@@ -96,13 +95,14 @@ export function DashboardUsuarioPage() {
           <div className="select-upload-field" id="fileUpload">
             <Label>Rol</Label>
             <Select
-              id="role"
+              id="userRole"
               value={speciesEnums.userRole.find(
                 (option) => option.value === selectedRole
               )}
               onChange={(selectedOption) => {
                 if (selectedOption !== null)
                   setSelectedRole(selectedOption.value);
+                setValue("userRole", selectedOption?.value);
               }}
               className={
                 selectedRole === ""

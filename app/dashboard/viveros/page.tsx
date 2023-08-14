@@ -10,7 +10,7 @@ import {
 } from "@/app/components/ui/tabs";
 import { InputsField } from "../inputs";
 
-export function DashboardViverosPage() {
+export function DashboardViveroPage() {
   return (
     <Tabs
       defaultValue="name"
@@ -79,4 +79,4 @@ export function DashboardViverosPage() {
   );
 }
 
-export default DashboardViverosPage;
+export default DashboardViveroPage;

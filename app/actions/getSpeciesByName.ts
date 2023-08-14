@@ -33,11 +33,16 @@ export default async function getSpeciesByName(params: IParams) {
       },
     });
     if (species == null) return null;
-    const safeSpecies = species.map((specie) => ({
-      ...specie,
-      createdAt: specie.createdAt.toISOString(),
-      updatedAt: specie.updatedAt.toISOString(),
-    }));
+    const safeSpecies = species.map(
+      (specie: {
+        createdAt: { toISOString: () => any };
+        updatedAt: { toISOString: () => any };
+      }) => ({
+        ...specie,
+        createdAt: specie.createdAt.toISOString(),
+        updatedAt: specie.updatedAt.toISOString(),
+      })
+    );
     if (
       currentUser?.userRole === "ADMIN" ||
       currentUser?.userRole === "SPECIES_ADMIN"

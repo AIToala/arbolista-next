@@ -28,7 +28,6 @@ import { FileInputField, InputField, TextAreaField } from "../inputs";
 const DashboardEspeciePage = () => {
   const [taxonomyParams, setTaxonomyParams] = useState<ISpeciesParams>({});
   const [speciesParams, setSpeciesParams] = useState<ISpeciesParams>({});
-  console.log(speciesParams);
   return (
     <div className="flex flex-col w-full ">
       <div className="w-full mt-[20px]  flex justify-end mr-[100px] p-10">
@@ -75,7 +74,6 @@ const DashboardEspeciePage = () => {
               onChange={(e: any) => {
                 speciesParams.family = e.target.value;
                 setSpeciesParams({ ...speciesParams });
-                console.log(speciesParams);
               }}
               id="family"
               label="Familia"

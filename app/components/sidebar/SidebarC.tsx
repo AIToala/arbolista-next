@@ -19,47 +19,54 @@ const generateSidebarCollapse = (
   icon: IconType,
   route: string,
   router: ReturnType<typeof useRouter>
-) => (
-  <Sidebar.Collapse label={label} icon={icon}>
-    <Sidebar.Item
-      onClick={() => {
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        router.push(route);
-      }}
-      href={route}
-    >
-      Agregar {label}
-    </Sidebar.Item>
-    <Sidebar.Item
-      onClick={() => {
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        router.push("/dashboard/gestionar");
-      }}
-      href="/dashboard/gestionar"
-    >
-      Gestionar {label}
-    </Sidebar.Item>
-  </Sidebar.Collapse>
-);
+) => {
+  const formattedLabel = label.toLowerCase().replace(/s$/, "");
+  return (
+    <Sidebar.Collapse label={label} icon={icon}>
+      <Sidebar.Item
+        onClick={() => {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
+          router.push(route);
+        }}
+        href={route}
+      >
+        Agregar {label}
+      </Sidebar.Item>
+      <Sidebar.Item
+        onClick={() => {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
+          router.push(`/dashboard/${formattedLabel}/gestionar`);
+        }}
+        href={`/dashboard/${formattedLabel}/gestionar`}
+      >
+        Gestionar {label}
+      </Sidebar.Item>
+    </Sidebar.Collapse>
+  );
+};
 
 const generateOneSidebarCollapse = (
   label: string,
   icon: IconType,
   route: string,
   router: ReturnType<typeof useRouter>
-) => (
-  <Sidebar.Collapse label={label} icon={icon}>
-    <Sidebar.Item
-      onClick={() => {
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        router.push("/dashboard/gestionar");
-      }}
-      href="/dashboard/gestionar"
-    >
-      Gestionar {label}
-    </Sidebar.Item>
-  </Sidebar.Collapse>
-);
+) => {
+  const formattedLabel = label.toLowerCase().replace(/s$/, "");
+  return (
+    <Sidebar.Collapse label={label} icon={icon}>
+      <Sidebar.Item
+        onClick={() => {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
+          router.push(`/dashboard/${formattedLabel}/gestionar`);
+        }}
+        href={`/dashboard/${formattedLabel}/gestionar`}
+      >
+        Gestionar {label}
+      </Sidebar.Item>
+    </Sidebar.Collapse>
+  );
+};
+
 // eslint-disable-next-line no-unused-vars
 const SidebarC: React.FC<SidebarProps> = ({ currentUser }) => {
   const router = useRouter();
