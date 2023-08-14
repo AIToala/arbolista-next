@@ -9,7 +9,7 @@ const viveroProducts: Prisma.NurserySpeciesCreateInput[] = [
     },
     species: {
       connect: {
-        id: "cll90786b0000mexwj8pmrmci",
+        id: "cllbfaghv0000ue50ofodckf9",
       },
     },
     speciesAmount: 10,

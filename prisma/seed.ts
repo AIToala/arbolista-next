@@ -12,6 +12,7 @@ const prisma = new PrismaClient();
 
 const speciesData: Prisma.SpeciesCreateInput[] = [
   {
+    id: "cllbfaghv0000ue50ofodckf9",
     name: "Anacardium excelsum",
     taxonomy: {
       create: {
