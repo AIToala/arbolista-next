@@ -99,7 +99,7 @@ const CarouselImages: React.FC<PropType> = (props) => {
     <>
       <div className={"embla " + style}>
         <div className={"embla__viewport "} ref={emblaMainRef}>
-          <div className={"embla__container !md:h-[60vh]"}>
+          <div className={"embla__container"}>
             {images.map((image, index) => (
               <div
                 className="embla__slide flex justify-center items-end aspect-square md:h-[60vh]"

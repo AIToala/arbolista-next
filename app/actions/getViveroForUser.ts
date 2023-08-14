@@ -8,7 +8,7 @@ export default async function getViveroForUser() {
   try {
     const viveros = await prisma.nursery.findUnique({
       include: {
-        species: true,
+        speciesAvailable: true,
       },
       where: {
         ownerId: currentUser.id,

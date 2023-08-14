@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import prisma from "@/app/libs/prismadb";
 import getCurrentUser from "./getCurrentUser";
 
@@ -56,6 +59,14 @@ export interface ISpeciesParams {
   availablesStatus?: boolean;
   pollinationSystem?: string;
   author?: string;
+  isEndangered?: boolean;
+  anchoSembrado?: number;
+  largoSembrado?: number;
+  profundidadSembrado?: number;
+  alturaTendidoSembrado?: number;
+  distanciaSiembra?: number;
+  distanciaTendidoSembrado?: number;
+  sembradoTool?: boolean;
 }
 
 export default async function getSpecies(params: ISpeciesParams) {
@@ -116,6 +127,14 @@ export default async function getSpecies(params: ISpeciesParams) {
       availablesStatus,
       pollinationSystem,
       author,
+      isEndangered,
+      anchoSembrado,
+      largoSembrado,
+      profundidadSembrado,
+      alturaTendidoSembrado,
+      distanciaSiembra,
+      distanciaTendidoSembrado,
+      sembradoTool,
     } = params;
 
     const query: any = {};
@@ -171,7 +190,7 @@ export default async function getSpecies(params: ISpeciesParams) {
     if (fruitingMonths != null && fruitingMonths !== "")
       query.fruiting_months = fruitingMonths;
     if (useCategory != null && useCategory !== "")
-      query.use_category = useCategory;
+      query.use_category = useCategory.split(",").sort().join(",");
     if (useDetail != null && useDetail !== "") query.use_detail = useDetail;
     if (altitudinalRange != null && altitudinalRange !== "")
       query.altitudinal_range = altitudinalRange;
@@ -181,11 +200,11 @@ export default async function getSpecies(params: ISpeciesParams) {
     if (conservationStatus != null && conservationStatus !== "")
       query.conservation_status = conservationStatus;
     if (publicSpaceUse != null && publicSpaceUse !== "")
-      query.public_spaceUse = publicSpaceUse;
+      query.public_spaceUse = publicSpaceUse.split(",").sort().join(",");
     if (flowerLimitations != null && flowerLimitations !== "")
-      query.flower_limitations = flowerLimitations;
+      query.flower_limitations = flowerLimitations.split(",").sort().join(",");
     if (fruitLimitations != null && fruitLimitations !== "")
-      query.fruit_limitations = fruitLimitations;
+      query.fruit_limitations = fruitLimitations.split(",").sort().join(",");
     if (longevity != null && longevity !== "") query.longevity = longevity;
     if (pestsDiseases != null && pestsDiseases !== "")
       query.pests_diseases = pestsDiseases;
@@ -215,7 +234,6 @@ export default async function getSpecies(params: ISpeciesParams) {
     } else {
       if (availablesStatus != null) query.availables_status = availablesStatus;
     }
-
     query.availables_status = true;
     const species = await prisma.species.findMany({
       include: {
@@ -230,6 +248,12 @@ export default async function getSpecies(params: ISpeciesParams) {
             presentation_url: true,
           },
         },
+        ecology: {
+          select: {
+            conservation_status: true,
+          },
+        },
+        arboriculture: true,
       },
       where: {
         id: query?.id,
@@ -324,16 +348,84 @@ export default async function getSpecies(params: ISpeciesParams) {
         createdAt: "desc",
       },
     });
-    const safeSpecies = species.map(
-      (specie: {
-        createdAt: { toISOString: () => any };
-        updatedAt: { toISOString: () => any };
-      }) => ({
-        ...specie,
-        createdAt: specie.createdAt.toISOString(),
-        updatedAt: specie.updatedAt.toISOString(),
-      })
-    );
+    if (isEndangered != null && isEndangered) {
+      const endangeredSpecies = species.filter(
+        (specie) =>
+          specie.ecology?.conservation_status === "EN" ||
+          specie.ecology?.conservation_status === "CR" ||
+          specie.ecology?.conservation_status === "VU" ||
+          specie.ecology?.conservation_status === "EW" ||
+          specie.ecology?.conservation_status === "EX"
+      );
+      return endangeredSpecies;
+    }
+    if (sembradoTool !== null && sembradoTool) {
+      let sembradoSpecies = species;
+      if (distanciaSiembra !== undefined && distanciaSiembra !== 0) {
+        sembradoSpecies = sembradoSpecies.filter((specie) => {
+          if (
+            specie.arboriculture?.crown_width !== undefined &&
+            specie.arboriculture?.crown_width !== 0 &&
+            specie.arboriculture?.crown_width / 2 + 0.5 <= distanciaSiembra
+          )
+            return true;
+          else return false;
+        });
+      }
+      if (anchoSembrado !== undefined && anchoSembrado !== 0) {
+        sembradoSpecies = sembradoSpecies.filter((specie) => {
+          if (
+            specie.arboriculture?.crown_width !== undefined &&
+            specie.arboriculture?.crown_width !== 0 &&
+            specie.arboriculture?.crown_width <= anchoSembrado / 2
+          )
+            return true;
+          return false;
+        });
+      }
+      if (largoSembrado !== undefined && largoSembrado !== 0) {
+        sembradoSpecies = sembradoSpecies.filter((specie) => {
+          if (
+            specie.arboriculture?.crown_width !== undefined &&
+            specie.arboriculture?.crown_width !== 0 &&
+            specie.arboriculture?.crown_width <= largoSembrado
+          )
+            return true;
+          return false;
+        });
+      }
+      if (alturaTendidoSembrado !== undefined && alturaTendidoSembrado !== 0) {
+        sembradoSpecies = sembradoSpecies.filter((specie) => {
+          if (
+            specie.arboriculture?.maximum_height !== undefined &&
+            specie.arboriculture?.maximum_height !== 0 &&
+            specie.arboriculture?.maximum_height + 1 <= alturaTendidoSembrado
+          )
+            return true;
+          return false;
+        });
+      }
+      if (
+        distanciaTendidoSembrado !== undefined &&
+        distanciaTendidoSembrado !== 0
+      ) {
+        sembradoSpecies = sembradoSpecies.filter((specie) => {
+          if (
+            specie.arboriculture?.crown_width !== undefined &&
+            specie.arboriculture?.crown_width !== 0 &&
+            specie.arboriculture?.crown_width + 1 <= distanciaTendidoSembrado
+          )
+            return true;
+          return false;
+        });
+      }
+      return sembradoSpecies;
+    }
+    const safeSpecies = species.map((specie) => ({
+      ...specie,
+      createdAt: specie.createdAt.toISOString(),
+      updatedAt: specie.updatedAt.toISOString(),
+    }));
     return safeSpecies;
   } catch (error: any) {
     return [];

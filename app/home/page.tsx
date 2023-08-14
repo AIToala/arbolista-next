@@ -5,7 +5,7 @@ import Button from "../components/buttons/Button";
 import DownloadButton from "../components/buttons/DownloadButton";
 import HeroContainer from "./HeroContainer";
 
-const Home = async () => {
+const Home = () => {
   const router = useRouter();
   return (
     <ClientOnly>

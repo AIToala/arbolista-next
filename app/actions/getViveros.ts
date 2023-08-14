@@ -4,7 +4,7 @@ export default async function getViveros() {
   try {
     const viveros = await prisma.nursery.findMany({
       include: {
-        species: {
+        speciesAvailable: {
           select: {
             speciesId: true,
           },

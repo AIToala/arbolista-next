@@ -16,16 +16,11 @@ export default async function getSpeciesGallery() {
         isInGallery: true,
       },
     });
-    const safeSpecies = species.map(
-      (specie: {
-        createdAt: { toISOString: () => any };
-        updatedAt: { toISOString: () => any };
-      }) => ({
-        ...specie,
-        createdAt: specie.createdAt.toISOString(),
-        updatedAt: specie.updatedAt.toISOString(),
-      })
-    );
+    const safeSpecies = species.map((specie) => ({
+      ...specie,
+      createdAt: specie.createdAt.toISOString(),
+      updatedAt: specie.updatedAt.toISOString(),
+    }));
     return safeSpecies;
   } catch (err) {
     return [];

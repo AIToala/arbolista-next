@@ -32,13 +32,9 @@ const autoplayOptions = {
   rootNode: (emblaRoot: { parentElement: any }) => emblaRoot.parentElement,
 };
 
-const Carousel: React.FC<PropType> = (props) => {
+const Carousel: React.FC<PropType> = ({ options, style = " ", slides }) => {
   const router = useRouter();
   const siembraModal = useSiembraModal();
-  if (props.style === undefined) {
-    props.style = "";
-  }
-  const { options, style, slides } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
     Autoplay(autoplayOptions),
   ]);

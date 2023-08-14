@@ -1,6 +1,5 @@
 import {
   ConservationStatus,
-  CrownWidth,
   FlowerArrangement,
   FloweringSeason,
   FruitType,
@@ -48,17 +47,7 @@ export type SafeSpecies = Omit<Species, "createdAt" | "updatedAt"> & {
   seeds: true;
   stalk: true;
 };
-/* enum ConservationStatus {
-  NE
-  DD
-  LC
-  NT
-  VU
-  EN
-  CR
-  EW
-  EX
-} */
+
 export const speciesEnums = {
   userRole: Object.values(UserRole)
     .filter(
@@ -140,10 +129,12 @@ export const speciesEnums = {
     value,
     label: value.replace("_", " "),
   })),
-  crownWidth: Object.values(CrownWidth).map((value) => ({
-    value,
-    label: value.replace("_", " "),
-  })),
+  crownWidth: [
+    { value: 0, label: "No determinado" },
+    { value: 7, label: "Estrecha (< 7 m)" },
+    { value: 14, label: "Mediana (7 - 14 m)" },
+    { value: 15, label: "Amplia (> 14 m)" },
+  ],
   altitudeRange: [
     { value: "No determinado", label: "No determinado" },
     { value: "0-1000 msnm", label: "0-1000" },
@@ -326,5 +317,18 @@ export const speciesEnums = {
     { value: "Tóxico", label: "Tóxico" },
     { value: "Medicinal", label: "Medicinal" },
     { value: "Medioambiental", label: "Medioambiental" },
+  ],
+  soilTypes: [
+    { value: "No determinado", label: "No determinado" },
+    { value: "Arcilloso", label: "Suelo arcilloso" },
+    { value: "Arenoso", label: "Suelo arenoso" },
+    { value: "Para maceta", label: "Suelo para maceta" },
+    { value: "Para huerto", label: "Suelo para huerto" },
+    { value: "Para jardín", label: "Suelo para jardín" },
+    { value: "Para césped", label: "Suelo para césped" },
+  ],
+  booleanValues: [
+    { value: "No", label: "No" },
+    { value: "Si", label: "Si" },
   ],
 };

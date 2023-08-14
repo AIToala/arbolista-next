@@ -15,51 +15,31 @@ model User {
   userRole       UserRole  @default(USER)
   createdAt      DateTime  @default(now()) @map("created_at")
   updatedAt      DateTime  @updatedAt @map("updated_at")
-  accounts       Account[]
   nurseries      Nursery?
-}
-
-model Account {
-  id                String  @id @default(cuid()) @map("_id")
-  userId            String
-  type              String
-  provider          String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String?
-  providerAccountId String
-  session_state     String?
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-  @@index([userId], map: "Account_userId_fkey")
 }
 
 model Nursery {
   id        String           @id @default(cuid()) @map("_id")
-  name      String
-  address   String?
-  phone     String?
-  email     String?
-  website   String?
-  logoSrc   String?
+  name      String           @unique
+  address   String?          @default("No determinado")
+  phone     String?          @default("No determinado")
+  email     String?          @default("No determinado")
+  website   String?          @default("No determinado")
+  logoSrc   String?          @default("No determinado")
   createdAt DateTime         @default(now()) @map("created_at")
   updatedAt DateTime         @updatedAt @map("updated_at")
   ownerId   String           @unique @map("owner_id")
   owner     User             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  species   NurserySpecies[]
+  speciesAvailable   NurserySpecies[]
 }
 
 model NurserySpecies {
-  id             String  @id @default(cuid()) @map("_id")
-  especieHeighy  Float
-  especiesAmount Int?
-  nurseryId      String  @map("nursery_id")
-  speciesId      String  @map("species_id")
-  nursery        Nursery @relation(fields: [nurseryId], references: [id], onDelete: Cascade)
+  speciesHeight Float?  @default(0.0) @map("species_height")
+  speciesAmount Int?    @default(0) @map("species_amount")
+  nurseryId     String  @map("nursery_id")
+  speciesId     String  @map("species_id")
+  nursery       Nursery @relation(fields: [nurseryId], references: [id], onDelete: Cascade)
+  species       Species @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@unique([nurseryId, speciesId], map: "NurserySpecies_nurseryId_speciesId_key")
   @@index([nurseryId], map: "NurserySpecies_nursery_id_fkey")
@@ -82,7 +62,9 @@ model Species {
   seeds             Seeds?
   stalk             Stalk?
   taxonomy          Taxonomy?
-  isInGallery       Boolean        @default(false) @map("is_in_gallery")
+
+  isInGallery    Boolean          @default(false) @map("is_in_gallery")
+  NurserySpecies NurserySpecies[]
 }
 
 model Taxonomy {
@@ -237,8 +219,8 @@ model Arboriculture {
   pests_diseases     String?          @default("No determinado")
   light_requirements LightRequirement @default(NO_DETERMINADO)
   growth_rate        GrowthRate       @default(NO_DETERMINADO)
-  maximum_height     Int              @default(0)
-  crown_width        CrownWidth       @default(NO_DETERMINADO)
+  maximum_height     Float            @default(0.0)
+  crown_width        Float            @default(0.0)
   crown_shape        String?          @default("No determinado")
   DAP                Float?           @default(0)
   foliage_density    PriorityLevel    @default(NO_DETERMINADO)
@@ -415,12 +397,5 @@ enum PriorityLevel {
   BAJO
   MEDIO
   ALTO
-  NO_DETERMINADO
-}
-
-enum CrownWidth {
-  ESTRECHA
-  MEDIA
-  AMPLIA
   NO_DETERMINADO
 }
