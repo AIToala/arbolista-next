@@ -1,18 +1,19 @@
 "use client";
 
-interface UserEditProps {
+import { UserEditForm } from "@/app/components/UserEditForm";
+
+interface IParams {
   id: string;
 }
 
-function UserEditPage({ props }: { props: UserEditProps }) {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-
-  console.log(props);
+const UserEditPage = ({ params }: { params: IParams }) => {
+  const id = params.id;
   return (
     <div>
-      <h1>Editar Usuario</h1>
+      <h1>Editar Usuario </h1>
+      <UserEditForm id={id} />
     </div>
   );
-}
+};
 
 export default UserEditPage;

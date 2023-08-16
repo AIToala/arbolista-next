@@ -4,18 +4,17 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { useState } from "react";
-import { useForm, type SubmitHandler, type FieldValues } from "react-hook-form";
-import Select from "react-select";
-import { toast } from "react-hot-toast";
-import axios from "axios";
-import { type AxiosResponse } from "axios";
-import { speciesEnums } from "@/app/types/index";
-import { Label } from "@/app/components/ui/label";
-import { Input } from "@/app/components/ui/input";
 import { Button } from "@/app/components/ui/button";
+import { Input } from "@/app/components/ui/input";
+import { Label } from "@/app/components/ui/label";
+import { speciesEnums } from "@/app/types/index";
+import axios, { type AxiosResponse } from "axios";
+import { useState } from "react";
+import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import Select from "react-select";
 
-export function UserEditForm({ email }: { email: string }) {
+export function UserEditForm({ id }: { id: string }) {
   const {
     register,
     handleSubmit,
@@ -34,11 +33,10 @@ export function UserEditForm({ email }: { email: string }) {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
-    console.log(`Updating user with ID: ${email}`);
-    console.log(data);
+    console.log(`Updating user with ID: ${id}`);
     try {
       const response: AxiosResponse<any> = await axios.put(
-        `/api/users/${email}`,
+        `/api/users/${id}`,
         data
       );
       toast.success("Usuario actualizado con éxito");

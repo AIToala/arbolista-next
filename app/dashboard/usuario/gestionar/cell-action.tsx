@@ -1,25 +1,26 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 "use client";
 
-import { Edit, Trash, MoreHorizontal } from "lucide-react";
 import { Button } from "@/app/components/ui/button";
-import { type UserColumn } from "./columns";
-import { useRouter } from "next/navigation";
-import axios from "axios";
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
 } from "@/app/components/ui/dropdown-menu";
+import axios from "axios";
+import { Edit, MoreHorizontal, Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { type UserColumn } from "./columns";
 interface CellActionProps {
   data: UserColumn;
 }
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const router = useRouter();
+  const id = data.id;
   const handleEdit = () => {
-    router.push(`/dashboard/usuario/gestionar/editar/${data.id}`);
+    router.push(`/dashboard/usuario/gestionar/editar/${id}`);
   };
   const handleDelete = () => {
     axios
