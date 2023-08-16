@@ -3,6 +3,7 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { CellAction } from "./cell-action";
 
 export interface UserColumn {
+  id: string;
   name: string;
   email: string;
   role: string;

@@ -35,7 +35,7 @@ export function DashboardUsuarioPage() {
   const [selectedRole, setSelectedRole] = useState("");
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     axios
-      .post("/api/register", data)
+      .post("/api/users", data)
       .then((response) => {
         toast.success("Usuario creado con exito");
       })
