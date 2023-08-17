@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { columns, type GallerySpecie } from "./columns";
-import { DataTable } from "../../../components/data-table";
 import getEspeciesForTable, {
   type ISpeciesParams,
 } from "@/app/actions/getSpeciesForTable";
+import { DataTable } from "../../../components/data-table";
+import { columns, type GallerySpecie } from "./columns";
 
 export default async function GalleryPage() {
   const searchParams: ISpeciesParams = {
@@ -14,7 +14,6 @@ export default async function GalleryPage() {
     growthHabit: "",
   };
   const data = await getEspeciesForTable(searchParams);
-  console.log(data);
   const cleanedData: GallerySpecie[] = data.map((item) => ({
     id: item.id,
     name: item.name,

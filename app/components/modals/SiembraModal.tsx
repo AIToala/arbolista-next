@@ -165,7 +165,6 @@ const SiembraModal = () => {
                     }
                     speciesParams.useCategory =
                       speciesParams.useCategory?.replace(item.value + ",", "");
-                    console.log(speciesParams.useCategory);
                     setSpeciesParams({ ...speciesParams });
                   }
                 }}

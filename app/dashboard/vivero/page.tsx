@@ -10,7 +10,7 @@ import {
 } from "@/app/components/ui/tabs";
 import { InputsField } from "../inputs";
 
-export function DashboardViveroPage() {
+const DashboardViveroPage = () => {
   return (
     <Tabs
       defaultValue="name"
@@ -77,6 +77,6 @@ export function DashboardViveroPage() {
       </TabsContent>
     </Tabs>
   );
-}
+};
 
 export default DashboardViveroPage;

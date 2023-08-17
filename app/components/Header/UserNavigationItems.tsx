@@ -2,7 +2,7 @@
 
 import { type TokenizedUser } from "@/app/types";
 import { Info, LayoutDashboard } from "lucide-react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 interface UserNavigationItemsProps {
@@ -12,20 +12,30 @@ interface UserNavigationItemsProps {
 const UserNavigationItems: React.FC<UserNavigationItemsProps> = ({
   currentUser,
 }) => {
+  const router = useRouter();
   return (
     <>
       {currentUser?.userRole === "ADMIN" ||
       currentUser?.userRole === "SPECIES_ADMIN" ||
       currentUser?.userRole === "NURSERY_ADMIN" ? (
-        <Link href="/dashboard" className="flex flex-row items-center">
+        <div
+          onClick={() => {
+            router.push("/dashboard");
+          }}
+          className="flex flex-row items-center"
+        >
           <LayoutDashboard className="mr-2 h-4 w-4" />
           Dashboard
-        </Link>
+        </div>
       ) : (
-        <Link href="#" className="">
+        <div
+          onClick={() => {
+            router.push("/home");
+          }}
+        >
           <Info className="mr-2 h-4 w-4" />
           Bienvenido, espere autorización
-        </Link>
+        </div>
       )}
     </>
   );

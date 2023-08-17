@@ -18,7 +18,7 @@ const Footer = () => {
             md:text-md
         "
     >
-      <div className="flex flex-row col-span-2 w-fit md:col-span-1 justify-center h-full">
+      <div className="flex flex-row col-span-2 w-full md:col-span-1 justify-center h-full">
         <div className="h-full rounded-xl">
           <Logo
             src="/images/logos/fngye-logo-about.png"
@@ -29,7 +29,7 @@ const Footer = () => {
           />
         </div>
       </div>
-      <div className="grid grid-cols-3 justify-center gap-2 w-full col-span-2 md:col-span-1">
+      <div className="grid grid-cols-3 justify-center gap w-full col-span-2 md:col-span-1">
         <div className="flex flex-col gap-2 text-center w-full">
           <div className="font-bold text-md md:text-lg">Catalogo</div>
           <ul className="flex-col flex gap-2">

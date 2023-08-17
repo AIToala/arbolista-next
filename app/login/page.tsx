@@ -60,13 +60,17 @@ const Login = () => {
         <Image
           src="/images/logos/fngye-logo-about.png"
           alt="Arbolista Logo"
-          className="h-24 mx-auto mb-4"
-          width={100}
-          height={100}
+          className="mx-auto"
+          width={300}
+          height={300}
           priority
         />
         {/* Heading */}
-        <Heading center title="Bienvenido a Arbolista" subtitle="" />
+        <Heading
+          center
+          title="Bienvenido a Flora Nativa Guayaquil"
+          subtitle=""
+        />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 my-10 justify-center">
         <div className="flex flex-col col-span-1 gap-4 px-6">

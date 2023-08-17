@@ -68,7 +68,7 @@ const Header: FC<HeaderProps> = ({ currentUser }) => {
                   <AvatarFallback className="cursor-pointer">
                     {currentUser.name
                       ?.split(" ")
-                      .map((initial) => initial[0])
+                      .map((initial) => initial[0].toUpperCase())
                       .join("")
                       .slice(0, 2)}
                   </AvatarFallback>

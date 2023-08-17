@@ -50,7 +50,7 @@
     "flowbite": "^1.6.5",
     "flowbite-react": "^0.4.4",
     "lucide-react": "^0.263.1",
-    "next": "^13.4.16",
+    "next": "^13.4.17",
     "next-auth": "^4.22.1",
     "react": "^18.2.0",
     "react-date-range": "^1.4.0",

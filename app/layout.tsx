@@ -13,8 +13,23 @@ import AuthContext from "./providers/SessionProvider";
 export const metadata = {
   title: "Flora Nativa Guayaquil",
   description: "Catalogo de Especies de Plantas Nativas de Guayaquil, Ecuador",
-  charSet: "utf-8",
-  icon: "/favicon.ico",
+  icons: [
+    {
+      url: "/favicon.ico",
+      sizes: "16x16",
+      type: "image/x-icon",
+    },
+    {
+      url: "/favicon.ico",
+      sizes: "32x32",
+      type: "image/x-icon",
+    },
+    {
+      url: "/favicon.ico",
+      sizes: "48x48",
+      type: "image/x-icon",
+    },
+  ],
 };
 
 export default async function RootLayout({

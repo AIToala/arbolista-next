@@ -9,8 +9,6 @@ const SearchButton = () => {
     const query: string = search;
     const url =
       "/especies?name=" + query + "&family=" + query + "&common_name=" + query;
-    console.log(query);
-    console.log(url);
     router.push(url);
   };
   return (

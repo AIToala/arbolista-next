@@ -34,7 +34,6 @@ export async function PUT(request: Request) {
 
 export async function DELETE(request: Request) {
   const { id } = await request.json();
-  console.log(id);
   const deletedUser = await prisma.user.delete({
     where: { id: String(id) },
   });

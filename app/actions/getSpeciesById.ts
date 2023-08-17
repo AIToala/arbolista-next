@@ -7,7 +7,6 @@ interface IParams {
 export default async function getSpeciesById(params: IParams) {
   try {
     const { speciesId } = params;
-    console.log(speciesId);
     const species = await prisma.species.findUnique({
       select: {
         id: true,

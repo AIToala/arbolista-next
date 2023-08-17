@@ -3,7 +3,6 @@
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
-import { useRouter } from "next/navigation";
 import {
   Tabs,
   TabsContent,
@@ -12,12 +11,13 @@ import {
 } from "@/app/components/ui/tabs";
 import { speciesEnums } from "@/app/types/index";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
-import Select from "react-select";
 import { toast } from "react-hot-toast";
+import Select from "react-select";
 
-export function DashboardUsuarioPage() {
+const DashboardUsuarioPage = () => {
   const router = useRouter();
 
   const {
@@ -182,6 +182,6 @@ export function DashboardUsuarioPage() {
       </Tabs>
     </div>
   );
-}
+};
 
 export default DashboardUsuarioPage;

@@ -21,7 +21,6 @@ const FilterButton = () => {
   const router = useRouter();
   const [speciesParams, setSpeciesParams] = useState<ISpeciesParams>({});
   const handleFilter = (e: any) => {
-    console.log(speciesParams);
     e.preventDefault();
     const queryParams = Object.entries(speciesParams)
       .filter(([key, value]) => value !== undefined)
