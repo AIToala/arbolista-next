@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { columns, type Specie } from "./columns";
+import { columns, type SpecieColumns } from "./columns";
 import { DataTable } from "../../../components/data-table";
 import getEspeciesForTable, {
   type ISpeciesParams,
@@ -15,7 +15,7 @@ export default async function UserPage() {
     commonNames: "",
   };
   const data = await getEspeciesForTable(searchParams);
-  const cleanedData: Specie[] = data.map((item) => ({
+  const cleanedData: SpecieColumns[] = data.map((item) => ({
     id: item.id,
     name: item.name,
     family: item.taxonomy.family.family,

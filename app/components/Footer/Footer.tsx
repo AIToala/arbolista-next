@@ -19,7 +19,7 @@ const Footer = () => {
       <div className="flex flex-row 2xs:flex-col w-fit gap-6 items-center justify-center">
         <div className="w-full h-fit flex flex-row items-start gap-4">
           <div className="bg-green-500 h-fit w-fit rounded-xl">
-            <Logo src="/images/logo-w.svg" width={200} height={200} />
+            <Logo src="/images/logo-w.svg" width={280} height={320} />
           </div>
           <div className="flex flex-row justify-center gap-5 w-full">
             <div className="flex flex-col gap-2 text-center w-full">

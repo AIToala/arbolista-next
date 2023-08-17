@@ -1,15 +1,16 @@
 "use client";
 import { type ColumnDef } from "@tanstack/react-table";
-
-export interface Specie {
+import { CellActionGallery } from "./cell-action";
+export interface GallerySpecie {
   [x: string]: any;
 
   name: string;
   family: string;
   isInGallery: boolean;
+  conservationStatus: string;
 }
 
-export const columns: Array<ColumnDef<Specie>> = [
+export const columns: Array<ColumnDef<GallerySpecie>> = [
   {
     accessorKey: "name",
     header: "Nombre",
@@ -19,7 +20,8 @@ export const columns: Array<ColumnDef<Specie>> = [
     header: "Familia",
   },
   {
-    accessorKey: "isInGallery",
+    id: "actions",
     header: "Esta en galeria",
+    cell: ({ row }) => <CellActionGallery data={row.original} />,
   },
 ];

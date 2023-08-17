@@ -1,6 +1,6 @@
 import prisma from "@/app/libs/prismadb";
 import getCurrentUser from "./getCurrentUser";
-import { type Specie } from "../dashboard/especie/gestionar/columns";
+import { type GallerySpecie } from "../dashboard/galeria/gestionar/columns";
 
 export interface ISpeciesParams {
   id?: string;
@@ -325,7 +325,7 @@ export default async function getEspeciesForTable(params: ISpeciesParams) {
         createdAt: "desc",
       },
     });
-    const safeSpecies: Specie[] = species.map((specie: any) => ({
+    const safeSpecies: GallerySpecie[] = species.map((specie: any) => ({
       ...specie,
       createdAt: specie.createdAt.toISOString(),
       updatedAt: specie.updatedAt.toISOString(),

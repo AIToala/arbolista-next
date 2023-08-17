@@ -1,7 +1,8 @@
 "use client";
 import { type ColumnDef } from "@tanstack/react-table";
+import { CellActionEspecies } from "./cell-action";
 
-export interface Specie {
+export interface SpecieColumns {
   [x: string]: any;
 
   name: string;
@@ -9,7 +10,7 @@ export interface Specie {
   commonNames: string;
 }
 
-export const columns: Array<ColumnDef<Specie>> = [
+export const columns: Array<ColumnDef<SpecieColumns>> = [
   {
     accessorKey: "name",
     header: "Nombre",
@@ -21,5 +22,9 @@ export const columns: Array<ColumnDef<Specie>> = [
   {
     accessorKey: "commonNames",
     header: "Nombres comunes",
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => <CellActionEspecies data={row.original} />,
   },
 ];

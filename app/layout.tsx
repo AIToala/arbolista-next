@@ -11,7 +11,7 @@ import SiembraModal from "./components/modals/SiembraModal";
 import AuthContext from "./providers/SessionProvider";
 
 export const metadata = {
-  title: "Arbolista",
+  title: "Flora Nativa Guayaquil",
   description: "Catalogo de Especies de Plantas Nativas de Guayaquil, Ecuador",
   charSet: "utf-8",
   icon: "/favicon.ico",
