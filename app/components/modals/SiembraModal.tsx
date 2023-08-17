@@ -3,16 +3,14 @@
 /* eslint-disable no-unused-vars */
 "use client";
 
+import { type ISpeciesParams } from "@/app/actions/getSpecies";
 import useSiembraModal from "@/app/hooks/useSiembraModal";
 import { speciesEnums } from "@/app/types/index";
-import { useRouter, useSearchParams } from "next/navigation";
-import qs from "query-string";
-import { useCallback, useMemo, useState } from "react";
-import Select from "react-select";
-
-import { type ISpeciesParams } from "@/app/actions/getSpecies";
 import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useMemo, useState } from "react";
 import toast from "react-hot-toast";
+import Select from "react-select";
 import Heading from "../Heading";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";

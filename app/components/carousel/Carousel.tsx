@@ -5,10 +5,10 @@ import useEmblaCarousel, {
   type EmblaCarouselType,
   type EmblaOptionsType,
 } from "embla-carousel-react";
+import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
-import { BiRightArrowAlt } from "react-icons/bi";
 import { type IconType } from "react-icons/lib";
 import { DotButton, NextButton, PrevButton } from "./CarouselButtons";
 
@@ -106,10 +106,7 @@ const Carousel: React.FC<PropType> = ({ options, style = " ", slides }) => {
                     {image.icon != null ? (
                       <image.icon size={24} className="inline-block ml-2" />
                     ) : (
-                      <BiRightArrowAlt
-                        className="inline-block ml-2"
-                        size={24}
-                      />
+                      <ChevronRight className="ml-2" size={24} />
                     )}
                   </button>
                 </div>

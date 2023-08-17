@@ -31,9 +31,6 @@ const Footer = () => {
                 <li className="hover:decoration-green-400 cursor-pointer hover:underline">
                   <Link href="/especies">Especies</Link>
                 </li>
-                <li className="hover:decoration-green-400 cursor-pointer hover:underline">
-                  Planta tu arbol
-                </li>
               </ul>
             </div>
             <div className="flex flex-col gap-2 text-center w-full">
@@ -42,9 +39,6 @@ const Footer = () => {
                 <li className="hover:decoration-green-400 cursor-pointer hover:underline">
                   <Link href="/viveros">Viveros</Link>
                 </li>
-                <li className="hover:decoration-green-400 cursor-pointer hover:underline">
-                  Unete
-                </li>
               </ul>
             </div>
 
@@ -52,10 +46,10 @@ const Footer = () => {
               <div className="font-bold text-green-400">Nosotros</div>
               <ul className="flex-col flex gap-2">
                 <li className="hover:decoration-green-400 cursor-pointer hover:underline">
-                  Mision / Vision
+                  <Link href="/about">Acerca</Link>
                 </li>
                 <li className="hover:decoration-green-400 cursor-pointer hover:underline">
-                  Contactenos
+                  <Link href="/about#contacto">Contactenos</Link>
                 </li>
               </ul>
             </div>
@@ -77,7 +71,7 @@ const Footer = () => {
             Jardin Botanico de Guayaquil
           </a>
         </p>
-        <p>Copyright © 2023, Team Arbolista</p>
+        <p>Copyright © 2023, Flora Nativa GYE</p>
       </div>
     </div>
   );

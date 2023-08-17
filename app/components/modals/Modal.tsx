@@ -1,8 +1,7 @@
 "use client";
 
+import { X } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
-import { IoMdClose } from "react-icons/io";
-
 import Button from "../buttons/Button";
 
 interface ModalProps {
@@ -145,7 +144,7 @@ const Modal: React.FC<ModalProps> = ({
                   "
                   onClick={handleClose}
                 >
-                  <IoMdClose size={18} />
+                  <X size={18} />
                 </button>
                 <div className="text-lg font-semibold">{title}</div>
               </div>

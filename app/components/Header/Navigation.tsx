@@ -4,10 +4,12 @@ import React from "react";
 
 interface NavigationProps {
   orientation?: "horizontal" | "vertical";
+  isMobile?: boolean;
 }
 
 const Navigation: React.FC<NavigationProps> = ({
   orientation = "horizontal",
+  isMobile = false,
 }) => {
   const router = useRouter();
   const links = [
@@ -31,29 +33,32 @@ const Navigation: React.FC<NavigationProps> = ({
   return (
     <>
       {links.map((link, index) => (
-        <li
+        <div
           key={index}
           className={`
                         text-sm
                         text-gray-600
                         hover:text-gray-800
-                        hover:font-bold
-                        hover:border-b-[2px]
-                        hover:border-b-green-600
                         transition
                         cursor-pointer
-                        ${orientation === "vertical" ? "mt-4" : "mt-0"}
+                        capitalize
+                        ${orientation === "vertical" ? "my-1" : "mt-0"}
+                        ${
+                          isMobile
+                            ? "hover:bg-gray-200 hover:rounded-md"
+                            : "hover:border-b-green-600 hover:border-b-[2px] hover:font-semibold"
+                        }
                     `}
         >
           <div
             onClick={() => {
               router.push(link.href);
             }}
-            className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-green-700 md:p-0"
+            className="w-full py-2 pl-3 pr-4 text-gray-900 rounded"
           >
             {link.name}
           </div>
-        </li>
+        </div>
       ))}
     </>
   );

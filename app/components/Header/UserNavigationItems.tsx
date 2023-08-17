@@ -1,6 +1,7 @@
 "use client";
 
 import { type TokenizedUser } from "@/app/types";
+import { Info, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -12,33 +13,21 @@ const UserNavigationItems: React.FC<UserNavigationItemsProps> = ({
   currentUser,
 }) => {
   return (
-    <ul className="py-2" aria-labelledby="user-menu-button">
+    <>
       {currentUser?.userRole === "ADMIN" ||
       currentUser?.userRole === "SPECIES_ADMIN" ||
       currentUser?.userRole === "NURSERY_ADMIN" ? (
-        <>
-          <li>
-            <Link
-              href="/dashboard"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
-            >
-              Dashboard
-            </Link>
-          </li>
-        </>
+        <Link href="/dashboard" className="flex flex-row items-center">
+          <LayoutDashboard className="mr-2 h-4 w-4" />
+          Dashboard
+        </Link>
       ) : (
-        <>
-          <li>
-            <Link
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
-            >
-              Bienvenido, espere autorización
-            </Link>
-          </li>
-        </>
+        <Link href="#" className="">
+          <Info className="mr-2 h-4 w-4" />
+          Bienvenido, espere autorización
+        </Link>
       )}
-    </ul>
+    </>
   );
 };
 

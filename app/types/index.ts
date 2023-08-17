@@ -27,6 +27,8 @@ export type TokenizedUser = Omit<
   "createdAt" | "updatedAt" | "hashedPassword"
 >;
 
+export const email = "contactos@floranativa.org";
+
 export type SafeSpecies = Omit<Species, "createdAt" | "updatedAt"> & {
   taxonomy: true;
   images: Array<{

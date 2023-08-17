@@ -1,10 +1,10 @@
 "use client";
 
 import type { TokenizedUser } from "@/app/types";
-import { type IconType } from "react-icons";
 import { Sidebar } from "flowbite-react";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { type IconType } from "react-icons";
 import { FaUserAlt } from "react-icons/fa";
 import { GiPlantsAndAnimals } from "react-icons/gi";
 import { RiHome2Fill, RiPlantFill } from "react-icons/ri";

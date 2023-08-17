@@ -8,13 +8,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/app/components/ui/table";
+import { Globe2, Mail, MapPin, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { BiWorld } from "react-icons/bi";
-import { BsFillTelephoneFill } from "react-icons/bs";
-import { GiPositionMarker } from "react-icons/gi";
-import { MdEmail } from "react-icons/md";
-
 interface ViveroInfoProps {
   data: any[];
 }
@@ -39,16 +35,16 @@ const ViveroInfo: React.FC<ViveroInfoProps> = ({ data }) => {
         <div className="col-span-1 w-full justify-center p-8 my-auto flex flex-col gap-2">
           <h1 className="font-bold text-2xl md:text-3xl">{data[0].name}</h1>
           <h2 className="text-gray-700 font-light text-xl mb-5 flex flex-row gap-2 items-center">
-            <GiPositionMarker color="green" />
+            <MapPin className="w-5 h-5 mr-2" color="green" />
             {data[0]?.address}
           </h2>
           <div className="flex flex-col w-full">
             <h1 className="text-lg flex flex-row gap-2 items-center">
-              <MdEmail />
+              <Mail className="w-5 h-5 mr-2" />
               <a href={"mailto:" + data[0].email}>{data[0].email}</a>
             </h1>
             <h1 className="text-lg flex flex-row gap-2 items-center">
-              <BsFillTelephoneFill />
+              <Phone className="w-5 h-5 mr-2" />
               {data[0].phone.split(",").join(" / ")}
             </h1>
             <Link
@@ -57,7 +53,7 @@ const ViveroInfo: React.FC<ViveroInfoProps> = ({ data }) => {
               }
             >
               <h1 className="text-lg flex flex-row gap-2 items-center">
-                <BiWorld />
+                <Globe2 className="w-5 h-5 mr-2" />
                 {data[0].website === "No determinado"
                   ? "Muy pronto"
                   : data[0].website}

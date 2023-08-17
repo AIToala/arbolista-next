@@ -2,9 +2,9 @@
 "use client";
 import { type ISpeciesParams } from "@/app/actions/getSpecies";
 import { speciesEnums } from "@/app/types/index";
+import { SlidersHorizontal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { GiSettingsKnobs } from "react-icons/gi";
 import Select from "react-select";
 import { Button } from "../ui/button";
 import {
@@ -40,7 +40,7 @@ const FilterButton = () => {
       <DropdownMenu modal={false}>
         <DropdownMenuTrigger asChild>
           <Button className="bg-gray-700 hover:bg-gray-700/90 flex flex-row gap-2">
-            Filtro <GiSettingsKnobs />
+            Filtro <SlidersHorizontal className="w-5 h-5 ml-2" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-[90vw] md:w-[70vw] h-[80vh] overflow-y-auto p-4 gap-4 grid items-start mx-auto">

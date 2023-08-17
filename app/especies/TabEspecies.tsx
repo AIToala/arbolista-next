@@ -6,11 +6,10 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/app/components/ui/tabs";
+import { LayoutGrid, List } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FaList } from "react-icons/fa";
-import { IoGrid } from "react-icons/io5";
 import {
   Table,
   TableBody,
@@ -29,10 +28,10 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({ data }) => {
     <Tabs defaultValue="multimedia" className="w-full">
       <TabsList>
         <TabsTrigger value="multimedia" className="flex gap-2">
-          Multimedia <IoGrid />
+          Multimedia <LayoutGrid className="w-5 h-5 ml-2" />
         </TabsTrigger>
         <TabsTrigger value="lista" className="flex gap-2">
-          Lista <FaList />
+          Lista <List className="w-5 h-5 ml-2" />
         </TabsTrigger>
       </TabsList>
       <TabsContent value="multimedia">
