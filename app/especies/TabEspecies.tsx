@@ -38,7 +38,7 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({ data }) => {
         <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
           {data.map((result) => (
             <Link key={result.id} href={`/especies/${result.name}`}>
-              <div className="col-span-1 cursor-pointer group bg-white rounded-xl overflow-hidden shadow-lg">
+              <div className="col-span-1 cursor-pointer hover:ring-2 hover:ring-green-400 group bg-white rounded-xl overflow-hidden shadow-lg">
                 <div className="flex flex-col gap-2 w-full">
                   <div
                     className="
@@ -56,8 +56,9 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({ data }) => {
                       alt={"especie"}
                       src={
                         result.images.presentation_url === "No determinado"
-                          ? "images/logo.svg"
-                          : result.images.presentation_url ?? "images/logo.svg"
+                          ? "/images/logos/fngye-logo-item.png"
+                          : result.images.presentation_url ??
+                            "/images/logos/fngye-logo-item.png"
                       }
                     />
                   </div>
@@ -80,7 +81,7 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({ data }) => {
           <TableHeader className="text-xs text-gray-700 uppercase bg-gray-50 ">
             <TableRow>
               <TableHead scope="col" className="px-6 py-3">
-                <span className="sr-only">Especie</span>
+                Especie
               </TableHead>
               <TableHead scope="col" className="px-6 py-3">
                 Nombre
@@ -93,39 +94,38 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({ data }) => {
           <TableBody>
             {data.map((result) => {
               return (
-                <TableRow key={result.id} className="bg-white hover:bg-gray-50">
-                  <TableCell className="p-4">
-                    <div
-                      onClick={() => {
-                        router.push(`/especies/${result.name}`);
-                      }}
-                      className="cursor-pointer !m-0"
-                    >
-                      <Image
-                        src={
-                          result.images.presentation_url === "No determinado"
-                            ? "images/logo.svg"
-                            : result.images.presentation_url ??
-                              "images/logo.svg"
-                        }
-                        alt={result.name}
-                        width={100}
-                        height={100}
-                        className="rounded-sm aspect-square overflow-hidden hover:ring-2 hover:ring-offset-2 hover:ring-gray-500 transition"
-                      />
-                    </div>
+                <TableRow
+                  key={result.id}
+                  className="bg-white hover:bg-gray-50 cursor-pointer"
+                  onClick={() => {
+                    router.push(`/especies/${result.name}`);
+                  }}
+                >
+                  <TableCell>
+                    <Image
+                      src={
+                        result.images.presentation_url === "No determinado"
+                          ? "/images/logos/fngye-logo-item.png"
+                          : result.images.presentation_url ??
+                            "/images/logos/fngye-logo-item.png"
+                      }
+                      alt={result.name}
+                      width={175}
+                      height={175}
+                      className="rounded-sm aspect-square object-cover overflow-hidden hover:ring-2 hover:ring-offset-2 hover:ring-gray-500 transition"
+                    />
                   </TableCell>
                   <TableCell className="text-gray-900 font-semibold px-6 py-4">
                     <div
                       onClick={() => {
                         router.push(`/especies/${result.name}`);
                       }}
-                      className="cursor-pointer"
+                      className=" hover:text-green-600"
                     >
                       {result.name}
                     </div>
-                    <div className="font-light text-gray-700">
-                      <p>{result.taxonomy?.common_names}</p>
+                    <div className="font-light text-gray-700 ">
+                      {result.taxonomy?.common_names}
                     </div>
                   </TableCell>
                   <TableCell className="text-gray-700 px-6 py-4">

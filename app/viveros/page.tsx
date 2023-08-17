@@ -20,7 +20,7 @@ const Viveros = async () => {
       <div className="flex flex-col w-full h-full bg-[#eee] relative items-center">
         <div className="w-full h-auto p-6 text-xl flex bg-gray-800 flex-col gap-4 justify-center md:justify-around items-center font-bold text-white md:flex-row md:gap-0">
           <h1 className="w-full text-lg text-center md:text-left md:mr-2 font-semibold">
-            VIVEROS
+            Viveros
           </h1>
         </div>
         <div className="w-full flex flex-col h-auto px-4 py-4 min-h-[70vh] mx-auto my-5">

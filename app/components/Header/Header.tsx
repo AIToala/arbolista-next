@@ -45,7 +45,7 @@ const Header: FC<HeaderProps> = ({ currentUser }) => {
     <nav className="bg-white border-gray-200 shadow-md relative">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <div className="flex items-center">
-          <Logo src="/images/logo-text.svg" className="mr-3" alt="Arbolista" />
+          <Logo src="/images/logos/fngye-logo-header.png" alt="Arbolista" />
         </div>
         <div className="flex items-center">
           <div className="items-center justify-between hidden w-full md:flex ">

@@ -112,12 +112,13 @@ const CarouselImages: React.FC<PropType> = (props) => {
                   className="!rounded-full aspect-square object-contain"
                   src={
                     image.src === "No determinado"
-                      ? "/images/logo.svg"
-                      : image.src ?? "/images/logo.svg"
+                      ? "/images/logos/fngye-logo-footer.png"
+                      : image.src ?? "/images/logos/fngye-logo-footer.png"
                   }
                   fill
                   alt="image.description"
                   priority
+                  quality={100}
                 />
               </div>
             ))}
@@ -136,8 +137,8 @@ const CarouselImages: React.FC<PropType> = (props) => {
                   index={index}
                   imgSrc={
                     image.src === "No determinado"
-                      ? "/images/logo.svg"
-                      : image.src ?? "/images/logo.svg"
+                      ? "/images/logos/fngye-logo-footer.png"
+                      : image.src ?? "/images/logos/fngye-logo-footer.png"
                   }
                   key={index}
                 />

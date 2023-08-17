@@ -23,7 +23,7 @@ const ViveroInfo: React.FC<ViveroInfoProps> = ({ data }) => {
           <Image
             src={
               data[0].logoSrc === "No determinado"
-                ? "images/logo.svg"
+                ? "/images/logos/fngye-logo-item.png"
                 : data[0].logoSrc
             }
             alt="Logo"

@@ -10,6 +10,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import { type IconType } from "react-icons/lib";
+import { Button } from "../ui/button";
 import { DotButton, NextButton, PrevButton } from "./CarouselButtons";
 
 interface ImageType {
@@ -94,8 +95,8 @@ const Carousel: React.FC<PropType> = ({ options, style = " ", slides }) => {
                   <p className="lg:text-[16px] md:text-md text-md text-gray-700">
                     {image.description}
                   </p>
-                  <button
-                    className="bg-green-700 hover:bg-green-800 w-fit text-white font-bold pl-4 py-2 pr-[20px] rounded-sm"
+                  <Button
+                    className="bg-green-700 hover:bg-green-800 text-white font-bold"
                     onClick={() => {
                       image.url === "sembrar"
                         ? siembraModal.onOpen()
@@ -104,22 +105,23 @@ const Carousel: React.FC<PropType> = ({ options, style = " ", slides }) => {
                   >
                     <span>{image.action}</span>
                     {image.icon != null ? (
-                      <image.icon size={24} className="inline-block ml-2" />
+                      <image.icon size={24} className="ml-2 w-5 h-5" />
                     ) : (
-                      <ChevronRight className="ml-2" size={24} />
+                      <ChevronRight className="ml-2 w-5 h-5" />
                     )}
-                  </button>
+                  </Button>
                 </div>
                 <Image
                   className="brightness-50 object-cover"
                   src={
                     image.src === "No determinado"
-                      ? "/images/logo.svg"
-                      : image.src ?? "/images/logo.svg"
+                      ? "/images/logos/fngye-logo-about.png"
+                      : image.src ?? "/images/logos/fngye-logo-about.png"
                   }
                   alt={image.alt}
                   fill
                   priority
+                  quality={100}
                 />
               </div>
             ))}

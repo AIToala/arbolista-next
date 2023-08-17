@@ -58,7 +58,7 @@ const Login = () => {
       <div className="text-center mb-8">
         {/* Logo */}
         <Image
-          src="/images/logo.svg"
+          src="/images/logos/fngye-logo-about.png"
           alt="Arbolista Logo"
           className="h-24 mx-auto mb-4"
           width={100}

@@ -24,9 +24,9 @@ const Especies = async ({ searchParams }: EspeciesProps) => {
   return (
     <ClientOnly>
       <div className="flex flex-col w-full h-full bg-[#eee] relative items-center">
-        <div className="w-full h-auto p-6 text-xl flex bg-gray-800 flex-col gap-4 justify-center md:justify-around items-center font-bold text-white md:flex-row md:gap-0">
+        <div className="w-full h-auto p-6 text-xl flex bg-slate-800 flex-col gap-4 justify-center md:justify-around items-center font-bold text-white md:flex-row md:gap-0">
           <h1 className="w-full text-lg md:text-lg text-center md:text-left md:mr-2 font-semibold">
-            ESPECIES NATIVAS
+            Especies nativas
           </h1>
           <div className="flex flex-row items-center gap-2 w-full">
             <SearchButton />

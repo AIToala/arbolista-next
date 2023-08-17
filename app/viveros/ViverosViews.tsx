@@ -30,7 +30,7 @@ const ViverosViews: React.FC<ViverosProps> = ({ data }) => {
                   alt={"especie"}
                   src={
                     result.logoSrc === "No determinado"
-                      ? "images/logo.svg"
+                      ? "/images/logos/fngye-logo-item.png"
                       : result.logoSrc
                   }
                 />

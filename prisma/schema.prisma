@@ -8,33 +8,33 @@ datasource db {
 }
 
 model User {
-  id             String    @id @default(cuid()) @map("_id")
+  id             String   @id @default(cuid()) @map("_id")
   name           String?
-  email          String?   @unique
+  email          String?  @unique
   hashedPassword String
-  userRole       UserRole  @default(USER)
-  createdAt      DateTime  @default(now()) @map("created_at")
-  updatedAt      DateTime  @updatedAt @map("updated_at")
+  userRole       UserRole @default(USER)
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
   nurseries      Nursery?
 }
 
 model Nursery {
-  id        String           @id @default(cuid()) @map("_id")
-  name      String           @unique
-  address   String?          @default("No determinado")
-  phone     String?          @default("No determinado")
-  email     String?          @default("No determinado")
-  website   String?          @default("No determinado")
-  logoSrc   String?          @default("No determinado")
-  createdAt DateTime         @default(now()) @map("created_at")
-  updatedAt DateTime         @updatedAt @map("updated_at")
-  ownerId   String           @unique @map("owner_id")
-  owner     User             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  speciesAvailable   NurserySpecies[]
+  id               String           @id @default(cuid()) @map("_id")
+  name             String           @unique
+  address          String?          @default("No determinado")
+  phone            String?          @default("No determinado")
+  email            String?          @default("No determinado")
+  website          String?          @default("No determinado")
+  logoSrc          String?          @default("No determinado")
+  createdAt        DateTime         @default(now()) @map("created_at")
+  updatedAt        DateTime         @updatedAt @map("updated_at")
+  ownerId          String           @unique @map("owner_id")
+  owner            User             @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  speciesAvailable NurserySpecies[]
 }
 
 model NurserySpecies {
-  speciesHeight Float?  @default(0.0) @map("species_height")
+  speciesHeight Float?  @default(0) @map("species_height")
   speciesAmount Int?    @default(0) @map("species_amount")
   nurseryId     String  @map("nursery_id")
   speciesId     String  @map("species_id")
@@ -47,41 +47,40 @@ model NurserySpecies {
 }
 
 model Species {
-  id                String         @id @default(cuid())
-  name              String         @unique
-  createdAt         DateTime       @default(now()) @map("created_at")
-  updatedAt         DateTime       @updatedAt @map("updated_at")
-  availables_status Boolean        @default(true) @map("available_status")
+  id                String           @id @default(cuid())
+  name              String           @unique
+  createdAt         DateTime         @default(now()) @map("created_at")
+  updatedAt         DateTime         @updatedAt @map("updated_at")
+  availables_status Boolean          @default(true) @map("available_status")
+  isInGallery       Boolean          @default(false) @map("is_in_gallery")
   arboriculture     Arboriculture?
   ecology           Ecology?
   ethnobotany       Ethnobotany?
   flower            Flower?
   images            Images?
   leaf              Leaf?
+  NurserySpecies    NurserySpecies[]
   root              Root?
   seeds             Seeds?
   stalk             Stalk?
   taxonomy          Taxonomy?
-
-  isInGallery    Boolean          @default(false) @map("is_in_gallery")
-  NurserySpecies NurserySpecies[]
 }
 
 model Taxonomy {
   id           String                @id @default(cuid())
-  family       SpeciesFamilyDetail   @relation(fields: [familyId], references: [id], onDelete: Cascade)
   familyId     Int
   genus        String                @default("No determinado")
   tSpecies     String                @default("No determinado")
   subspecies   String?               @default("No determinado")
   variety      String?               @default("No determinado")
   author       String?               @default("No determinado")
-  synonyms     SpeciesSynonyms[]
   etymology    String?               @default("No determinado") @db.VarChar(500)
   common_names String?               @default("No determinado")
   growth_habit String?               @default("No determinado")
-  bibliography SpeciesBibliography[]
   speciesId    String                @unique @map("species_id")
+  bibliography SpeciesBibliography[]
+  synonyms     SpeciesSynonyms?
+  family       SpeciesFamilyDetail   @relation(fields: [familyId], references: [id], onDelete: Cascade)
   species      Species               @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Taxonomy_species_id_fkey")
@@ -91,7 +90,7 @@ model Taxonomy {
 model SpeciesFamilyDetail {
   id          Int        @id @default(autoincrement())
   family      String     @unique @default("No determinado")
-  description String?    @db.Text()
+  description String?    @db.Text
   taxonomies  Taxonomy[]
 
   @@index([id], map: "familyDetail_id_fkey")
@@ -100,8 +99,8 @@ model SpeciesFamilyDetail {
 model SpeciesSynonyms {
   id           String   @id @default(cuid())
   synonym_name String?  @default("No determinado")
+  taxonomyId   String   @unique @map("taxonomy_id")
   taxonomy     Taxonomy @relation(fields: [taxonomyId], references: [id], onDelete: Cascade)
-  taxonomyId   String   @map("taxonomy_id") @unique
 
   @@index([taxonomyId], map: "Synonyms_taxonomy_id_fkey")
 }
@@ -186,8 +185,8 @@ model Ecology {
   origin              Origin             @default(NATIVA)
   conservation_status ConservationStatus @default(NE)
   fauna_attraction    PriorityLevel      @default(NO_DETERMINADO)
-  associated_fauna    Associated_Fauna[]
   speciesId           String             @unique @map("species_id")
+  associated_fauna    Associated_Fauna?
   species             Species            @relation(fields: [speciesId], references: [id], onDelete: Cascade)
 
   @@index([speciesId], map: "Ecology_species_id_fkey")
@@ -222,8 +221,8 @@ model Arboriculture {
   pests_diseases     String?          @default("No determinado")
   light_requirements LightRequirement @default(NO_DETERMINADO)
   growth_rate        GrowthRate       @default(NO_DETERMINADO)
-  maximum_height     Float            @default(0.0)
-  crown_width        Float            @default(0.0)
+  maximum_height     Float            @default(0)
+  crown_width        Float            @default(0)
   crown_shape        String?          @default("No determinado")
   DAP                Float?           @default(0)
   foliage_density    PriorityLevel    @default(NO_DETERMINADO)
@@ -347,24 +346,6 @@ enum FruitType {
 enum Origin {
   NATIVA
   ENDEMICA
-}
-
-enum AltitudinalRange {
-  MUY_BAJA
-  BAJA
-  MEDIA
-  ALTA
-  MUY_ALTA
-  NO_DETERMINADO
-}
-
-enum Longevity {
-  BAJA
-  MEDIA
-  ALTA
-  ANUAL
-  PERENNE
-  NO_DETERMINADO
 }
 
 enum LightRequirement {
