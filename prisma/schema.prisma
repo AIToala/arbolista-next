@@ -100,7 +100,10 @@ model SpeciesFamilyDetail {
 model SpeciesSynonyms {
   id           String   @id @default(cuid())
   synonym_name String?  @default("No determinado")
-  taxonomy     Taxonomy @relation(fields: [id], references: [id], onDelete: Cascade)
+  taxonomy     Taxonomy @relation(fields: [taxonomyId], references: [id], onDelete: Cascade)
+  taxonomyId   String   @map("taxonomy_id") @unique
+
+  @@index([taxonomyId], map: "Synonyms_taxonomy_id_fkey")
 }
 
 model SpeciesBibliography {
