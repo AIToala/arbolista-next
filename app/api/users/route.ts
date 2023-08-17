@@ -41,3 +41,12 @@ export async function DELETE(request: Request) {
 
   return NextResponse.json(deletedUser);
 }
+
+export async function GET(request: any) {
+  const { id } = request.params;
+  const user = await prisma.user.findUnique({
+    where: { id: String(id) },
+  });
+
+  return NextResponse.json(user);
+}

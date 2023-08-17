@@ -12,15 +12,17 @@ import {
 import axios from "axios";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { type UserColumn } from "./columns";
-interface CellActionUsersProps {
-  data: UserColumn;
+import { type SpecieColumns } from "./columns";
+interface CellActionEspeciesProps {
+  data: SpecieColumns;
 }
-export const CellActionUsers: React.FC<CellActionUsersProps> = ({ data }) => {
+export const CellActionEspecies: React.FC<CellActionEspeciesProps> = ({
+  data,
+}) => {
   const router = useRouter();
   const id = data.id;
   const handleEdit = () => {
-    router.push(`/dashboard/usuario/gestionar/editar/${id}`);
+    router.push(`/dashboard/especie/gestionar/editar/${id}`);
   };
   const handleDelete = () => {
     axios

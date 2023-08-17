@@ -1,24 +1,26 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { columns, type Specie } from "./columns";
+import { columns, type GallerySpecie } from "./columns";
 import { DataTable } from "../../../components/data-table";
 import getEspeciesForTable, {
   type ISpeciesParams,
 } from "@/app/actions/getSpeciesForTable";
 
-export default async function UserPage() {
-  interface EspeciesProps {
-    searchParams: ISpeciesParams;
-  }
+export default async function GalleryPage() {
   const searchParams: ISpeciesParams = {
     name: "",
     family: "",
+    conservationStatus: "",
+    author: "",
+    growthHabit: "",
   };
   const data = await getEspeciesForTable(searchParams);
-  const cleanedData: Specie[] = data.map((item) => ({
+  console.log(data);
+  const cleanedData: GallerySpecie[] = data.map((item) => ({
     id: item.id,
     name: item.name,
     family: item.taxonomy.family.family,
     isInGallery: item.isInGallery,
+    conservationStatus: item.conservationStatus,
   }));
 
   return (

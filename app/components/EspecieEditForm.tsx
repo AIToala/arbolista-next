@@ -15,7 +15,7 @@ import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import Select from "react-select";
 
-export function UserEditForm({ id }: { id: string }) {
+export function EspecieEditForm({ id }: { id: string }) {
   /* let dataToInput = {
     name:"",
     email:"",

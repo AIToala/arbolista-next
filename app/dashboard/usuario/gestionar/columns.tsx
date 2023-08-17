@@ -1,6 +1,6 @@
 "use client";
 import { type ColumnDef } from "@tanstack/react-table";
-import { CellAction } from "./cell-action";
+import { CellActionUsers } from "./cell-action";
 
 export interface UserColumn {
   id: string;
@@ -24,6 +24,6 @@ export const columns: Array<ColumnDef<UserColumn>> = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <CellAction data={row.original} />,
+    cell: ({ row }) => <CellActionUsers data={row.original} />,
   },
 ];

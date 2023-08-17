@@ -13,8 +13,8 @@ interface LogoProps {
 }
 
 const Logo: React.FC<LogoProps> = ({
-  height = 75,
-  width = 75,
+  height = 175,
+  width = 175,
   src = "/images/logo-text.svg",
   alt = "Logo",
   className = "",

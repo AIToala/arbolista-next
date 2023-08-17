@@ -3,6 +3,7 @@
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
+import { useRouter } from "next/navigation";
 import {
   Tabs,
   TabsContent,
@@ -17,12 +18,14 @@ import Select from "react-select";
 import { toast } from "react-hot-toast";
 
 export function DashboardUsuarioPage() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     getValues,
     setValue,
-    formState: { errors }, // Add formState to access validation errors
+    formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
       name: "",
@@ -38,6 +41,7 @@ export function DashboardUsuarioPage() {
       .post("/api/users", data)
       .then((response) => {
         toast.success("Usuario creado con exito");
+        router.push("/dashboard");
       })
       .catch((e) => {
         toast.error("Hubo un error al momento de crear el usuario");
