@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 "use client";
-import React from "react";
 import { Switch } from "@/app/components/ui/switch";
+import React from "react";
 
-import { type GallerySpecie } from "./columns";
 import axios from "axios";
+import { type GallerySpecie } from "./columns";
 interface CellActionUsersProps {
   data: GallerySpecie;
 }
 export const CellActionGallery: React.FC<CellActionUsersProps> = ({ data }) => {
-  const updateGallery = async (e: any) => {
-    console.log(e.target.checked, data.id);
-    await axios.put(`/api/gallery/`, {
+  const updateGallery = async () => {
+    await axios.put(`/api/gallery`, {
       id: data.id,
-      isInGallery: e.target.checked,
+      isInGallery: !data.isInGallery,
     });
   };
-
-  return <Switch onChange={updateGallery} />;
+  return (
+    <Switch defaultChecked={data.isInGallery} onCheckedChange={updateGallery} />
+  );
 };

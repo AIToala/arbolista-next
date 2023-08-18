@@ -4,35 +4,28 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { useRouter } from "next/navigation";
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { speciesEnums } from "@/app/types/index";
 import axios, { type AxiosResponse } from "axios";
+import { get } from "http";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import Select from "react-select";
 
 export function UserEditForm({ id }: { id: string }) {
-  /*    let dataToInput = {
-    name:"",
-    email:"",
-    userRole:"",
-  };
   const fetchUserData = async () => {
-    const response: AxiosResponse<any> = await axios.get(`/api/users/`,{ params: { id } });
+    const response: AxiosResponse<any> = await axios.get(`/api/users/`, {
+      params: { id },
+    });
     const data = response.data;
-
-    dataToInput = {
-      name: data.name,
-      email: data.email,
-      userRole: data.userRole
-    };
-
-  }; */
-
+    return data;
+  };
+  const [userData, setUserData] = useState(fetchUserData());
+  console.log(userData);
   const router = useRouter();
   const {
     register,
@@ -41,15 +34,6 @@ export function UserEditForm({ id }: { id: string }) {
     setValue,
     formState: { errors },
   } = useForm();
-
-  const [selectedRole, setSelectedRole] = useState("");
-  const [userData, setUserData] = useState<FieldValues>({
-    name: "",
-    email: "",
-    userRole: "",
-    password: "",
-    passwordConf: "",
-  });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
     try {
@@ -76,8 +60,9 @@ export function UserEditForm({ id }: { id: string }) {
       <Label className="mt-5">Nombre Completo</Label>
       <Input
         id="name"
+        value={getValues("name")}
         placeholder="Ingrese los nombres completos del usuario"
-        {...register("name", { required: "Campo obligatorio" })}
+        {...register("name")}
       />
       {errors.name && (
         <p className="text-red-700 w-fit p-2">
@@ -89,8 +74,8 @@ export function UserEditForm({ id }: { id: string }) {
       <Input
         id="email"
         placeholder="Ingrese el correo del usuario"
+        value={getValues("email")}
         {...register("email", {
-          required: "Campo obligatorio",
           pattern: {
             value: /^\S+@\S+$/i,
             message: "Correo inválido",
@@ -106,21 +91,14 @@ export function UserEditForm({ id }: { id: string }) {
         <Label className="mt-5">Rol</Label>
         <Select
           id="userRole"
-          value={speciesEnums.userRole.find(
-            (option) => option.value === selectedRole
-          )}
+          value={getValues("userRole")}
           onChange={(selectedOption) => {
-            if (selectedOption !== null) setSelectedRole(selectedOption.value);
-            setValue("userRole", selectedOption?.value);
+            if (selectedOption !== null)
+              setValue("userRole", selectedOption?.value);
           }}
           placeholder="Seleccione el rol del usuario"
           options={speciesEnums.userRole}
-          required
-          isDisabled={true}
         />
-        {!selectedRole && (
-          <p className="text-red-700 w-fit p-2">Campo obligatorio</p>
-        )}
       </div>
       <Label className="mt-5">Contraseña</Label>
       <Input
@@ -128,7 +106,6 @@ export function UserEditForm({ id }: { id: string }) {
         type="password"
         placeholder="Ingrese la contraseña"
         {...register("password", {
-          required: "Campo obligatorio",
           minLength: {
             value: 8,
             message: "La contraseña debe tener al menos 8 caracteres",
@@ -147,7 +124,7 @@ export function UserEditForm({ id }: { id: string }) {
         type="password"
         placeholder="Confirme la contraseña"
         {...register("passwordConf", {
-          required: "Campo obligatorio",
+          required: getValues("password") ? "Campo obligatorio" : false,
           validate: {
             matchesPreviousPassword: (value) => {
               const { password } = getValues();

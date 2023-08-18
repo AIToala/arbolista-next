@@ -299,26 +299,9 @@ export const speciesEnums = {
   ],
   faunaAtraction: [
     { value: "No determinado", label: "No determinado" },
-    { value: "Alimentício", label: "Alimentício" },
-    {
-      value: "Aditivo de los alimentos",
-      label: "Aditivo de los alimentos",
-    },
-    {
-      value: "Alimento de animales vertebrado",
-      label: "Alimento de animales vertebrados",
-    },
-    {
-      value: "Alimento de animales invertebrados",
-      label: "Alimento de animales invertebrados",
-    },
-    { value: "Apícola", label: "Apícola" },
-    { value: "Combustibles", label: "Combustibles" },
-    { value: "Materiales", label: "Materiales" },
-    { value: "Social", label: "Social" },
-    { value: "Tóxico", label: "Tóxico" },
-    { value: "Medicinal", label: "Medicinal" },
-    { value: "Medioambiental", label: "Medioambiental" },
+    { value: "BAJO", label: "Alto" },
+    { value: "MEDIO", label: "Medio" },
+    { value: "ALTO", label: "Bajo" },
   ],
   soilTypes: [
     { value: "No determinado", label: "No determinado" },

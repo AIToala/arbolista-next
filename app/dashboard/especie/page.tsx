@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 "use client";
 import {
   Tabs,
@@ -6,21 +7,133 @@ import {
   TabsTrigger,
 } from "@/app/components/ui/tabs";
 
-import { type ISpeciesParams } from "@/app/actions/getSpecies";
 import { Button } from "@/app/components/ui/button";
+import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
+import { Textarea } from "@/app/components/ui/textarea";
 import { speciesEnums } from "@/app/types/index";
-import { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
+import toast from "react-hot-toast";
 import Select from "react-select";
-import { FileInputField, InputField, TextAreaField } from "../inputs";
+
+interface FormData {
+  taxonomy: {
+    family: string;
+    familyId: string;
+    familyDescription: string;
+    genus: string;
+    tSpecies: string;
+    subspecies: string;
+    variety: string;
+    author: string;
+    etymology: string;
+    common_names: string;
+    growth_habit: string;
+    bibliography: string;
+    synonyms: string;
+    synonymsId: string;
+    bibliographyId: string;
+  };
+  images: {
+    presentation_url: string;
+    fruit_url: string;
+    leaf_url: string;
+    flower_url: string;
+    detailFlower_url: string;
+    bark_url: string;
+    seed_url: string;
+  };
+  arboriculture: {
+    public_spaceUse: string;
+    flower_limitations: string;
+    fruit_limitations: string;
+    longevity: string;
+    pests_diseases: string;
+    light_requirements: string;
+    growth_rate: string;
+    maximum_height: number;
+    crown_width: number;
+    crown_shape: string;
+    DAP: number;
+    foliage_density: string;
+    soil_type: string;
+    humidity_zone: string;
+  };
+  stalk: {
+    bark_attributes: string;
+    barkColor: string;
+  };
+  seeds: {
+    fruitType: string;
+    dispersal_system: string;
+    fruit_attributes: string;
+    seed_attributes: string;
+    fruiting_months: string;
+  };
+  root: {
+    reproduction_form: string;
+    root_attributes: string;
+    rooting_type: string;
+  };
+  leaf: {
+    leaf_attributes: string;
+    leaf_persistence: string;
+    stemLeaf_position: string;
+    leaf_composition: string;
+  };
+  flower: {
+    floral_attributes: string;
+    flower_color: string;
+    flower_arrangement: string;
+    flowering_season: string;
+    flowering_months: string;
+    pollination_system: string;
+  };
+  ethnobotany: {
+    category: string;
+    use_detail: string;
+  };
+  ecology: {
+    altitudinal_range: string;
+    geo_distribution: string;
+    origin: string;
+    conservation_status: string;
+    fauna_attraction: string;
+    associated_fauna: string;
+    associatedFaunaId: string;
+  };
+}
 
 const DashboardSpeciePage = () => {
-  const [taxonomyParams, setTaxonomyParams] = useState<ISpeciesParams>({});
-  const [speciesParams, setSpeciesParams] = useState<ISpeciesParams>({});
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    axios
+      .post("/api/species", data)
+      .then((response) => {
+        toast.success("Especie creada con exito");
+        router.push("/dashboard");
+      })
+      .catch((e) => {
+        toast.error("Hubo un error al momento de crear la especie");
+        router.refresh();
+      });
+  };
+
   return (
-    <form className="flex flex-col w-full ">
+    <div className="flex flex-col w-full">
       <div className="w-full mt-[20px]  flex justify-end mr-[100px] p-10">
-        <Button type="submit">Agregar especie</Button>
+        <Button type="submit" onClick={handleSubmit(onSubmit)}>
+          Agregar especie
+        </Button>
       </div>
       <Tabs
         defaultValue="taxonomy"
@@ -41,132 +154,118 @@ const DashboardSpeciePage = () => {
 
         <TabsContent value="taxonomy" className="w-full mx-auto px-8">
           <div className="input-fields-container">
-            <InputField
-              value={speciesParams.family}
-              onChange={(e: any) => {
-                speciesParams.family = e.target.value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+            <Label>Familia</Label>
+            <Input
+              {...register("taxonomy.family", {
+                required: "Campo obligatorio",
+              })}
               id="family"
-              label="Familia"
-              placeholder="Ingrese aqui la familia de la especie"
+              placeholder="Ingrese familia de la especie"
             />
-            <InputField
-              onChange={(value: any) => {
-                taxonomyParams.genus = value;
-                setTaxonomyParams({ ...taxonomyParams });
-              }}
+            {errors?.taxonomy?.family != null && (
+              <p className="text-red-500 text-sm">
+                {errors.taxonomy.family.message?.toString()}
+              </p>
+            )}
+            <Label>Descripcion de Familia</Label>
+            <Textarea
+              id="familyDescription"
+              {...register("taxonomy.familyDescription")}
+              placeholder="Ingrese descripcion de la familia"
+            />
+            <Label>Género</Label>
+            <Input
               id="genus"
-              label="Genero"
-              placeholder="Ingrese aqui  el genero de la especie"
+              placeholder="Ingrese genero de la especie"
+              {...register("taxonomy.genus", { required: "Campo obligatorio" })}
             />
-            <InputField
-              onChange={(value: any) => {
-                taxonomyParams.tSpecies = value;
-                setTaxonomyParams({ ...taxonomyParams });
-              }}
+            {errors?.taxonomy?.genus != null && (
+              <p className="text-red-500 text-sm">
+                {errors.taxonomy.genus.message?.toString()}
+              </p>
+            )}
+            <Label>Especie</Label>
+            <Input
               id="tSpecies"
-              label="Especie"
-              placeholder="Ingrese aqui  la especie"
+              placeholder="Ingrese nombre de la especie"
+              {...register("taxonomy.tSpecies", {
+                required: "Campo obligatorio",
+              })}
             />
-            <InputField
-              onChange={(value: any) => {
-                taxonomyParams.subspecies = value;
-                setTaxonomyParams({ ...taxonomyParams });
-              }}
+            {errors?.taxonomy?.tSpecies != null && (
+              <p className="text-red-500 text-sm">
+                {errors.taxonomy.tSpecies.message?.toString()}
+              </p>
+            )}
+            <Label>Subespecie</Label>
+            <Input
               id="subspecie"
-              label="Subespecie"
-              placeholder="Ingrese aqui  la subespecie"
+              placeholder="Ingrese la subespecie"
+              {...register("taxonomy.subspecies")}
             />
-            <InputField
-              onChange={(value: any) => {
-                taxonomyParams.availablesStatus = value;
-                setTaxonomyParams({ ...taxonomyParams });
-              }}
+            <Label>Variedad</Label>
+            <Input
               id="variety"
-              label="Variedad"
-              placeholder="Ingrese aqui la variedad de la especie"
+              {...register("taxonomy.variety")}
+              placeholder="Ingrese la variedad de la especie"
             />
-            <InputField
-              onChange={(value: any) => {
-                taxonomyParams.author = value;
-                setTaxonomyParams({ ...taxonomyParams });
-              }}
+            <Label>Autor</Label>
+            <Input
               id="author"
-              label="Autor"
-              placeholder="Ingrese aqui el autor de la especie"
+              {...register("taxonomy.author")}
+              placeholder="Ingrese el autor de la especie"
             />
-            <InputField
-              onChange={(value: any) => {
-                taxonomyParams.dispersalSystem = value;
-                setTaxonomyParams({ ...taxonomyParams });
-              }}
+            <Label>Sinonimo</Label>
+            <Textarea
               id="synonyms"
-              label="Sinonimo"
-              placeholder="Ingrese aqui el sinonimo de la especie"
+              {...register("taxonomy.synonyms")}
+              placeholder="Ingrese el sinonimo de la especie"
             />
-            <TextAreaField
-              onChange={(value: any) => {
-                taxonomyParams.bibliography = value;
-                setTaxonomyParams({ ...taxonomyParams });
-              }}
+            <Label>Etimologia</Label>
+            <Textarea
               id="etimology"
-              label="Etimologia"
-              placeholder="Ingrese aqui la etimologia de la especie"
+              {...register("taxonomy.etymology")}
+              placeholder="Ingrese la etimologia de la especie"
             />
-            <InputField
-              onChange={(value: any) => {
-                taxonomyParams.commonNames = value;
-                setTaxonomyParams({ ...taxonomyParams });
-              }}
+            <Label>Nombres comunes</Label>
+            <Input
               id="commonName"
-              label="Nombres Comunes"
-              placeholder="Ingrese aqui el nombre comun de  la especie"
+              {...register("taxonomy.common_names")}
+              placeholder="Ingrese el nombre comun de la especie"
             />
-            <Label>Tipo de crecimiento</Label>
+            <Label>Habito de crecimiento</Label>
             <Select
               id="growth_habit"
-              className="text-mds"
-              placeholder="No determinado"
+              placeholder="Seleccione el habito de crecimiento de la especie"
               isClearable={false}
               isSearchable={false}
-              value={speciesParams.growthHabit}
               options={speciesEnums.growth_habit}
-              onChange={(value: any) => {
-                speciesParams.growthHabit = value;
-                setSpeciesParams({ ...speciesParams });
+              onChange={(value) => {
+                if (value !== null)
+                  setValue("taxonomy.growth_habit", value.value);
               }}
             />
-            <TextAreaField
-              onChange={(value: any) => {
-                taxonomyParams.bibliography = value;
-                setTaxonomyParams({ ...taxonomyParams });
-              }}
+            <Label>Bibliografia</Label>
+            <Textarea
               id="bibliography"
-              label="Bibliogafia"
-              placeholder="Ej: Autor,Año de publicación, Titulo, Nombre Editorial, DOI"
+              {...register("taxonomy.bibliography")}
+              placeholder="Ej: Autor,Año de publicación,Titulo,Nombre Editorial,DOI"
             />
           </div>
         </TabsContent>
         <TabsContent value="stalk" className="w-full mx-auto px-8">
           <div className="input-fields-container">
-            <InputField
-              onChange={(value: any) => {
-                speciesParams.barkAttributes = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+            <Label>Atributos de corteza</Label>
+            <Input
               id="stalkAtributes"
-              label="Atributos de corteza"
+              {...register("stalk.bark_attributes")}
               placeholder="Ingrese los Atributos de corteza de la especie"
             />
-            <InputField
-              onChange={(value: any) => {
-                speciesParams.barkColor = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+            <Label>Color de corteza</Label>
+            <Input
               id="stalkColor"
-              label="Color Corteza"
-              placeholder="Ingrese aqui el color de corteza de la especie"
+              {...register("stalk.barkColor")}
+              placeholder="Ingrese el color de corteza de la especie"
             />
           </div>
         </TabsContent>
@@ -176,138 +275,116 @@ const DashboardSpeciePage = () => {
             <Select
               id="reproduction_form"
               className="text-mds"
-              placeholder="No determinado"
+              placeholder="Seleccione forma de reproduccion de la especie"
               isClearable={false}
               isSearchable={false}
-              value={speciesParams.reproductionForm}
+              onChange={(value) => {
+                if (value !== null) {
+                  setValue("root.reproduction_form", value.value);
+                }
+              }}
               options={speciesEnums.reproductionForm}
-              onChange={(value: any) => {
-                speciesParams.reproductionForm = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
             />
-            <TextAreaField
-              onChange={(value: any) => {
-                speciesParams.rootAttributes = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+            <Label>Atributos de raiz</Label>
+            <Textarea
               id="root_attributes"
-              label="Atributos radiculares"
-              placeholder="Ingrese aqui los atributos radiculares de la especie"
+              {...register("root.root_attributes")}
+              placeholder="Ingrese los atributos radiculares de la especie"
             />
             <Label>Tipos de enraizamiento</Label>
             <Select
               id="rooting_type"
               className="text-mds"
-              placeholder="No determinado"
+              placeholder="Seleccione el tipo de enraizamiento de la especie"
               isClearable={false}
               isSearchable={false}
-              value={speciesParams.rootingType}
-              options={speciesEnums.rootingTypes}
-              onChange={(value: any) => {
-                speciesParams.rootingType = value;
-                setSpeciesParams({ ...speciesParams });
+              onChange={(value) => {
+                if (value !== null) setValue("root.rooting_type", value.value);
               }}
+              options={speciesEnums.rootingTypes}
             />
           </div>
         </TabsContent>
         <TabsContent value="flower" className="w-full mx-auto px-8">
           <div className="input-fields-container">
-            <TextAreaField
-              onChange={(value: any) => {
-                speciesParams.floralAttributes = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+            <Label>Atributos florales</Label>
+            <Textarea
+              {...register("flower.floral_attributes")}
               id="floral_attributes"
-              label="Atributos Florales"
-              placeholder="Ingrese aqui los atributos florales de la especie"
+              placeholder="Ingrese los atributos florales de la especie"
             />
-            <InputField
-              onChange={(value: any) => {
-                speciesParams.flowerColor = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+            <Label>Color de flor</Label>
+            <Input
               id="flower_color"
-              label="Color Flor"
-              placeholder="Ingrese aqui el color de flor de la especie"
+              {...register("flower.flower_color")}
+              placeholder="Ingrese el color de flor de la especie"
             />
             <Label>Disposicion de las flores</Label>
             <Select
               id="flower_arrangement"
               className="text-mds"
-              placeholder="No determinado"
+              placeholder="Seleccione el tipo de arreglo de la flor de la especie"
               isClearable={false}
               isSearchable={false}
-              value={speciesParams.flowerArrangement}
-              options={speciesEnums.flowerArrangement}
-              onChange={(value: any) => {
-                speciesParams.flowerArrangement = value;
-                setSpeciesParams({ ...speciesParams });
+              onChange={(value) => {
+                if (value !== null)
+                  setValue("flower.flower_arrangement", value.value);
               }}
+              options={speciesEnums.flowerArrangement}
             />
             <Label>Sistema de polinizacion</Label>
             <Select
               id="pollination_system"
               className="text-mds"
-              placeholder="No determinado"
+              placeholder="Seleccione el sistema de polinizacion de la especie"
               isClearable={false}
               isSearchable={false}
-              value={speciesParams.pollinationSystem}
-              options={speciesEnums.polinizationValues}
-              onChange={(value: any) => {
-                speciesParams.pollinationSystem = value;
-                setSpeciesParams({ ...speciesParams });
+              onChange={(value) => {
+                if (value !== null)
+                  setValue("flower.pollination_system", value.value);
               }}
+              options={speciesEnums.polinizationValues}
             />
             <Label>Estacion de floración</Label>
             <Select
               id="flowering_season"
               className="text-mds"
-              placeholder="No determinado"
+              placeholder="Seleccione la estacion de floracion"
               isClearable={false}
               isSearchable={false}
-              value={speciesParams.floweringSeason}
+              onChange={(value) => {
+                if (value !== null)
+                  setValue("flower.flowering_season", value.value);
+              }}
               options={speciesEnums.floweringSeason}
-              onChange={(value: any) => {
-                speciesParams.floweringSeason = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
             />
-            <InputField
-              onChange={(value: any) => {
-                speciesParams.floweringMonths = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+            <Label>Meses de floración</Label>
+            <Input
               id="flowering_months"
-              label="Meses de floración"
-              placeholder="Ingrese aqui los meses de floració de la especie"
+              placeholder="Ej: Enero,Febrero,Diciembre"
+              {...register("flower.flowering_months")}
             />
           </div>
         </TabsContent>
         <TabsContent value="leaf" className="w-full mx-auto px-8">
           <div className="input-fields-container">
-            <TextAreaField
-              onChange={(value: any) => {
-                speciesParams.leafAttributes = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+            <Label>Atributos foliares</Label>
+            <Textarea
               id="leaf_attributes"
-              label="Atributos Foliares"
-              placeholder="Ingrese aqui los atributos foliares de la especie"
+              {...register("leaf.leaf_attributes")}
+              placeholder="Ingrese los atributos foliares de la especie"
             />
             <Label>Persistencia de la hoja</Label>
             <Select
               id="leaf_persistence"
               className="text-mds"
-              placeholder="No determinado"
-              isClearable={false}
+              placeholder="Seleccione la persistencia de la hoja de la especie"
               isSearchable={false}
-              value={speciesParams.leafPersistence}
-              options={speciesEnums.leafPersistence}
-              onChange={(value: any) => {
-                speciesParams.leafPersistence = value;
-                setSpeciesParams({ ...speciesParams });
+              onChange={(value) => {
+                if (value !== null)
+                  setValue("leaf.leaf_persistence", value.value);
               }}
+              options={speciesEnums.leafPersistence}
             />
             <Label>Posicion de la hoja en el tallo</Label>
             <Select
@@ -316,26 +393,24 @@ const DashboardSpeciePage = () => {
               placeholder="No determinado"
               isClearable={false}
               isSearchable={false}
-              value={speciesParams.stemLeafPosition}
-              options={speciesEnums.stemLeafPosition}
-              onChange={(value: any) => {
-                speciesParams.stemLeafPosition = value;
-                setSpeciesParams({ ...speciesParams });
+              onChange={(value) => {
+                if (value !== null)
+                  setValue("leaf.stemLeaf_position", value.value);
               }}
+              options={speciesEnums.stemLeafPosition}
             />
             <Label>Composicion de la hoja</Label>
             <Select
               id="leaf_composition"
               className="text-mds"
-              placeholder="No determinado"
+              placeholder="Seleccione composicion de la hoja"
               isClearable={false}
               isSearchable={false}
-              value={speciesParams.leafComposition}
-              options={speciesEnums.leafComposition}
-              onChange={(value: any) => {
-                speciesParams.leafComposition = value;
-                setSpeciesParams({ ...speciesParams });
+              onChange={(value) => {
+                if (value !== null)
+                  setValue("leaf.leaf_composition", value.value);
               }}
+              options={speciesEnums.leafComposition}
             />
           </div>
         </TabsContent>
@@ -348,11 +423,9 @@ const DashboardSpeciePage = () => {
               placeholder="No determinado"
               isClearable={false}
               isSearchable={false}
-              value={speciesParams.fruitType}
               options={speciesEnums.fruitType}
-              onChange={(value: any) => {
-                speciesParams.fruitType = value;
-                setSpeciesParams({ ...speciesParams });
+              onChange={(value) => {
+                if (value !== null) setValue("seeds.fruitType", value.value);
               }}
             />
             <Label>Sistema de dispercion de frutos</Label>
@@ -362,38 +435,28 @@ const DashboardSpeciePage = () => {
               placeholder="No determinado"
               isClearable={false}
               isSearchable={false}
-              value={speciesParams.dispersalSystem}
               options={speciesEnums.dispersalValues}
-              onChange={(value: any) => {
-                speciesParams.dispersalSystem = value;
-                setSpeciesParams({ ...speciesParams });
+              onChange={(value) => {
+                if (value !== null)
+                  setValue("seeds.dispersal_system", value.value);
               }}
             />
-            <InputField
-              onChange={(value: any) => {
-                speciesParams.fruitAttributes = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+            <Label>Atributos de fruto</Label>
+            <Input
               id="fruit_attributes"
-              label="Atributos de fruto"
               placeholder="Ingrese los atributos de fruto de la especie"
+              {...register("seeds.fruit_attributes")}
             />
-            <InputField
-              onChange={(value: any) => {
-                speciesParams.seedAttributes = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+            <Label>Atributos de semilla</Label>
+            <Input
               id="seed_attributes"
-              label="Atributos de la semilla"
+              {...register("seeds.seed_attributes")}
               placeholder="Ingrese los atributos de la semilla de la especie"
             />
-            <InputField
-              onChange={(value: any) => {
-                speciesParams.fruitingMonths = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+            <Label>Meses de fructificación</Label>
+            <Input
+              {...register("seeds.fruiting_months")}
               id="fruiting_months"
-              label="Meses de fructificación"
               placeholder="Ingrese los meses de fructificación de la especie"
             />
           </div>
@@ -404,97 +467,94 @@ const DashboardSpeciePage = () => {
             <Select
               id="altitudinal_range"
               className="text-mds"
-              placeholder="No determinado"
+              placeholder="Seleccione el rango altitudinal de la especie"
+              onChange={(value) => {
+                if (value !== null)
+                  setValue("ecology.altitudinal_range", value.value);
+              }}
               isClearable={false}
               isSearchable={false}
-              value={speciesParams.altitudinalRange}
               options={speciesEnums.altitudeRange}
-              onChange={(value: any) => {
-                speciesParams.altitudinalRange = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
             />
-            <InputField
-              onChange={(value: any) => {
-                speciesParams.geoDistribution = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+            <Label>Distribucion geografica</Label>
+            <Input
               id="geo_distribution"
-              label="Distribución geografica"
+              {...register("ecology.geo_distribution")}
               placeholder="Ingrese la distribución geografica de la especie"
             />
             <Label>Origen</Label>
             <Select
               id="origin"
               className="text-mds"
-              placeholder="No determinado"
+              placeholder="Seleccione el origen de la especie"
+              onChange={(value) => {
+                if (value !== null) setValue("ecology.origin", value.value);
+              }}
               isClearable={false}
               isSearchable={false}
-              value={speciesParams.origin}
               options={speciesEnums.origin}
-              onChange={(value: any) => {
-                speciesParams.origin = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
             />
             <Label>Estado de conservación</Label>
             <Select
               id="conservation_status"
               className="text-mds"
-              placeholder="No determinado"
+              placeholder="Seleccione el estado de conservacion de la especie"
               isClearable={false}
               isSearchable={false}
-              value={speciesParams.conservationStatus}
-              options={speciesEnums.conservationStatus}
-              onChange={(value: any) => {
-                speciesParams.conservationStatus = value;
-                setSpeciesParams({ ...speciesParams });
+              onChange={(value) => {
+                if (value !== null)
+                  setValue("ecology.conservation_status", value.value);
               }}
+              options={speciesEnums.conservationStatus}
             />
             <Label>Atraccion de fauna</Label>
             <Select
               id="fauna_attraction"
               className="text-mds"
-              placeholder="No determinado"
+              placeholder="Seleccione nivel de atraccion de fauna"
               isClearable={false}
               isSearchable={false}
-              value={speciesParams.faunaAttraction}
               options={speciesEnums.faunaAtraction}
-              onChange={(value: any) => {
-                speciesParams.faunaAttraction = value;
-                setSpeciesParams({ ...speciesParams });
+              onChange={(value) => {
+                if (value !== null)
+                  setValue("ecology.fauna_attraction", value.value);
               }}
             />
-            <InputField
-              onChange={(value: any) => {
-                speciesParams.associatedFauna = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+            <Label>Fauna asociada</Label>
+            <Input
               id="associated_fauna"
-              label="Fauna Asociada"
-              placeholder="Ingrese la fauna asociada de la especie"
+              {...register("ecology.associated_fauna")}
+              placeholder="Ej: Perro,Gato,Pajaro,etc"
             />
           </div>
         </TabsContent>
         <TabsContent value="etnobotanic" className="w-full mx-auto px-8">
           <div className="input-fields-container">
-            <InputField
-              onChange={(value: any) => {
-                speciesParams.useDetail = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+            <Label>Categoria de uso</Label>
+            <Select
+              isMulti
               id="category"
-              label="Categoria"
-              placeholder="Ingrese aqui la categoria de la especie"
-            />
-            <InputField
-              onChange={(value: any) => {
-                speciesParams.useDetail = value;
-                setSpeciesParams({ ...speciesParams });
+              options={speciesEnums.useCategoryValues}
+              isClearable={false}
+              isSearchable={false}
+              classNamePrefix="select"
+              className="basic-multi-select text-mds"
+              onChange={(valueArr) => {
+                if (valueArr !== null && valueArr.length > 0) {
+                  const values: string[] = [];
+                  valueArr.forEach((value) => {
+                    values.push(value.value);
+                  });
+                  setValue("ethnobotany.category", values.join(","));
+                }
               }}
+              placeholder="Ingrese la categoria de la especie"
+            />
+            <Label>Detalle de uso</Label>
+            <Input
               id="use_detail"
-              label="detalle de uso"
-              placeholder="Ingrese aqui el detalle de uso de la especie"
+              {...register("ethnobotany.use_detail")}
+              placeholder="Ingrese el detalle de uso de la especie"
             />
           </div>
         </TabsContent>
@@ -507,70 +567,78 @@ const DashboardSpeciePage = () => {
               classNamePrefix="select"
               className="basic-multi-select text-mds"
               options={speciesEnums.publicUseValues}
-              onChange={(value) => {
-                speciesParams.publicSpaceUse = "";
-                value.forEach((value) => {
-                  if (value.value !== undefined) {
-                    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-                    speciesParams.publicSpaceUse += value.value + ",";
-                  }
-                });
-                setSpeciesParams({ ...speciesParams });
-              }}
               isClearable={false}
               isSearchable={false}
-              placeholder="Escoga una opcion"
+              onChange={(valueArr) => {
+                if (valueArr !== null && valueArr.length > 0) {
+                  const values: string[] = [];
+                  valueArr.forEach((value) => {
+                    values.push(value.value);
+                  });
+                  setValue("arboriculture.public_spaceUse", values.join(","));
+                }
+              }}
+              placeholder="Escoga categorias de uso de la especie"
             />
             <Label>Limitaciones florales</Label>
             <Select
+              isMulti
               id="flower_limitations"
               className="text-mds"
               options={speciesEnums.limitFloralValues}
-              placeholder="No determinado"
-              value={speciesParams.flowerLimitations}
+              placeholder="Selecciona limitaciones florales de la especie"
               isClearable={false}
               isSearchable={false}
-              onChange={(value: any) => {
-                speciesParams.flowerLimitations = value;
-                setSpeciesParams({ ...speciesParams });
+              onChange={(valueArr) => {
+                if (valueArr !== null && valueArr.length > 0) {
+                  const values: string[] = [];
+                  valueArr.forEach((value) => {
+                    values.push(value.value);
+                  });
+                  setValue(
+                    "arboriculture.flower_limitations",
+                    values.join(",")
+                  );
+                }
               }}
             />
             <Label>Limitaciones frutales</Label>
             <Select
+              isMulti
               id="frutal_limitations"
               className="text-mds"
               options={speciesEnums.limitFrutoValues}
-              value={speciesParams.fruitLimitations}
-              placeholder="No determinado"
+              placeholder="Selecciona limitaciones florales de la especie"
+              onChange={(valueArr) => {
+                if (valueArr !== null && valueArr.length > 0) {
+                  const values: string[] = [];
+                  valueArr.forEach((value) => {
+                    values.push(value.value);
+                  });
+                  setValue("arboriculture.fruit_limitations", values.join(","));
+                }
+              }}
               isClearable={false}
               isSearchable={false}
-              onChange={(value: any) => {
-                speciesParams.fruitLimitations = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
             />
             <Label>Longevidad</Label>
             <Select
               id="longevity"
               options={speciesEnums.longevity}
               className="text-mds"
-              value={speciesParams.longevity}
-              placeholder="No determinado"
+              placeholder="Seleccione la longevidad de la especie"
               isClearable={false}
               isSearchable={false}
-              onChange={(value: any) => {
-                speciesParams.longevity = value;
-                setSpeciesParams({ ...speciesParams });
+              onChange={(value) => {
+                if (value !== null)
+                  setValue("arboriculture.longevity", value.value);
               }}
             />
-            <InputField
-              onChange={(value: any) => {
-                speciesParams.pestsDiseases = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+            <Label>Plagas y enfermedades</Label>
+            <Input
               id="name"
-              label="Plagas y enfermedades"
               placeholder="Ingrese las plagas y enfermedades de la especie"
+              {...register("arboriculture.pests_diseases")}
             />
 
             <Label>Tasa Crecimiento</Label>
@@ -578,71 +646,72 @@ const DashboardSpeciePage = () => {
               id="growth_rate"
               options={speciesEnums.growthRate}
               className="text-mds"
-              value={speciesParams.growthRate}
-              placeholder="No determinado"
+              placeholder="Seleccione tasa de crecimiento de la especie"
+              onChange={(value) => {
+                if (value !== null)
+                  setValue("arboriculture.growth_rate", value.value);
+              }}
               isClearable={false}
               isSearchable={false}
-              onChange={(value: any) => {
-                speciesParams.growthRate = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
             />
             <Label>Requerimientos de luz</Label>
             <Select
               id="light_requirement"
               options={speciesEnums.lightRequirement}
               className="text-mds"
-              value={speciesParams.lightRequirements}
-              placeholder="No determinado"
+              placeholder="Seleccione requerimientos luminosos de la especie"
+              onChange={(value) => {
+                if (value !== null)
+                  setValue("arboriculture.light_requirements", value.value);
+              }}
               isClearable={false}
               isSearchable={false}
-              onChange={(value: any) => {
-                speciesParams.lightRequirements = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
             />
-            <Label>Rango de altura</Label>
-            <Select
-              id="crown_width"
-              options={speciesEnums.heightValues}
+            <Label>Altura maxima</Label>
+            <Input
+              id="maximum_height"
+              type="number"
+              step={0.01}
+              defaultValue={0}
+              min={0}
               className="text-mds"
-              value={speciesParams.maximumHeight}
-              placeholder="No determinado"
-              isClearable={false}
-              isSearchable={false}
-              onChange={(value: any) => {
-                speciesParams.maximumHeight = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+              placeholder="Ingrese la altura maxima de la especie"
+              {...register("arboriculture.maximum_height")}
             />
-
-            <Label>Rango de amplitud de la copa</Label>
-            <Select
+            <Label>Ancho de amplitud de la copa</Label>
+            <Input
               id="crown_width"
-              options={speciesEnums.crownWidthValues}
+              type="number"
+              step={0.01}
+              defaultValue={0}
+              min={0}
               className="text-mds"
-              value={speciesParams.crownWidth}
-              placeholder="No determinado"
-              isClearable={false}
-              isSearchable={false}
-              onChange={(value: any) => {
-                speciesParams.crownWidth = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
+              placeholder="Ingrese el ancho de la amplitud de copa de la especie"
+              {...register("arboriculture.crown_width")}
+            />
+            <Label>DAP</Label>
+            <Input
+              id="dap"
+              type="number"
+              step={0.01}
+              defaultValue={0}
+              min={0}
+              className="text-mds"
+              placeholder="Ingrese el DAP de la especie"
+              {...register("arboriculture.DAP")}
             />
             <Label>Forma de copa</Label>
             <Select
               id="crown_shape"
               options={speciesEnums.crownShapeValues}
               className="text-mds"
-              value={speciesParams.crownShape}
-              placeholder="No determinado"
+              placeholder="Seleccione la forma de la copa de la especie"
+              onChange={(value) => {
+                if (value !== null)
+                  setValue("arboriculture.crown_shape", value.value);
+              }}
               isClearable={false}
               isSearchable={false}
-              onChange={(value: any) => {
-                speciesParams.crownShape = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
             />
 
             <Label>Densidad de follaje</Label>
@@ -650,84 +719,96 @@ const DashboardSpeciePage = () => {
               id="foliage_density"
               options={speciesEnums.priorityLevel}
               className="text-mds"
-              value={speciesParams.foliageDensity}
-              placeholder="No determinado"
+              placeholder="Indique el nivel de foleaje"
+              onChange={(value) => {
+                if (value != null)
+                  setValue("arboriculture.foliage_density", value.value);
+              }}
               isClearable={false}
               isSearchable={false}
-              onChange={(value: any) => {
-                speciesParams.foliageDensity = value;
-                setSpeciesParams({ ...speciesParams });
-              }}
             />
-
-            <InputField
-              onChange={(value: any) => {
-                speciesParams.soilType = value;
-                setSpeciesParams({ ...speciesParams });
+            <Label>Tipo de suelo</Label>
+            <Select
+              options={speciesEnums.soilTypes}
+              className="text-mds"
+              placeholder="Indique el tipo de suelo para la especie"
+              onChange={(value) => {
+                if (value != null)
+                  setValue("arboriculture.soil_type", value.value);
               }}
-              id="name"
-              label="Tipo de suelo"
-              placeholder="Ingrese el tipo del suelo de la especie"
+              isClearable={false}
+              isSearchable={false}
             />
-
             <Label>Humedad de la zona</Label>
             <Select
               id="humidity_zone"
               options={speciesEnums.humidityValues}
               className="text-mds"
-              value={speciesParams.humidityZone}
-              placeholder="No determinado"
+              placeholder="Indique la humedad requerida para la especie"
               isClearable={false}
               isSearchable={false}
-              onChange={(value: any) => {
-                speciesParams.humidityZone = value;
-                setSpeciesParams({ ...speciesParams });
+              onChange={(value) => {
+                if (value != null)
+                  setValue("arboriculture.humidity_zone", value.value);
               }}
             />
           </div>
         </TabsContent>
         <TabsContent value="images" className="w-full mx-auto px-8">
           <div className="input-fields-container">
-            <FileInputField
+            <Label>Presentacion</Label>
+            <Input
               id="presentation_url"
-              label="foto presentación"
-              placeholder="Ingrese aqui la foto de la presentación de la especie"
+              type="file"
+              {...register("images.presentation_url")}
+              placeholder="Ingrese imagen de presentación de la especie"
             />
-            <FileInputField
+            <Label>Fruto</Label>
+            <Input
               id="fruit_url"
-              label="Foto de fruto"
-              placeholder="Ingrese aqui la foto de la presentación de la especie"
+              type="file"
+              {...register("images.fruit_url")}
+              placeholder="Ingrese imagen de fruto de la especie"
             />
-            <FileInputField
+            <Label>Flor</Label>
+            <Input
               id="flower_url"
-              label="Foto de la flor"
-              placeholder="Ingrese foto de la flor de la especie"
+              type="file"
+              {...register("images.flower_url")}
+              placeholder="Ingrese imagen de flor de la especie"
             />
-
-            <FileInputField
+            <Label>Detalle de flor</Label>
+            <Input
               id="detailFlower_url"
-              label="Foto de detalle de la flor"
-              placeholder="Ingrese foto del detalle de la flor de la especie"
+              type="file"
+              {...register("images.detailFlower_url")}
+              placeholder="Ingrese imagen de detalle de flor de la especie"
             />
-            <FileInputField
+            <Label>Hoja</Label>
+            <Input
               id="leaf_url"
-              label="Foto de la hoja"
-              placeholder="Ingrese foto de la hoja de la especie"
+              type="file"
+              {...register("images.leaf_url")}
+              placeholder="Ingrese imagen de hoja de la especie"
             />
-            <FileInputField
+            <Label>Corteza</Label>
+            <Input
               id="bark_url"
-              label="Foto Corteza"
-              placeholder="Ingrese aqui la foto de corteza de la especie"
+              type="file"
+              {...register("images.bark_url")}
+              placeholder="Ingrese imagen de corteza de la especie"
             />
-            <FileInputField
+            <Label>Semilla</Label>
+            <Input
               id="seed_url"
-              label="Foto de semilla"
-              placeholder="Ingrese aqui la foto de la semilla de la especie"
+              type="file"
+              {...register("images.seed_url")}
+              placeholder="Ingrese imagen de semilla de la especie"
             />
           </div>
         </TabsContent>
       </Tabs>
-    </form>
+    </div>
   );
 };
 export default DashboardSpeciePage;

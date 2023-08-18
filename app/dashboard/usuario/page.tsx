@@ -96,7 +96,7 @@ const DashboardUserPage = () => {
               {errors.email.message?.toString()}
             </p>
           )}
-          <div className="select-upload-field" id="fileUpload">
+          <div className="select-upload-field">
             <Label>Rol</Label>
             <Select
               id="userRole"

@@ -35,17 +35,29 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
   const { id } = await request.json();
   const deletedUser = await prisma.user.delete({
-    where: { id: String(id) },
+    where: { id },
   });
 
   return NextResponse.json(deletedUser);
 }
 
-export async function GET(request: any) {
-  const { id } = request.params;
-  const user = await prisma.user.findUnique({
-    where: { id: String(id) },
-  });
-
-  return NextResponse.json(user);
+export async function GET(request: Request) {
+  const { id } = await request.json();
+  await prisma.user
+    .findUnique({
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        userRole: true,
+      },
+      where: { id },
+    })
+    .then((user) => {
+      return NextResponse.json(user);
+    })
+    .catch((err) => {
+      console.log(err);
+      return NextResponse.error();
+    });
 }

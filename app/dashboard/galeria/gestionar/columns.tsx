@@ -3,7 +3,6 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { CellActionGallery } from "./cell-action";
 export interface GallerySpecie {
   [x: string]: any;
-
   name: string;
   family: string;
   isInGallery: boolean;

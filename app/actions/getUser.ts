@@ -20,6 +20,12 @@ export default async function getUser(params: IUserParams) {
 
     const users = await prisma.user
       .findMany({
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          userRole: true,
+        },
         where: query,
         orderBy: {
           name: "asc",
