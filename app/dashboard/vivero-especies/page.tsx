@@ -14,7 +14,7 @@ import {
 import axios from "axios";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-hot-toast";
-export function DashboardViverosPage() {
+export function DashboardNurserySpeciesPage() {
   const {
     register,
     handleSubmit,
@@ -208,4 +208,4 @@ export function DashboardViverosPage() {
   );
 }
 
-export default DashboardViverosPage;
+export default DashboardNurserySpeciesPage;

@@ -15,8 +15,8 @@ import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import Select from "react-select";
 
-export function UserEditForm({ id }: { id: string }) {
-  /*    let dataToInput = {
+export function NurseryEditForm({ id }: { id: string }) {
+  /* let dataToInput = {
     name:"",
     email:"",
     userRole:"",
@@ -31,8 +31,8 @@ export function UserEditForm({ id }: { id: string }) {
       userRole: data.userRole
     };
 
-  }; */
-
+  };
+ */
   const router = useRouter();
   const {
     register,

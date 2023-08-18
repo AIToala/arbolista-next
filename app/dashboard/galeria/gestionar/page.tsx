@@ -21,6 +21,26 @@ export default async function GalleryPage() {
     isInGallery: item.isInGallery,
     conservationStatus: item.conservationStatus,
   }));
+  async function updateIsInGalleryInDB(id: string, isInGallery: boolean) {
+    try {
+      const response = await fetch("/api/species/route", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id,
+          isInGallery,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update isInGallery");
+      }
+    } catch (error) {
+      console.error("Error updating isInGallery:", error);
+    }
+  }
 
   return (
     <div className="flex flex-col w-full mx-4 !my-2 items-start h-full">

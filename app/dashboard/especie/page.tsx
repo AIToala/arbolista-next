@@ -7,17 +7,6 @@ import {
 } from "@/app/components/ui/tabs";
 
 import { type ISpeciesParams } from "@/app/actions/getSpecies";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/app/components/ui/alert-dialog";
 import { Button } from "@/app/components/ui/button";
 import { Label } from "@/app/components/ui/label";
 import { speciesEnums } from "@/app/types/index";
@@ -25,30 +14,13 @@ import { useState } from "react";
 import Select from "react-select";
 import { FileInputField, InputField, TextAreaField } from "../inputs";
 
-const DashboardEspeciePage = () => {
+const DashboardSpeciePage = () => {
   const [taxonomyParams, setTaxonomyParams] = useState<ISpeciesParams>({});
   const [speciesParams, setSpeciesParams] = useState<ISpeciesParams>({});
   return (
-    <div className="flex flex-col w-full ">
+    <form className="flex flex-col w-full ">
       <div className="w-full mt-[20px]  flex justify-end mr-[100px] p-10">
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button>Agregar especie</Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Deseas continuar?</AlertDialogTitle>
-              <AlertDialogDescription>
-                Una vez seleccionada la opción (Enviar) los datos seran
-                guardados dentro del sistema
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Cancelar</AlertDialogCancel>
-              <AlertDialogAction>Enviar</AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <Button type="submit">Agregar especie</Button>
       </div>
       <Tabs
         defaultValue="taxonomy"
@@ -755,7 +727,7 @@ const DashboardEspeciePage = () => {
           </div>
         </TabsContent>
       </Tabs>
-    </div>
+    </form>
   );
 };
-export default DashboardEspeciePage;
+export default DashboardSpeciePage;

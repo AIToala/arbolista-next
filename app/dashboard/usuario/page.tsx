@@ -17,7 +17,7 @@ import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import Select from "react-select";
 
-const DashboardUsuarioPage = () => {
+const DashboardUserPage = () => {
   const router = useRouter();
 
   const {
@@ -184,4 +184,4 @@ const DashboardUsuarioPage = () => {
   );
 };
 
-export default DashboardUsuarioPage;
+export default DashboardUserPage;

@@ -8,6 +8,7 @@ import { type IconType } from "react-icons";
 import { FaUserAlt } from "react-icons/fa";
 import { GiPlantsAndAnimals } from "react-icons/gi";
 import { RiHome2Fill, RiPlantFill } from "react-icons/ri";
+import { PiPottedPlantBold } from "react-icons/pi";
 import { TfiGallery } from "react-icons/tfi";
 
 interface SidebarProps {
@@ -86,7 +87,7 @@ const SidebarC: React.FC<SidebarProps> = ({ currentUser }) => {
                 {generateSidebarCollapse(
                   "Viveros",
                   GiPlantsAndAnimals,
-                  "/dashboard/viveros",
+                  "/dashboard/vivero",
                   router
                 )}
                 {generateOneSidebarCollapse(
@@ -95,6 +96,19 @@ const SidebarC: React.FC<SidebarProps> = ({ currentUser }) => {
                   "/dashboard/viveros",
                   router
                 )}
+                <Sidebar.Collapse
+                  label="Especies de vivero"
+                  icon={PiPottedPlantBold}
+                >
+                  <Sidebar.Item
+                    onClick={() => {
+                      router.push(`/dashboard/vivero-especies/gestionar`);
+                    }}
+                    href={`/dashboard/vivero-especies/gestionar`}
+                  >
+                    Gestionar especies del vivero
+                  </Sidebar.Item>
+                </Sidebar.Collapse>
               </>
             )}
             {(currentUser?.userRole === "ADMIN" ||
@@ -110,12 +124,27 @@ const SidebarC: React.FC<SidebarProps> = ({ currentUser }) => {
             )}
             {currentUser?.userRole === "NURSERY_ADMIN" && (
               <>
-                {generateSidebarCollapse(
-                  "Viveros",
-                  GiPlantsAndAnimals,
-                  "/dashboard/vivero",
-                  router
-                )}
+                <Sidebar.Collapse
+                  label="Especies de vivero"
+                  icon={PiPottedPlantBold}
+                >
+                  <Sidebar.Item
+                    onClick={() => {
+                      router.push("/dashboard/vivero-especies");
+                    }}
+                    href="/dashboard/vivero-especies"
+                  >
+                    Agregar especies en el vivero
+                  </Sidebar.Item>
+                  <Sidebar.Item
+                    onClick={() => {
+                      router.push(`/dashboard/vivero-especies/gestionar`);
+                    }}
+                    href={`/dashboard/vivero-especies/gestionar`}
+                  >
+                    Gestionar especies del vivero
+                  </Sidebar.Item>
+                </Sidebar.Collapse>
               </>
             )}
             <Sidebar.Item href="/home" icon={RiHome2Fill}>
