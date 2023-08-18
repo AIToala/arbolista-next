@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { columns, type SpecieColumns } from "./columns";
-import { DataTable } from "../../../components/data-table";
 import getEspeciesForTable, {
   type ISpeciesParams,
 } from "@/app/actions/getSpeciesForTable";
+import { DataTable } from "../../../components/data-table";
+import { columns, type SpecieColumns } from "./columns";
 
-export default async function UserPage() {
+export default async function EspeciePage() {
   interface EspeciesProps {
     searchParams: ISpeciesParams;
   }
@@ -18,6 +18,7 @@ export default async function UserPage() {
   const cleanedData: SpecieColumns[] = data.map((item) => ({
     id: item.id,
     name: item.name,
+    availables_status: item.availables_status,
     family: item.taxonomy.family.family,
     commonNames: item.taxonomy.common_names,
   }));

@@ -4,7 +4,8 @@ import { CellActionEspecies } from "./cell-action";
 
 export interface SpecieColumns {
   [x: string]: any;
-
+  id: string;
+  availables_status: boolean;
   name: string;
   family: string;
   commonNames: string;

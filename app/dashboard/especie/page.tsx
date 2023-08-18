@@ -11,100 +11,12 @@ import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { Textarea } from "@/app/components/ui/textarea";
-import { speciesEnums } from "@/app/types/index";
+import { speciesEnums, type FormData } from "@/app/types/index";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import Select from "react-select";
-
-interface FormData {
-  taxonomy: {
-    family: string;
-    familyId: string;
-    familyDescription: string;
-    genus: string;
-    tSpecies: string;
-    subspecies: string;
-    variety: string;
-    author: string;
-    etymology: string;
-    common_names: string;
-    growth_habit: string;
-    bibliography: string;
-    synonyms: string;
-    synonymsId: string;
-    bibliographyId: string;
-  };
-  images: {
-    presentation_url: string;
-    fruit_url: string;
-    leaf_url: string;
-    flower_url: string;
-    detailFlower_url: string;
-    bark_url: string;
-    seed_url: string;
-  };
-  arboriculture: {
-    public_spaceUse: string;
-    flower_limitations: string;
-    fruit_limitations: string;
-    longevity: string;
-    pests_diseases: string;
-    light_requirements: string;
-    growth_rate: string;
-    maximum_height: number;
-    crown_width: number;
-    crown_shape: string;
-    DAP: number;
-    foliage_density: string;
-    soil_type: string;
-    humidity_zone: string;
-  };
-  stalk: {
-    bark_attributes: string;
-    barkColor: string;
-  };
-  seeds: {
-    fruitType: string;
-    dispersal_system: string;
-    fruit_attributes: string;
-    seed_attributes: string;
-    fruiting_months: string;
-  };
-  root: {
-    reproduction_form: string;
-    root_attributes: string;
-    rooting_type: string;
-  };
-  leaf: {
-    leaf_attributes: string;
-    leaf_persistence: string;
-    stemLeaf_position: string;
-    leaf_composition: string;
-  };
-  flower: {
-    floral_attributes: string;
-    flower_color: string;
-    flower_arrangement: string;
-    flowering_season: string;
-    flowering_months: string;
-    pollination_system: string;
-  };
-  ethnobotany: {
-    category: string;
-    use_detail: string;
-  };
-  ecology: {
-    altitudinal_range: string;
-    geo_distribution: string;
-    origin: string;
-    conservation_status: string;
-    fauna_attraction: string;
-    associated_fauna: string;
-    associatedFaunaId: string;
-  };
-}
 
 const DashboardSpeciePage = () => {
   const router = useRouter();

@@ -16,7 +16,7 @@ const UserEditPage = async ({ params }: { params: IParams }) => {
           showReset
           title="Usuario no existe"
           subtitle="Retorna al dashboard."
-          urlAction="/dashboard/gestionar"
+          urlAction="/dashboard/usuario/gestionar"
         />
       </ClientOnly>
     );
