@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-const-assign */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
@@ -5,19 +7,35 @@
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
+import Select from "react-select";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/app/components/ui/tabs";
+
 import axios from "axios";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import { useState } from "react";
 export function DashboardNurseryPage() {
+  const [users, setUsers] = useState<Array<string | null>>([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  /*  const loadUsers = async () => {
+    if (!isLoaded) {
+      const response = await fetch('/api/nurseries');
+      const fetchedUsers = await response.json();
+      setUsers(fetchedUsers);
+      setIsLoaded(true);
+    }
+  }; */
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
@@ -30,19 +48,28 @@ export function DashboardNurseryPage() {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    axios
-      .post("/api/register", data)
-      .then((response) => {
-        toast.success("Usuario creado con exito");
-      })
-      .catch((e) => {
-        toast.error("Hubo un error al momento de crear el usuario");
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    try {
+      const imageResult = await axios.post("/api/images", {
+        imagePath: data.logoSrc,
       });
+      const imageUrl = imageResult.data.url;
+      const formData = { ...data, logoSrc: imageUrl };
+      axios
+        .post("/api/viveros", formData)
+        .then((response) => {
+          toast.success("Usuario creado con exito");
+        })
+        .catch((e) => {
+          toast.error("Hubo un error al momento de crear el usuario");
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
   const checkFileSize = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    const size = 2000000;
+    const size = 1000000;
     let err = "";
 
     if (files) {
@@ -75,26 +102,25 @@ export function DashboardNurseryPage() {
         <div className="input-fields-container">
           <label>Dueño</label>
           {/* <Select
-              id="owner"
-              value={nurseries.userRole.find(
-                (option) => option.value === selectedRole
-              )}
-              onChange={(selectedOption) => {
-                if (selectedOption !== null)
-                  setSelectedRole(selectedOption.value);
-                setValue("userRole", selectedOption?.value);
-              }}
-              className={
-                selectedRole === ""
-                  ? "border border-red-500 text-red"
-                  : "border border-input"
-              }
-              placeholder="Seleccione el rol del usuario"
-              isClearable={false}
-              isSearchable={false}
-              options={nurseries.userRole}
-              required
-            /> */}
+            id="owner"
+            value={selectedUser} // This should be the currently selected user
+            onChange={(selectedOption) => {
+              if (selectedOption !== null)
+                setSelectedUser(selectedOption); // Update the selected user
+              setValue("owner", selectedOption);
+            }}
+            className={
+              users.length === 0
+                ? "border border-red-500 text-red"
+                : "border border-input"
+            }
+            placeholder="Seleccione el dueño"
+            isClearable={false}
+            isSearchable={false}
+            onFocus={loadUsers}
+            required
+          />  */}
+
           <label>Nombre</label>
           <Input
             id="name"
