@@ -55,10 +55,9 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({ data }) => {
                       className="object-cover h-full w-full group-hover:scale-110 transition"
                       alt={"especie"}
                       src={
-                        result.images.presentation_url === "No determinado"
+                        result.images?.presentation_url === "No determinado"
                           ? "/images/logos/fngye-logo-item.png"
-                          : result.images.presentation_url ??
-                            "/images/logos/fngye-logo-item.png"
+                          : result.images?.presentation_url
                       }
                     />
                   </div>
@@ -104,10 +103,9 @@ const TabEspecies: React.FC<TabEspeciesProps> = ({ data }) => {
                   <TableCell>
                     <Image
                       src={
-                        result.images.presentation_url === "No determinado"
+                        result.images?.presentation_url === "No determinado"
                           ? "/images/logos/fngye-logo-item.png"
-                          : result.images.presentation_url ??
-                            "/images/logos/fngye-logo-item.png"
+                          : result.images?.presentation_url
                       }
                       alt={result.name}
                       width={175}

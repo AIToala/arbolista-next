@@ -167,7 +167,17 @@ export async function POST(request: Request) {
               seed_url: images.seed_url,
             },
           }
-        : {},
+        : {
+            create: {
+              presentation_url: "No determinado",
+              fruit_url: "No determinado",
+              leaf_url: "No determinado",
+              flower_url: "No determinado",
+              detailFlower_url: "No determinado",
+              bark_url: "No determinado",
+              seed_url: "No determinado",
+            },
+          },
     arboriculture:
       Object.keys(arboriculture).length > 0
         ? {

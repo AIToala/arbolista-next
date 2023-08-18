@@ -1,5 +1,4 @@
 "use client";
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
@@ -8,24 +7,17 @@ import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { speciesEnums } from "@/app/types/index";
-import axios, { type AxiosResponse } from "axios";
-import { get } from "http";
+import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import Select from "react-select";
 
-export function UserEditForm({ id }: { id: string }) {
-  const fetchUserData = async () => {
-    const response: AxiosResponse<any> = await axios.get(`/api/users/`, {
-      params: { id },
-    });
-    const data = response.data;
-    return data;
-  };
-  const [userData, setUserData] = useState(fetchUserData());
-  console.log(userData);
+interface UserEditFormProps {
+  userData: any;
+}
+
+const UserEditForm: React.FC<UserEditFormProps> = ({ userData }) => {
   const router = useRouter();
   const {
     register,
@@ -33,18 +25,32 @@ export function UserEditForm({ id }: { id: string }) {
     getValues,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm<FieldValues>({
+    defaultValues: {
+      id: userData.id,
+      name: userData.name,
+      email: userData.email,
+      password: "",
+      passwordConf: "",
+    },
+  });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
     try {
-      const response: AxiosResponse<any> = await axios.put(`/api/users/`, {
-        id,
-        name: data.name,
-        email: data.email,
-        userRole: data.userRole,
-        password: data.password,
-        passwordConf: data.passwordConf,
-      });
+      await axios.put(
+        `/api/users/`,
+        {
+          id: data.id,
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       toast.success("Usuario actualizado con éxito");
       router.push("/dashboard");
     } catch (error) {
@@ -60,7 +66,6 @@ export function UserEditForm({ id }: { id: string }) {
       <Label className="mt-5">Nombre Completo</Label>
       <Input
         id="name"
-        value={getValues("name")}
         placeholder="Ingrese los nombres completos del usuario"
         {...register("name")}
       />
@@ -74,7 +79,6 @@ export function UserEditForm({ id }: { id: string }) {
       <Input
         id="email"
         placeholder="Ingrese el correo del usuario"
-        value={getValues("email")}
         {...register("email", {
           pattern: {
             value: /^\S+@\S+$/i,
@@ -87,17 +91,19 @@ export function UserEditForm({ id }: { id: string }) {
           {errors.email.message as string}
         </p>
       )}
-      <div className="w-full">
+      <div className="w-full hidden">
         <Label className="mt-5">Rol</Label>
         <Select
           id="userRole"
-          value={getValues("userRole")}
-          onChange={(selectedOption) => {
-            if (selectedOption !== null)
-              setValue("userRole", selectedOption?.value);
+          isSearchable={false}
+          isClearable={false}
+          onChange={(selectedOption: any) => {
+            if (selectedOption?.value !== undefined)
+              setValue("userRole", selectedOption.value || null);
           }}
           placeholder="Seleccione el rol del usuario"
           options={speciesEnums.userRole}
+          isDisabled={true}
         />
       </div>
       <Label className="mt-5">Contraseña</Label>
@@ -143,4 +149,6 @@ export function UserEditForm({ id }: { id: string }) {
       </div>
     </form>
   );
-}
+};
+
+export default UserEditForm;

@@ -17,19 +17,26 @@ export async function POST(request: Request) {
 }
 
 export async function PUT(request: Request) {
-  const { id, email, name, password, userRole } = await request.json();
-  const hashedPassword = await bcryptjs.hash(password, 12);
-  const updatedUser = await prisma.user.update({
-    where: { id: String(id) },
-    data: {
-      email,
-      name,
-      hashedPassword,
-      userRole,
-    },
-  });
-
-  return NextResponse.json(updatedUser);
+  try {
+    const { id, email, name, password } = await request.json();
+    const updatedData: {
+      email?: string;
+      name?: string;
+      hashedPassword?: string;
+    } = { email, name };
+    if (password !== null && password !== undefined && password !== "") {
+      const hashedPassword = await bcryptjs.hash(password, 12);
+      updatedData.hashedPassword = hashedPassword;
+    }
+    const updatedUser = await prisma.user.update({
+      where: { id },
+      data: updatedData,
+    });
+    return NextResponse.json(updatedUser);
+  } catch (err) {
+    console.log(err);
+    return NextResponse.error();
+  }
 }
 
 export async function DELETE(request: Request) {
@@ -43,6 +50,7 @@ export async function DELETE(request: Request) {
 
 export async function GET(request: Request) {
   const { id } = await request.json();
+  console.log(id, "hi");
   await prisma.user
     .findUnique({
       select: {

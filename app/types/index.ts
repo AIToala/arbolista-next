@@ -61,7 +61,7 @@ export const speciesEnums = {
         value === "NURSERY_ADMIN"
           ? "Viverista"
           : value === "SPECIES_ADMIN"
-          ? "Biólogo"
+          ? "Botánico"
           : "No determinado",
     })),
   conservationStatus: Object.values(ConservationStatus).map((value) => ({
