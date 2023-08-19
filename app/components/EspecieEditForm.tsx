@@ -23,6 +23,7 @@ interface EspecieEditFormProps {
 
 const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
   const router = useRouter();
+  console.log(speciesData);
   const {
     register,
     handleSubmit,
@@ -42,34 +43,83 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
         tSpecies: speciesData.taxonomy.tSpecies,
         subspecies: speciesData.taxonomy.subspecies,
         variety: speciesData.taxonomy.variety,
-        bibliography:
-          speciesData.taxonomy.bibliography.authors +
-          "," +
-          speciesData.taxonomy.bibliography.publication_year +
-          "," +
-          speciesData.taxonomy.bibliography.title +
-          "," +
-          speciesData.taxonomy.bibliography.journal_name +
-          "," +
-          speciesData.taxonomy.bibliography.DOI_URL,
+        bibliography: speciesData.taxonomy.bibliography.join(";"),
         author: speciesData.taxonomy.author,
         etymology: speciesData.taxonomy.etymology,
         common_names: speciesData.taxonomy.common_names,
         growth_habit: speciesData.taxonomy.growth_habit,
         synonyms: speciesData.taxonomy.synonyms.synonyms_name,
       },
-      images: speciesData.images,
-      arboriculture: speciesData.arboriculture,
-      ecology: speciesData.ecology,
-      ethnobotany: speciesData.ethnobotany,
-      flower: speciesData.flower,
-      leaf: speciesData.leaf,
-      root: speciesData.root,
-      seeds: speciesData.seeds,
-      stalk: speciesData.stalk,
+      images: {
+        presentation_url: speciesData.images.presentation_url,
+        fruit_url: speciesData.images.fruit_url,
+        flower_url: speciesData.images.flower_url,
+        detailFlower_url: speciesData.images.detailFlower_url,
+        leaf_url: speciesData.images.leaf_url,
+        seed_url: speciesData.images.seed_url,
+        bark_url: speciesData.images.bark_url,
+      },
+      arboriculture: {
+        public_spaceUse: speciesData.arboriculture.public_spaceUse,
+        flower_limitations: speciesData.arboriculture.flower_limitations,
+        fruit_limitations: speciesData.arboriculture.fruit_limitations,
+        longevity: speciesData.arboriculture.longevity,
+        pests_diseases: speciesData.arboriculture.pests_diseases,
+        growth_rate: speciesData.arboriculture.growth_rate,
+        light_requirements: speciesData.arboriculture.light_requirements,
+        maximum_height: speciesData.arboriculture.maximum_height,
+        crown_width: speciesData.arboriculture.crown_width,
+        DAP: speciesData.arboriculture.DAP,
+        crown_shape: speciesData.arboriculture.crown_shape,
+        foliage_density: speciesData.arboriculture.foliage_density,
+        soil_type: speciesData.arboriculture.soil_type,
+        humidity_zone: speciesData.arboriculture.humidity_zone,
+      },
+      ecology: {
+        altitudinal_range: speciesData.ecology.altitudinal_range,
+        geo_distribution: speciesData.ecology.geo_distribution,
+        origin: speciesData.ecology.origin,
+        conservation_status: speciesData.ecology.conservation_status,
+        fauna_attraction: speciesData.ecology.fauna_attraction,
+        associated_fauna: speciesData.ecology.associated_fauna.fauna_name,
+      },
+      ethnobotany: {
+        category: speciesData.ethnobotany.category,
+        use_detail: speciesData.ethnobotany.use_detail,
+      },
+      flower: {
+        floral_attributes: speciesData.flower.floral_attributes,
+        flower_color: speciesData.flower.flower_color,
+        flower_arrangement: speciesData.flower.flower_arrangement,
+        pollination_system: speciesData.flower.pollination_system,
+        flowering_season: speciesData.flower.flowering_season,
+        flowering_months: speciesData.flower.flowering_months,
+      },
+      leaf: {
+        leaf_attributes: speciesData.leaf.leaf_attributes,
+        leaf_persistence: speciesData.leaf.leaf_persistence,
+        stemLeaf_position: speciesData.leaf.stemLeaf_position,
+        leaf_composition: speciesData.leaf.leaf_composition,
+      },
+      root: {
+        reproduction_form: speciesData.root.reproduction_form,
+        root_attributes: speciesData.root.root_attributes,
+        rooting_type: speciesData.root.rooting_type,
+      },
+      seeds: {
+        fruitType: speciesData.seeds.fruitType,
+        dispersal_system: speciesData.seeds.dispersal_system,
+        fruit_attributes: speciesData.seeds.fruit_attributes,
+        seed_attributes: speciesData.seeds.seed_attributes,
+        fruiting_months: speciesData.seeds.fruiting_months,
+      },
+      stalk: {
+        bark_attributes: speciesData.stalk.bark_attributes,
+        barkColor: speciesData.stalk.barkColor,
+      },
     },
   });
-  console.log(speciesData.taxonomy);
+
   const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
     try {
       data.taxonomy.synonymsId = speciesData.taxonomy.id;

@@ -20,9 +20,6 @@ export async function POST(request: Request) {
   if (taxonomy == null) {
     return NextResponse.error();
   }
-  if (taxonomy.genus == null || taxonomy.tSpecies == null) {
-    return NextResponse.error();
-  }
   for (const key in taxonomy) {
     if (
       taxonomy[key] === null ||
@@ -114,6 +111,8 @@ export async function POST(request: Request) {
       },
     });
   }
+  const bibliographyData = taxonomy.bibliography.split(";");
+
   const speciesD: Prisma.SpeciesCreateInput = {
     name: taxonomy.genus + " " + taxonomy.tSpecies,
     taxonomy: {
@@ -128,30 +127,47 @@ export async function POST(request: Request) {
         etymology: taxonomy.etymology,
         common_names: taxonomy.common_names,
         growth_habit: taxonomy.growth_habit,
-        bibliography: {
-          create: {
-            authors:
-              taxonomy.bibliography === "No determinado"
-                ? taxonomy.bibliography
-                : taxonomy.bibliography.split(",")[0],
-            publication_year:
-              taxonomy.bibliography === "No determinado"
-                ? taxonomy.bibliography
-                : taxonomy.bibliography.split(",")[1],
-            title:
-              taxonomy.bibliography === "No determinado"
-                ? taxonomy.bibliography
-                : taxonomy.bibliography.split(",")[2],
-            journal_name:
-              taxonomy.bibliography === "No determinado"
-                ? taxonomy.bibliography
-                : taxonomy.bibliography.split(",")[3],
-            DOI_URL:
-              taxonomy.bibliography === "No determinado"
-                ? taxonomy.bibliography
-                : taxonomy.bibliography.split(",")[4],
-          },
-        },
+        bibliography:
+          taxonomy.bibliography != null && taxonomy.bibliography.length > 0
+            ? {
+                createMany: {
+                  data: bibliographyData.map((item: any) => {
+                    const bibliographyParts = item.split(",");
+                    const [
+                      authors,
+                      publicationYear,
+                      title,
+                      journalName,
+                      DOI_URL,
+                    ] = bibliographyParts;
+                    if (
+                      authors != null &&
+                      publicationYear != null &&
+                      title != null &&
+                      journalName != null &&
+                      DOI_URL != null
+                    ) {
+                      return {
+                        authors,
+                        publication_year: publicationYear,
+                        title,
+                        journal_name: journalName,
+                        DOI_URL,
+                      };
+                    }
+                    return {
+                      authors: "No determinado",
+                      publication_year: "No determinado",
+                      title: "No determinado",
+                      journal_name: "No determinado",
+                      DOI_URL: "No determinado",
+                    };
+                  }),
+                },
+              }
+            : {
+                create: {},
+              },
       },
     },
     images:
@@ -168,21 +184,13 @@ export async function POST(request: Request) {
             },
           }
         : {
-            create: {
-              presentation_url: "No determinado",
-              fruit_url: "No determinado",
-              leaf_url: "No determinado",
-              flower_url: "No determinado",
-              detailFlower_url: "No determinado",
-              bark_url: "No determinado",
-              seed_url: "No determinado",
-            },
+            create: {},
           },
     arboriculture:
       Object.keys(arboriculture).length > 0
         ? {
             create: {
-              public_spaceUse: arboriculture?.public_spaceUse,
+              public_spaceUse: arboriculture.public_spaceUse,
               flower_limitations: arboriculture.flower_limitations,
               fruit_limitations: arboriculture.fruit_limitations,
               longevity: arboriculture.longevity,
@@ -198,7 +206,9 @@ export async function POST(request: Request) {
               humidity_zone: arboriculture.humidity_zone,
             },
           }
-        : {},
+        : {
+            create: {},
+          },
     stalk:
       Object.keys(stalk).length > 0
         ? {
@@ -207,7 +217,9 @@ export async function POST(request: Request) {
               barkColor: stalk.bark_color,
             },
           }
-        : {},
+        : {
+            create: {},
+          },
     seeds:
       Object.keys(seeds).length > 0
         ? {
@@ -219,7 +231,9 @@ export async function POST(request: Request) {
               fruiting_months: seeds.fruiting_months,
             },
           }
-        : {},
+        : {
+            create: {},
+          },
     root:
       Object.keys(root).length > 0
         ? {
@@ -229,7 +243,9 @@ export async function POST(request: Request) {
               rooting_type: root.rooting_type,
             },
           }
-        : {},
+        : {
+            create: {},
+          },
     leaf:
       Object.keys(leaf).length > 0
         ? {
@@ -240,7 +256,9 @@ export async function POST(request: Request) {
               leaf_composition: leaf.leaf_composition,
             },
           }
-        : {},
+        : {
+            create: {},
+          },
     flower:
       Object.keys(flower).length > 0
         ? {
@@ -253,7 +271,9 @@ export async function POST(request: Request) {
               pollination_system: flower.pollination_system,
             },
           }
-        : {},
+        : {
+            create: {},
+          },
     ethnobotany:
       Object.keys(ethnobotany).length > 0
         ? {
@@ -262,7 +282,9 @@ export async function POST(request: Request) {
               use_detail: ethnobotany.use_detail,
             },
           }
-        : {},
+        : {
+            create: {},
+          },
     ecology:
       Object.keys(ecology).length > 0
         ? {
@@ -286,7 +308,9 @@ export async function POST(request: Request) {
               },
             },
           }
-        : {},
+        : {
+            create: {},
+          },
   };
   const species = prisma.species
     .create({

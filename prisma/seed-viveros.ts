@@ -14,7 +14,7 @@ const viveros: Prisma.NurseryCreateInput[] = [
     phone: "0993040651",
     email: "viverogye@gmail.com",
     website: "https://viverosgye.com",
-    logoSrc: "/public/images/jardin-botanico.jpeg",
+    logoSrc: "No determinado",
   },
 ];
 

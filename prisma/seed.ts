@@ -21,6 +21,11 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         etymology:
           "Anacardium, del griego kardia, corazón, por la forma de su fruto; excelsum, epíteto latino que significa alta.",
         common_names: "Caracolí",
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
         bibliography: {
           create: [
             {
@@ -34,6 +39,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
           ],
         },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -60,6 +68,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         geo_distribution: "Honduras a Ecuador; Venezuela",
         conservation_status: ConservationStatus.NE,
         fauna_attraction: PriorityLevel.ALTO,
+        associated_fauna: {
+          create: {},
+        },
       },
     },
     flower: {
@@ -106,7 +117,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -133,6 +152,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         geo_distribution: "Neotrópico",
         conservation_status: ConservationStatus.NE,
         fauna_attraction: PriorityLevel.ALTO,
+        associated_fauna: {
+          create: {},
+        },
       },
     },
     flower: {
@@ -179,6 +201,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         },
       },
     },
+    ethnobotany: {
+      create: {},
+    },
     images: {
       create: {
         presentation_url:
@@ -203,6 +228,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "América tropical",
         fauna_attraction: PriorityLevel.ALTO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.LC,
       },
     },
@@ -250,7 +278,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -277,6 +313,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "México a Perú; Trinidad",
         fauna_attraction: PriorityLevel.ALTO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.LC,
       },
     },
@@ -324,7 +363,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -352,6 +399,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "México a Ecuador",
         fauna_attraction: PriorityLevel.ALTO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.LC,
       },
     },
@@ -399,7 +449,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -425,6 +483,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "Neotrópico; cultivada en los trópicos",
         fauna_attraction: PriorityLevel.MEDIO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.NE,
       },
     },
@@ -471,7 +532,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -496,7 +565,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
       create: {
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "México a Perú",
-
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.NE,
       },
     },
@@ -541,7 +612,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -567,6 +646,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "Centroamérica y N Suramérica",
         fauna_attraction: PriorityLevel.MEDIO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.NE,
       },
     },
@@ -615,7 +697,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -642,6 +732,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "América tropical; introducida en el Paleotrópico",
         fauna_attraction: PriorityLevel.ALTO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.LC,
       },
     },
@@ -688,7 +781,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -716,6 +817,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "América tropical",
         fauna_attraction: PriorityLevel.ALTO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.LC,
       },
     },
@@ -764,7 +868,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -790,6 +902,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "Centroamérica a Venezuela, Brasil y Perú",
         fauna_attraction: PriorityLevel.ALTO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.LC,
       },
     },
@@ -836,7 +951,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -863,6 +986,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "Neotrópico",
         fauna_attraction: PriorityLevel.ALTO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.NE,
       },
     },
@@ -910,7 +1036,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -936,6 +1070,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "México a N Argentina",
         fauna_attraction: PriorityLevel.ALTO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.EN,
       },
     },
@@ -984,7 +1121,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -1011,6 +1156,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         geo_distribution:
           "Origen incierto, prob. Centroamérica; ampliamente cultivada en el Neotrópico",
         fauna_attraction: PriorityLevel.ALTO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.NE,
       },
     },
@@ -1059,7 +1207,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -1084,7 +1240,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
       create: {
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "México a Brasil; Antillas",
-
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.NE,
       },
     },
@@ -1129,7 +1287,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -1154,7 +1320,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
       create: {
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "Nativa de Amazonia; cultivada en los trópicos",
-
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.NE,
       },
     },
@@ -1200,7 +1368,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {},
@@ -1225,6 +1401,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         geo_distribution:
           "O México a S Colombia y Ecuador; introducida, cultivada y naturalizada en la región tropical del Nuevo y Viejo Mundo",
         fauna_attraction: PriorityLevel.MEDIO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.NE,
       },
     },
@@ -1271,7 +1450,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {},
@@ -1294,6 +1481,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "Argentina, Colombia, México",
         fauna_attraction: PriorityLevel.MEDIO,
+        associated_fauna: {
+          create: {},
+        },
       },
     },
     flower: {
@@ -1341,7 +1531,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {},
@@ -1364,6 +1562,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "México a NE Argentina",
         fauna_attraction: PriorityLevel.MEDIO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.LC,
       },
     },
@@ -1409,7 +1610,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -1436,6 +1645,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         geo_distribution:
           "Estados Unidos a N Argentina; Antillas; trópicos de África y Asia",
         fauna_attraction: PriorityLevel.MEDIO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.NE,
       },
     },
@@ -1482,7 +1694,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -1508,6 +1728,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "América tropical",
         fauna_attraction: PriorityLevel.ALTO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.LC,
       },
     },
@@ -1556,7 +1779,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -1582,6 +1813,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm, 1501 - 2000 msnm",
         geo_distribution: "Colombia, Ecuador, México, Islas del Caribe",
         fauna_attraction: PriorityLevel.ALTO,
+        associated_fauna: {
+          create: {},
+        },
       },
     },
     flower: {
@@ -1627,7 +1861,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -1650,6 +1892,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         geo_distribution:
           "Texas (Estados Unidos) a Perú y Venezuela; Antillas Mayores",
         fauna_attraction: PriorityLevel.MEDIO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.NE,
       },
     },
@@ -1696,7 +1941,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -1721,7 +1974,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
       create: {
         altitudinal_range: "0 - 1000 msnm",
         geo_distribution: "Belice a Ecuador, Perú y Brasil; Antillas",
-
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.NE,
       },
     },
@@ -1766,7 +2021,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -1790,7 +2053,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
       create: {
         altitudinal_range: "0 - 1000 msnm",
         geo_distribution: "Desde Nicaragua hasta Perú",
-
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.NE,
       },
     },
@@ -1836,7 +2101,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -1862,6 +2135,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm, 1001 - 1500 msnm",
         geo_distribution: "Desde Colombia hasta el norte de Argentina",
         fauna_attraction: PriorityLevel.ALTO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.NE,
       },
     },
@@ -1906,7 +2182,15 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
             },
           ],
         },
+        synonyms: {
+          create: {
+            synonym_name: "No determinado",
+          },
+        },
       },
+    },
+    ethnobotany: {
+      create: {},
     },
     images: {
       create: {
@@ -1932,6 +2216,9 @@ const speciesData: Prisma.SpeciesCreateInput[] = [
         altitudinal_range: "0 - 1000 msnm",
         geo_distribution: "Sur de Estados Unidos a Brasil, Antillas, África",
         fauna_attraction: PriorityLevel.MEDIO,
+        associated_fauna: {
+          create: {},
+        },
         conservation_status: ConservationStatus.NE,
       },
     },
