@@ -15,7 +15,7 @@ const NurseryEditPage = async ({ params }: { params: IParams }) => {
       <ClientOnly>
         <EmptyState
           showReset
-          title="Usuario no existe"
+          title="Vivero no existe"
           subtitle="Retorna al dashboard."
           urlAction="/dashboard/vivero/gestionar"
         />
