@@ -18,7 +18,7 @@ const Navigation: React.FC<NavigationProps> = ({
       href: "/acerca",
     },
     {
-      name: "Galeria",
+      name: "Galería",
       href: "/galeria",
     },
     {

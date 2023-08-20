@@ -12,16 +12,16 @@ const Home = () => {
       <HeroContainer />
       <div className="w-full flex flex-wrap flex-col items-center">
         <div className="text-2xl md:text-4xl  font-bold text-gray-800 mt-10">
-          ¿Que es Arbolista?
+          ¿Que es Flora Nativa Guayaquil?
         </div>
       </div>
       <div className=" p-5 items-center justify-center flex flex-col">
         <div className="flex flex-col justify-center bg-green-500 p-2 rounded-md ">
           <p className="font-light !text-white p-4">
-            Arbolista es una iniciativa que busca promover la conservación de la
-            biodiversidad local, destacando la importancia de las especies
-            autóctonas y proporcionando información relevante para su cultivo y
-            protección.
+            Flora Nativa Guayaquil es una iniciativa que busca promover la
+            conservación de la biodiversidad local, destacando la importancia de
+            las especies autóctonas y proporcionando información relevante para
+            su cultivo y protección.
             <br />
             En los últimos años, la pérdida de hábitats naturales y el impacto
             humano han provocado el declive significativo de numerosas especies

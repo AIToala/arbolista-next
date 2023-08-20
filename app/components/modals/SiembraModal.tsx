@@ -96,7 +96,7 @@ const SiembraModal = () => {
       <Heading
         className="col-span-2 md:col-span-1 text-2xl !text-center md:!text-left w-full"
         title="Siembra tu Árbol"
-        subtitle="Describenos tu arbol y te ayudaremos a encontrarlo"
+        subtitle="Describenos tu árbol y te ayudaremos a encontrarlo"
       />
       <Image
         className="w-full h-full col-span-2 md:col-span-1"
@@ -117,18 +117,18 @@ const SiembraModal = () => {
     { label: "Otorgue alimento", value: "Alimento" },
     { label: "Sea medicinal", value: "Medicinal" },
     { label: "Sea material", value: "Materiales" },
-    { label: "Habitat para la fauna", value: "Habitat" },
+    { label: "Hábitat para la fauna", value: "Habitat" },
     { label: "Inhibidor de ruido", value: "Inhibidor de ruido" },
     {
-      label: "Proteccion contra vientos fuertes",
-      value: "Proteccion contra vientos fuertes",
+      label: "Protección contra vientos fuertes",
+      value: "Protección contra vientos fuertes",
     },
     {
-      label: "Inhibidor de contaminacion",
-      value: "Inhibidor de contaminacion",
+      label: "Inhibidor de contaminación",
+      value: "Inhibidor de contaminación",
     },
     { label: "Es una especie amenazada", value: "Especie amenazada" },
-    { label: "Restauracion Ecologica", value: "Restauracion Ecologica" },
+    { label: "Restauración ecológica", value: "Restauracion Ecologica" },
     { label: "Quiero un cerco vivo", value: "Cerco vivo" },
     { label: "Otorgue ayuda a polinizadores", value: "Ayuda a polinizadores" },
   ];
@@ -138,8 +138,8 @@ const SiembraModal = () => {
       <div className="grid grid-cols-2 gap-8 !justify-center !items-center w-full">
         <Heading
           className="col-span-2 text-2xl !text-center md:!text-left w-full"
-          title="Caracteristicas de Árbol"
-          subtitle="Que caracteristicas deseas de tu arbol?"
+          title="Características del árbol"
+          subtitle="¿Que características deseas de tu árbol?"
         />
         <div className="grid col-span-2 gap-4 relative grid-cols-2 md:grid-cols-3">
           {checkList.map((item, index) => (
@@ -199,7 +199,7 @@ const SiembraModal = () => {
       <div className="grid grid-cols-2 gap-8 !justify-center !items-center w-full">
         <Heading
           className="col-span-2 text-2xl !text-center md:!text-left w-full"
-          title="Donde quieres sembrar?"
+          title="¿Dónde quieres sembrar?"
           subtitle="Encuentra el lugar adecuado y perfecto!"
         />
         <div className="grid col-span-2 gap-2 w-full relative grid-cols-1 md:grid-cols-2">
@@ -239,7 +239,7 @@ const SiembraModal = () => {
                 }}
                 isClearable={false}
                 isSearchable={false}
-                placeholder="Escoga una opcion"
+                placeholder="Escoga una opción"
               />
             </div>
           ))}
@@ -253,7 +253,7 @@ const SiembraModal = () => {
       <div className="grid grid-cols-2 gap-8 !justify-center !items-center h-full w-full">
         <Heading
           className="col-span-2 md:col-span-1 text-2xl !text-center md:!text-left w-full"
-          title="Tienes suficiente espacio?"
+          title="¿Tienes suficiente espacio?"
           subtitle="Describenos el espacio que tienes disponible!"
         />
         <Image
@@ -291,7 +291,7 @@ const SiembraModal = () => {
               htmlFor="largoSembrado"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Largo del area de sembrado (metros)
+              Largo del área de sembrado (metros)
             </Label>
             <Input
               type="number"
@@ -312,7 +312,7 @@ const SiembraModal = () => {
               htmlFor="distanciaTendido"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Distancia a tendido electrico (metros)
+              Distancia a tendido eléctrico (metros)
             </Label>
             <Input
               type="number"
@@ -334,7 +334,7 @@ const SiembraModal = () => {
               htmlFor="alturaTendido"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Altura del tendido electrico
+              Altura del tendido eléctrico
             </Label>
             <Input
               type="number"
@@ -419,7 +419,7 @@ const SiembraModal = () => {
               htmlFor="usoEspacioPublico"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Uso del espacio publico
+              Uso del espacio público
             </Label>
             <Select
               isMulti
@@ -538,7 +538,7 @@ const SiembraModal = () => {
               htmlFor="limitacionFloral"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Limitacion de floracion
+              Limitación de floración
             </Label>
             <Select
               isMulti
@@ -560,7 +560,7 @@ const SiembraModal = () => {
               }}
               isClearable={false}
               isSearchable={false}
-              placeholder="Escoga una opcion"
+              placeholder="Escoga una opción"
             />
           </div>
           <div className="col-span-3">
@@ -568,7 +568,7 @@ const SiembraModal = () => {
               htmlFor="limitacionFrutos"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >
-              Limitacion de frutos
+              Limitación de frutos
             </Label>
             <Select
               isMulti

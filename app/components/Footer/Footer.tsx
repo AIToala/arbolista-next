@@ -31,7 +31,7 @@ const Footer = () => {
       </div>
       <div className="grid grid-cols-3 justify-center gap w-full col-span-2 md:col-span-1">
         <div className="flex flex-col gap-2 text-center w-full">
-          <div className="font-bold text-md md:text-lg">Catalogo</div>
+          <div className="font-bold text-md md:text-lg">Catálogo</div>
           <ul className="flex-col flex gap-2">
             <li className="hover:text-green-400 cursor-pointer">
               <Link href="/galeria">Galería</Link>
