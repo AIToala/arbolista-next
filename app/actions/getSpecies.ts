@@ -429,5 +429,7 @@ export default async function getSpecies(params: ISpeciesParams) {
     return safeSpecies;
   } catch (error: any) {
     return [];
+  } finally {
+    await prisma.$disconnect();
   }
 }

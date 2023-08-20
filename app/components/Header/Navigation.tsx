@@ -1,17 +1,15 @@
 "use client";
-import { useRouter } from "next/navigation";
-import React from "react";
-
+import Link from "next/link";
+import { type FC } from "react";
 interface NavigationProps {
   orientation?: "horizontal" | "vertical";
   isMobile?: boolean;
 }
 
-const Navigation: React.FC<NavigationProps> = ({
+const Navigation: FC<NavigationProps> = ({
   orientation = "horizontal",
   isMobile = false,
 }) => {
-  const router = useRouter();
   const links = [
     {
       name: "Acerca",
@@ -33,10 +31,11 @@ const Navigation: React.FC<NavigationProps> = ({
   return (
     <>
       {links.map((link, index) => (
-        <div
+        <Link
           key={index}
+          href={link.href}
           className={`
-                        text-sm
+                        text-center
                         text-gray-600
                         hover:text-gray-800
                         transition
@@ -50,15 +49,10 @@ const Navigation: React.FC<NavigationProps> = ({
                         }
                     `}
         >
-          <div
-            onClick={() => {
-              router.push(link.href);
-            }}
-            className="w-full py-2 pl-3 pr-4 text-gray-900 rounded"
-          >
+          <div className="w-full py-2 pl-3 pr-4 text-gray-900 rounded">
             {link.name}
           </div>
-        </div>
+        </Link>
       ))}
     </>
   );

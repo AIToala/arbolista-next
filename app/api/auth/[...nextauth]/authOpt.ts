@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import prisma from "@/app/libs/prismadb";
@@ -19,11 +20,15 @@ export const authOptions: AuthOptions = {
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password)
           throw new Error("Invalid credentials");
-        const user = await prisma.user.findUnique({
-          where: {
-            email: credentials.email,
-          },
-        });
+        const user = await prisma.user
+          .findUnique({
+            where: {
+              email: credentials.email,
+            },
+          })
+          .finally(async () => {
+            await prisma.$disconnect();
+          });
         // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
         if (!user || !user?.hashedPassword)
           throw new Error("Invalid credentials");

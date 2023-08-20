@@ -17,5 +17,7 @@ export default async function getNurseryUser() {
     };
   } catch (error: any) {
     return null;
+  } finally {
+    await prisma.$disconnect();
   }
 }

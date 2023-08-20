@@ -19,8 +19,12 @@ export const columns: Array<ColumnDef<GallerySpecie>> = [
     header: "Familia",
   },
   {
+    accessorKey: "conservationStatus",
+    header: "Estado de conservación",
+  },
+  {
     id: "actions",
-    header: "Esta en galeria",
+    header: "¿Está en galería?",
     cell: ({ row }) => <CellActionGallery data={row.original} />,
   },
 ];

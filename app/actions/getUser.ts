@@ -47,5 +47,7 @@ export default async function getUser(params: IUserParams) {
     return users;
   } catch (error: any) {
     return [];
+  } finally {
+    await prisma.$disconnect();
   }
 }

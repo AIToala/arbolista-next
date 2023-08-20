@@ -1,8 +1,8 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import React from "react";
 
 interface LogoProps {
   height?: number;
@@ -24,7 +24,7 @@ const Logo: React.FC<LogoProps> = ({
     <Image
       alt={alt}
       priority
-      className={"cursor-pointer " + className}
+      className={"cursor-pointer w-[160px] h-auto" + className}
       height={height}
       width={width}
       src={src}

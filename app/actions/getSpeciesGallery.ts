@@ -24,5 +24,7 @@ export default async function getSpeciesGallery() {
     return safeSpecies;
   } catch (err) {
     return [];
+  } finally {
+    await prisma.$disconnect();
   }
 }

@@ -1,6 +1,6 @@
 import prisma from "@/app/libs/prismadb";
-import getCurrentUser from "./getCurrentUser";
 import { type GallerySpecie } from "../dashboard/galeria/gestionar/columns";
+import getCurrentUser from "./getCurrentUser";
 
 export interface ISpeciesParams {
   id?: string;
@@ -231,6 +231,11 @@ export default async function getEspeciesForTable(params: ISpeciesParams) {
             presentation_url: true,
           },
         },
+        ecology: {
+          select: {
+            conservation_status: true,
+          },
+        },
       },
       where: {
         id: query?.id,
@@ -333,5 +338,7 @@ export default async function getEspeciesForTable(params: ISpeciesParams) {
     return safeSpecies;
   } catch (error: any) {
     return [];
+  } finally {
+    await prisma.$disconnect();
   }
 }

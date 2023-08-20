@@ -54,5 +54,7 @@ export default async function getSpeciesByName(params: IParams) {
       };
   } catch (err) {
     return null;
+  } finally {
+    await prisma.$disconnect();
   }
 }

@@ -8,7 +8,6 @@ interface IParams {
 }
 
 const EspecieEditPage = async ({ params }: { params: IParams }) => {
-  console.log(params);
   const data = await getSpeciesById(params);
   if (data == null) {
     return (

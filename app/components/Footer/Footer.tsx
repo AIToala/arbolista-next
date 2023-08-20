@@ -53,10 +53,10 @@ const Footer = () => {
           <div className="font-bold text-md md:text-lg">Nosotros</div>
           <ul className="flex-col flex gap-2">
             <li className="hover:text-green-300 cursor-pointer">
-              <Link href="/about">Nuestra misión</Link>
+              <Link href="/acerca">Nuestra misión</Link>
             </li>
             <li className="hover:text-green-300 cursor-pointer">
-              <Link href="/about#contacto">Contáctenos</Link>
+              <Link href="/acerca#contacto">Contáctenos</Link>
             </li>
           </ul>
         </div>

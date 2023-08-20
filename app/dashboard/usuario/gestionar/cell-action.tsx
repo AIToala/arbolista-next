@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { type UserColumn } from "./columns";
 interface CellActionUsersProps {
   data: UserColumn;
@@ -26,10 +27,11 @@ export const CellActionUsers: React.FC<CellActionUsersProps> = ({ data }) => {
     axios
       .delete(`/api/users/`, { data })
       .then((response) => {
-        console.log("Usuario eliminado exitosamente");
-        router.refresh();
+        toast.success("Usuario eliminado correctamente");
+        router.push("/dashboard/usuario/gestionar");
       })
       .catch((error) => {
+        toast.error("Error al eliminar el usuario");
         console.error("Error al eliminar el usuario:", error);
       });
   };

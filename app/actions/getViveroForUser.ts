@@ -18,5 +18,7 @@ export default async function getViveroForUser() {
     return viveros;
   } catch (error: any) {
     return [];
+  } finally {
+    await prisma.$disconnect();
   }
 }

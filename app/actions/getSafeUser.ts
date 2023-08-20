@@ -43,5 +43,7 @@ export default async function getSafeUser(params: IUserParams) {
     return safeUser;
   } catch (error: any) {
     return [];
+  } finally {
+    await prisma.$disconnect();
   }
 }

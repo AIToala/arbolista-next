@@ -13,13 +13,14 @@ export default async function GalleryPage() {
     author: "",
     growthHabit: "",
   };
+
   const data = await getEspeciesForTable(searchParams);
   const cleanedData: GallerySpecie[] = data.map((item) => ({
     id: item.id,
     name: item.name,
     family: item.taxonomy.family.family,
     isInGallery: item.isInGallery,
-    conservationStatus: item.conservationStatus,
+    conservationStatus: item.ecology.conservation_status,
   }));
   return (
     <div className="flex flex-col w-full mx-4 !my-2 items-start h-full">

@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { type SpecieColumns } from "./columns";
 interface CellActionEspeciesProps {
   data: SpecieColumns;
@@ -29,12 +30,12 @@ export const CellActionEspecies: React.FC<CellActionEspeciesProps> = ({
       .delete(`/api/users`, {
         data: { id },
       })
-      .then((response) => {
-        console.log("Usuario eliminado exitosamente");
+      .then(() => {
+        toast.success("Usuario eliminado correctamente");
         router.push("/dashboard/especie/gestionar");
       })
-      .catch((error) => {
-        console.error("Error al eliminar el usuario:", error);
+      .catch(() => {
+        toast.error("Error al eliminar el usuario");
       });
   };
   return (

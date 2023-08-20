@@ -16,6 +16,12 @@ import Select from "react-select";
 import { Switch } from "./ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { Textarea } from "./ui/textarea";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 interface EspecieEditFormProps {
   speciesData: any;
@@ -23,7 +29,6 @@ interface EspecieEditFormProps {
 
 const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
   const router = useRouter();
-  console.log(speciesData);
   const {
     register,
     handleSubmit,
@@ -43,12 +48,23 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
         tSpecies: speciesData.taxonomy.tSpecies,
         subspecies: speciesData.taxonomy.subspecies,
         variety: speciesData.taxonomy.variety,
-        bibliography: speciesData.taxonomy.bibliography.join(";"),
+        bibliography: speciesData.taxonomy.bibliography
+          .map((bibliography: any) => {
+            const parts = [
+              bibliography.authors,
+              bibliography.publication_year,
+              bibliography.title,
+              bibliography.journal_name,
+              bibliography.DOI_URL,
+            ];
+            return parts.join(",");
+          })
+          .join(";"),
         author: speciesData.taxonomy.author,
         etymology: speciesData.taxonomy.etymology,
         common_names: speciesData.taxonomy.common_names,
         growth_habit: speciesData.taxonomy.growth_habit,
-        synonyms: speciesData.taxonomy.synonyms.synonyms_name,
+        synonyms: speciesData.taxonomy.synonyms.synonym_name,
       },
       images: {
         presentation_url: speciesData.images.presentation_url,
@@ -122,32 +138,395 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
 
   const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
     try {
-      data.taxonomy.synonymsId = speciesData.taxonomy.id;
-      data.taxonomy.bibliographyId = speciesData.taxonomy.id;
-      await axios.put(
-        `/api/species`,
-        {
-          id: data.id,
-          name: data.name,
-          taxonomy: data.taxonomy,
-          images: data.images,
-          availables_status: data.availables_status,
-          arboriculture: data.arboriculture,
-          ecology: data.ecology,
-          ethnobotany: data.ethnobotany,
-          flower: data.flower,
-          leaf: data.leaf,
-          root: data.root,
-          seeds: data.seeds,
-          stalk: data.stalk,
-          associated_fauna: data.associated_fauna,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
+      for (const key in data) {
+        if (data[key] === "" || data[key] === undefined || data[key] === null) {
+          data[key] = null;
         }
-      );
+      }
+      const modifiedData: FormData = {
+        id: speciesData.id,
+        name: speciesData.name,
+        availableStatus:
+          data.availableStatus !== speciesData.availables_status
+            ? data.availableStatus
+            : speciesData.availables_status,
+        taxonomy: {
+          id: speciesData.taxonomy.id,
+          synonymsId: speciesData.taxonomy.id,
+          familyId:
+            data.taxonomy.family === null ||
+            data.taxonomy.family === speciesData.taxonomy.family.family
+              ? speciesData.taxonomy.family.id
+              : null,
+          bibliographyIds: speciesData.taxonomy.bibliography
+            .map((bibliography: any) => {
+              return bibliography.id;
+            })
+            .join(","),
+          family:
+            data.taxonomy.family !== null &&
+            data.taxonomy.family !== speciesData.taxonomy.family.family
+              ? data.taxonomy.family
+              : null,
+          familyDescription:
+            data.taxonomy.familyDescription !== null &&
+            data.taxonomy.familyDescription !==
+              speciesData.taxonomy.family.description
+              ? data.taxonomy.familyDescription
+              : null,
+          genus:
+            data.taxonomy.genus !== null &&
+            data.taxonomy.genus !== speciesData.taxonomy.genus
+              ? data.taxonomy.genus
+              : null,
+          tSpecies:
+            data.taxonomy.tSpecies !== null &&
+            data.taxonomy.tSpecies !== speciesData.taxonomy.tSpecies
+              ? data.taxonomy.tSpecies
+              : null,
+          subspecies:
+            data.taxonomy.subspecies !== null &&
+            data.taxonomy.subspecies !== speciesData.taxonomy.subspecies
+              ? data.taxonomy.subspecies
+              : null,
+          variety:
+            data.taxonomy.variety !== null &&
+            data.taxonomy.variety !== speciesData.taxonomy.variety
+              ? data.taxonomy.variety
+              : null,
+          bibliography:
+            data.taxonomy.bibliography !== null &&
+            data.taxonomy.bibliography !==
+              speciesData.taxonomy.bibliography
+                .map((bibliography: any) => {
+                  const parts = [
+                    bibliography.authors,
+                    bibliography.publication_year,
+                    bibliography.title,
+                    bibliography.journal_name,
+                    bibliography.DOI_URL,
+                  ];
+                  return parts.join(",");
+                })
+                .join(";")
+              ? data.taxonomy.bibliography
+              : null,
+          author:
+            data.taxonomy.author !== null &&
+            data.taxonomy.author !== speciesData.taxonomy.author
+              ? data.taxonomy.author
+              : null,
+          etymology:
+            data.taxonomy.etymology !== null &&
+            data.taxonomy.etymology !== speciesData.taxonomy.etymology
+              ? data.taxonomy.etymology
+              : null,
+          common_names:
+            data.taxonomy.common_names !== null &&
+            data.taxonomy.common_names !== speciesData.taxonomy.common_names
+              ? data.taxonomy.common_names
+              : null,
+          growth_habit:
+            data.taxonomy.growth_habit !== null &&
+            data.taxonomy.growth_habit !== speciesData.taxonomy.growth_habit
+              ? data.taxonomy.growth_habit
+              : null,
+          synonyms:
+            data.taxonomy.synonyms !== null &&
+            data.taxonomy.synonyms !==
+              speciesData.taxonomy.synonyms.synonym_name
+              ? data.taxonomy.synonyms
+              : null,
+        },
+        images: {
+          presentation_url:
+            data.images.presentation_url !== null &&
+            data.images.presentation_url !== speciesData.images.presentation_url
+              ? data.images.presentation_url
+              : null,
+          fruit_url:
+            data.images.fruit_url !== null &&
+            data.images.fruit_url !== speciesData.images.fruit_url
+              ? data.images.fruit_url
+              : null,
+          flower_url:
+            data.images.flower_url !== null &&
+            data.images.flower_url !== speciesData.images.flower_url
+              ? data.images.flower_url
+              : null,
+          detailFlower_url:
+            data.images.detailFlower_url !== null &&
+            data.images.detailFlower_url !== speciesData.images.detailFlower_url
+              ? data.images.detailFlower_url
+              : null,
+          leaf_url:
+            data.images.leaf_url !== null &&
+            data.images.leaf_url !== speciesData.images.leaf_url
+              ? data.images.leaf_url
+              : null,
+          seed_url:
+            data.images.seed_url !== null &&
+            data.images.seed_url !== speciesData.images.seed_url
+              ? data.images.seed_url
+              : null,
+          bark_url:
+            data.images.bark_url !== null &&
+            data.images.bark_url !== speciesData.images.bark_url
+              ? data.images.bark_url
+              : null,
+        },
+        arboriculture: {
+          public_spaceUse:
+            data.arboriculture.public_spaceUse !== null &&
+            data.arboriculture.public_spaceUse !==
+              speciesData.arboriculture.public_spaceUse
+              ? data.arboriculture.public_spaceUse
+              : null,
+          flower_limitations:
+            data.arboriculture.flower_limitations !== null &&
+            data.arboriculture.flower_limitations !==
+              speciesData.arboriculture.flower_limitations
+              ? data.arboriculture.flower_limitations
+              : null,
+          fruit_limitations:
+            data.arboriculture.fruit_limitations !== null &&
+            data.arboriculture.fruit_limitations !==
+              speciesData.arboriculture.fruit_limitations
+              ? data.arboriculture.fruit_limitations
+              : null,
+          longevity:
+            data.arboriculture.longevity !== null &&
+            data.arboriculture.longevity !== speciesData.arboriculture.longevity
+              ? data.arboriculture.longevity
+              : null,
+          pests_diseases:
+            data.arboriculture.pests_diseases !== null &&
+            data.arboriculture.pests_diseases !==
+              speciesData.arboriculture.pests_diseases
+              ? data.arboriculture.pests_diseases
+              : null,
+          growth_rate:
+            data.arboriculture.growth_rate !== null &&
+            data.arboriculture.growth_rate !==
+              speciesData.arboriculture.growth_rate
+              ? data.arboriculture.growth_rate
+              : null,
+          light_requirements:
+            data.arboriculture.light_requirements !== null &&
+            data.arboriculture.light_requirements !==
+              speciesData.arboriculture.light_requirements
+              ? data.arboriculture.light_requirements
+              : null,
+          maximum_height:
+            data.arboriculture.maximum_height !== null &&
+            data.arboriculture.maximum_height !==
+              speciesData.arboriculture.maximum_height
+              ? data.arboriculture.maximum_height
+              : null,
+          crown_width:
+            data.arboriculture.crown_width !== null &&
+            data.arboriculture.crown_width !==
+              speciesData.arboriculture.crown_width
+              ? data.arboriculture.crown_width
+              : null,
+          DAP:
+            data.arboriculture.DAP !== null &&
+            data.arboriculture.DAP !== speciesData.arboriculture.DAP
+              ? data.arboriculture.DAP
+              : null,
+          crown_shape:
+            data.arboriculture.crown_shape !== null &&
+            data.arboriculture.crown_shape !==
+              speciesData.arboriculture.crown_shape
+              ? data.arboriculture.crown_shape
+              : null,
+          foliage_density:
+            data.arboriculture.foliage_density !== null &&
+            data.arboriculture.foliage_density !==
+              speciesData.arboriculture.foliage_density
+              ? data.arboriculture.foliage_density
+              : null,
+          soil_type:
+            data.arboriculture.soil_type !== null &&
+            data.arboriculture.soil_type !== speciesData.arboriculture.soil_type
+              ? data.arboriculture.soil_type
+              : null,
+          humidity_zone:
+            data.arboriculture.humidity_zone !== null &&
+            data.arboriculture.humidity_zone !==
+              speciesData.arboriculture.humidity_zone
+              ? data.arboriculture.humidity_zone
+              : null,
+        },
+        ecology: {
+          associatedFaunaId: speciesData.id,
+          altitudinal_range:
+            data.ecology.altitudinal_range !== null &&
+            data.ecology.altitudinal_range !==
+              speciesData.ecology.altitudinal_range
+              ? data.ecology.altitudinal_range
+              : null,
+          geo_distribution:
+            data.ecology.geo_distribution !== null &&
+            data.ecology.geo_distribution !==
+              speciesData.ecology.geo_distribution
+              ? data.ecology.geo_distribution
+              : null,
+          origin:
+            data.ecology.origin !== null &&
+            data.ecology.origin !== speciesData.ecology.origin
+              ? data.ecology.origin
+              : null,
+          conservation_status:
+            data.ecology.conservation_status !== null &&
+            data.ecology.conservation_status !==
+              speciesData.ecology.conservation_status
+              ? data.ecology.conservation_status
+              : null,
+          fauna_attraction:
+            data.ecology.fauna_attraction !== null &&
+            data.ecology.fauna_attraction !==
+              speciesData.ecology.fauna_attraction
+              ? data.ecology.fauna_attraction
+              : null,
+          associated_fauna:
+            data.ecology.associated_fauna !== null &&
+            data.ecology.associated_fauna !==
+              speciesData.ecology.associated_fauna.fauna_name
+              ? data.ecology.associated_fauna
+              : null,
+        },
+        ethnobotany: {
+          category:
+            data.ethnobotany.category !== null &&
+            data.ethnobotany.category !== speciesData.ethnobotany.category
+              ? data.ethnobotany.category
+              : null,
+          use_detail:
+            data.ethnobotany.use_detail !== null &&
+            data.ethnobotany.use_detail !== speciesData.ethnobotany.use_detail
+              ? data.ethnobotany.use_detail
+              : null,
+        },
+        flower: {
+          floral_attributes:
+            data.flower.floral_attributes !== null &&
+            data.flower.floral_attributes !==
+              speciesData.flower.floral_attributes
+              ? data.flower.floral_attributes
+              : null,
+          flower_color:
+            data.flower.flower_color !== null &&
+            data.flower.flower_color !== speciesData.flower.flower_color
+              ? data.flower.flower_color
+              : null,
+          flower_arrangement:
+            data.flower.flower_arrangement !== null &&
+            data.flower.flower_arrangement !==
+              speciesData.flower.flower_arrangement
+              ? data.flower.flower_arrangement
+              : null,
+          pollination_system:
+            data.flower.pollination_system !== null &&
+            data.flower.pollination_system !==
+              speciesData.flower.pollination_system
+              ? data.flower.pollination_system
+              : null,
+          flowering_season:
+            data.flower.flowering_season !== null &&
+            data.flower.flowering_season !== speciesData.flower.flowering_season
+              ? data.flower.flowering_season
+              : null,
+          flowering_months:
+            data.flower.flowering_months !== null &&
+            data.flower.flowering_months !== speciesData.flower.flowering_months
+              ? data.flower.flowering_months
+              : null,
+        },
+        leaf: {
+          leaf_attributes:
+            data.leaf.leaf_attributes !== null &&
+            data.leaf.leaf_attributes !== speciesData.leaf.leaf_attributes
+              ? data.leaf.leaf_attributes
+              : null,
+          leaf_persistence:
+            data.leaf.leaf_persistence !== null &&
+            data.leaf.leaf_persistence !== speciesData.leaf.leaf_persistence
+              ? data.leaf.leaf_persistence
+              : null,
+          stemLeaf_position:
+            data.leaf.stemLeaf_position !== null &&
+            data.leaf.stemLeaf_position !== speciesData.leaf.stemLeaf_position
+              ? data.leaf.stemLeaf_position
+              : null,
+          leaf_composition:
+            data.leaf.leaf_composition !== null &&
+            data.leaf.leaf_composition !== speciesData.leaf.leaf_composition
+              ? data.leaf.leaf_composition
+              : null,
+        },
+        root: {
+          reproduction_form:
+            data.root.reproduction_form !== null &&
+            data.root.reproduction_form !== speciesData.root.reproduction_form
+              ? data.root.reproduction_form
+              : null,
+          root_attributes:
+            data.root.root_attributes !== null &&
+            data.root.root_attributes !== speciesData.root.root_attributes
+              ? data.root.root_attributes
+              : null,
+          rooting_type:
+            data.root.rooting_type !== null &&
+            data.root.rooting_type !== speciesData.root.rooting_type
+              ? data.root.rooting_type
+              : null,
+        },
+        seeds: {
+          fruitType:
+            data.seeds.fruitType !== null &&
+            data.seeds.fruitType !== speciesData.seeds.fruitType
+              ? data.seeds.fruitType
+              : null,
+          dispersal_system:
+            data.seeds.dispersal_system !== null &&
+            data.seeds.dispersal_system !== speciesData.seeds.dispersal_system
+              ? data.seeds.dispersal_system
+              : null,
+          fruit_attributes:
+            data.seeds.fruit_attributes !== null &&
+            data.seeds.fruit_attributes !== speciesData.seeds.fruit_attributes
+              ? data.seeds.fruit_attributes
+              : null,
+          seed_attributes:
+            data.seeds.seed_attributes !== null &&
+            data.seeds.seed_attributes !== speciesData.seeds.seed_attributes
+              ? data.seeds.seed_attributes
+              : null,
+          fruiting_months:
+            data.seeds.fruiting_months !== null &&
+            data.seeds.fruiting_months !== speciesData.seeds.fruiting_months
+              ? data.seeds.fruiting_months
+              : null,
+        },
+        stalk: {
+          bark_attributes:
+            data.stalk.bark_attributes !== null &&
+            data.stalk.bark_attributes !== speciesData.stalk.bark_attributes
+              ? data.stalk.bark_attributes
+              : null,
+          barkColor:
+            data.stalk.barkColor !== null &&
+            data.stalk.barkColor !== speciesData.stalk.barkColor
+              ? data.stalk.barkColor
+              : null,
+        },
+      };
+      await axios.put(`/api/species`, modifiedData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       toast.success("Usuario actualizado con éxito");
       router.push("/dashboard");
     } catch (error) {
@@ -276,8 +655,24 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
                 if (value !== null)
                   setValue("taxonomy.growth_habit", value.value);
               }}
+              value={speciesEnums.growth_habit.find(
+                (option) => option.value === getValues("taxonomy.growth_habit")
+              )}
             />
-            <Label>Bibliografia</Label>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Label>Bibliografia</Label>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-gray-600 text-sm p-2">
+                    Ingrese varias bibliografias separandolos usando
+                    &quot;;&quot; y siguiendo el formato{" "}
+                    <span>Autor,Año,Titulo,Nombre Editorial,DOI</span>
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             <Textarea
               id="bibliography"
               {...register("taxonomy.bibliography")}
@@ -315,6 +710,9 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
                   setValue("root.reproduction_form", value.value);
                 }
               }}
+              value={speciesEnums.reproductionForm.find(
+                (option) => option.value === getValues("root.reproduction_form")
+              )}
               options={speciesEnums.reproductionForm}
             />
             <Label>Atributos de raiz</Label>
@@ -333,6 +731,9 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
               onChange={(value) => {
                 if (value !== null) setValue("root.rooting_type", value.value);
               }}
+              value={speciesEnums.rootingTypes.find(
+                (option) => option.value === getValues("root.rooting_type")
+              )}
               options={speciesEnums.rootingTypes}
             />
           </div>
@@ -362,6 +763,10 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
                 if (value !== null)
                   setValue("flower.flower_arrangement", value.value);
               }}
+              value={speciesEnums.flowerArrangement.find(
+                (option) =>
+                  option.value === getValues("flower.flower_arrangement")
+              )}
               options={speciesEnums.flowerArrangement}
             />
             <Label>Sistema de polinizacion</Label>
@@ -375,6 +780,10 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
                 if (value !== null)
                   setValue("flower.pollination_system", value.value);
               }}
+              value={speciesEnums.polinizationValues.find(
+                (option) =>
+                  option.value === getValues("flower.pollination_system")
+              )}
               options={speciesEnums.polinizationValues}
             />
             <Label>Estacion de floración</Label>
@@ -388,6 +797,10 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
                 if (value !== null)
                   setValue("flower.flowering_season", value.value);
               }}
+              value={speciesEnums.floweringSeason.find(
+                (option) =>
+                  option.value === getValues("flower.flowering_season")
+              )}
               options={speciesEnums.floweringSeason}
             />
             <Label>Meses de floración</Label>
@@ -417,6 +830,9 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
                   setValue("leaf.leaf_persistence", value.value);
               }}
               options={speciesEnums.leafPersistence}
+              value={speciesEnums.leafPersistence.find(
+                (option) => option.value === getValues("leaf.leaf_persistence")
+              )}
             />
             <Label>Posicion de la hoja en el tallo</Label>
             <Select
@@ -429,6 +845,9 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
                 if (value !== null)
                   setValue("leaf.stemLeaf_position", value.value);
               }}
+              value={speciesEnums.stemLeafPosition.find(
+                (option) => option.value === getValues("leaf.stemLeaf_position")
+              )}
               options={speciesEnums.stemLeafPosition}
             />
             <Label>Composicion de la hoja</Label>
@@ -442,6 +861,9 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
                 if (value !== null)
                   setValue("leaf.leaf_composition", value.value);
               }}
+              value={speciesEnums.leafComposition.find(
+                (option) => option.value === getValues("leaf.leaf_composition")
+              )}
               options={speciesEnums.leafComposition}
             />
           </div>
@@ -459,6 +881,9 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
               onChange={(value) => {
                 if (value !== null) setValue("seeds.fruitType", value.value);
               }}
+              value={speciesEnums.fruitType.find(
+                (option) => option.value === getValues("seeds.fruitType")
+              )}
             />
             <Label>Sistema de dispercion de frutos</Label>
             <Select
@@ -472,6 +897,9 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
                 if (value !== null)
                   setValue("seeds.dispersal_system", value.value);
               }}
+              value={speciesEnums.dispersalValues.find(
+                (option) => option.value === getValues("seeds.dispersal_system")
+              )}
             />
             <Label>Atributos de fruto</Label>
             <Input
@@ -504,6 +932,10 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
                 if (value !== null)
                   setValue("ecology.altitudinal_range", value.value);
               }}
+              value={speciesEnums.altitudeRange.find(
+                (option) =>
+                  option.value === getValues("ecology.altitudinal_range")
+              )}
               isClearable={false}
               isSearchable={false}
               options={speciesEnums.altitudeRange}
@@ -519,6 +951,9 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
               id="origin"
               className="text-mds"
               placeholder="Seleccione el origen de la especie"
+              value={speciesEnums.origin.find(
+                (option) => option.value === getValues("ecology.origin")
+              )}
               onChange={(value) => {
                 if (value !== null) setValue("ecology.origin", value.value);
               }}
@@ -533,6 +968,10 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
               placeholder="Seleccione el estado de conservacion de la especie"
               isClearable={false}
               isSearchable={false}
+              value={speciesEnums.conservationStatus.find(
+                (option) =>
+                  option.value === getValues("ecology.conservation_status")
+              )}
               onChange={(value) => {
                 if (value !== null)
                   setValue("ecology.conservation_status", value.value);
@@ -547,6 +986,10 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
               isClearable={false}
               isSearchable={false}
               options={speciesEnums.faunaAtraction}
+              value={speciesEnums.faunaAtraction.find(
+                (option) =>
+                  option.value === getValues("ecology.fauna_attraction")
+              )}
               onChange={(value) => {
                 if (value !== null)
                   setValue("ecology.fauna_attraction", value.value);
@@ -571,6 +1014,9 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
               isSearchable={false}
               classNamePrefix="select"
               className="basic-multi-select text-mds"
+              value={speciesEnums.useCategoryValues.filter((option) => {
+                return getValues("ethnobotany.category").includes(option.value);
+              })}
               onChange={(valueArr) => {
                 if (valueArr !== null && valueArr.length > 0) {
                   const values: string[] = [];
@@ -601,6 +1047,11 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
               options={speciesEnums.publicUseValues}
               isClearable={false}
               isSearchable={false}
+              value={speciesEnums.publicUseValues.filter((option) => {
+                return getValues("arboriculture.public_spaceUse").includes(
+                  option.value
+                );
+              })}
               onChange={(valueArr) => {
                 if (valueArr !== null && valueArr.length > 0) {
                   const values: string[] = [];
@@ -617,6 +1068,11 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
               isMulti
               id="flower_limitations"
               className="text-mds"
+              value={speciesEnums.limitFloralValues.filter((option) => {
+                return getValues("arboriculture.flower_limitations").includes(
+                  option.value
+                );
+              })}
               options={speciesEnums.limitFloralValues}
               placeholder="Selecciona limitaciones florales de la especie"
               isClearable={false}
@@ -650,6 +1106,11 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
                   setValue("arboriculture.fruit_limitations", values.join(","));
                 }
               }}
+              value={speciesEnums.limitFrutoValues.filter((option) => {
+                return getValues("arboriculture.fruit_limitations").includes(
+                  option.value
+                );
+              })}
               isClearable={false}
               isSearchable={false}
             />
@@ -660,6 +1121,10 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
               className="text-mds"
               placeholder="Seleccione la longevidad de la especie"
               isClearable={false}
+              value={speciesEnums.longevity.find(
+                (option) =>
+                  option.value === getValues("arboriculture.longevity")
+              )}
               isSearchable={false}
               onChange={(value) => {
                 if (value !== null)
@@ -683,6 +1148,10 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
                 if (value !== null)
                   setValue("arboriculture.growth_rate", value.value);
               }}
+              value={speciesEnums.growthRate.find(
+                (option) =>
+                  option.value === getValues("arboriculture.growth_rate")
+              )}
               isClearable={false}
               isSearchable={false}
             />
@@ -690,6 +1159,10 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
             <Select
               id="light_requirement"
               options={speciesEnums.lightRequirement}
+              value={speciesEnums.lightRequirement.find(
+                (option) =>
+                  option.value === getValues("arboriculture.light_requirements")
+              )}
               className="text-mds"
               placeholder="Seleccione requerimientos luminosos de la especie"
               onChange={(value) => {
@@ -736,6 +1209,10 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
             <Select
               id="crown_shape"
               options={speciesEnums.crownShapeValues}
+              value={speciesEnums.crownShapeValues.find(
+                (option) =>
+                  option.value === getValues("arboriculture.crown_shape")
+              )}
               className="text-mds"
               placeholder="Seleccione la forma de la copa de la especie"
               onChange={(value) => {
@@ -750,6 +1227,10 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
             <Select
               id="foliage_density"
               options={speciesEnums.priorityLevel}
+              value={speciesEnums.priorityLevel.find(
+                (option) =>
+                  option.value === getValues("arboriculture.foliage_density")
+              )}
               className="text-mds"
               placeholder="Indique el nivel de foleaje"
               onChange={(value) => {
@@ -763,6 +1244,10 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
             <Select
               options={speciesEnums.soilTypes}
               className="text-mds"
+              value={speciesEnums.soilTypes.find(
+                (option) =>
+                  option.value === getValues("arboriculture.soil_type")
+              )}
               placeholder="Indique el tipo de suelo para la especie"
               onChange={(value) => {
                 if (value != null)
@@ -778,6 +1263,10 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
               className="text-mds"
               placeholder="Indique la humedad requerida para la especie"
               isClearable={false}
+              value={speciesEnums.humidityValues.find(
+                (option) =>
+                  option.value === getValues("arboriculture.humidity_zone")
+              )}
               isSearchable={false}
               onChange={(value) => {
                 if (value != null)

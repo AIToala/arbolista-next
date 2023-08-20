@@ -27,5 +27,7 @@ export default async function getViveros() {
     return safeViveros;
   } catch (error: any) {
     throw new Error(error);
+  } finally {
+    await prisma.$disconnect();
   }
 }

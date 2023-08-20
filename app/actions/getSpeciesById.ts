@@ -45,5 +45,7 @@ export default async function getSpeciesById(params: IParams) {
   } catch (err) {
     console.log(err);
     return [];
+  } finally {
+    await prisma.$disconnect();
   }
 }

@@ -32,5 +32,7 @@ export default async function getViveroByName(params: IParams) {
     };
   } catch (error: any) {
     return null;
+  } finally {
+    await prisma.$disconnect();
   }
 }

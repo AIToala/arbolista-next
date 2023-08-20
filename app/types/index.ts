@@ -47,7 +47,7 @@ export interface FormData {
     bibliography: string;
     synonyms: string;
     synonymsId: string;
-    bibliographyId: string;
+    bibliographyIds: string;
   };
   images: {
     presentation_url: string;
@@ -278,6 +278,7 @@ export const speciesEnums = {
     { value: "Tóxico", label: "Tóxico" },
     { value: "Medicinal", label: "Medicinal" },
     { value: "Medioambiental", label: "Medioambiental" },
+    { value: "No determinado", label: "No determinado" },
   ],
   publicUseValues: [
     { value: "No determinado", label: "No determinado" },
@@ -318,13 +319,13 @@ export const speciesEnums = {
     { value: "Péndula", label: "Péndula" },
     { value: "Piramidal", label: "Piramidal" },
     { value: "Semiglobosa", label: "Semiglobosa" },
-    { value: "No determinada", label: "No determinada" },
+    { value: "No determinado", label: "No determinado" },
   ],
   humidityValues: [
     { value: "Seca", label: "Seca" },
     { value: "Humeda", label: "Humeda" },
     { value: "Muy humeda", label: "Muy humeda" },
-    { value: "No determinada", label: "No determinada" },
+    { value: "No determinado", label: "No determinado" },
   ],
   dispersalValues: [
     { value: "Anemocoria", label: "Anemocoria (viento)" },
@@ -339,19 +340,21 @@ export const speciesEnums = {
     { value: "No determinado", label: "No determinado" },
   ],
   limitFloralValues: [
-    { value: "alergenico", label: "Alergenicos" },
-    { value: "oloroso", label: "Olor Desagradable" },
-    { value: "movilidad_peatones", label: "Afectan movilidad de peatones" },
-    { value: "movilidad_vehiculos", label: "Afectan movilidad de vehiculos" },
+    { value: "Alergenico", label: "Alergenicos" },
+    { value: "Oloroso", label: "Olor Desagradable" },
+    { value: "Movilidad peatones", label: "Afectan movilidad de peatones" },
+    { value: "Movilidad vehiculos", label: "Afectan movilidad de vehiculos" },
+    { value: "Ninguna", label: "Ninguna" },
     { value: "No determinado", label: "No determinado" },
   ],
   limitFrutoValues: [
-    { value: "alergenico", label: "Alergenicos" },
-    { value: "toxico", label: "Toxicos" },
-    { value: "pesado", label: "Pesados" },
-    { value: "masivo", label: "Masivos" },
-    { value: "carnoso", label: "Carnosos" },
-    { value: "espinas", label: "Con espinas" },
+    { value: "Alergenico", label: "Alergenicos" },
+    { value: "Toxico", label: "Toxicos" },
+    { value: "Pesado", label: "Pesados" },
+    { value: "Masivo", label: "Masivos" },
+    { value: "Carnoso", label: "Carnosos" },
+    { value: "Espinas", label: "Con espinas" },
+    { value: "Ninguna", label: "Ninguna" },
     { value: "No determinado", label: "No determinado" },
   ],
   monthValues: [
@@ -380,14 +383,14 @@ export const speciesEnums = {
     { value: "No determinado", label: "No determinado" },
   ],
   reproductionForm: [
-    { value: "no determinado", label: "no determinado" },
-    { value: "por semilla", label: "por semilla" },
-    { value: "por estaca", label: "por estaca" },
-    { value: "por bulbo", label: "por bulbo" },
-    { value: "por tubérculo", label: "por tubérculo" },
-    { value: "por estolón", label: "por estolón" },
-    { value: "por acodo", label: "por acodo" },
-    { value: "division de pie", label: "division de pie" },
+    { value: "No determinado", label: "No determinado" },
+    { value: "Por semilla", label: "Por semilla" },
+    { value: "Por estaca", label: "Por estaca" },
+    { value: "Por bulbo", label: "Por bulbo" },
+    { value: "Por tubérculo", label: "Por tubérculo" },
+    { value: "Por estolón", label: "Por estolón" },
+    { value: "Por acodo", label: "Por acodo" },
+    { value: "Division de pie", label: "Division de pie" },
   ],
   faunaAtraction: [
     { value: "No determinado", label: "No determinado" },
