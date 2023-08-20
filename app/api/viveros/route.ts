@@ -109,7 +109,9 @@ export async function PUT(request: Request) {
   const nursery = await prisma.nursery.update({
     where: { id },
     data: {
-      owner,
+      owner: {
+        connect: owner,
+      },
       name,
       address,
       phone,
