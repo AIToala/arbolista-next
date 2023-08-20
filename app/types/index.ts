@@ -27,6 +27,98 @@ export type TokenizedUser = Omit<
   "createdAt" | "updatedAt" | "hashedPassword"
 >;
 
+export interface FormData {
+  id: string;
+  name: string;
+  availableStatus: boolean;
+  taxonomy: {
+    id: string;
+    family: string;
+    familyId: string;
+    familyDescription: string;
+    genus: string;
+    tSpecies: string;
+    subspecies: string;
+    variety: string;
+    author: string;
+    etymology: string;
+    common_names: string;
+    growth_habit: string;
+    bibliography: string;
+    synonyms: string;
+    synonymsId: string;
+    bibliographyId: string;
+  };
+  images: {
+    presentation_url: string;
+    fruit_url: string;
+    leaf_url: string;
+    flower_url: string;
+    detailFlower_url: string;
+    bark_url: string;
+    seed_url: string;
+  };
+  arboriculture: {
+    public_spaceUse: string;
+    flower_limitations: string;
+    fruit_limitations: string;
+    longevity: string;
+    pests_diseases: string;
+    light_requirements: string;
+    growth_rate: string;
+    maximum_height: number;
+    crown_width: number;
+    crown_shape: string;
+    DAP: number;
+    foliage_density: string;
+    soil_type: string;
+    humidity_zone: string;
+  };
+  stalk: {
+    bark_attributes: string;
+    barkColor: string;
+  };
+  seeds: {
+    fruitType: string;
+    dispersal_system: string;
+    fruit_attributes: string;
+    seed_attributes: string;
+    fruiting_months: string;
+  };
+  root: {
+    reproduction_form: string;
+    root_attributes: string;
+    rooting_type: string;
+  };
+  leaf: {
+    leaf_attributes: string;
+    leaf_persistence: string;
+    stemLeaf_position: string;
+    leaf_composition: string;
+  };
+  flower: {
+    floral_attributes: string;
+    flower_color: string;
+    flower_arrangement: string;
+    flowering_season: string;
+    flowering_months: string;
+    pollination_system: string;
+  };
+  ethnobotany: {
+    category: string;
+    use_detail: string;
+  };
+  ecology: {
+    altitudinal_range: string;
+    geo_distribution: string;
+    origin: string;
+    conservation_status: string;
+    fauna_attraction: string;
+    associated_fauna: string;
+    associatedFaunaId: string;
+  };
+}
+
 export const email = "contactos@floranativa.org";
 
 export type SafeSpecies = Omit<Species, "createdAt" | "updatedAt"> & {

@@ -137,17 +137,20 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                     </div>
                     <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Sinónimos</p>
-                      <p className="w-full text-gray-700 font-light">
-                        {taxonomy.synonyms.length !== 0 ? (
-                          <ul className="list-disc list-inside">
-                            {taxonomy.synonyms.map((synonym: any) => (
-                              <li key={synonym}>{synonym.synonym_name}</li>
-                            ))}
-                          </ul>
+                      <ul className="w-full text-gray-700 font-light">
+                        {taxonomy.synonyms !== undefined ||
+                        taxonomy.synonyms !== null ? (
+                          <li className="list-none">
+                            {taxonomy.synonyms.synonym_name
+                              .split(",")
+                              .map((synonym: any) => (
+                                <p key={synonym}>{synonym.synonym_name}</p>
+                              ))}
+                          </li>
                         ) : (
                           <p>No hay datos</p>
                         )}
-                      </p>
+                      </ul>
                     </div>
                     <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Etimología</p>
@@ -165,20 +168,20 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                     </div>
                     <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Bibliografía</p>
-                      <p className="w-full text-gray-700 font-light">
+                      <ul className="list-none w-full text-gray-700 font-light">
                         {taxonomy.bibliography.length !== 0 ? (
-                          <ul className="list-disc list-inside">
+                          <li>
                             {taxonomy.bibliography.map((bibliography: any) => (
-                              <li key={bibliography}>
+                              <p key={bibliography}>
                                 {bibliography.authors}{" "}
                                 {bibliography.publication_year}
-                              </li>
+                              </p>
                             ))}
-                          </ul>
+                          </li>
                         ) : (
                           <p>No hay datos</p>
                         )}
-                      </p>
+                      </ul>
                     </div>
                   </div>
                 ) : (
@@ -469,10 +472,10 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                     </div>
                     <div className="w-full flex  items-center gap-6">
                       <p className="w-[40%] font-semibold">Fauna Asociada</p>
-                      <p className="w-full text-gray-700 font-light">
+                      <ul className="w-full text-gray-700 font-light">
                         {ecology.associated_fauna !== undefined &&
                         ecology.associated_fauna.length !== 0 ? (
-                          <ul className="list-disc list-inside">
+                          <li className="list-none">
                             <TooltipProvider>
                               {ecology.associated_fauna.map((fauna: any) => (
                                 <Tooltip key={fauna}>
@@ -485,11 +488,11 @@ const TabEspeciesInfo: React.FC<TabEspeciesInfoProps> = ({ data }) => {
                                 </Tooltip>
                               ))}
                             </TooltipProvider>
-                          </ul>
+                          </li>
                         ) : (
                           "No hay datos"
                         )}
-                      </p>
+                      </ul>
                     </div>
                   </div>
                 ) : (

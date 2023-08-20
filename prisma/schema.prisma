@@ -98,7 +98,7 @@ model SpeciesFamilyDetail {
 
 model SpeciesSynonyms {
   id           String   @id @default(cuid())
-  synonym_name String?  @default("No determinado")
+  synonym_name String  @default("No determinado")
   taxonomyId   String   @unique @map("taxonomy_id")
   taxonomy     Taxonomy @relation(fields: [taxonomyId], references: [id], onDelete: Cascade)
 
@@ -142,7 +142,7 @@ model Root {
 model Flower {
   id                 String            @id @default(cuid())
   floral_attributes  String?           @default("No determinado")
-  flower_color       String            @default("NO DETERMINADO")
+  flower_color       String            @default("No determinado")
   flower_arrangement FlowerArrangement @default(NO_DETERMINADO)
   flowering_season   FloweringSeason   @default(NO_DETERMINADO)
   flowering_months   String?           @default("No determinado")

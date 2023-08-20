@@ -26,10 +26,12 @@ export const CellActionEspecies: React.FC<CellActionEspeciesProps> = ({
   };
   const handleDelete = () => {
     axios
-      .delete(`/api/users/`, { data })
+      .delete(`/api/users`, {
+        data: { id },
+      })
       .then((response) => {
         console.log("Usuario eliminado exitosamente");
-        router.refresh();
+        router.push("/dashboard/especie/gestionar");
       })
       .catch((error) => {
         console.error("Error al eliminar el usuario:", error);
