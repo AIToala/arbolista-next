@@ -19,6 +19,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-hot-toast";
+import { Router } from "lucide-react";
 interface UserEditFormProps {
   userData: any[];
 }
@@ -57,7 +58,6 @@ const DashboardNurseryPage: React.FC<UserEditFormProps> = ({ userData }) => {
       const imgdata = await response.json();
       const imageUrl = imgdata.url;
       const formData = { ...data, logoSrc: imageUrl };
-      console.log(formData);
       axios
         .post("/api/viveros", formData)
         .then((response) => {

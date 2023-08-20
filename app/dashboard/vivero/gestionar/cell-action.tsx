@@ -26,7 +26,7 @@ export const CellActionViveros: React.FC<CellActionViverosProps> = ({
   };
   const handleDelete = () => {
     axios
-      .delete(`/api/users/`, { data })
+      .delete(`/api/viveros/`, { data })
       .then((response) => {
         console.log("Usuario eliminado exitosamente");
         router.refresh();
