@@ -7,7 +7,7 @@
 import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
-import { speciesEnums, type FormData } from "@/app/types/index";
+import { speciesEnums, type FormSpeciesData } from "@/app/types/index";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
@@ -35,7 +35,7 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
     getValues,
     setValue,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<FormSpeciesData>({
     defaultValues: {
       id: speciesData.id,
       name: speciesData.name,
@@ -67,13 +67,13 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
         synonyms: speciesData.taxonomy.synonyms.synonym_name,
       },
       images: {
-        presentation_url: speciesData.images.presentation_url,
-        fruit_url: speciesData.images.fruit_url,
-        flower_url: speciesData.images.flower_url,
-        detailFlower_url: speciesData.images.detailFlower_url,
-        leaf_url: speciesData.images.leaf_url,
-        seed_url: speciesData.images.seed_url,
-        bark_url: speciesData.images.bark_url,
+        presentation_url: "",
+        fruit_url: "",
+        flower_url: "",
+        detailFlower_url: "",
+        leaf_url: "",
+        seed_url: "",
+        bark_url: "",
       },
       arboriculture: {
         public_spaceUse: speciesData.arboriculture.public_spaceUse,
@@ -136,6 +136,28 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
     },
   });
 
+  const checkFileSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    const size = 1000000;
+    let err = "";
+
+    if (files != null) {
+      for (let x = 0; x < files.length; x++) {
+        if (files[x].size > size) {
+          err += files[x].type + " is too large, please pick a smaller file\n";
+        }
+      }
+    }
+
+    if (err !== "") {
+      event.target.value = "";
+      toast.error("Tu archivo excede el maximo de tamaño del archivo");
+      return false;
+    }
+
+    return true;
+  };
+
   const onSubmit: SubmitHandler<FieldValues> = async (data: any) => {
     try {
       for (const key in data) {
@@ -143,7 +165,38 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
           data[key] = null;
         }
       }
-      const modifiedData: FormData = {
+      const images = [
+        ["presentacion", data.images.presentation_url[0]],
+        ["fruta", data.images.fruit_url[0]],
+        ["flor", data.images.flower_url[0]],
+        ["detalleflor", data.images.detailFlower_url[0]],
+        ["hoja", data.images.leaf_url[0]],
+        ["corteza", data.images.bark_url[0]],
+        ["semilla", data.images.seed_url[0]],
+      ];
+      const results: any[] = [];
+      images.forEach(async (image) => {
+        if (image[1] !== undefined) {
+          const newformData = new FormData();
+          newformData.append("file", image[1]);
+          newformData.append("upload_preset", "my-uploads");
+          const response = await fetch(
+            "https://api.cloudinary.com/v1_1/floraguayaquil/image/upload",
+            {
+              method: "POST",
+              body: newformData,
+            }
+          ).catch((e) => {
+            throw new Error("Error al subir imagen");
+          });
+          const imgdata = await response.json();
+          const imageUrl = imgdata.url;
+          results[image[0]] = imageUrl;
+        } else {
+          results[image[0]] = null;
+        }
+      });
+      const modifiedData: FormSpeciesData = {
         id: speciesData.id,
         name: speciesData.name,
         availableStatus:
@@ -239,41 +292,13 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
               : null,
         },
         images: {
-          presentation_url:
-            data.images.presentation_url !== null &&
-            data.images.presentation_url !== speciesData.images.presentation_url
-              ? data.images.presentation_url
-              : null,
-          fruit_url:
-            data.images.fruit_url !== null &&
-            data.images.fruit_url !== speciesData.images.fruit_url
-              ? data.images.fruit_url
-              : null,
-          flower_url:
-            data.images.flower_url !== null &&
-            data.images.flower_url !== speciesData.images.flower_url
-              ? data.images.flower_url
-              : null,
-          detailFlower_url:
-            data.images.detailFlower_url !== null &&
-            data.images.detailFlower_url !== speciesData.images.detailFlower_url
-              ? data.images.detailFlower_url
-              : null,
-          leaf_url:
-            data.images.leaf_url !== null &&
-            data.images.leaf_url !== speciesData.images.leaf_url
-              ? data.images.leaf_url
-              : null,
-          seed_url:
-            data.images.seed_url !== null &&
-            data.images.seed_url !== speciesData.images.seed_url
-              ? data.images.seed_url
-              : null,
-          bark_url:
-            data.images.bark_url !== null &&
-            data.images.bark_url !== speciesData.images.bark_url
-              ? data.images.bark_url
-              : null,
+          presentation_url: results[0] !== null ? results[0] : "No determinado",
+          fruit_url: results[1] !== null ? results[1] : "No determinado",
+          flower_url: results[2] !== null ? results[2] : "No determinado",
+          detailFlower_url: results[3] !== null ? results[3] : "No determinado",
+          leaf_url: results[4] !== null ? results[4] : "No determinado",
+          bark_url: results[5] !== null ? results[5] : "No determinado",
+          seed_url: results[6] !== null ? results[6] : "No determinado",
         },
         arboriculture: {
           public_spaceUse:
@@ -539,6 +564,11 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
       className="flex flex-col w-full mx-4 !my-2 items-start h-full mr-5"
       onSubmit={handleSubmit(onSubmit)}
     >
+      <div className="flex flex-row w-full justify-between">
+        <h1 className="scroll-m-20  pb-2 text-3xl font-bold tracking-tight transition-colors mt-5">
+          {speciesData.name}
+        </h1>
+      </div>
       <Tabs
         defaultValue="taxonomy"
         className=" grid gap-4 w-full mt-[40px] mb-[100px] p-0"
@@ -1282,50 +1312,134 @@ const EspecieEditForm: React.FC<EspecieEditFormProps> = ({ speciesData }) => {
               id="presentation_url"
               type="file"
               {...register("images.presentation_url")}
+              accept="image/jpeg"
+              onChange={(e) => {
+                if (checkFileSize(e) && e.target.files != null) {
+                  void register("images.presentation_url").onChange(e);
+                  checkFileSize(e);
+                }
+              }}
               placeholder="Ingrese imagen de presentación de la especie"
             />
+            {errors?.images?.presentation_url != null && (
+              <p className="text-red-500 text-sm">
+                {errors.images.presentation_url.message?.toString()}
+              </p>
+            )}
             <Label>Fruto</Label>
             <Input
               id="fruit_url"
               type="file"
               {...register("images.fruit_url")}
+              accept="image/jpeg"
+              onChange={(e) => {
+                if (checkFileSize(e) && e.target.files != null) {
+                  void register("images.fruit_url").onChange(e);
+                  checkFileSize(e);
+                }
+              }}
               placeholder="Ingrese imagen de fruto de la especie"
             />
+            {errors?.images?.fruit_url != null && (
+              <p className="text-red-500 text-sm">
+                {errors.images.fruit_url.message?.toString()}
+              </p>
+            )}
             <Label>Flor</Label>
             <Input
               id="flower_url"
               type="file"
+              accept="image/jpeg"
               {...register("images.flower_url")}
+              onChange={(e) => {
+                if (checkFileSize(e) && e.target.files != null) {
+                  void register("images.flower_url").onChange(e);
+                  checkFileSize(e);
+                }
+              }}
               placeholder="Ingrese imagen de flor de la especie"
             />
+            {errors?.images?.flower_url != null && (
+              <p className="text-red-500 text-sm">
+                {errors.images.flower_url.message?.toString()}
+              </p>
+            )}
             <Label>Detalle de flor</Label>
             <Input
               id="detailFlower_url"
               type="file"
+              accept="image/jpeg"
               {...register("images.detailFlower_url")}
+              onChange={(e) => {
+                if (checkFileSize(e) && e.target.files != null) {
+                  void register("images.detailFlower_url").onChange(e);
+                  checkFileSize(e);
+                }
+              }}
               placeholder="Ingrese imagen de detalle de flor de la especie"
             />
+            {errors?.images?.detailFlower_url != null && (
+              <p className="text-red-500 text-sm">
+                {errors.images.detailFlower_url.message?.toString()}
+              </p>
+            )}
             <Label>Hoja</Label>
             <Input
               id="leaf_url"
               type="file"
               {...register("images.leaf_url")}
               placeholder="Ingrese imagen de hoja de la especie"
+              accept="image/jpeg"
+              onChange={(e) => {
+                if (checkFileSize(e) && e.target.files != null) {
+                  void register("images.leaf_url").onChange(e);
+                  checkFileSize(e);
+                }
+              }}
             />
+            {errors?.images?.leaf_url != null && (
+              <p className="text-red-500 text-sm">
+                {errors.images.leaf_url.message?.toString()}
+              </p>
+            )}
             <Label>Corteza</Label>
             <Input
               id="bark_url"
               type="file"
               {...register("images.bark_url")}
               placeholder="Ingrese imagen de corteza de la especie"
+              accept="image/jpeg"
+              onChange={(e) => {
+                if (checkFileSize(e) && e.target.files != null) {
+                  void register("images.bark_url").onChange(e);
+                  checkFileSize(e);
+                }
+              }}
             />
+            {errors?.images?.bark_url != null && (
+              <p className="text-red-500 text-sm">
+                {errors.images.bark_url.message?.toString()}
+              </p>
+            )}
             <Label>Semilla</Label>
             <Input
               id="seed_url"
               type="file"
               {...register("images.seed_url")}
+              accept="image/jpeg"
+              onChange={(e) => {
+                if (checkFileSize(e) && e.target.files != null) {
+                  void register("images.seed_url").onChange(e);
+                  checkFileSize(e);
+                }
+              }}
               placeholder="Ingrese imagen de semilla de la especie"
             />
+            {errors?.images?.seed_url != null && (
+              <p className="text-red-500 text-sm">
+                {errors.images.seed_url.message?.toString()}
+              </p>
+            )}
           </div>
         </TabsContent>
       </Tabs>

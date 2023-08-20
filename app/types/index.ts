@@ -27,7 +27,7 @@ export type TokenizedUser = Omit<
   "createdAt" | "updatedAt" | "hashedPassword"
 >;
 
-export interface FormData {
+export interface FormSpeciesData {
   id: string;
   name: string;
   availableStatus: boolean;

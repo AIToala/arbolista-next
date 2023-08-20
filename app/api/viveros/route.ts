@@ -124,9 +124,16 @@ export async function PUT(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  const { id } = await request.json();
-  const nursery = await prisma.nursery.delete({
-    where: { id },
-  });
-  return NextResponse.json(nursery);
+  try {
+    const { id } = await request.json();
+    const nursery = await prisma.nursery.delete({
+      where: { id },
+    });
+    return NextResponse.json(nursery);
+  } catch (err) {
+    console.log(err);
+    return NextResponse.error();
+  } finally {
+    await prisma.$disconnect();
+  }
 }

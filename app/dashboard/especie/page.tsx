@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 "use client";
 import {
@@ -11,7 +12,7 @@ import { Button } from "@/app/components/ui/button";
 import { Input } from "@/app/components/ui/input";
 import { Label } from "@/app/components/ui/label";
 import { Textarea } from "@/app/components/ui/textarea";
-import { speciesEnums, type FormData } from "@/app/types/index";
+import { speciesEnums, type FormSpeciesData } from "@/app/types/index";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
@@ -24,20 +25,190 @@ const DashboardSpeciePage = () => {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
-  } = useForm<FormData>();
+  } = useForm<FormSpeciesData>();
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    axios
-      .post("/api/species", data)
-      .then((response) => {
-        toast.success("Especie creada con exito");
-        router.push("/dashboard");
-      })
-      .catch((e) => {
-        toast.error("Hubo un error al momento de crear la especie");
-        router.refresh();
-      });
+  const checkFileSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    const size = 1000000;
+    let err = "";
+
+    if (files != null) {
+      for (let x = 0; x < files.length; x++) {
+        if (files[x].size > size) {
+          err += files[x].type + " is too large, please pick a smaller file\n";
+        }
+      }
+    }
+
+    if (err !== "") {
+      event.target.value = "";
+      toast.error("Tu archivo excede el maximo de tamaño del archivo");
+      return false;
+    }
+
+    return true;
+  };
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    console.log(data);
+    try {
+      const imageResult =
+        data.images.presentation_url !== undefined
+          ? data.images.presentation_url[0]
+          : null;
+      const imageResult2 =
+        data.images.fruit_url !== undefined ? data.images.fruit_url[0] : null;
+      const imageResult3 =
+        data.images.leaf_url !== undefined ? data.images.leaf_url[0] : null;
+      const imageResult4 =
+        data.images.flower_url !== undefined ? data.images.flower_url[0] : null;
+      const imageResult5 =
+        data.images.detailFlower_url !== undefined
+          ? data.images.detailFlower_url[0]
+          : null;
+      const imageResult6 =
+        data.images.bark_url !== undefined ? data.images.bark_url[0] : null;
+      const imageResult7 =
+        data.images.seed_url !== undefined ? data.images.seed_url[0] : null;
+
+      console.log(imageResult, "hey");
+      let formData = { ...data };
+      if (imageResult !== null) {
+        const newformData = new FormData();
+        newformData.append("file", imageResult);
+        newformData.append("upload_preset", "my-uploads");
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/floraguayaquil/image/upload",
+          {
+            method: "POST",
+            body: newformData,
+          }
+        );
+        const imgdata = await response.json();
+        const imageUrl = imgdata.url;
+        formData = { ...data, images: { presentation_url: imageUrl } };
+      }
+      //
+      let formData2 = { ...formData };
+      if (imageResult2 !== null) {
+        const newformData2 = new FormData();
+        newformData2.append("file", imageResult2);
+        newformData2.append("upload_preset", "my-uploads");
+        const response2 = await fetch(
+          "https://api.cloudinary.com/v1_1/floraguayaquil/image/upload",
+          {
+            method: "POST",
+            body: newformData2,
+          }
+        );
+        const imgdata2 = await response2.json();
+        const imageUrl2 = imgdata2.url;
+        formData2 = { ...formData, images: { fruit_url: imageUrl2 } };
+      }
+      //
+      let formData3 = { ...formData2 };
+      if (imageResult3 !== null) {
+        const newformData3 = new FormData();
+        newformData3.append("file", imageResult3);
+        newformData3.append("upload_preset", "my-uploads");
+        const response3 = await fetch(
+          "https://api.cloudinary.com/v1_1/floraguayaquil/image/upload",
+          {
+            method: "POST",
+            body: newformData3,
+          }
+        );
+        const imgdata3 = await response3.json();
+        const imageUrl3 = imgdata3.url;
+        formData3 = { ...formData2, images: { leaf_url: imageUrl3 } };
+      }
+      let formData4 = { ...formData3 };
+      if (imageResult4 !== null) {
+        const newformData4 = new FormData();
+        newformData4.append("file", imageResult4);
+        newformData4.append("upload_preset", "my-uploads");
+        const response4 = await fetch(
+          "https://api.cloudinary.com/v1_1/floraguayaquil/image/upload",
+          {
+            method: "POST",
+            body: newformData4,
+          }
+        );
+        const imgdata4 = await response4.json();
+        const imageUrl4 = imgdata4.url;
+        formData4 = { ...formData3, images: { flower_url: imageUrl4 } };
+      }
+      let formData5 = { ...formData4 };
+      if (imageResult5 !== null) {
+        const newformData5 = new FormData();
+        newformData5.append("file", imageResult5);
+        newformData5.append("upload_preset", "my-uploads");
+        const response5 = await fetch(
+          "https://api.cloudinary.com/v1_1/floraguayaquil/image/upload",
+          {
+            method: "POST",
+            body: newformData5,
+          }
+        );
+        const imgdata5 = await response5.json();
+        const imageUrl5 = imgdata5.url;
+        formData5 = {
+          ...formData4,
+          images: { detailFlower_url: imageUrl5 },
+        };
+      }
+
+      let formData6 = { ...formData5 };
+      if (imageResult6 !== null) {
+        const newformData6 = new FormData();
+        newformData6.append("file", imageResult6);
+        newformData6.append("upload_preset", "my-uploads");
+        const response6 = await fetch(
+          "https://api.cloudinary.com/v1_1/floraguayaquil/image/upload",
+          {
+            method: "POST",
+            body: newformData6,
+          }
+        );
+        const imgdata6 = await response6.json();
+        const imageUrl6 = imgdata6.url;
+        formData6 = { ...formData5, images: { bark_url: imageUrl6 } };
+      }
+      let formData7 = { ...formData6 };
+      if (imageResult7 !== null) {
+        const newformData7 = new FormData();
+        newformData7.append("file", imageResult7);
+        newformData7.append("upload_preset", "my-uploads");
+        const response7 = await fetch(
+          "https://api.cloudinary.com/v1_1/floraguayaquil/image/upload",
+          {
+            method: "POST",
+            body: newformData7,
+          }
+        );
+        const imgdata7 = await response7.json();
+        const imageUrl7 = imgdata7.url;
+        formData7 = { ...formData6, images: { seed_url: imageUrl7 } };
+      }
+      axios
+        .post("/api/species", formData7)
+        .then((response) => {
+          toast.success("Especie creada con exito");
+          router.push("/dashboard");
+        })
+        .catch((e) => {
+          console.log(e);
+          toast.error("Hubo un error al momento de crear la especie");
+          router.refresh();
+        });
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Hubo un error al momento de crear la especie");
+      router.refresh();
+    }
   };
 
   return (
@@ -672,51 +843,128 @@ const DashboardSpeciePage = () => {
             <Input
               id="presentation_url"
               type="file"
-              {...register("images.presentation_url")}
+              accept="image/jpeg"
+              onChange={(e) => {
+                if (checkFileSize(e) && e.target.files != null) {
+                  void register("images.presentation_url").onChange(e);
+                  checkFileSize(e);
+                }
+              }}
               placeholder="Ingrese imagen de presentación de la especie"
             />
+            {errors?.images?.presentation_url != null && (
+              <p className="text-red-500 text-sm">
+                {errors.images.presentation_url.message?.toString()}
+              </p>
+            )}
             <Label>Fruto</Label>
             <Input
               id="fruit_url"
               type="file"
-              {...register("images.fruit_url")}
+              accept="image/jpeg"
+              onChange={(e) => {
+                if (checkFileSize(e) && e.target.files != null) {
+                  void register("images.fruit_url").onChange(e);
+                  checkFileSize(e);
+                }
+              }}
               placeholder="Ingrese imagen de fruto de la especie"
             />
+            {errors?.images?.fruit_url != null && (
+              <p className="text-red-500 text-sm">
+                {errors.images.fruit_url.message?.toString()}
+              </p>
+            )}
             <Label>Flor</Label>
             <Input
               id="flower_url"
               type="file"
-              {...register("images.flower_url")}
+              accept="image/jpeg"
+              onChange={(e) => {
+                if (checkFileSize(e) && e.target.files != null) {
+                  void register("images.flower_url").onChange(e);
+                  checkFileSize(e);
+                }
+              }}
               placeholder="Ingrese imagen de flor de la especie"
             />
+            {errors?.images?.flower_url != null && (
+              <p className="text-red-500 text-sm">
+                {errors.images.flower_url.message?.toString()}
+              </p>
+            )}
             <Label>Detalle de flor</Label>
             <Input
               id="detailFlower_url"
               type="file"
-              {...register("images.detailFlower_url")}
+              accept="image/jpeg"
+              onChange={(e) => {
+                if (checkFileSize(e) && e.target.files != null) {
+                  void register("images.detailFlower_url").onChange(e);
+                  checkFileSize(e);
+                }
+              }}
               placeholder="Ingrese imagen de detalle de flor de la especie"
             />
+            {errors?.images?.detailFlower_url != null && (
+              <p className="text-red-500 text-sm">
+                {errors.images.detailFlower_url.message?.toString()}
+              </p>
+            )}
             <Label>Hoja</Label>
             <Input
               id="leaf_url"
               type="file"
-              {...register("images.leaf_url")}
               placeholder="Ingrese imagen de hoja de la especie"
+              accept="image/jpeg"
+              onChange={(e) => {
+                if (checkFileSize(e) && e.target.files != null) {
+                  void register("images.leaf_url").onChange(e);
+                  checkFileSize(e);
+                }
+              }}
             />
+            {errors?.images?.leaf_url != null && (
+              <p className="text-red-500 text-sm">
+                {errors.images.leaf_url.message?.toString()}
+              </p>
+            )}
             <Label>Corteza</Label>
             <Input
               id="bark_url"
               type="file"
-              {...register("images.bark_url")}
               placeholder="Ingrese imagen de corteza de la especie"
+              accept="image/jpeg"
+              onChange={(e) => {
+                if (checkFileSize(e) && e.target.files != null) {
+                  void register("images.bark_url").onChange(e);
+                  checkFileSize(e);
+                }
+              }}
             />
+            {errors?.images?.bark_url != null && (
+              <p className="text-red-500 text-sm">
+                {errors.images.bark_url.message?.toString()}
+              </p>
+            )}
             <Label>Semilla</Label>
             <Input
               id="seed_url"
               type="file"
-              {...register("images.seed_url")}
+              accept="image/jpeg"
+              onChange={(e) => {
+                if (checkFileSize(e) && e.target.files != null) {
+                  void register("images.seed_url").onChange(e);
+                  checkFileSize(e);
+                }
+              }}
               placeholder="Ingrese imagen de semilla de la especie"
             />
+            {errors?.images?.seed_url != null && (
+              <p className="text-red-500 text-sm">
+                {errors.images.seed_url.message?.toString()}
+              </p>
+            )}
           </div>
         </TabsContent>
       </Tabs>

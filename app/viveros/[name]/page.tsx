@@ -9,13 +9,14 @@ interface IParams {
 
 const ViveroPage = async ({ params }: { params: IParams }) => {
   const vivero = await getViveroByName(params);
-  if (vivero == null) {
+  if (vivero == null || vivero.length === 0) {
     return (
       <ClientOnly>
         <EmptyState
           title="Lo sentimos. Este vivero aun no existe."
           subtitle="=.="
           showReset
+          actionLabel="Volver a la pagina principal"
         />
       </ClientOnly>
     );

@@ -9,13 +9,14 @@ interface IParams {
 
 const EspeciePage = async ({ params }: { params: IParams }) => {
   const species = await getSpeciesByName(params);
-  if (species == null) {
+  if (species == null || species.length === 0) {
     return (
       <ClientOnly>
         <EmptyState
           title="Lo sentimos. Esta especie aun no existe."
           subtitle="=.="
           showReset
+          actionLabel="Volver a la pagina principal"
         />
       </ClientOnly>
     );
