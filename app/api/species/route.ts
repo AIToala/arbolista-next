@@ -97,17 +97,16 @@ export async function POST(request: Request) {
         arboriculture[key] = "No determinado";
       }
     }
+    console.log(images);
     for (const key in images) {
       if (
         images[key] === null ||
         images[key] === "" ||
-        images[key] === undefined ||
-        images[key].length < 1
+        images[key] === undefined
       ) {
         images[key] = "No determinado";
       }
     }
-
     let family = await prisma.speciesFamilyDetail.findUnique({
       where: {
         family: taxonomy.family,
@@ -180,22 +179,17 @@ export async function POST(request: Request) {
                 },
         },
       },
-      images:
-        Object.keys(images).length > 0
-          ? {
-              create: {
-                presentation_url: images.presentation_url,
-                fruit_url: images.fruit_url,
-                leaf_url: images.leaf_url,
-                flower_url: images.flower_url,
-                detailFlower_url: images.detailFlower_url,
-                bark_url: images.bark_url,
-                seed_url: images.seed_url,
-              },
-            }
-          : {
-              create: {},
-            },
+      images: {
+        create: {
+          presentation_url: images.presentation_url,
+          fruit_url: images.fruit_url,
+          leaf_url: images.leaf_url,
+          flower_url: images.flower_url,
+          detailFlower_url: images.detailFlower_url,
+          bark_url: images.bark_url,
+          seed_url: images.seed_url,
+        },
+      },
       arboriculture:
         Object.keys(arboriculture).length > 0
           ? {
