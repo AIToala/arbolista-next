@@ -8,27 +8,27 @@ const HeroContainer = () => {
       alt: "poster1",
       title: "Pinta de verde Guayaquil",
       description:
-        "¿Estas interesado en sembrar un arbol? Conoce los pasos para hacerlo usando nuestra herramienta de siembra",
+        "¿Estás interesado en sembrar un árbol? Conoce los pasos para hacerlo usando nuestra herramienta de siembra",
       url: "sembrar",
       action: "Siembra",
     },
     {
       src: "/images/slides/slide1.jpg",
       alt: "poster2",
-      title: "Conoce los arboles nativos de Guayaquil",
+      title: "Conoce los árboles nativos de Guayaquil",
       description:
-        "Explora nuestro catalogo de arboles, conoce sus caracteristicas y como sembrarlos",
+        "Explora nuestro catálogo de árboles, conoce sus características y cómo sembrarlos",
       url: "/especies",
       action: "Explora",
     },
     {
       src: "/images/slides/slide3.jpg",
       alt: "poster3",
-      title: "Unete a nuestra comunidad",
+      title: "Únete a nuestra comunidad",
       description:
-        "¿Eres un investigador de especies nativas o un viverista interesado en compartir tu negocio? Unete a nuestra comunidad, registrate y comparte tu conocimiento / vivero con nosotros.",
+        "¿Eres un investigador de especies nativas o un viverista interesado en compartir tu negocio? Únete a nuestra comunidad, regístrate y comparte tu conocimiento / vivero con nosotros.",
       url: "/login",
-      action: "Unete",
+      action: "Únete",
     },
   ];
   return (

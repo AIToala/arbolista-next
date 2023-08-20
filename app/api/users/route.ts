@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+import getCurrentUser from "@/app/actions/getCurrentUser";
 import prisma from "@/app/libs/prismadb";
 import bcryptjs from "bcryptjs";
 import { NextResponse } from "next/server";
@@ -60,16 +61,19 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
   try {
     const { id } = await request.json();
-    const deletedUser = await prisma.user
-      .delete({
-        where: { id },
-      })
-      .finally(async () => {
-        await prisma.$disconnect();
-      });
+    const currentUser = await getCurrentUser();
+    if (currentUser == null) {
+      return NextResponse.error();
+    }
+    if (currentUser.userRole === "ADMIN" && id === currentUser.id) {
+      return NextResponse.error();
+    }
+    const deletedUser = await prisma.user.delete({
+      where: { id },
+    });
+
     return NextResponse.json(deletedUser);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
     return NextResponse.error();
   } finally {
     await prisma.$disconnect();

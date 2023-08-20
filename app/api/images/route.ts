@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { v2 as cloudinary } from "cloudinary";
+import { NextResponse } from "next/server";
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -7,18 +8,24 @@ cloudinary.config({
   api_secret: process.env.API_SECRET,
 });
 
-const uploadImage = async (imagePath: string): Promise<string> => {
-  return await new Promise((resolve, reject) => {
-    cloudinary.uploader.upload(imagePath, (error, result) => {
-      if (error !== null && error !== undefined) {
-        reject(error);
-      } else if (result?.url !== null && result?.url !== undefined) {
-        resolve(result.url);
-      } else {
-        reject(new Error("Failed to upload image."));
+export async function POST(request: Request) {
+  try {
+    const { imagePath } = await request.json();
+    const res = cloudinary.uploader.upload(
+      imagePath,
+      (error: any, result: any) => {
+        if (error !== null && error !== undefined) {
+          return NextResponse.error();
+        } else if (result?.url !== null && result?.url !== undefined) {
+          return NextResponse.json(result.url);
+        } else {
+          return NextResponse.error();
+        }
       }
-    });
-  });
-};
-
-export { uploadImage };
+    );
+    return NextResponse.json(res);
+  } catch (err) {
+    console.log(err);
+    return NextResponse.error();
+  }
+}

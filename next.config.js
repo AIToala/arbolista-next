@@ -8,6 +8,7 @@ const nextConfig = {
       "upload.wikimedia.org",
       "static.inaturalist.org",
       "inaturalist-open-data.s3.amazonaws.com",
+      "res.cloudinary.com",
     ],
   },
   transpilePackages: ["flowbite-react", "flowbite", "react-icons", "@radix-ui"],

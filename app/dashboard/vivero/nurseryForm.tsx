@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-const-assign */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
@@ -11,13 +13,22 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/app/components/ui/tabs";
+import Select from "react-select";
+
 import axios from "axios";
+import { useState } from "react";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-hot-toast";
-const DashboardNurserySpeciesPage = () => {
+interface UserEditFormProps {
+  userData: any[];
+}
+
+const DashboardNurseryPage: React.FC<UserEditFormProps> = ({ userData }) => {
   const {
     register,
     handleSubmit,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
@@ -30,19 +41,40 @@ const DashboardNurserySpeciesPage = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    axios
-      .post("/api/register", data)
-      .then((response) => {
-        toast.success("Usuario creado con exito");
-      })
-      .catch((e) => {
-        toast.error("Hubo un error al momento de crear el usuario");
-      });
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    try {
+      const imageResult = data.logoSrc[0];
+      const newformData = new FormData();
+      newformData.append("file", imageResult);
+      newformData.append("upload_preset", "my-uploads");
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/floraguayaquil/image/upload",
+        {
+          method: "POST",
+          body: newformData,
+        }
+      );
+      const imgdata = await response.json();
+      const imageUrl = imgdata.url;
+      const formData = { ...data, logoSrc: imageUrl };
+      console.log(formData);
+      axios
+        .post("/api/viveros", formData)
+        .then((response) => {
+          toast.success("Vivero creado con exito");
+        })
+        .catch((e) => {
+          toast.error("Hubo un error al momento de crear el vivero");
+        });
+    } catch (error) {
+      console.log(error);
+      toast.error("Hubo un error al momento de crear el vivero");
+    }
   };
+
   const checkFileSize = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    const size = 2000000;
+    const size = 1000000;
     let err = "";
 
     if (files) {
@@ -61,6 +93,12 @@ const DashboardNurserySpeciesPage = () => {
 
     return true;
   };
+
+  const userArray = Object.values(userData).map((item) => ({
+    value: item.id,
+    label: item.name,
+  }));
+
   return (
     <Tabs
       defaultValue="nursery"
@@ -74,27 +112,26 @@ const DashboardNurserySpeciesPage = () => {
       <TabsContent value="nursery" className="flex flex-col gap-2 w-full">
         <div className="input-fields-container">
           <label>Dueño</label>
-          {/* <Select
-              id="owner"
-              value={nurseries.userRole.find(
-                (option) => option.value === selectedRole
-              )}
-              onChange={(selectedOption) => {
-                if (selectedOption !== null)
-                  setSelectedRole(selectedOption.value);
-                setValue("userRole", selectedOption?.value);
-              }}
-              className={
-                selectedRole === ""
-                  ? "border border-red-500 text-red"
-                  : "border border-input"
+          <Select
+            id="owner"
+            options={userArray}
+            value={getValues("owner")}
+            onChange={(selectedOption) => {
+              if (selectedOption !== null) {
+                setValue("owner", selectedOption.value);
               }
-              placeholder="Seleccione el rol del usuario"
-              isClearable={false}
-              isSearchable={false}
-              options={nurseries.userRole}
-              required
-            /> */}
+            }}
+            placeholder="Seleccione el dueño"
+            isClearable={false}
+            isSearchable={false}
+            required
+          />
+          {userArray.length === 0 ||
+            (getValues("owner") === "" && (
+              <p className="text-red-700 w-fit p-2">
+                {errors.owner?.message?.toString()}
+              </p>
+            ))}
           <label>Nombre</label>
           <Input
             id="name"
@@ -168,6 +205,7 @@ const DashboardNurserySpeciesPage = () => {
                 : "border border-input"
             }
             placeholder="Ingrese el url del sitio web del vivero"
+            {...register("website", { required: "Campo obligatorio" })}
           />
           {errors.website != null && (
             <p className="text-red-700 w-fit p-2">
@@ -208,4 +246,4 @@ const DashboardNurserySpeciesPage = () => {
   );
 };
 
-export default DashboardNurserySpeciesPage;
+export default DashboardNurseryPage;

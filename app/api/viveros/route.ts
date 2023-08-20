@@ -1,54 +1,49 @@
 import prisma from "@/app/libs/prismadb";
+import { type Prisma } from "@prisma/client";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  const {
-    id,
-    owner,
-    name,
-    address,
-    phone,
-    email,
-    website,
-    logoSrc,
-    nurserySpecies,
-  } = await request.json();
+  try {
+    const { owner, name, address, phone, email, website, logoSrc } =
+      await request.json();
 
-  if (nurserySpecies != null && nurserySpecies.length > 0) {
-    for (const specie of nurserySpecies) {
-      const specieId = specie.id;
-      const specieAmount = specie.amount;
-      const specieHeight = specie.height;
-      prisma.nurserySpecies
-        .create({
-          data: {
-            nurseryId: id,
-            speciesId: specieId,
-            speciesAmount: specieAmount,
-            speciesHeight: specieHeight,
-          },
-        })
-        .then(async () => {
-          console.log("Nursery Species Table created");
-        })
-        .catch(async (e) => {
-          console.error(e);
-        });
+    if (owner == null) {
+      return NextResponse.error();
     }
-  }
+    const viveroExiste = await prisma.nursery.findUnique({
+      where: {
+        name,
+      },
+    });
+    if (viveroExiste !== null) {
+      return NextResponse.error();
+    }
 
-  const vivero = await prisma.nursery.create({
-    data: {
-      owner,
+    const viveroData: Prisma.NurseryCreateInput = {
+      owner: {
+        connect: {
+          id: owner,
+        },
+      },
       name,
       address,
       phone,
       email,
       website,
       logoSrc,
-    },
-  });
-  return NextResponse.json(vivero);
+    };
+
+    const vivero = await prisma.nursery.create({
+      data: viveroData,
+    });
+
+    return NextResponse.json(vivero);
+  } catch (err) {
+    console.log(err);
+    return NextResponse.error();
+  } finally {
+    await prisma.$disconnect();
+  }
 }
 
 export async function PUT(request: Request) {
