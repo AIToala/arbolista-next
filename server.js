@@ -2,7 +2,7 @@
 const { createServer } = require("http");
 const { URL } = require("url");
 const next = require("next");
-const dev = process.env.NODE_ENV !== "production";
+const dev = process.env.NODE_ENV !== "Production";
 
 const port = !dev ? process.env.PORT : 3000;
 
