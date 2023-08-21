@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "cross-env NODE_ENV=production node server.js",
     "lint": "next lint --no-cache",
     "check-types": "tsc --pretty --noEmit",
     "check-format": "prettier --check .",
@@ -64,6 +64,7 @@
     "react-select": "^5.7.3",
     "react-spinners": "^0.13.8",
     "selenium-webdriver": "^4.11.1",
+    "sharp": "^0.32.5",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.6",
     "zod": "^3.21.4",
