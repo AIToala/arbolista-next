@@ -2,7 +2,7 @@
 import getNurseryById from "@/app/actions/getNurseryById";
 import ClientOnly from "@/app/components/ClientOnly";
 import EmptyState from "@/app/components/EmptyState";
-import NurseryEditForm from "@/app/components/NurseryEditForm";
+import NurserySpeciesEditForm from "@/app/components/NurserySpeciesEditForm";
 
 interface IParams {
   id: string;
@@ -27,7 +27,7 @@ const NurserySpeciesEditPage = async ({ params }: { params: IParams }) => {
       <h1 className="scroll-m-20  pb-2 text-3xl font-bold tracking-tight transition-colors mt-5">
         Editar Vivero
       </h1>
-      <NurseryEditForm userData={data} />
+      <NurserySpeciesEditForm userData={data} />
     </div>
   );
 };

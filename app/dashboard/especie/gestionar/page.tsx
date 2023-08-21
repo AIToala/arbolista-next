@@ -6,9 +6,6 @@ import { DataTable } from "../../../components/data-table";
 import { columns, type SpecieColumns } from "./columns";
 
 export default async function EspeciePage() {
-  interface EspeciesProps {
-    searchParams: ISpeciesParams;
-  }
   const searchParams: ISpeciesParams = {
     name: "",
     family: "",
