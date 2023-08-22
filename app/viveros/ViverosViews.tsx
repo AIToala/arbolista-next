@@ -11,7 +11,7 @@ const ViverosViews: React.FC<ViverosProps> = ({ data }) => {
   return (
     <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-5 gap-8">
       {data.map((result: any) => (
-        <Link key={result.id} href={`/viveros/${result.name}`}>
+        <Link prefetch={false} key={result.id} href={`/viveros/${result.name}`}>
           <div className="col-span-1 cursor-pointer group bg-white rounded-xl overflow-hidden shadow-lg">
             <div className="flex flex-col gap-2 w-full">
               <div

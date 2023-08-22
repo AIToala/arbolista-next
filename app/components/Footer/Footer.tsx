@@ -19,7 +19,7 @@ const Footer = () => {
         "
     >
       <div className="flex flex-row col-span-2 w-full md:col-span-1 justify-center h-full">
-        <div className="h-full rounded-xl">
+        <Link className="h-full rounded-xl" href={"/home"} prefetch={false}>
           <Logo
             src="/images/logos/fngye-logo-about.png"
             className="hover:ring hover:ring-green-300 rounded-lg w-full h-full object-cover transition"
@@ -27,17 +27,21 @@ const Footer = () => {
             width={200}
             height={200}
           />
-        </div>
+        </Link>
       </div>
       <div className="grid grid-cols-3 justify-center gap w-full col-span-2 md:col-span-1">
         <div className="flex flex-col gap-2 text-center w-full">
           <div className="font-bold text-md md:text-lg">Catálogo</div>
           <ul className="flex-col flex gap-2">
             <li className="hover:text-green-400 cursor-pointer">
-              <Link href="/galeria">Galería</Link>
+              <Link href="/galeria" prefetch={false}>
+                Galería
+              </Link>
             </li>
             <li className="hover:text-green-400 cursor-pointer">
-              <Link href="/especies">Especies</Link>
+              <Link prefetch={false} href="/especies">
+                Especies
+              </Link>
             </li>
           </ul>
         </div>
@@ -45,7 +49,9 @@ const Footer = () => {
           <div className="font-bold text-md md:text-lg">Viveros</div>
           <ul className="flex-col flex gap-2">
             <li className="hover:text-green-300 cursor-pointer">
-              <Link href="/viveros">Viveros</Link>
+              <Link prefetch={false} href="/viveros">
+                Viveros
+              </Link>
             </li>
           </ul>
         </div>
@@ -53,10 +59,14 @@ const Footer = () => {
           <div className="font-bold text-md md:text-lg">Nosotros</div>
           <ul className="flex-col flex gap-2">
             <li className="hover:text-green-300 cursor-pointer">
-              <Link href="/acerca">Nuestra misión</Link>
+              <Link prefetch={false} href="/acerca">
+                Nuestra misión
+              </Link>
             </li>
             <li className="hover:text-green-300 cursor-pointer">
-              <Link href="/acerca#contacto">Contáctenos</Link>
+              <Link prefetch={false} href="/acerca#contacto">
+                Contáctenos
+              </Link>
             </li>
           </ul>
         </div>

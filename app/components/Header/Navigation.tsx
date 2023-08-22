@@ -32,6 +32,7 @@ const Navigation: FC<NavigationProps> = ({
     <>
       {links.map((link, index) => (
         <Link
+          prefetch={false}
           key={index}
           href={link.href}
           className={`

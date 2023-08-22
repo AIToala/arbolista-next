@@ -37,7 +37,7 @@ const Acerca = () => {
           />
         </div>
       </div>
-      <div className="text-4xl font-bold text-gray-800 mt-5 text-center top-no-margin2 css-selector">
+      <div className="text-4xl font-bold text-gray-800 mt-5 text-center top-no-margin2">
         Servicios disponibles en Arbolista
       </div>
       <div className="flex flex-row items-center justify-between">

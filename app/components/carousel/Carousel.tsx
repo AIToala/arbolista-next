@@ -8,7 +8,7 @@ import useEmblaCarousel, {
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type FC } from "react";
 import { type IconType } from "react-icons/lib";
 import { Button } from "../ui/button";
 import { DotButton, NextButton, PrevButton } from "./CarouselButtons";
@@ -33,7 +33,7 @@ const autoplayOptions = {
   rootNode: (emblaRoot: { parentElement: any }) => emblaRoot.parentElement,
 };
 
-const Carousel: React.FC<PropType> = ({ options, style = " ", slides }) => {
+const Carousel: FC<PropType> = ({ options, style = " ", slides }) => {
   const router = useRouter();
   const siembraModal = useSiembraModal();
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
@@ -135,6 +135,7 @@ const Carousel: React.FC<PropType> = ({ options, style = " ", slides }) => {
         {scrollSnaps.map((_, index) => (
           <DotButton
             key={index}
+            id={"dot".concat(index.toString())}
             selected={index === selectedIndex}
             onClick={() => {
               scrollTo(index);

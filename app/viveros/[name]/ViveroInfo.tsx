@@ -48,6 +48,7 @@ const ViveroInfo: React.FC<ViveroInfoProps> = ({ data }) => {
               {data[0].phone.split(",").join(" / ")}
             </h1>
             <Link
+              prefetch={false}
               href={
                 data[0].website === "No determinado" ? "#" : data[0].website
               }

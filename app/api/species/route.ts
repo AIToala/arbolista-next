@@ -325,15 +325,13 @@ export async function POST(request: Request) {
       })
       .catch(async (e) => {
         console.error(e);
-      })
-      .finally(async () => {
-        await prisma.$disconnect();
       });
     return NextResponse.json(species);
   } catch (e) {
     console.error(e);
-    await prisma.$disconnect();
     return NextResponse.error();
+  } finally {
+    await prisma.$disconnect();
   }
 }
 
@@ -644,9 +642,10 @@ export async function PUT(request: Request) {
       });
     return NextResponse.json(species);
   } catch (e) {
-    await prisma.$disconnect();
     console.error(e);
     return NextResponse.error();
+  } finally {
+    await prisma.$disconnect();
   }
 }
 
@@ -666,7 +665,8 @@ export async function DELETE(request: Request) {
     return NextResponse.json(species);
   } catch (e) {
     console.error(e);
-    await prisma.$disconnect();
     return NextResponse.error();
+  } finally {
+    await prisma.$disconnect();
   }
 }

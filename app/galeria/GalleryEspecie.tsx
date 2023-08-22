@@ -14,7 +14,7 @@ const GalleryEspecie: React.FC<GalleryEspecieProps> = ({
   return (
     <div className="w-full p-4 grid grid-cols-3 xs:grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-6 gap-4 relative">
       {data.map((result, index) => (
-        <Link href={`/especies/${result.name}`} key={index}>
+        <Link prefetch={false} href={`/especies/${result.name}`} key={index}>
           <div className="col-span-1 cursor-pointer group bg-white rounded-md overflow-hidden shadow-lg hover:ring-2 hover:ring-green-300">
             <div className="flex flex-col gap-2 w-full">
               <div

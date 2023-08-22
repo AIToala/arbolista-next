@@ -3,6 +3,8 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
+  reactStrictMode: true,
+  optimizeFonts: true,
   images: {
     domains: [
       "upload.wikimedia.org",
@@ -10,6 +12,10 @@ const nextConfig = {
       "inaturalist-open-data.s3.amazonaws.com",
       "res.cloudinary.com",
     ],
+  },
+  eslint: {
+    dirs: ["app", "app/**/*.js", "app/**/*.jsx", "app/**/*.ts", "app/**/*.tsx"],
+    ignoreDuringBuilds: true,
   },
   transpilePackages: ["flowbite-react", "flowbite", "react-icons", "@radix-ui"],
   modularizeImports: {
@@ -19,11 +25,6 @@ const nextConfig = {
     "@radix-ui": {
       transform: "@radix-ui/{{member}}",
     },
-  },
-  webpack: (config) => {
-    config.externals = [...config.externals, "bcryptjs"];
-
-    return config;
   },
   redirects: async () => {
     return [
@@ -37,6 +38,17 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  productionBrowserSourceMaps: true,
 };
 
-module.exports = nextConfig;
+module.exports = {
+  ...nextConfig,
+  compiler: {
+    styledComponents: {
+      minify: true,
+      pure: true,
+      ssr: true,
+    },
+  },
+  swcMinify: false,
+};

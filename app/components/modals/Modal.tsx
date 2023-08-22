@@ -1,7 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type FC } from "react";
 import Button from "../buttons/Button";
 
 interface ModalProps {
@@ -17,7 +17,7 @@ interface ModalProps {
   secondaryActionLabel?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({
+const Modal: FC<ModalProps> = ({
   isOpen,
   onClose,
   onSubmit,

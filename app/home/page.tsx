@@ -12,12 +12,12 @@ const Home = () => {
       <HeroContainer />
       <div className="w-full flex flex-wrap flex-col items-center">
         <div className="text-2xl md:text-4xl  font-bold text-gray-800 mt-10">
-          ¿Que es Flora Nativa Guayaquil?
+          ¿Qué es Flora Nativa Guayaquil?
         </div>
       </div>
       <div className=" p-5 items-center justify-center flex flex-col">
-        <div className="flex flex-col justify-center bg-green-500 p-2 rounded-md ">
-          <p className="font-light !text-white p-4">
+        <div className="flex flex-col justify-center bg-slate-700 p-8 rounded-md ">
+          <p className="!text-white p-4">
             Flora Nativa Guayaquil es una iniciativa que busca promover la
             conservación de la biodiversidad local, destacando la importancia de
             las especies autóctonas y proporcionando información relevante para
@@ -32,7 +32,7 @@ const Home = () => {
             interactiva y educativa de divulgación de información sobre especies
             nativas y en peligro de extinción.
           </p>
-          <div className="grid grid-cols-2 p-4 justify-center">
+          <div className="grid grid-cols-2 p-4 justify-center gap-8">
             <Button
               label="Conoce más"
               onClick={() => {

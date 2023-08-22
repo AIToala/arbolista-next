@@ -6,8 +6,8 @@ import "./globals.css";
 import ToasterProvider from "./providers/ToasterProvider";
 import { nunito } from "./styles/font";
 
+import dynamic from "next/dynamic";
 import getCurrentUser from "./actions/getCurrentUser";
-import SiembraModal from "./components/modals/SiembraModal";
 import AuthContext from "./providers/SessionProvider";
 
 export const metadata = {
@@ -31,6 +31,9 @@ export const metadata = {
     },
   ],
 };
+const SiembraModal = dynamic(
+  async () => await import("./components/modals/SiembraModal")
+);
 
 export default async function RootLayout({
   children,
@@ -44,7 +47,7 @@ export default async function RootLayout({
         <AuthContext>
           <ClientOnly>
             <ToasterProvider />
-            <SiembraModal />
+            {<SiembraModal />}
           </ClientOnly>
           <Header currentUser={currentUser} />
           <div className="my-auto">{children}</div>

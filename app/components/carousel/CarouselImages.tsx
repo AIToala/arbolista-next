@@ -1,7 +1,7 @@
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel, { type EmblaOptionsType } from "embla-carousel-react";
 import Image from "next/image";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type FC } from "react";
 import { Thumb } from "./CarouselButtons";
 
 interface PropType {
@@ -18,7 +18,7 @@ const autoplayOptions = {
   delay: 6000,
   rootNode: (emblaRoot: { parentElement: any }) => emblaRoot.parentElement,
 };
-const CarouselImages: React.FC<PropType> = (props) => {
+const CarouselImages: FC<PropType> = (props) => {
   if (props.style === undefined) {
     props.style = "";
   }

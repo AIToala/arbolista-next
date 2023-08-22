@@ -1,5 +1,5 @@
 import getCurrentUser from "@/app/actions/getCurrentUser";
-import SidebarC from "../components/sidebar/SidebarC";
+import Sidebar from "../components/sidebar/Sidebar";
 
 export default async function DashboardLayout({
   children,
@@ -8,9 +8,9 @@ export default async function DashboardLayout({
 }) {
   const currentUser = await getCurrentUser();
   return (
-    <div className="w-full h-fit flex">
-      <SidebarC currentUser={currentUser} />
-      <div className="w-full h-full flex mx-auto">{children}</div>
+    <div className="w-full h-fit flex min-h-[80vh]">
+      <Sidebar currentUser={currentUser} />
+      <div className="w-full h-auto flex mx-auto bg-[#F9FAFB]">{children}</div>
     </div>
   );
 }

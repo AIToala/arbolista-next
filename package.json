@@ -1,10 +1,7 @@
 {
-  "name": "arbolista-nxt",
-  "version": "0.1.0",
+  "name": "floraguayaquil",
+  "version": "1.0.0",
   "private": true,
-  "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"commonjs\"} "
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -52,18 +49,15 @@
     "flowbite": "^1.6.5",
     "flowbite-react": "^0.4.4",
     "lucide-react": "^0.263.1",
-    "multer": "^1.4.5-lts.1",
     "next": "^13.4.19",
     "next-auth": "^4.22.1",
     "react": "^18.2.0",
-    "react-date-range": "^1.4.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.2",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.8.0",
     "react-select": "^5.7.3",
     "react-spinners": "^0.13.8",
-    "selenium-webdriver": "^4.11.1",
     "sharp": "^0.32.5",
     "tailwind-merge": "^1.14.0",
     "tailwindcss-animate": "^1.0.6",
@@ -73,9 +67,9 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
     "@types/node": "^20.2.5",
-    "@types/react-date-range": "^1.4.4",
     "@typescript-eslint/eslint-plugin": "^5.60.0",
     "autoprefixer": "^10.4.14",
+    "cross-env": "^7.0.3",
     "eslint": "^8.43.0",
     "eslint-config-next": "^13.4.7",
     "eslint-config-prettier": "^8.8.0",
@@ -89,6 +83,7 @@
     "postcss": "^8.4.24",
     "prettier": "2.8.8",
     "prisma": "^5.1.1",
+    "selenium-webdriver": "^4.11.1",
     "tailwindcss": "^3.3.2",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.3"

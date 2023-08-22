@@ -1,16 +1,18 @@
 import Image from "next/image";
-import React from "react";
+import { type FC } from "react";
 
 interface DotButtonPropType {
   selected: boolean;
+  id: string;
   onClick: () => void;
 }
 
-export const DotButton: React.FC<DotButtonPropType> = (props) => {
-  const { selected, onClick } = props;
+export const DotButton: FC<DotButtonPropType> = (props) => {
+  const { selected, onClick, id } = props;
 
   return (
     <button
+      id={id}
       className={"embla__dot".concat(selected ? " embla__dot--selected" : "")}
       type="button"
       onClick={onClick}
@@ -23,7 +25,7 @@ interface PrevNextButtonPropType {
   onClick: () => void;
 }
 
-export const PrevButton: React.FC<PrevNextButtonPropType> = (props) => {
+export const PrevButton: FC<PrevNextButtonPropType> = (props) => {
   const { enabled, onClick } = props;
   if (!enabled) {
     return null;
@@ -44,7 +46,7 @@ export const PrevButton: React.FC<PrevNextButtonPropType> = (props) => {
   );
 };
 
-export const NextButton: React.FC<PrevNextButtonPropType> = (props) => {
+export const NextButton: FC<PrevNextButtonPropType> = (props) => {
   const { enabled, onClick } = props;
   if (!enabled) {
     return null;
@@ -72,7 +74,7 @@ interface PropType {
   onClick: () => void;
 }
 
-export const Thumb: React.FC<PropType> = (props) => {
+export const Thumb: FC<PropType> = (props) => {
   const { selected, imgSrc, onClick } = props;
 
   return (

@@ -35,7 +35,7 @@ const Header: FC<HeaderProps> = ({ currentUser }) => {
     try {
       await signOut();
       toast.success("Cierre de sesión exitoso");
-      window.location.href = "/home";
+      router.push("/home");
     } catch (error) {
       toast.error("Ocurrió un error al cerrar sesión");
     }
@@ -43,7 +43,7 @@ const Header: FC<HeaderProps> = ({ currentUser }) => {
 
   return (
     <nav className="bg-white border-gray-200 shadow-md relative">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <div className="max-w-screen-xl flex items-center justify-between mx-auto p-4">
         <div className="flex items-center">
           <Logo src="/images/logos/fngye-logo-header.png" alt="Arbolista" />
         </div>
@@ -64,7 +64,7 @@ const Header: FC<HeaderProps> = ({ currentUser }) => {
           {currentUser != null ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Avatar className="hover:ring-2 hover:ring-green-300 border-2">
+                <Avatar className="ring-2 ring-gray-700  hover:ring-2 hover:ring-green-400 border-2">
                   <AvatarFallback className="cursor-pointer">
                     {currentUser.name
                       ?.split(" ")

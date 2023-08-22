@@ -3,15 +3,13 @@
 import { type TokenizedUser } from "@/app/types";
 import { Info, LayoutDashboard } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import { type FC } from "react";
 
 interface UserNavigationItemsProps {
   currentUser?: TokenizedUser | null;
 }
 
-const UserNavigationItems: React.FC<UserNavigationItemsProps> = ({
-  currentUser,
-}) => {
+const UserNavigationItems: FC<UserNavigationItemsProps> = ({ currentUser }) => {
   const router = useRouter();
   return (
     <>
