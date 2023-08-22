@@ -17,7 +17,7 @@ const nextConfig = {
     dirs: ["app", "app/**/*.js", "app/**/*.jsx", "app/**/*.ts", "app/**/*.tsx"],
     ignoreDuringBuilds: true,
   },
-  transpilePackages: ["flowbite-react", "flowbite", "react-icons", "@radix-ui"],
+  transpilePackages: ["react-icons", "@radix-ui"],
   modularizeImports: {
     "react-icons": {
       transform: "react-icons/{{member}}",
