@@ -1,11 +1,31 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { columns } from "./columns";
-import { DataTable } from "../../../components/data-table";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 import getViveros from "@/app/actions/getViveros";
+import EmptyState from "@/app/components/EmptyState";
+import { DataTable } from "../../../components/data-table";
+import { columns } from "./columns";
 
 export default async function NurseryUserPage() {
-  const data = await getViveros();
-
+  const currentUser = await getCurrentUser();
+  let data = await getViveros();
+  if (
+    currentUser?.userRole === "NURSERY_ADMIN" &&
+    data !== null &&
+    data.length > 0
+  ) {
+    data = data.filter((vivero) => vivero.ownerId === currentUser?.id);
+  }
+  if (data === null || data.length === 0) {
+    return (
+      <EmptyState
+        title="No hay viveros registrados"
+        subtitle="Empieza creando un nuevo vivero"
+        showReset
+        actionLabel="Crear vivero"
+        urlAction="/dashboard/vivero-especies/gestionar/crear"
+      />
+    );
+  }
   return (
     <div className="flex flex-col w-full mx-4 !my-2 items-start h-full">
       <div className="mx-4 mt-10 w-full pr-10">

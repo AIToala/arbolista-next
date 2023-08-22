@@ -5,7 +5,7 @@ import { CellActionViveros } from "./cell-action";
 export interface NurseryColumn {
   id?: string;
   name?: string;
-  email?: string;
+  email?: string | null;
   createdAt: any;
   updatedAt: any;
 }

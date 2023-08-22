@@ -14,17 +14,7 @@ export default async function getViveros() {
         createdAt: "desc",
       },
     });
-    const safeViveros = viveros.map(
-      (vivero: {
-        createdAt: { toISOString: () => any };
-        updatedAt: { toISOString: () => any };
-      }) => ({
-        ...vivero,
-        createdAt: vivero.createdAt.toISOString(),
-        updatedAt: vivero.updatedAt.toISOString(),
-      })
-    );
-    return safeViveros;
+    return viveros;
   } catch (error: any) {
     throw new Error(error);
   } finally {

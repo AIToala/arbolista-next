@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { type NurseryColumn } from "./columns";
 interface CellActionViverosProps {
   data: NurseryColumn;
@@ -22,17 +23,20 @@ export const CellActionViveros: React.FC<CellActionViverosProps> = ({
   const router = useRouter();
   const id = data.id;
   const handleEdit = () => {
-    router.push(`/dashboard/vivero/gestionar/editar/${id}`);
+    router.push(`/dashboard/vivero-especies/gestionar/editar/${id}`);
   };
   const handleDelete = () => {
     axios
-      .delete(`/api/users/`, { data })
+      .delete(`/api/vivero-especies/`, { data })
       .then((response) => {
-        console.log("Usuario eliminado exitosamente");
+        toast.success(
+          "Lista de especies en su vivero ha sido eliminado exitosamente"
+        );
         router.refresh();
       })
       .catch((error) => {
-        console.error("Error al eliminar el usuario:", error);
+        toast.error("Error al eliminar la tabla de especies en su vivero");
+        console.log(error);
       });
   };
   return (

@@ -17,10 +17,10 @@ import {
 import Select from "react-select";
 
 import axios from "axios";
+import { Router } from "lucide-react";
 import { useState } from "react";
 import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { Router } from "lucide-react";
 interface NurserySpecieFormProps {
   nurserySpecieData: any[];
 }
@@ -44,22 +44,8 @@ const DashboardNurserySpeciePage: React.FC<NurserySpecieFormProps> = ({
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      const imageResult = data.logoSrc[0];
-      const newformData = new FormData();
-      newformData.append("file", imageResult);
-      newformData.append("upload_preset", "my-uploads");
-      const response = await fetch(
-        "https://api.cloudinary.com/v1_1/floraguayaquil/image/upload",
-        {
-          method: "POST",
-          body: newformData,
-        }
-      );
-      const imgdata = await response.json();
-      const imageUrl = imgdata.url;
-      const formData = { ...data, logoSrc: imageUrl };
       axios
-        .post("/api/viveros", formData)
+        .post("/api/viveros", data)
         .then((response) => {
           toast.success("Vivero creado con exito");
         })
