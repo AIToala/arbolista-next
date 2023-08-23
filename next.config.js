@@ -3,8 +3,6 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-  reactStrictMode: true,
-  optimizeFonts: true,
   images: {
     domains: [
       "upload.wikimedia.org",
@@ -38,17 +36,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  productionBrowserSourceMaps: true,
 };
 
-module.exports = {
-  ...nextConfig,
-  compiler: {
-    styledComponents: {
-      minify: true,
-      pure: true,
-      ssr: true,
-    },
-  },
-  swcMinify: false,
-};
+module.exports = nextConfig;
